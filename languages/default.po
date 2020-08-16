@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-08-11 16:26\n"
+"PO-Revision-Date: 2020-08-11 16:26\n"
+"Last-Translator: Somebody <your.email@address.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: GgtTranslate 2.7.0\n"
+
+#. MainForm..Caption
+#: UnpackMain.dfm:4
+msgid "Inspect and unpack InnoSetup files"
+msgstr ""
+
+#. MainForm..pnTop..Label2..Caption
+#: UnpackMain.dfm:36
+msgid "InnoSetup Archive:"
+msgstr ""
+
+#. MainForm..pnTop..InfoBtn..Hint
+#: UnpackMain.dfm:43
+msgid "About the program"
+msgstr ""
+
+#. MainForm..pnTop..bbOptions..Hint
+#: UnpackMain.dfm:86
+msgid "Select unpack tool"
+msgstr ""
+
+#. MainForm..pnTop..bbExit..Hint
+#: UnpackMain.dfm:113
+msgid "Quit program"
+msgstr ""
+
+#. MainForm..pnTop..bbList..Caption
+#: UnpackMain.dfm:141
+msgid "List files"
+msgstr ""
+
+#. MainForm..pnTop..bbExtract..Caption
+#: UnpackMain.dfm:206
+msgid "Extract files"
+msgstr ""
+
+#. MainForm..pnTop..bbVerify..Caption
+#: UnpackMain.dfm:233
+msgid "Verify archive"
+msgstr ""
+
+#. MainForm..pnTop..bbArchivInfo..Caption
+#: UnpackMain.dfm:298
+msgid "Archive info"
+msgstr ""
+
+#. MainForm..pnTop..bbCopyResult..Hint
+#: UnpackMain.dfm:319
+msgid "Copy output to clipboard"
+msgstr ""
+
+#. MainForm..pnExtract..Label1..Caption
+#: UnpackMain.dfm:400
+msgid "Destination directory:"
+msgstr ""
+
+#. MainForm..pnExtract..Label3..Caption
+#: UnpackMain.dfm:407
+#: UnpackMain.pas:289
+msgid "File filter:"
+msgstr ""
+
+#. MainForm..pnExtract..cbDir..Hint
+#: UnpackMain.dfm:414
+msgid "Extract files to this directory"
+msgstr ""
+
+#. MainForm..pnExtract..bbStart..Hint
+#: UnpackMain.dfm:427
+msgid "Start extraction"
+msgstr ""
+
+#. MainForm..pnExtract..bbStart..Caption
+#: UnpackMain.dfm:429
+msgid "Start"
+msgstr ""
+
+#. MainForm..pnExtract..cxDupl..Caption
+#: UnpackMain.dfm:468
+msgid "Process duplicate files"
+msgstr ""
+
+#. MainForm..pnExtract..cxOverwrite..Caption
+#: UnpackMain.dfm:476
+msgid "Overwrite files"
+msgstr ""
+
+#. MainForm..pnExtract..cxStrip..Caption
+#: UnpackMain.dfm:484
+msgid "Strip paths"
+msgstr ""
+
+#: UnpackMain.pas:198
+msgid "This application only allows dropping of exe "
+"files!"
+msgstr ""
+
+#: UnpackMain.pas:219
+#: UnpackMain.pas:248
+msgid "Programs|*.exe|all|*.*"
+msgstr ""
+
+#: UnpackMain.pas:220
+msgid "Select InnoSetup archive"
+msgstr ""
+
+#: UnpackMain.pas:249
+msgid "Search for \"innounp.exe\""
+msgstr ""
+
+#: UnpackMain.pas:270
+msgid "Select directory for extracted files"
+msgstr ""
+
+#: UnpackMain.pas:347
+msgid "Extracting setup file ..."
+msgstr ""
+
+#: UnpackMain.pas:391
+#. DOS-Ausgabe anzeigen
+#: UnpackMain.pas:463
+msgid "Error: "
+msgstr ""
+
+#: UnpackMain.pas:398
+msgid "Name: "
+msgstr ""
+
+#: UnpackMain.pas:399
+msgid "Version: "
+msgstr ""
+
+#: UnpackMain.pas:400
+msgid "Copyright: "
+msgstr ""
+
+#: UnpackMain.pas:401
+msgid "Company: "
+msgstr ""
+
+#: UnpackMain.pas:402
+msgid "Comment: "
+msgstr ""
+
