@@ -1,0 +1,25 @@
+program InnoUnpack;
+
+uses
+  GnuGetText in 'units\GnuGetText.pas',
+  LangUtils in 'units\LangUtils.pas',
+  Vcl.Forms,
+  Vcl.Graphics,
+  UnpackMain in 'UnpackMain.pas' {MainForm},
+  ShellDirDlg in 'units\ShellDirDlg.pas' {ShellDirDialog},
+  SelectFromListDlg in 'units\SelectFromListDlg.pas' {SelectFromListDialog};
+
+{$R *.res}
+
+begin
+  TP_GlobalIgnoreClass(TFont);
+  // Subdirectory in AppData for user configuration files and supported languages
+  InitTranslation(['delphi10','units']);
+
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(TShellDirDialog, ShellDirDialog);
+  Application.CreateForm(TSelectFromListDialog, SelectFromListDialog);
+  Application.Run;
+end.
