@@ -1,6 +1,6 @@
-###Inno Setup Unpacker - Windows GUI
+### Inno Setup Unpacker - Windows GUI
 
-#####Inspect and unpack InnoSetup archives
+##### Inspect and unpack InnoSetup archives
 
 [Inno Setup](http://www.jrsoftware.org/isinfo.php") is a popular program
 for making software installations. To verify and get files out of the self-extracting 
