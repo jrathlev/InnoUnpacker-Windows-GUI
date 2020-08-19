@@ -1,6 +1,7 @@
 (* Unpack Inoo setup files
    =======================
-   GUI for "innounp.ex"
+   GUI for "innounp.exe"
+   see: https://sourceforge.net/projects/innounp/files/
 
    © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
@@ -13,8 +14,8 @@
    the specific language governing rights and limitations under the License.
 
    J. Rathlev, Jan. 2008
-   1.6: August 2020: added filter to extract single files
-   last modified: A 2020
+   Vers. 1.6 (August 2020): added filter to extract single files
+   last modified: Aug 2020
    *)
 
 unit UnpackMain;
@@ -362,8 +363,8 @@ var
   saAttr    : TSecurityAttributes;
   hChildStdoutRd,
   hChildStdoutWr  : THandle;
-  chBuf       : array [0..BUFSIZE] of AnsiChar;
-  dwRead,ec   : DWord;
+  chBuf           : array [0..BUFSIZE] of AnsiChar;
+  dwRead,ec,wc    : DWord;
   s           : string;
   sa          : RawByteString;
   vi          : TFileVersionInfo;
@@ -433,7 +434,7 @@ begin
                      nil,                   // Environment
                      nil,                   // Verzeichnis
                      si,pi) then begin
-      WaitForSingleObject(pi.hProcess,10000); //=WAIT_TIMEOUT; // wait 10 s
+      wc:=WaitForSingleObject(pi.hProcess,10000); //=WAIT_TIMEOUT; // wait 10 s
       GetExitCodeProcess(pi.hProcess,ec); // exit code from called program
       CloseHandle(pi.hProcess);
 // Close the write end of the pipe before reading from the
@@ -459,6 +460,7 @@ begin
         SelLength:=0;
         Perform(WM_VSCROLL,SB_BOTTOM,0);
         end;
+      if wc<>WAIT_OBJECT_0 then mmDos.Lines.Add('*** '+_('Error: ')+SysErrorMessage(wc));
       end
     else ErrorDialog(_('Error: ')+SysErrorMessage(GetLastError));
   finally
