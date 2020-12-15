@@ -28,8 +28,8 @@ uses
 
 const
   ProgName = 'InnoUnpack';
-  Vers = ' Version 1.6.0';
-  CopRgt = '© 2014-2020 Dr. J. Rathlev, 24222 Schwentinental';
+  Vers = ' Version 1.6.1';
+  CopRgt = '© 2014-2020 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
   defPipeSize = 64*1024;
@@ -288,7 +288,7 @@ begin
     end;
   if SelectFromListDialog.Execute(BottomRightPos(bbFilter,5,5),
               Caption,_('File filter:'),'',
-              [soEdit,soOrder],0,tcLower,'*.*',ml,s) then begin
+              [soEdit,soOrder],0,tcLower,'*.*',ml,s)=mrOK then begin
     with cbFilter do begin
       Text:=ml.DelimitedText; AddItem(Text,nil);
       AddToHistory(Items,Text,mList);

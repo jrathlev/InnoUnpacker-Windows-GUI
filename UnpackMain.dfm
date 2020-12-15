@@ -76,7 +76,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 0
       OnCloseUp = cbFileCloseUp
-      ExplicitWidth = 354
     end
     object bbOptions: TBitBtn
       Left = 555
