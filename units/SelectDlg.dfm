@@ -6,10 +6,13 @@ object SelectDialog: TSelectDialog
   ClientHeight = 145
   ClientWidth = 385
   Color = clBtnFace
-  ParentFont = True
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
   FormStyle = fsStayOnTop
   OldCreateOrder = True
-  Position = poDesigned
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -18,6 +21,13 @@ object SelectDialog: TSelectDialog
     Top = 10
     Width = 3
     Height = 13
+    AutoSize = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     WordWrap = True
   end
   object imgIcon: TImage
@@ -136,14 +146,14 @@ object SelectDialog: TSelectDialog
     TabOrder = 0
     WordWrap = True
   end
-  object ImageList: TImageList
+  object ilIcons: TImageList
     BkColor = clSilver
     Height = 32
     Width = 32
     Left = 10
     Top = 60
     Bitmap = {
-      494C0101040008006C0020002000C0C0C000FF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000800A00020002000C0C0C000FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -38,7 +38,7 @@
          4.2 - Jan. 2019: new functtion: GetExistingParentPath
          4.3 - Jan. 2020: new function: RemoveFirstDir
 
-   last modified: Jan. 2020
+   last modified: Sept. 2020
    *)
 
 unit FileUtils;
@@ -111,6 +111,12 @@ type
     Attr,Res : cardinal;
     end;
 
+  TFileData = record
+    TimeStamps : TFileTimestamps;
+    FileSize   : int64;
+    FileAttr   : cardinal;
+    end;
+
   TReparseType = (rtNone,rtJunction,rtSymbolic);
 
 { ---------------------------------------------------------------- }
@@ -166,13 +172,18 @@ function ResetFileTime : TFileTime;
 
 { ---------------------------------------------------------------- }
 // get file size, last write time and attributes
-function GetFileInfos(const FileName : string; var FSize : int64;
-                      var FTime : TFileTime; var FAttr : cardinal) : boolean; overload;
+function GetFileInfo (const FileName : string; var FSize : int64;
+                      var FTime : TFileTime; var FAttr : cardinal;
+                      IncludeDirs : boolean = false) : boolean; overload;
 
-function GetFileInfos(const FileName : string; var FSize : int64;
-                      var FTime : TFileTime; var FAttr,FReserved : cardinal) : boolean; overload;
+function GetFileInfo (const FileName : string; var FSize : int64;
+                      var FTime : TFileTime; var FAttr,FReserved : cardinal;
+                      IncludeDirs : boolean = false) : boolean; overload;
 
-function GetFileInfos(const FileName : string; var FileInfo : TFileInfo) : boolean; overload;
+function GetFileInfo (const FileName : string; var FileInfo : TFileInfo;
+                      IncludeDirs : boolean = false) : boolean; overload;
+
+function GetFileData (const FileName : string; var FileData : TFileData) : boolean;
 
 // get file version, description, ...
 function GetFileInfoString (const Filename : string) : string;
@@ -211,7 +222,7 @@ function FileGetDateTime(const FileName: string; FollowLink : Boolean = True): T
 function DirectoryGetDateTime(const FileName: string; FollowLink : Boolean = True): TDateTime;
 
 // get DOS file age from file data
-function GetFileAge (const FileData: TWin32FindData) : integer; overload;
+function GetFileAge (LastWriteTime : TFileTime) : integer; overload;
 
 function DirectoryAge(const DirName: string; FollowLink : Boolean = True): Integer; overload;
 function DirectoryAge(const DirName: string; out FileDateTime: TDateTime; FollowLink : Boolean = True): Boolean; overload;
@@ -233,7 +244,7 @@ function FileChangeAttr (const FileName: string; Attr: cardinal; Clear : boolean
                          FollowLink: Boolean = True) : Integer;
 
 // read file data (WIN32_FIND_DATA)
-function GetFileData(const FileName : string; var FileData : TWin32FindData) : boolean;
+function GetFindData(const FileName : string; var FileData : TWin32FindData) : boolean;
 
 function GetFileAttrData(const FileName : string; var FileData : TWin32FileAttributeData;
                      FollowLink: Boolean = True) : integer;
@@ -311,11 +322,12 @@ function DelExt (Name : string) : string;
 function NewExt (Name,Ext  : string) : string;
 
 // Add a file extension
-function AddExt (const Name,Ext : string; Replace : boolean = false) : string;
+function AddExt (const Name,Ext : string; ReplaceMode : integer = 0) : string;
 
 // Check extension
 function HasExt (const Name,Ext : string) : boolean;
 
+{ ---------------------------------------------------------------- }
 // Add a path to a filename
 function AddPath (Path,Name : string) : string;
 
@@ -428,7 +440,7 @@ function IsDirectory (const APath : string) : boolean;
 function IsEmptyDir (const Directory : string) : boolean;
 
 // Check if directory has subdirectories
-function NoSubDirs (const Directory : string) : boolean;
+function HasNoSubDirs (const Directory : string) : boolean;
 
 // Delete empty directories
 procedure DeleteEmptyDirectories (const Directory : string);
@@ -784,7 +796,7 @@ begin
 
 { ------------------------------------------------------------------- }
 // read file data
-function GetFileData(const FileName : string; var FileData : TWin32FindData) : boolean;
+function GetFindData(const FileName : string; var FileData : TWin32FindData) : boolean;
 var
   Handle: THandle;
 begin
@@ -819,8 +831,8 @@ begin
     case Result of
       ERROR_SHARING_VIOLATION,
       ERROR_LOCK_VIOLATION:
-       if not GetFileData(FileName,FindData) then Result:=ERROR_SHARING_VIOLATION
-       else begin
+        if not GetFindData(FileName,FindData) then Result:=ERROR_SHARING_VIOLATION
+      else begin
         Move(FindData,FileData,SizeOf(TWin32FileAttributeData));
         Result:=ERROR_SUCCESS;
         end;
@@ -892,48 +904,73 @@ begin
 
 { ---------------------------------------------------------------- }
 // get file/directory size, last write time, attributes and reparse point tags
-function GetFileInfos(const FileName : string; var FileInfo : TFileInfo) : boolean; overload;
+function GetFileInfo (const FileName : string; var FileInfo : TFileInfo;
+                      IncludeDirs : boolean = false) : boolean; overload;
 var
   FindData : TSearchRec;
   FindResult : integer;
 begin
-  Result:=false;
+  Result:=false;             // does not exist
   with FileInfo do begin
     Name:='';
     DateTime:=Now;
+    CreationTime:=Now;
     FileTime:=DateTimeToFileTime(DateTime);
     Size:=0;
     Attr:=INVALID_FILE_ATTRIBUTES;
     Res:=0;
     end;
   FindResult:=FindFirst(FileName,faAnyFile,FindData);
-  if FindResult=0 then begin
+  if (FindResult=0) and (IncludeDirs or (FindData.Attr and faDirectory=0)) then begin
     FileInfo:=SearchRecToFileInfo(FindData);
     Result:=true;
     end;
   FindClose(FindData);
   end;
 
-function GetFileInfos(const FileName : string; var FSize : int64;
-                      var FTime : TFileTime; var FAttr,FReserved : cardinal) : boolean;
+function GetFileInfo (const FileName : string; var FSize : int64;
+                      var FTime : TFileTime; var FAttr,FReserved : cardinal;
+                      IncludeDirs : boolean = false) : boolean;
 var
   fi : TFileInfo;
 begin
-  Result:=GetFileInfos(FileName,fi);
+  Result:=GetFileInfo(FileName,fi,IncludeDirs);
   with fi do begin
     FSize:=Size; FTime:=FileTime;
     FAttr:=Attr; FReserved:=Res;
     end;
   end;
 
-function GetFileInfos(const FileName : string; var FSize : int64;
-                      var FTime : TFileTime; var FAttr : cardinal) : boolean;
+function GetFileInfo(const FileName : string; var FSize : int64;
+                      var FTime : TFileTime; var FAttr : cardinal;
+                      IncludeDirs : boolean = false) : boolean;
 var
   n : cardinal;
 begin
-  Result:=GetFileInfos(FileName,FSize,FTime,FAttr,n);
+  Result:=GetFileInfo(FileName,FSize,FTime,FAttr,n,IncludeDirs);
   end;
 
+function GetFileData (const FileName : string; var FileData : TFileData) : boolean;
+var
+  FindRec : TSearchRec;
+  FindResult : integer;
+begin
+  Result:=false;            // does not exist
+  with FileData do begin
+    FillChar(TimeStamps,sizeof(TFileTimestamps),0);
+    FileSize:=0; FileAttr:=INVALID_FILE_ATTRIBUTES;
+    FindResult:=FindFirst(FileName,faAnyFile,FindRec);
+    if (FindResult=0) then with FindRec do begin
+      TimeStamps:=GetTimestampsFromFindData(FindData);
+      FileSize:=Size;
+      FileAttr:=FindData.dwFileAttributes;
+      Result:=true;
+      end;
+    FindClose(FindRec);
+    end;
+  end;
+
+{ ---------------------------------------------------------------- }
 function GetFileInfoString (const Filename : string) : string;
 var
   VersInfo : TFileVersionInfo;
@@ -1126,12 +1163,12 @@ begin
   end;
 
 // get DOS file age from file data
-function GetFileAge (const FileData: TWin32FindData) : integer;
+function GetFileAge (LastWriteTime : TFileTime) : integer;
 var
   LocalFileTime: TFileTime;
 begin
   Result:=-1;
-  if FileTimeToLocalFileTime(FileData.ftLastWriteTime,LocalFileTime) then begin
+  if FileTimeToLocalFileTime(LastWriteTime,LocalFileTime) then begin
     if not FileTimeToDosDateTime(LocalFileTime,LongRec(Result).Hi,LongRec(Result).Lo) then
       Result:=-1;
     end;
@@ -1385,29 +1422,35 @@ function NewExt (Name,Ext  : string) : string;
 begin
   Name:=DelExt(Name);
   if (length(Ext)>0) and (Ext[1]=Punkt) then delete(Ext,1,1);
-  if length(Ext)>0 then begin
-    if (Ext[1]=Punkt) then Result:=Name+Ext else Result:=Name+Punkt+Ext
-    end
+  if length(Ext)>0 then Result:=Name+Punkt+Ext
   else Result:=Name;
   end;
 
 { --------------------------------------------------------------- }
 // Add a file extension
-// Replace = true - replace existing extension
-//         = false - no action if extension already exists
-function AddExt (const Name,Ext  : string; Replace : boolean) : string;
+// ReplaceMode = 2 - add extension in any case
+//             = 1 - replace existing extension
+//             = 0 - no action if same extension already exists (default)
+function AddExt (const Name,Ext  : string; ReplaceMode : integer) : string;
 var
-  i : integer;
+  ok : boolean;
+  se : string;
 begin
   Result:=Name;
-  i:=length(Name);
-  if (i=0) or (length(Ext)=0) then Exit
+  if (length(Name)=0) or (length(Ext)=0) then Exit
   else begin
-    if not Replace then
-      while (i>0) and (Name[i]<>Punkt) and (not IsPathDelimiter(Name,i)) do dec(i)
-    else i:=0;
-    if (i>0) and (Name[i]=Punkt) then Exit
-    else if (Ext[1]=Punkt) then Result:=Name+Ext else Result:=Name+Punkt+Ext;
+    if ReplaceMode=0 then begin
+      se:=GetExt(Name);
+      ok:=(length(se)=0) or not AnsiSameText(se,Ext);
+      end
+    else ok:=true;
+    if ok then begin
+      if ReplaceMode=1 then Result:=NewExt(Name,Ext)
+      else begin
+        if Result[length(Result)]=Punkt then Delete(Result,length(Result),1);
+        if (Ext[1]=Punkt) then Result:=Result+Ext else Result:=Result+Punkt+Ext;
+        end;
+      end
     end;
   end;
 
@@ -1986,7 +2029,7 @@ function LongFileSize (const FileName : string) : int64;
 var
   FileData : TWin32FileAttributeData;
 begin
-  if GetFileAttrData(FileName,FileData) =ERROR_SUCCESS then Result:=GetFileSize(FileData)
+  if GetFileAttrData(FileName,FileData)=ERROR_SUCCESS then Result:=GetFileSize(FileData)
   else Result:=0;
   end;
 
@@ -2042,7 +2085,7 @@ var
   ft : TFileTime;
   fa,fr : cardinal;
 begin
-  if GetFileInfos(FileName,fs,ft,fa,fr) then begin
+  if GetFileInfo(FileName,fs,ft,fa,fr,true) then begin
     if fr=IO_REPARSE_TAG_MOUNT_POINT then Result:=rtJunction
     else if fr=IO_REPARSE_TAG_SYMLINK then Result:=rtSymbolic
     else Result:=rtNone;
@@ -2194,7 +2237,7 @@ begin
 // Check if path is a directory
 function IsDirectory (const APath : string) : boolean;
 var
-  attr : integer;
+  attr : cardinal;
 begin
   attr:=FileGetAttr(APath,false);
   if attr=INVALID_FILE_ATTRIBUTES then Result:=false // not found
@@ -2221,7 +2264,7 @@ begin
 
 { ------------------------------------------------------------------- }
 // Check if directory has subdirectories
-function NoSubDirs (const Directory : string) : boolean;
+function HasNoSubDirs (const Directory : string) : boolean;
 var
   DirInfo    : TSearchRec;
   FindResult,

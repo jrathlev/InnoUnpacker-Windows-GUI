@@ -152,6 +152,9 @@ function GetDesktopFolder (Typ : integer) : string;
 function GetKnownFolder (rfId : TGUID) : string;
 function GetProgramFolder (pfType : TProgramFolder) : string;
 
+function GetPersonalFolder : string;
+function GetAppDataFolder : string;
+
 procedure RefreshDesktop;
 
 { Dialog Verzeichnisauswahl }
@@ -314,7 +317,6 @@ begin
 function GetKnownFolder (rfId : TGUID) : string;  // available since Vista
 var
   ppszPath : PWideChar;
-  hr       : hresult;
 begin
   Result:='';
   if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion>=6) and
@@ -349,6 +351,16 @@ begin
   pfCommonProgramFiles : Result:=GetDesktopFolder(CSIDL_PROGRAM_FILES_COMMON);
   else Result:=GetDesktopFolder(CSIDL_PROGRAM_FILES);
     end;
+  end;
+
+function GetPersonalFolder : string;
+begin
+  Result:=GetDesktopFolder(CSIDL_PERSONAL);
+  end;
+
+function GetAppDataFolder : string;
+begin
+  Result:=GetDesktopFolder(CSIDL_APPDATA);
   end;
 
 { ---------------------------------------------------------------- }
@@ -827,12 +839,12 @@ var
   FileInfo: TSHFileInfo;
   rv : DWORD;
 begin
+  Result:=etError;
   FileInfo.dwAttributes := 0;
   rv:=SHGetFileInfo(PChar(FileName),0,FileInfo,SizeOf(FileInfo),SHGFI_EXETYPE);
   if rv=0 then begin
     if (SHGetFileInfo(PChar(FileName),0,FileInfo,SizeOf(FileInfo),SHGFI_ATTRIBUTES)<>0)
-      and (fileInfo.dwAttributes and SFGAO_LINK <>0) then Result:=etLink
-    else Result:=etError;
+      and (fileInfo.dwAttributes and SFGAO_LINK <>0) then Result:=etLink;
     end
   else case LoWord(rv) of
     IMAGE_DOS_SIGNATURE: Result:=etMsDos;        // MZ

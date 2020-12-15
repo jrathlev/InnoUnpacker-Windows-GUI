@@ -85,8 +85,6 @@ object CharTableDialog: TCharTableDialog
     ModalResult = 1
     NumGlyphs = 2
     TabOrder = 0
-    ExplicitLeft = 175
-    ExplicitTop = 215
   end
   object CancelBtn: TBitBtn
     Left = 294
@@ -155,8 +153,6 @@ object CharTableDialog: TCharTableDialog
     ModalResult = 2
     NumGlyphs = 2
     TabOrder = 1
-    ExplicitLeft = 290
-    ExplicitTop = 215
   end
   object CharGrid: TDrawGrid
     Left = 10
@@ -177,8 +173,6 @@ object CharTableDialog: TCharTableDialog
     TabOrder = 2
     OnDblClick = CharGridDblClick
     OnDrawCell = CharGridDrawCell
-    ExplicitWidth = 378
-    ExplicitHeight = 191
   end
   object leValue: TLabeledEdit
     Left = 10
@@ -191,6 +185,5 @@ object CharTableDialog: TCharTableDialog
     EditLabel.Caption = 'Hex value:'
     TabOrder = 3
     OnChange = leValueChange
-    ExplicitTop = 220
   end
 end

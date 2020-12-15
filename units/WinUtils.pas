@@ -14,7 +14,7 @@
 
    New compilation: April 2015
    language dependend strings in UnitConsts
-   last modified: June 2020
+   last modified: August 2020
    *)
 
 unit WinUtils;
@@ -22,8 +22,8 @@ unit WinUtils;
 interface
 
 uses Winapi.Windows, System.SysUtils, System.Classes, System.Types, Vcl.Graphics,
-  Vcl.Controls, Vcl.ExtCtrls, Vcl.Forms, Vcl.ComCtrls, Vcl.Printers, System.IniFiles,
-  Vcl.Dialogs;
+  Vcl.Controls, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Forms, Vcl.ComCtrls, Vcl.Printers,
+  System.IniFiles, Vcl.Dialogs, Vcl.Buttons;
 
 const
   CenterPos : TPoint = (X : -1; Y : -1);
@@ -119,6 +119,19 @@ function FitToMonitor (Mon : TMonitor; BoundsRect : TRect) : TPoint;
 
 // Calculate the maximum text width for multiline text
 function MaxTextWidth(const Text : string; Canvas : TCanvas) : integer;
+
+// Count number of lines in Text separated by sLineBreak
+function TextLineCount(const Text : string) : integer;
+
+{ ---------------------------------------------------------------- }
+// Scale button glyphs, images and image lists for High DPI awareness
+procedure ScaleGlyph (AControl : TControl; OldDPI,NewDPI : integer);
+procedure ScaleButtonGlyphs(AControl : TWinControl; OldDPI,NewDPI : integer);
+procedure ScaleImage(AImage : TImage; OldDPI,NewDPI : integer);
+procedure ScaleImageList (imgList: TImageList; OldDPI,NewDPI : integer);
+
+procedure SetGlyphFromImagelist (SpdBtn : TSpeedButton; ImgLst : TImageList; AIndex : integer);
+procedure SetSpeedButtonGlyphs (AControl : TWinControl; BaseIndex : integer; ImgList: TImageList);
 
 { ---------------------------------------------------------------- }
 // Dateifilter-Index ermitteln (siehe TOpenDialog)
@@ -218,6 +231,8 @@ procedure LoadHistory (const IniName,Section,Ident : string;
                        History : TStrings; MaxCount : integer; CvQuote : boolean = false); overload;
 procedure LoadHistory (const IniName,Section,Ident : string;
                        History : TStrings; CvQuote : boolean = false); overload;
+procedure LoadHistory (const IniName,Section : string;
+                       Combo : TComboBox; MaxHist : integer = 0; CvQuote : boolean = false); overload;
 
 procedure SaveHistory (IniFile : TIniFile; const Section,Ident : string;
                        Erase : boolean; History : TStrings; MaxCount : integer; CvQuote : boolean = false); overload;
@@ -227,9 +242,12 @@ procedure SaveHistory (const IniName,Section,Ident : string;
                        Erase : boolean; History : TStrings; MaxCount : integer; CvQuote : boolean = false); overload;
 procedure SaveHistory (const IniName,Section,Ident : string;
                        Erase : boolean; History : TStrings; CvQuote : boolean = false); overload;
+procedure SaveHistory (const IniName,Section : string; Erase : boolean;
+                       Combo : TComboBox; MaxHist : integer = 0; CvQuote : boolean = false); overload;
 
 procedure AddToHistory (History : TStrings; const hs : string; MaxCount : integer); overload;
 procedure AddToHistory (History : TStrings; const hs : string); overload;
+procedure AddToHistory (Combo : TComboBox; const hs : string); overload;
 procedure RemoveFromHistory (History : TStrings; const hs : string);
 
 { ---------------------------------------------------------------- }
@@ -270,7 +288,7 @@ function GetCodePageList (sl : TStrings) : boolean;
 { =================================================================== }
 implementation
 
-uses WinApi.WinSpool, Winapi.Messages, System.StrUtils, System.Math,
+uses WinApi.WinSpool, Winapi.Messages,  Winapi.CommCtrl, System.StrUtils, System.Math,
   WinApiUtils, StringUtils, UnitConsts;
 
 const
@@ -508,6 +526,187 @@ begin
     Result:=Max(Result,Canvas.TextWidth(copy(Text,n,k-n+1)));
     n:=k+length(sLineBreak);
     until (k=0) or (n>=length(Text));
+  end;
+
+// Count number of lines in Text separated by sLineBreak
+function TextLineCount(const Text : string) : integer;
+var
+  n : integer;
+begin
+  n:=0; Result:=1;
+  repeat
+    n:=PosEx(sLineBreak,Text,n+1);
+    if n>0 then inc(Result);
+    until (n=0) or (n>=length(Text));
+  end;
+
+{ ------------------------------------------------------------------- }
+// Scale button glyphs for High DPI awareness
+procedure ScaleGlyph (AControl : TControl; OldDPI,NewDPI : integer);
+var
+  bm,bms,gl : TBitmap;
+begin
+  if MulDiv(100,NewDPI,OldDPI)<130 then Exit;
+  bm:=TBitmap.Create;
+  if AControl is TBitBtn then begin
+    gl:=(AControl as TBitBtn).Glyph; bm.Assign(gl);
+    end
+// assign is required to work for 64-bit applications
+  else if AControl is TSpeedButton then begin
+    gl:=(AControl as TSpeedButton).Glyph; bm.Assign(gl);
+    end
+  else Exit;
+  bms:=TBitmap.Create;
+  try
+    with bms do begin
+      SetSize(MulDiv(bm.Width,NewDPI,OldDPI),MulDiv(bm.Height,NewDPI,OldDPI));
+      with Canvas do begin
+        FillRect(ClipRect);
+        StretchDraw(Rect(0,0,Width,Height),bm);
+        end;
+      end;
+    gl.Assign(bms);
+  finally
+    bm.Free; bms.Free;
+    end;
+  end;
+
+procedure ScaleButtonGlyphs (AControl : TWinControl; OldDPI,NewDPI : integer);
+// based on am example by Zarko Gajic
+// http://zarko-gajic.iz.hr/making-the-glyph-property-high-dpi-aware-for-tbitbtn-and-tspeedbutton/
+// Add for handling in the AfterConstruction event
+var
+  i : integer;
+begin
+  if MulDiv(100,NewDPI,OldDPI)<130 then Exit;
+//  if MulDiv(NewDPI,100,OldDPI)<=150 then Exit;
+  with AControl do for i := 0 to ControlCount-1 do begin
+    ScaleGlyph(Controls[i],OldDPI,NewDPI);
+    if Controls[i] is TWinControl then
+      ScaleButtonGlyphs(Controls[i] as TWinControl,OldDPI,NewDPI);
+    end;
+  end;
+
+// Scale image for High DPI awareness
+procedure ScaleImage (AImage : TImage; OldDPI,NewDPI : integer);
+var
+  bm,gl : TBitmap;
+begin
+  if MulDiv(100,NewDPI,OldDPI)<130 then Exit;
+  bm:=TBitmap.Create;
+  try
+    with AIMage do begin
+      bm.Assign(Picture.Bitmap);
+      Picture.Bitmap.SetSize(Width,Height);
+      with Canvas do begin
+        FillRect(ClipRect);
+        StretchDraw(Rect(0,0,Width,Height),bm);
+        end;
+      end;
+  finally
+    bm.Free;
+    end;
+  end;
+
+// Scale image list for High DPI awareness
+procedure ScaleImageList (imgList: TImageList; OldDPI,NewDPI : integer);
+// based on an example by Zarko Gajic
+// http://zarko-gajic.iz.hr/resizing-delphis-timagelist-bitmaps-to-fit-high-dpi-scaling-size-for-menus-toolbars-trees-etc/
+var
+  i               : integer;
+  NewSize,OldSize : TSize;
+  mb,ib,sib,smb   : TBitmap;
+  til             : TImageList;
+begin
+  if MulDiv(100,NewDPI,OldDPI)<130 then Exit;
+  with imgList do OldSize.Create(Width,Height);
+  til:=TImageList.Create(nil);  //create temporary list
+  til.Assign(imgList);
+  with NewSize do begin
+    Create(MulDiv(OldSize.cx,NewDPI,OldDPI),MulDiv(OldSize.cy,NewDPI,OldDPI));
+    imgList.SetSize(cx,cy);
+    end;
+  for i:=0 to til.Count-1 do begin
+    ib:=TBitmap.Create; mb:=TBitmap.Create;
+    try
+      with ib do begin
+        Width:=OldSize.cx; Height:=OldSize.cy;
+        with Canvas do begin
+          FillRect(ClipRect);
+          ImageList_Draw(til.Handle,i,Handle,0,0,ILD_NORMAL);  // original size
+          end;
+        end;
+      with mb do begin
+        Width:=OldSize.cx; Height:=OldSize.cy;
+        with Canvas do begin
+          FillRect(ClipRect);
+          ImageList_Draw(til.Handle,i,Handle,0,0,ILD_MASK);    // original size
+          end;
+        end;
+      sib := TBitmap.Create; smb := TBitmap.Create; //stretched images
+      try
+        with sib do begin
+          Width:=NewSize.cx; Height:=NewSize.cy;
+          with Canvas do begin
+            FillRect(ClipRect);
+            StretchDraw(Rect(0,0,Width,Height),ib);
+            end;
+          end;
+        with smb do begin
+          Width:=NewSize.cx; Height:=NewSize.cy;
+          with Canvas do begin
+            FillRect(ClipRect);
+            StretchDraw(Rect(0,0,Width,Height),mb);
+            end;
+          end;
+        imgList.Add(sib,smb);
+      finally
+        sib.Free; smb.Free;
+        end;
+    finally
+      ib.Free; mb.Free;
+      end;
+    end;
+  til.Free;
+  end;
+{
+    procedure AfterConstruction; override;
+
+procedure .AfterConstruction;
+begin
+  inherited;
+  ScaleButtonGlyphs(self,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
+  ScaleImage(im,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
+  ScaleImageList(il,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
+  end;
+}
+
+// Copy bitmap from inmagelist to speedbutton
+procedure SetGlyphFromImagelist (SpdBtn : TSpeedButton; ImgLst : TImageList; AIndex : integer);
+var
+  n : integer;
+begin
+  with SpdBtn do if (AIndex>=0) and (AIndex<ImgLst.Count) then begin
+    n:=NumGlyphs;
+    Glyph:=nil;
+    ImgLst.GetBitmap(AIndex,Glyph);
+    NumGlyphs:=n;
+    end;
+  end;
+
+procedure SetSpeedButtonGlyphs (AControl : TWinControl; BaseIndex : integer; imgList: TImageList);
+var
+  i,n : integer;
+begin
+  with AControl do for i := 0 to ControlCount-1 do begin
+    if Controls[i] is TSpeedButton then begin
+      n:=Controls[i].Tag-BaseIndex;
+      if n>=0 then
+        SetGlyphFromImagelist(Controls[i] as TSpeedButton,imgList,n);
+      end;
+    if Controls[i] is TWinControl then
+      SetSpeedButtonGlyphs(Controls[i] as TWinControl,BaseIndex,imgList);
+    end;
   end;
 
 { --------------------------------------------------------------- }
@@ -912,6 +1111,17 @@ begin
   LoadHistory(IniName,Section,Ident,History,MaxHist,CvQuote);
   end;
 
+procedure LoadHistory (const IniName,Section : string;
+                       Combo : TComboBox; MaxHist : integer; CvQuote : boolean); overload;
+var
+  n : integer;
+begin
+  with Combo do begin
+    if MaxHist=0 then n:=DropDownCount else n:=MaxHist;
+    LoadHistory(IniName,Section,'',Items,n,CvQuote);
+    end;
+  end;
+
 procedure SaveHistory (IniFile : TIniFile; const Section,Ident : string;
                        Erase : boolean; History : TStrings; MaxCount : integer; CvQuote : boolean);
 var
@@ -954,6 +1164,17 @@ begin
   SaveHistory(IniName,Section,Ident,Erase,History,MaxHist,CvQuote);
   end;
 
+procedure SaveHistory (const IniName,Section : string; Erase : boolean;
+                       Combo : TComboBox; MaxHist : integer; CvQuote : boolean);
+var
+  n : integer;
+begin
+  with Combo do begin
+    if MaxHist=0 then n:=DropDownCount else n:=MaxHist;
+    SaveHistory(IniName,Section,'',Erase,Items,n,CvQuote);
+    end;
+  end;
+
 // move or add item "hs" to begin of history list
 procedure AddToHistory (History : TStrings; const hs : string; MaxCount : integer);
 var
@@ -972,6 +1193,11 @@ begin
 procedure AddToHistory (History : TStrings; const hs : string);
 begin
   AddToHistory (History,hs,MaxHist);
+  end;
+
+procedure AddToHistory (Combo : TComboBox; const hs : string);
+begin
+  with Combo do AddToHistory (Items,hs,DropDownCount);
   end;
 
 procedure RemoveFromHistory (History : TStrings; const hs : string);

@@ -13,6 +13,7 @@
    the specific language governing rights and limitations under the License.
 
    Vers. 1 - Sep. 2002 
+   last modified: Aug 2020
    *)
 
 unit InpText;
@@ -38,14 +39,16 @@ type
     FIniName,FIniSection : string;
   public
     { Public declarations }
-    HistCount : integer;
-  (* History-Liste laden (optional) *)
-  procedure LoadFromIni(AIniName,AIniSection : string);
-  function Execute (Pos        : TPoint;
-                    Titel,Desc : string;
-                    ShowTable  : boolean;
-                    AFontName  : TFontName;
-                    var AText  : string) : boolean;
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+    procedure AfterConstruction; override;
+{$EndIf}
+    // History-Liste laden (optional)
+    procedure LoadFromIni(AIniName,AIniSection : string);
+    function Execute (Pos        : TPoint;
+                      Titel,Desc : string;
+                      ShowTable  : boolean;
+                      AFontName  : TFontName;
+                      var AText  : string) : boolean;
   end;
 
 (* Text eingeben, Ergebnis: "true" bei "ok" *)
@@ -55,7 +58,6 @@ function InputText(Pos        : TPoint;
                    AFontName  : TFontName;
                    AHistory   : TStrings;
                    ASortHist  : boolean;
-                   AHistCount : integer;
                    var AText  : string) : boolean; overload;
 
 function InputText(Pos        : TPoint;
@@ -72,19 +74,12 @@ implementation
 
 uses CharTableDlg, System.IniFiles, WinUtils, GnuGetText;
 
-const
-  iniHistory = 'History';
-
 { ------------------------------------------------------------------- }
 procedure TInputTextDialog.LoadFromIni(AIniName,AIniSection : string);
-var
-  IniFile : TIniFile;
 begin
   FIniName:=AIniName; FIniSection:=AIniSection;
   if (length(FIniName)>0) and (length(FIniSection)>0) then begin
-    IniFile:=TIniFile.Create(FIniName);
-    LoadHistory(IniFile,FIniSection,iniHistory,TextFeld.Items);
-    IniFile.Free;
+    LoadHistory(FIniName,FIniSection,TextFeld);
     with TextFeld do begin
       if Items.Count=0 then Style:=csSimple else Style:=csDropDown;
       AutoComplete:=true;
@@ -96,19 +91,22 @@ procedure TInputTextDialog.FormCreate(Sender: TObject);
 begin
   TranslateComponent (self,'dialogs');
   FIniName:=''; FIniSection:='';
-  HistCount:=MaxHist;
   TextFeld.Style:=csSimple;
   end;
 
-procedure TInputTextDialog.FormDestroy(Sender: TObject);
-var
-  IniFile : TIniFile;
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+procedure TInputTextDialog.AfterConstruction;
 begin
-  if (length(FIniName)>0) and (length(FIniSection)>0) then begin
-    IniFile:=TIniFile.Create(FIniName);
-    SaveHistory(IniFile,FIniSection,iniHistory,true,TextFeld.Items);
-    IniFile.Free;
-    end;
+  inherited;
+  if Application.Tag=0 then
+    ScaleButtonGlyphs(self,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
+  end;
+{$EndIf}
+
+procedure TInputTextDialog.FormDestroy(Sender: TObject);
+begin
+  if (length(FIniName)>0) and (length(FIniSection)>0) then
+    SaveHistory(FIniName,FIniSection,true,TextFeld);
   end;
 
 { ------------------------------------------------------------------- }
@@ -164,7 +162,7 @@ begin
   if w>311 then ClientWidth:=w else ClientWidth:=311;
   if ShowModal=mrOK then begin
     AText:=TextFeld.Text;
-    AddToHistory(TextFeld.Items,AText,HistCount);
+    AddToHistory(TextFeld,AText);
     Result:=true;
     end
   else Result:=false;
@@ -178,7 +176,6 @@ function InputText(Pos        : TPoint;
                    AFontName  : TFontName;
                    AHistory   : TStrings;
                    ASortHist  : boolean;
-                   AHistCount : integer;
                    var AText  : string) : boolean;
 begin
   if not assigned(InputTextDialog) then InputTextDialog:=TInputTextDialog.Create(Application);
@@ -186,10 +183,9 @@ begin
     if assigned(AHistory) then with TextFeld do begin
       Clear; Sorted:=ASortHist;
       Items.Assign(AHistory);
-      HistCount:=AHistCount;
       end;
     Result:=Execute(Pos,Titel,Desc,ShowTable,AFontName,AText);
-    if Result and (AHistCount>0) and assigned(AHistory) then AHistory.Assign(TextFeld.Items);
+    if Result and assigned(AHistory) then AHistory.Assign(TextFeld.Items);
     Release;
     end;
   InputTextDialog:=nil;
@@ -200,7 +196,7 @@ function InputText(Pos        : TPoint;
                    ShowTable  : boolean;
                    var AText  : string) : boolean; overload;
 begin
-  Result:=InputText(Pos,Titel,Desc,ShowTable,'',nil,false,0,AText);
+  Result:=InputText(Pos,Titel,Desc,ShowTable,'',nil,false,AText);
   end;
 
 end.

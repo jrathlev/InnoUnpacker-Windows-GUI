@@ -75,6 +75,7 @@ object ShellDirDialog: TShellDirDialog
         106
         230)
       object spbNetwork: TSpeedButton
+        Tag = 103
         Left = 2
         Top = 170
         Width = 104
@@ -187,6 +188,7 @@ object ShellDirDialog: TShellDirDialog
         ExplicitWidth = 94
       end
       object spbComputer: TSpeedButton
+        Tag = 102
         Left = 2
         Top = 114
         Width = 104
@@ -299,6 +301,7 @@ object ShellDirDialog: TShellDirDialog
         ExplicitWidth = 94
       end
       object spbDesktop: TSpeedButton
+        Tag = 100
         Left = 2
         Top = 2
         Width = 104
@@ -411,6 +414,7 @@ object ShellDirDialog: TShellDirDialog
         ExplicitWidth = 94
       end
       object spbMyFiles: TSpeedButton
+        Tag = 101
         Left = 2
         Top = 58
         Width = 104
@@ -535,6 +539,7 @@ object ShellDirDialog: TShellDirDialog
         404
         91)
       object spbHome: TSpeedButton
+        Tag = 200
         Left = 325
         Top = 3
         Width = 21
@@ -581,6 +586,7 @@ object ShellDirDialog: TShellDirDialog
         Caption = 'Directory:'
       end
       object spbUp: TSpeedButton
+        Tag = 201
         Left = 350
         Top = 3
         Width = 21
@@ -620,6 +626,7 @@ object ShellDirDialog: TShellDirDialog
         OnClick = spbUpClick
       end
       object spbNew: TSpeedButton
+        Tag = 202
         Left = 375
         Top = 3
         Width = 21

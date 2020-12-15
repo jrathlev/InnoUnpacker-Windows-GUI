@@ -13,6 +13,7 @@
    the specific language governing rights and limitations under the License.
     
    Vers. 1 - Sep. 2002 
+   last modified: Nov. 2020
    *)
     
 unit CharTableDlg;
@@ -39,6 +40,9 @@ type
     DefFontName,GridFontName : TFontName;
   public
     { Public declarations }
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+    procedure AfterConstruction; override;
+{$EndIf}
   end;
 
 function CharFromTable (APos : TPoint; const AFontName : TFontName) : char;
@@ -58,6 +62,15 @@ begin
   TranslateComponent (self,'dialogs');
   DefFontName:=CharGrid.Font.Name;
   end;
+
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+procedure TCharTableDialog.AfterConstruction;
+begin
+  inherited;
+  if Application.Tag=0 then
+    ScaleButtonGlyphs(self,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
+  end;
+{$EndIf}
 
 procedure TCharTableDialog.leValueChange(Sender: TObject);
 var

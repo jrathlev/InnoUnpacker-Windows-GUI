@@ -12,7 +12,7 @@
    the specific language governing rights and limitations under the License.
 
    Jun. 2009
-   Last changes: Sep. 2016
+   last modified: Nov. 2020
    *)
 
 unit SelectDlg;
@@ -31,7 +31,7 @@ type
   TSelectDialog = class(TForm)
     lbCaption: TLabel;
     imgIcon: TImage;
-    ImageList: TImageList;
+    ilIcons: TImageList;
     cbOption: TCheckBox;
     procedure FormCreate(Sender: TObject);
   private
@@ -41,7 +41,9 @@ type
     procedure ButtonClick(Sender: TObject);
   public
     { Public declarations }
-    procedure ScaleWindow(M,D : Integer);
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+    procedure AfterConstruction; override;
+{$EndIf}
     function Execute (Pos : TPoint;
                       const ATitle,ACaption : string;
                       DlgType        : TMsgDlgType;
@@ -75,7 +77,6 @@ function SelectOption (const ATitle,ACaption : string;
                        PreSelection   : integer = -1;
                        const DefaultButton : string = '') : integer; overload;
 
-procedure ScaleSelectOption (M,D : Integer);
 
 implementation
 
@@ -91,10 +92,14 @@ begin
   TranslateComponent (self,'dialogs');
   end;
 
-procedure TSelectDialog.ScaleWindow(M, D: Integer);
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+procedure TSelectDialog.AfterConstruction;
 begin
-  ChangeScale(M, D);
+  inherited;
+  if Application.Tag=0 then
+    ScaleImageList(ilIcons,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
   end;
+{$EndIf}
 
 procedure TSelectDialog.ButtonClick(Sender: TObject);
 begin
@@ -113,7 +118,7 @@ function TSelectDialog.Execute (Pos : TPoint;
                                 PreSelection   : integer = -1;
                                 const DefaultButton : string = '') : integer;
 var
-  w,h,dh,i,j,n,nr,nl,k,l,bw : integer;
+  w,h,dh,i,j,n,nr,nl,k,l,bw,ppi,tw,tl : integer;
 begin
   with Pos do begin
     if (Y < 0) and (X < 0) then Position:=poScreenCenter
@@ -125,22 +130,31 @@ begin
     end;
   Caption:=ATitle;
   if ButtonWidth=0 then bw:=105 else bw:=ButtonWidth;
-  bw:=MulDiv(bw,Screen.PixelsPerInch,PixelsPerInchOnDesign);
-  w:=3*bw+MulDiv(70,Screen.PixelsPerInch,PixelsPerInchOnDesign);
-  l:=MulDiv(50,Screen.PixelsPerInch,PixelsPerInchOnDesign);
+//  w:=3*bw+70; l:=50;
+  ppi:=Screen.PixelsPerInch;
+  bw:=MulDiv(bw,ppi,PixelsPerInchOnDesign);
+  w:=3*bw+MulDiv(70,ppi,PixelsPerInchOnDesign);
+  l:=MulDiv(50,ppi,PixelsPerInchOnDesign);
+  n:=MulDiv(10,ppi,PixelsPerInchOnDesign);
+  tw:=MaxTextWidth(ACaption,Canvas);
+  if fsBold in ACaptionFormat then tw:=MulDiv(tw,5,4);
+  tl:=TextLineCount(ACaption);
   with lbCaption do begin
     Font.Style:=ACaptionFormat;
-    Left:=l;  Width:=w-l-10;
+    Left:=l; Height:=tl*MulDiv(abs(Font.Height),12,10);
+    if tw<w-l-n then tw:=w-l-n else w:=tw+l+n;
+    Width:=tw;
     Caption:=ACaption;
     h:=Top+Height+15;
     dh:=MulDiv(abs(Font.Height),24,10);
-    if Width+l+10>w then w:=Width+l+10;
     end;
   ClientWidth:=w;
   with cbOption do begin
     Checked:=false;
     if length(AOption)>0 then begin
       Left:=l; Width:=w-l-10; Top:=h-5; inc(h,Height);
+//      Caption:='PixelsPerInch = '+IntToStr(ppi)+'/'+IntToStr(PixelsPerInchOnDesign)+
+//       ' - '+IntToStr(Font.Size);
       Caption:=AOption;
       if PreSelection>0 then Checked:=PreSelection and OptionChecked <>0;
       Visible:=true;
@@ -150,7 +164,7 @@ begin
   with imgIcon do if DlgType=mtCustom then Hide
   else begin
     Picture:=nil;
-    ImageList.GetBitmap(integer(DlgType),Picture.Bitmap);
+    ilIcons.GetBitmap(integer(DlgType),Picture.Bitmap);
     Show;
     end;
   n:=length(AButtons)+1;
@@ -238,17 +252,17 @@ function SelectOption (const ATitle,ACaption : string;
                        PreSelection   : integer = -1;
                        const DefaultButton : string = '') : integer;
 begin
-  if not assigned(SelectDialog)then SelectDialog:=TSelectDialog.Create(Application);
+if not assigned(SelectDialog)then SelectDialog:=TSelectDialog.Create(Application);
 //  SelectDialog.ScaleWindow(Mult,Divi);
   Result:=SelectDialog.Execute(CenterPos,ATitle,ACaption,DlgType,ACaptionFormat,AButtons,
     AOption,ButtonWidth,PreSelection,DefaultButton);
   FreeAndNil(SelectDialog);
   end;
 
-procedure ScaleSelectOption (M,D : Integer);
-begin
-  Mult:=M; Divi:=D;
-  end;
+//procedure ScaleSelectOption (M,D : Integer);
+//begin
+//  Mult:=M; Divi:=D;
+//  end;
 
 begin
   Mult:=1; Divi:=1;

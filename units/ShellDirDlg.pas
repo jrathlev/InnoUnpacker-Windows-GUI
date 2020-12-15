@@ -34,7 +34,7 @@ interface
 
 uses Winapi.Windows, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Forms,
   Vcl.Controls, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Vcl.ComCtrls,
-  Vcl.Shell.ShellCtrls, Vcl.Menus;
+  Vcl.Shell.ShellCtrls, Vcl.Menus, System.ImageList, Vcl.ImgList;
 
 const
   NetLink = 'target.lnk';
@@ -100,6 +100,9 @@ type
     procedure SelectDir (const ADir : string);
   public
     { Public declarations }
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+    procedure AfterConstruction; override;
+{$EndIf}
     procedure LoadFromIni(IniName, Section : string);
     procedure ResetPosition;
     function Execute (const ATitle  : string;
@@ -148,6 +151,16 @@ begin
   if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion>=10) then // Windows 10
     spbNetwork.Visible:=Smb1Installed;
   end;
+
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+procedure TShellDirDialog.AfterConstruction;
+begin
+  inherited;
+  if Application.Tag=0 then begin
+    ScaleButtonGlyphs(self,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
+    end;
+  end;
+{$EndIf}
 
 { ------------------------------------------------------------------- }
 const

@@ -323,6 +323,9 @@ type
 
   TGetTickCount64 = function : ULONGLONG; stdcall;
 
+  TQueryFullProcessImageName = function (hProcess : THandle; dwFlags : DWORD;
+    lpExeName : LPWSTR; var lpdwSize : DWORD) : boolean; stdcall;
+
   TSetSuspendState = function (Hibernate, ForceCritical, DisableWakeEvent: BOOL) : BOOL; stdcall;
 
   TCreateProcessWithLogonW = function(lpUsername: PWideChar;
@@ -492,7 +495,7 @@ function IsPowerUserLoggedOn : boolean;
 
 { ---------------------------------------------------------------- }
 // prüfe, ob eine Exe-Datei gerade läuft
-function IsExeRunning(const AExeName: string): boolean;
+function IsExeRunning(const AExeName: string; FullPath : boolean = false): boolean;
 
 // Liste aller laufenden und sichtbaren Programme
 function GetProgramList(const List: TStrings): Boolean;
@@ -550,6 +553,7 @@ var
   FFindFirstStream : TFindFirstStream;                 // erst ab Vista
   FFindNextStream : TFindNextStream;                   // erst ab Vista
   FGetTickCount64 : TGetTickCount64;
+  FQueryFullProcessImageName : TQueryFullProcessImageName;
 
 { ---------------------------------------------------------------- }
 function GetFileSizeEx; external kernel32 name 'GetFileSizeEx';
@@ -1177,19 +1181,62 @@ begin
   end;
 
 { ---------------------------------------------------------------- }
-// prüfe, ob eine Exe-Datei gerade läuft
-function IsExeRunning(const AExeName: string) : boolean;
+// prüfe, ob eine Exe-Datei gerade läuft (optional mit vollst. Pfad)
+function IsExeRunning(const AExeName: string; FullPath : boolean) : boolean;
 var
   h: THandle;
   p: TProcessEntry32;
+  sp : string;
+
+//  function GetFullPath (Id : dword) : string;
+//  var
+//    h  : THandle;
+//    p: TModuleEntry32;
+//  begin
+//    Result:='';
+//    p.dwSize:=SizeOf(p);
+//    h:=CreateToolHelp32Snapshot(TH32CS_SnapModule,Id);
+//    try
+//      if Module32First(h,p) then Result:=p.szExePath;
+//    finally
+//      CloseHandle(h);
+//      end;
+//    if (length(Result)=0) and IsWindows64 and Is64BitApp then begin // check 32-bit modules
+//      end;
+//    end;
+
+  function GetFullPath (Id : dword) : string;
+  var
+    hp   : dword;
+    sBuf : PWideChar;
+    n    : dword;
+  begin
+    Result:='';
+    hp:=OpenProcess(PROCESS_QUERY_INFORMATION,false,Id);
+    if hp<>0 then begin
+      n:=1024; sBuf:=StrAlloc(n);
+      if assigned(@FQueryFullProcessImageName) then begin
+        if FQueryFullProcessImageName(hp,0,sBuf,n) then begin
+          Result:=sBuf;
+          StrDispose(sBuf);
+          end
+        end;
+      CloseHandle(hp);
+      end;
+    end;
+
 begin
   Result:=False;
   p.dwSize:=SizeOf(p);
   h:=CreateToolHelp32Snapshot(TH32CS_SnapProcess, 0);
   try
-    Process32First(h, p);
-    repeat
-      Result:=AnsiSameText(AExeName,p.szExeFile);
+    if Process32First(h, p) then repeat
+      if FullPath then begin
+        if p.th32ProcessID>0 then sp:=GetFullPath(p.th32ProcessID)
+        else sp:='';
+        end
+      else sp:=p.szExeFile;
+      if length(sp)>0 then Result:=AnsiSameText(AExeName,sp);
     until Result or (not Process32Next(h, p));
   finally
     CloseHandle(h);
@@ -1752,9 +1799,11 @@ initialization
     @FFindFirstStream:=GetProcAddress(DllHandle,'FindFirstStreamW');
     @FFindNextStream:=GetProcAddress(DllHandle,'FindNextStreamW');
     @FGetTickCount64:=GetProcAddress(DllHandle,'GetTickCount64');
+    @FQueryFullProcessImageName:=GetProcAddress(DllHandle,'QueryFullProcessImageNameW');
     end
   else begin
     FFindFirstStream:=nil; FFindNextStream:=nil; FGetTickCount64:=nil;
+    FQueryFullProcessImageName:=nil;
     end;
 
   end.

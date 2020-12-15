@@ -192,8 +192,8 @@ object InputTextDialog: TInputTextDialog
     Height = 21
     Style = csSimple
     Anchors = [akLeft, akTop, akRight]
+    DropDownCount = 15
     TabOrder = 3
-    Text = 'TextFeld'
     OnKeyPress = TextFeldKeyPress
   end
 end
