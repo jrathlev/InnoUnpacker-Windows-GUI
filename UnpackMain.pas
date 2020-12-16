@@ -79,6 +79,7 @@ type
     procedure bbArchivInfoClick(Sender: TObject);
     procedure bbCopyResultClick(Sender: TObject);
     procedure bbFilterClick(Sender: TObject);
+    procedure cbFilterCloseUp(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -208,6 +209,14 @@ begin
     AddToHistory(Items,Items[ItemIndex],mList);
     ItemIndex:=0;
     bbListClick(Sender);
+    end;
+  end;
+
+procedure TMainForm.cbFilterCloseUp(Sender: TObject);
+begin
+  with cbFilter do begin
+    AddToHistory(Items,Items[ItemIndex],mList);
+    ItemIndex:=0;
     end;
   end;
 

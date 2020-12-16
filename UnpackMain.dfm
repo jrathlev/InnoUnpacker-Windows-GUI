@@ -24,7 +24,6 @@ object MainForm: TMainForm
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 406
     DesignSize = (
       631
       131)
@@ -102,7 +101,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 6
       OnClick = bbOptionsClick
-      ExplicitLeft = 330
     end
     object bbExit: TBitBtn
       Left = 590
@@ -129,7 +127,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 7
       OnClick = bbExitClick
-      ExplicitLeft = 365
     end
     object bbList: TBitBtn
       Left = 235
@@ -194,7 +191,6 @@ object MainForm: TMainForm
       ShowHint = False
       TabOrder = 2
       OnClick = bbListClick
-      ExplicitLeft = 10
     end
     object bbExtract: TBitBtn
       Left = 385
@@ -221,7 +217,6 @@ object MainForm: TMainForm
       ShowHint = False
       TabOrder = 5
       OnClick = bbExtractClick
-      ExplicitLeft = 160
     end
     object bbVerify: TBitBtn
       Left = 385
@@ -286,7 +281,6 @@ object MainForm: TMainForm
       ShowHint = False
       TabOrder = 3
       OnClick = bbVerifyClick
-      ExplicitLeft = 160
     end
     object bbArchivInfo: TBitBtn
       Left = 235
@@ -308,7 +302,6 @@ object MainForm: TMainForm
       ShowHint = False
       TabOrder = 4
       OnClick = bbArchivInfoClick
-      ExplicitLeft = 10
     end
     object bbCopyResult: TBitBtn
       Left = 555
@@ -335,7 +328,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 8
       OnClick = bbCopyResultClick
-      ExplicitLeft = 330
     end
     object bbFile: TBitBtn
       Left = 595
@@ -375,9 +367,6 @@ object MainForm: TMainForm
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 1
-    ExplicitTop = 221
-    ExplicitWidth = 406
-    ExplicitHeight = 238
   end
   object pnExtract: TPanel
     Left = 0
@@ -387,7 +376,6 @@ object MainForm: TMainForm
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitWidth = 627
     DesignSize = (
       631
       105)
@@ -457,7 +445,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 2
       OnClick = bbStartClick
-      ExplicitLeft = 526
     end
     object cxDupl: TCheckBox
       Left = 150
@@ -491,6 +478,7 @@ object MainForm: TMainForm
       Anchors = [akLeft, akTop, akRight]
       DropDownCount = 12
       TabOrder = 6
+      OnCloseUp = cbFilterCloseUp
     end
     object bbFilter: TBitBtn
       Left = 490
