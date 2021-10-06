@@ -15,7 +15,7 @@
 
    J. Rathlev, Jan. 2008
    Vers. 1.6 (August 2020): added filter to extract single files
-   last modified: Aug 2020
+   last modified: October 2021
    *)
 
 unit UnpackMain;
@@ -28,8 +28,8 @@ uses
 
 const
   ProgName = 'InnoUnpack';
-  Vers = ' Version 1.6.1';
-  CopRgt = '© 2014-2020 Dr. J. Rathlev, D-24222 Schwentinental';
+  Vers = ' Version 1.7.0';
+  CopRgt = '© 2014-2021 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
   defPipeSize = 64*1024;
