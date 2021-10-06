@@ -23,7 +23,9 @@
    Vers. 6 - July 2013 : more environment folders
    Vers. 7 - Dec. 2015 : Modifications for Delphi 10 (all functions and constants
                          removed that are now handled in Winapi.Windows)
-   last modified:  June 2020
+   Vers. 7.1 - July 2021 : LoadLibrary replaced by ExtLoadLibrary to handle FPU exceptions
+
+   last modified:  July 2021
    *)
 
 unit WinApiUtils;
@@ -434,11 +436,6 @@ function GetTickCount64 : ULONGLONG;
 function GetAccountName(sSID : string) : string;
 
 { ---------------------------------------------------------------- }
-(* Disk size and free space *)
-function GetDiskFree (const Path : string) : int64;
-function GetDiskTotal (const Path : string) : int64;
-
-{ ---------------------------------------------------------------- }
 (* Windows-System-Info (Plattform, Version, Build) *)
 function IsWinNT : boolean;
 function IsWin2000 : boolean;
@@ -474,7 +471,8 @@ function QueryShutDownReason (fHandle: hWnd; var Reason : string) : boolean;
 function GetFileVersion (const Filename : string; var FileVersionInfo : TFileVersionInfo) : boolean;
 function GetFileVersionString (const Filename : string; var Version : string) : boolean;
 function GetFileVersionName (const Filename,DefName,DefVers : string): string;
-function GetFileVersionCopyright (const Filename,Copyright : string) : string;
+function GetFileVersionRelease (const Filename,defVers : string) : string;
+function GetFileVersionCopyright (const Filename,defCopyright : string) : string;
 
 { ---------------------------------------------------------------- }
 (* ermittle Zeitzonen-Info für aktuelle Zone *)
@@ -536,9 +534,14 @@ function ModifyPrivilege (const PrivilegeName : string; Enable : boolean) : bool
 // WinHandle = Window Handle of process
 function KillProcessByWinHandle(WinHandle : Hwnd) : boolean;
 
+{ ---------------------------------------------------------------- }
+// Replacement for SysUtils.SafeLoadLibrary with FPU exception handling for x86 and x64
+function FpuSaveLoadLibrary(const FileName : string; ErrorMode : UINT = SEM_NOOPENFILEERRORBOX) : HMODULE;
+
 implementation
 
-uses System.StrUtils, System.DateUtils, WinApi.TlHelp32, WinApi.PsAPI, WinApi.WinSvc;
+uses System.StrUtils, System.DateUtils, WinApi.TlHelp32, WinApi.PsAPI, WinApi.WinSvc,
+  System.Math;
 
 const
   InfoNum = 12;
@@ -654,7 +657,7 @@ var
   ws  : widestring;
 begin
   Result:=false;
-  dh:=LoadLibrary(user32);
+  dh:=FpuSaveLoadLibrary(user32);
   if dh<>0 then begin
     @sdc:=GetProcAddress(dh,'ShutdownBlockReasonCreate');
     if @sdc<>nil then begin
@@ -671,7 +674,7 @@ var
   sdd : TSDBlockReasonDestroy;
 begin
   Result:=false;
-  dh:=LoadLibrary(user32);
+  dh:=FpuSaveLoadLibrary(user32);
   if dh<>0 then begin
     @sdd:=GetProcAddress(dh,'ShutdownBlockReasonDestroy');
     if @sdd<>nil then Result:=sdd(fHandle);
@@ -687,7 +690,7 @@ var
   sBuf : PWideChar;
 begin
   Result:=false;
-  dh:=LoadLibrary(user32);
+  dh:=FpuSaveLoadLibrary(user32);
   if dh<>0 then begin
     @sdq:=GetProcAddress(dh,'ShutdownBlockReasonQuery');
     if @sdq<>nil then begin
@@ -728,22 +731,6 @@ begin
     else RaiseLastOSError;
     LocalFree(HLOCAL(sid));
     end;
-  end;
-
-{ ---------------------------------------------------------------- }
-(* Disk size and free space *)
-function GetDiskFree (const Path : string) : int64 ;
-var
-  n : Int64;
-begin
-  GetDiskFreeSpaceEx(pchar(IncludeTrailingPathDelimiter(Path)),Result,n,nil);
-  end;
-
-function GetDiskTotal (const Path : string) : int64;
-var
-  n : Int64;
-begin
-  GetDiskFreeSpaceEx(pchar(IncludeTrailingPathDelimiter(Path)),n,Result,nil);
   end;
 
 { ---------------------------------------------------------------- }
@@ -799,7 +786,7 @@ var
   ok : boolean;
 begin
   ok:=false;
-  Secur32Handle:=LoadLibrary(secur32);
+  Secur32Handle:=FpuSaveLoadLibrary(secur32);
   try
     if Secur32Handle<>0 then begin
       GetUserNameEx:=GetProcAddress(Secur32Handle,'GetUserNameExW');
@@ -1034,13 +1021,23 @@ begin
   with VersInfo do Result:=InternalName+Comments;
   end;
 
-function GetFileVersionCopyright (const Filename,CopyRight : string) : string;
+function GetFileVersionRelease (const Filename,defVers : string) : string;
+var
+  VersInfo : TFileVersionInfo;
+begin
+// Versions-Info
+  with VersInfo do if GetFileVersion (Filename,VersInfo) then
+    Result:=ChangeFileExt(VersInfo.Version,'')
+  else Result:=defVers;
+  end;
+
+function GetFileVersionCopyright (const Filename,defCopyRight : string) : string;
 var
   VersInfo : TFileVersionInfo;
 begin
 // Versions-Info
   with VersInfo do if GetFileVersion (Filename,VersInfo) then Result:=VersInfo.Copyright
-  else Result:=CopyRight;
+  else Result:=defCopyRight;
   end;
 
 { ---------------------------------------------------------------- }
@@ -1323,7 +1320,7 @@ var
 begin
   result:=false;
   try
-    Secur32Handle:=LoadLibrary(secur32);
+    Secur32Handle:=FpuSaveLoadLibrary(secur32);
     if Secur32Handle=0 then Exit;
     FLsaEnumerateLogonSessions:=GetProcAddress(Secur32Handle,'LsaEnumerateLogonSessions');
     if not assigned(FLsaEnumerateLogonSessions) then Exit;
@@ -1331,7 +1328,7 @@ begin
     if not assigned(FLsaGetLogonSessionData) then Exit;
     FLsaFreeReturnBuffer:=GetProcAddress(Secur32Handle,'LsaFreeReturnBuffer');
     if not assigned(FLsaFreeReturnBuffer) then Exit;
-    Wtsapi32Handle:=LoadLibrary(wtsapi32);
+    Wtsapi32Handle:=FpuSaveLoadLibrary(wtsapi32);
     if Wtsapi32Handle=0 then Exit;
     FWTSQuerySessionInformation:=GetProcAddress(Wtsapi32Handle,'WTSQuerySessionInformationW');
     if not assigned(FWTSQuerySessionInformation) then Exit;
@@ -1409,7 +1406,6 @@ var
   Token : THandle;
   Elevation : TTokenElevation;
   Size  : DWORD;
-  ok    : boolean;
 begin
   if IsVista then begin
     Result:=false;
@@ -1431,7 +1427,6 @@ begin
 
 function GetUserLogonType (const Username : string) : TSecurityLogonType;
 var
-  ss : string;
   Count: cardinal;
   SessionList,Luid: PLUID;
   PSesDat: PSecurityLogonSessionData;
@@ -1442,7 +1437,7 @@ var
 begin
   Result:=seltError;
   try
-    Secur32Handle:=LoadLibrary(secur32);
+    Secur32Handle:=FpuSaveLoadLibrary(secur32);
     if Secur32Handle=0 then Exit;
     FLsaEnumerateLogonSessions:=GetProcAddress(Secur32Handle,'LsaEnumerateLogonSessions');
     if not assigned(FLsaEnumerateLogonSessions) then Exit;
@@ -1617,7 +1612,7 @@ var
 begin
   Result:=false;
   try
-    Secur32Handle:=LoadLibrary(secur32);
+    Secur32Handle:=FpuSaveLoadLibrary(secur32);
     if Secur32Handle=0 then Exit;
     FLsaEnumerateLogonSessions:=GetProcAddress(Secur32Handle,'LsaEnumerateLogonSessions');
     if not assigned(FLsaEnumerateLogonSessions) then Exit;
@@ -1780,13 +1775,28 @@ begin
    end;
 
 { ---------------------------------------------------------------- }
+// Replacement for SysUtils.SafeLoadLibrary with FPU exception handling for x86 and x64
+function FpuSaveLoadLibrary(const Filename : string; ErrorMode : UINT) : HMODULE;
+var
+  OldMode : UINT;
+  em : TArithmeticExceptionMask;
+begin
+  OldMode:=SetErrorMode(ErrorMode);
+  em:=GetExceptionmask;
+  SetExceptionmask(em+[exInvalidOp,exZeroDivide,exOverflow, exUnderflow]);
+  Result:=LoadLibrary(PChar(Filename));
+  SetExceptionmask(em);
+  SetErrorMode(OldMode);
+  end;
+
+{ ---------------------------------------------------------------- }
 initialization
   DllHandle:=GetModuleHandle(advapi32);
   if DllHandle<>0 then
     @FCreateProcessWithLogonW:=GetProcAddress(DllHandle,'CreateProcessWithLogonW')
   else FCreateProcessWithLogonW:=nil;
 
-  DllHandle:=LoadLibrary(powrprof);
+  DllHandle:=FpuSaveLoadLibrary(powrprof);
   if DllHandle<>0 then begin
     @FSetSuspendState:=GetProcAddress(DllHandle,'SetSuspendState');
     end

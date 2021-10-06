@@ -55,6 +55,7 @@ const
   Semicolon = ';';
   Comma = ',';
   Slash = '/';
+  ProMille = #$2030;
   Tab = #9;
   CrLf = #13#10;
   Cr = #13;
@@ -121,6 +122,14 @@ function StrToOEM (const s : AnsiString) : AnsiString;
 function LowCase(Ch: WideChar): WideChar;
 
 function IsAnsiStr (const ws : string) : boolean;
+
+{ ---------------------------------------------------------------- }
+// check if a string contains UTF8 characters
+function CheckForUtf8 (const s : string) : boolean;
+
+{------------------------------------------------------------------}
+// convert RawByte to Unicode
+function RawByteToUnicode(sa : RawByteString; CodePage : integer = 1252) : string;
 
 { ---------------------------------------------------------------- }
 // Substring-Pos. ohne Unterschreidung groﬂ/klein
@@ -326,9 +335,9 @@ function DuplicateQuotes(const S: string; Quote : Char): string;
 // Position of char in string starting at "Offset", ignore parts between quotes
 function PosChar (const s: string; AChar,AQuote : char; Offset: Cardinal): Integer;
 
-function GetPluralString (const sNo,sOne,sMany : string; n : integer) : string; overload;
-function GetPluralString (const sNo,sOne,sMany : string; n : integer; const s : string) : string; overload;
-function GetPluralString (const sOne,sMany : string; n : integer) : string; overload;
+function GetPluralString (const sNo,sOne,sMany : string; n : integer; ThSep : boolean = true) : string; overload;
+function GetPluralString (const sNo,sOne,sMany : string; n : integer; const s : string; ThSep : boolean = true) : string; overload;
+function GetPluralString (const sOne,sMany : string; n : integer; ThSep : boolean = true) : string; overload;
 
 { ---------------------------------------------------------------- }
 // Check if AText matches filters: AFilter="<filter1><sep><filter2><sep>.."
@@ -562,6 +571,43 @@ begin
   Result:=false;
   for i:=1 to length(ws) do if WordRec(ws[i]).Hi<>0 then exit;
   Result:=true;
+  end;
+
+{ ------------------------------------------------------------------- }
+// check if a string contains UTF8 characters
+function CheckForUtf8(const s : string) : boolean;
+const
+  Utf8Mask1 = $C0;
+  Utf8Mask2 = $80;
+var
+  i : integer;
+begin
+  Result:=false;
+  if not IsEmptyStr(s) then for i:=1 to length(s) do begin
+    if cardinal(s[i]) and Utf8Mask1 = Utf8Mask1 then begin
+      if (i<length(s)) and (cardinal(s[i+1]) and Utf8Mask1 = Utf8Mask2) then begin
+        Result:=true; Break; // UTF8 caracter found
+        end;
+      end;
+    end;
+  end;
+
+{------------------------------------------------------------------}
+// convert RawByte to Unicode
+function RawByteToUnicode(sa : RawByteString; CodePage : integer = 1252) : string;
+var
+  ta,tu : TBytes;
+begin
+  if length(sa)=0 then Result:=''
+  else begin
+    SetLength(ta,length(sa));
+    Move(sa[1],ta[0],Length(ta));
+    SetLength(tu,length(sa)*sizeof(Char));
+    tu:=TEncoding.Convert(TEncoding.GetEncoding(CodePage),TEncoding.Unicode,ta);
+    SetLength(Result,length(sa));
+    Move(tu[0],Result[1],Length(tu));
+    ta:=nil; tu:=nil;
+    end;
   end;
 
 {------------------------------------------------------------------}
@@ -1429,23 +1475,36 @@ begin
   end;
 
 { ------------------------------------------------------------------- }
-function GetPluralString (const sNo,sOne,sMany : string; n : integer) : string;
+function GetPluralString (const sNo,sOne,sMany : string; n : integer; ThSep : boolean) : string;
 begin
   if n=1 then Result:=sOne
   else if (n=0) and (length(sNo)>0) then Result:=sNo
-  else Result:=TryFormat(sMany,[n]);
+  else begin
+    ThSep:=ThSep and (n>=10000);
+    if ThSep then Result:=TryFormat(ReplaceStr(sMany,'%u','%.0n'),[1.0*n])
+    else Result:=TryFormat(sMany,[n]);
+    end;
   end;
 
-function GetPluralString (const sNo,sOne,sMany : string; n : integer; const s : string) : string;
+function GetPluralString (const sNo,sOne,sMany : string; n : integer; const s : string; ThSep : boolean) : string;
 begin
   if n=1 then Result:=TryFormat(sOne,[s])
   else if (n=0) and (length(sNo)>0) then Result:=sNo
-  else Result:=TryFormat(sMany,[n,s]);
+  else begin
+    ThSep:=ThSep and (n>=10000);
+    if ThSep then Result:=TryFormat(ReplaceStr(sMany,'%u','%.0n'),[1.0*n,s])
+    else Result:=TryFormat(sMany,[n,s]);
+    end;
   end;
 
-function GetPluralString (const sOne,sMany : string; n : integer) : string;
+function GetPluralString (const sOne,sMany : string; n : integer; ThSep : boolean) : string;
 begin
-  if n=1 then Result:='1 '+sOne else Result:=IntToStr(n)+Space+sMany;
+  if n=1 then Result:='1 '+sOne
+  else begin
+    ThSep:=ThSep and (n>=10000);
+    if ThSep then Result:=TryFormat('%.0n',[1.0*n])+Space+sMany
+    else Result:=IntToStr(n)+Space+sMany;
+    end;
   end;
 
 { --------------------------------------------------------------- }

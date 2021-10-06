@@ -53,7 +53,7 @@ const
     ('%taskname%','%username%','%computername%','%start%','%end%','%duration%',
      '%status%','%computer%');
 
-function ReplaceTimePlaceHolder (const ps : string; Count : integer = 1) : string;
+function ReplaceTimePlaceHolder (const ps : string; Count : integer = 0) : string;
 function ReplacePathPlaceHolder (const ps : string) : string;
 function RemovePlaceHolderSubdirs(ADir : string) : string;
 

@@ -20,15 +20,70 @@ unit ExtSysUtils;
 
 interface
 
-uses System.SysUtils;
+uses System.SysUtils, Winapi.Windows;
 
+const
+  // errors from SHgetFileOperation
+  FACILITY_PreWin32 = 128;
+  FACILITY_ShellExec = 129;
+
+{ ---------------------------------------------------------------- }
+// Format without raising an exception on errors
 function TryFormat(const AFormat: string; const Args: array of const): string;
+
+{ ---------------------------------------------------------------- }
+// path conversion
 function UnixPathToDosPath(const Path: string): string;
 function DosPathToUnixPath(const Path: string): string;
+
+{ ---------------------------------------------------------------- }
+// system error messages
+function SystemErrorMessage(ASysError : cardinal) : string;
+function NoError(ASysError : cardinal) : boolean;
+function ThisError(ASysError,ThisError : cardinal) : boolean;
+function IsSysError(ASysError : cardinal) : boolean;
 
 implementation
 
 uses UnitConsts;
+
+{------------------------------------------------------------------}
+// create system error message including hex error code
+// refer to: Win-SDK - Structure of COM Error Codes
+function SystemErrorMessage(ASysError : cardinal) : string;
+begin
+  if Win32MajorVersion<6 then begin
+    case LongRec(ASysError).Hi and $7FF of
+    FACILITY_NULL,
+    FACILITY_WIN32: Result:=SysErrorMessage(ASysError and $FFFF);
+    FACILITY_WINDOWS: Result:=rsWindowsError;
+    FACILITY_STORAGE: Result:=rsStorageError;
+    FACILITY_RPC: Result:=rsRpcError;
+  //  FACILITY_ITF: Result:=rsInterfaceError;
+    FACILITY_DISPATCH: Result:=rsDispatchError;
+    FACILITY_PreWin32: Result:=rsPreWin32Error;
+    FACILITY_ShellExec: Result:=rsShellExec;
+    else Result:=rsUnknownError;
+      end;
+    Result:=Result+Format(' (0x%.8x)',[ASysError]);
+    end
+  else Result:=SysErrorMessage(ASysError)+Format(' (0x%.8x)',[ASysError]);
+  end;
+
+function NoError(ASysError : cardinal) : boolean;
+begin
+  Result:=ASysError and $FFFF =NO_ERROR;
+  end;
+
+function ThisError(ASysError,ThisError : cardinal) : boolean;
+begin
+  Result:=(ASysError and $FFFF) = ThisError;
+  end;
+
+function IsSysError(ASysError : cardinal) : boolean;
+begin
+  Result:=ASysError and $FFFF <>NO_ERROR;
+  end;
 
 { --------------------------------------------------------------- }
 // Format without raising an exception on errors
@@ -44,13 +99,12 @@ begin
 { --------------------------------------------------------------- }
 function UnixPathToDosPath(const Path: string): string;
 begin
-  Result := Path.Replace('/', '\');
+  Result:=Path.Replace('/', '\');
 end;
 
 function DosPathToUnixPath(const Path: string): string;
 begin
-  Result := Path.Replace('\', '/');
+  Result:=Path.Replace('\', '/');
 end;
-
 
 end.

@@ -89,12 +89,12 @@ type
                     ACols : integer; SList : TStrings);
   end;
 
-function EditList (APos : TPoint; Titel,Desc,Hint : string;
+function EditList (APos : TPoint; const Titel,Desc,Hint : string;
                    Options : TSelectOptions; ACols : integer;
                    Convert : TTextChange; const Default : string;
                    SList : TStrings; var AText  : string) : boolean;
 
-function SelectFromList (APos : TPoint; Titel,Desc,Hint : string; Prompt : boolean;
+function SelectFromList (APos : TPoint; const Titel,Desc,Hint : string; Prompt : boolean;
                     SList : TStrings; var AText  : string) : boolean;
 
 var
@@ -120,7 +120,7 @@ begin
   inherited;
   if Application.Tag=0 then
     ScaleButtonGlyphs(self,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
-  dist:=MulDiv(dist,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
+  dist:=MulDiv(dist,Monitor.PixelsPerInch,PixelsPerInchOnDesign);
   end;
 {$EndIf}
 
@@ -281,9 +281,10 @@ begin
   with lbHint do Anchors:=Anchors+[akBottom];
   DefDelimitedText:=Default;
   with lbxStringList do begin
-    Items.Delimiter:=SList.Delimiter;
-    Items.QuoteChar:=SList.QuoteChar;
-    Items:=SList;
+//    Items.Delimiter:=SList.Delimiter;
+//    Items.QuoteChar:=SList.QuoteChar;
+//    Items:=SList;
+    Items.Assign(SList);
     Columns:=ACols;
     ExtendedSelect:=soMulti in Options;
     MultiSelect:=ExtendedSelect;
@@ -294,7 +295,7 @@ begin
     if Convert<>tcNone then with Items do begin
       for i:=0 to Count-1 do Strings[i]:=TextChangeCase(Strings[i],Convert);
       end;
-    if FEdit then SList.DelimitedText:=Items.DelimitedText;
+    if FEdit then SList.Assign(Items); // .DelimitedText:=Items.DelimitedText;
     if ItemIndex>=0 then begin
       if soMulti in Options then begin
         AText:='';
@@ -313,7 +314,7 @@ function TSelectFromListDialog.Select(APos : TPoint; Titel,Desc,Hint : string;
                     SList : TStrings; var AText : string;
                     ShowCancel : boolean = true; CheckEntry : TCheckEntry = nil) : boolean;
 begin
-  Result:=Execute(APos,Titel,Desc,Hint,Options,ACols,tcNone,'',SList,AText,ShowCancel,CheckEntry)<>mrCancel;
+  Result:=Execute(APos,Titel,Desc,Hint,Options,ACols,tcNone,Default,SList,AText,ShowCancel,CheckEntry)<>mrCancel;
   end;
 
 function TSelectFromListDialog.Select(APos : TPoint; Titel,Desc,Hint : string;
@@ -329,7 +330,7 @@ begin
     Sorted:=true; Delimiter:=ADel; QuoteChar:=AQuote;
     DelimitedText:=ListText;
     end;
-  Result:=Select(APos,Titel,Desc,Hint,[],ACols,tcNone,'',sl,s,true);
+  Result:=Select(APos,Titel,Desc,Hint,[],ACols,tcNone,Default,sl,s,true);
   ListText:=sl.DelimitedText;
   sl.Free;
   end;
@@ -353,7 +354,7 @@ begin
   end;
 
 {------------------------------------------------------------------- }
-function EditList (APos : TPoint; Titel,Desc,Hint : string;
+function EditList (APos : TPoint; const Titel,Desc,Hint : string;
                    Options : TSelectOptions; ACols : integer;
                    Convert : TTextChange; const Default : string;
                    SList : TStrings; var AText  : string) : boolean;
@@ -365,7 +366,7 @@ begin
   FreeAndNil(SelectFromListDialog)
   end;
 
-function SelectFromList (APos : TPoint; Titel,Desc,Hint : string; Prompt : boolean;
+function SelectFromList (APos : TPoint; const Titel,Desc,Hint : string; Prompt : boolean;
                     SList : TStrings; var AText  : string) : boolean;
 var
   so : TSelectOptions;

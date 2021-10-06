@@ -589,6 +589,7 @@ type
   end;
 
 procedure InvokeContextMenu(Owner: TWinControl; AFolder: TShellFolder; X, Y: Integer);
+function IsMyComputer(ID : PItemIDList): boolean;
 
 implementation
 
@@ -785,6 +786,14 @@ begin
   Result := TRootFolder(GetEnumValue(TypeInfo(TRootFolder), Value))
 {$R-}
 end;
+
+function IsMyComputer(ID : PItemIDList) : boolean;
+var
+  mc : PItemIDList;
+begin
+  SHGetSpecialFolderLocation(0,CSIDL_DRIVES,mc);
+  Result:=SamePIDL(mc,ID);
+  end;
 
 function IsElement(Element, Flag: Integer): Boolean;
 begin
@@ -3497,7 +3506,7 @@ begin
 
 function TCustomShellListView.GetWidth : integer; // Total number of characters
 begin
-  Result:=Width div Canvas.TextWidth('X')-Columns.Count;
+  Result:=Width div GetParentForm(self).Canvas.TextWidth('X');
   end;
 
 procedure TCustomShellListView.EnumColumns;
@@ -3542,7 +3551,7 @@ var
           if (Length(FColWidths)>=Columns.Count) and (FColWidths[Columns.Count-1]>0) then
             n:=FColWidths[Columns.Count-1]
           else n:=SD.cxChar;
-          Width := n * Canvas.TextWidth('X');
+          Width := n * GetParentForm(self).Canvas.TextWidth('X');
           ColNames.Add(ColName);
         end;
     end
@@ -3557,7 +3566,7 @@ var
     begin
       Caption := ACaption;
       Alignment := AAlignment;
-      Width := AWidth * Canvas.TextWidth('X');
+      Width := AWidth * GetParentForm(self).Canvas.TextWidth('X');
     end;
   end;
 

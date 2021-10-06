@@ -164,6 +164,8 @@ function GetDirectory (Title      : string;
                        var ImgNdx : integer) : boolean;
 
 function MakeLink (const LinkObj,ProgName,IconLocation,Arg,WorkDir,Desc: string;
+                   IconIndex : integer; RunAs : boolean = false) : HResult; overload;
+function MakeLink (const LinkObj,ProgName,IconLocation,Arg,WorkDir,Desc: string;
                    RunAs : boolean = false) : HResult; overload;
 function MakeLink (const LinkObj,ProgName,Arg,WorkDir,Desc: string;
                    RunAs : boolean = false) : HResult; overload;
@@ -425,7 +427,7 @@ begin
 
 { ---------------------------------------------------------------- }
 function MakeLink (const LinkObj,ProgName,IconLocation,Arg,WorkDir,Desc: string;
-                   RunAs : boolean = false) : HResult;
+                   IconIndex : integer; RunAs : boolean = false) : HResult;
 var
   psl : IShellLink;
   ppf : IPersistFile;
@@ -440,7 +442,7 @@ begin
     Result:=SetPath(pChar(ProgName));
     if SUCCEEDED(Result) then begin
       SetArguments(PChar(Arg));
-      if length(ProgName)>0 then SetIconLocation(PChar(IconLocation),0);
+      if length(ProgName)>0 then SetIconLocation(PChar(IconLocation),IconIndex);
       if length(WorkDir)>0 then SetWorkingDirectory(PChar(WorkDir));
       if length(Desc)>0 then SetDescription(PChar(Desc));
       Result:=QueryInterface(IID_IPersistFile,ppf);
@@ -461,6 +463,12 @@ begin
       end;
 //    psl:=nil;
     end;
+  end;
+
+function MakeLink (const LinkObj,ProgName,IconLocation,Arg,WorkDir,Desc: string;
+                   RunAs : boolean = false) : HResult;
+begin
+  Result:=MakeLink(LinkObj,ProgName,ProgName,Arg,WorkDir,Desc,0,RunAs);
   end;
 
 function MakeLink(const LinkObj,ProgName,Arg,WorkDir,Desc: string; RunAs : boolean = false) : HResult;

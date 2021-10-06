@@ -38,6 +38,7 @@ resourcestring
   rsErrNotFound  = 'File not found: "%s"';
   rsErrSystem    = 'System error: %s';
 
+  rsNoError      = 'No errors';
   rsError        = 'Error - ';
   rsError2       = 'Error(2) - ';
   rsWarning      = 'Warning - ';
@@ -98,6 +99,8 @@ resourcestring
   rsCopyright    = 'Copyright: ';
   rsVersion      = 'File version: ';
   rsFileDate     = 'Last modified: ';
+
+  rsStrFormatError  = 'Format error: ';
 
 implementation
 

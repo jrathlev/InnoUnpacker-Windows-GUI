@@ -106,6 +106,7 @@ type
     MenuSizeBefore : integer;
     FLangCode : TLangCodeString;
     FOnLangItemClick : TLanguageMenuEvent;
+    FCurrentLanguage,
     FPath,FName : string;
     procedure AddMenuItems;
     procedure RemoveMenuItems;
@@ -122,6 +123,7 @@ type
     constructor Create (const APath,Filename : string);
     destructor Destroy; override;
     function LoadLanguageNames (LangCode : TLangCodeString) : boolean;
+    property CurrentLanguage : string read FCurrentLanguage;
     property SelectedLanguageCode : TLangCodeString read FLangCode write SetLangCode;
     property LanguageCode[Index : integer] : TLangCodeString read GetLangCode;
     property Menu : TMenuItem read FMenu write SetMenu;
@@ -278,6 +280,7 @@ begin
   if n>=0 then begin
     if assigned(FMenu) then FMenu.Items[MenuSizeBefore+n].Checked:=true;
     FLangCode:=Value;
+    FCurrentLanguage:=Strings[n];
     end;
   end;
 

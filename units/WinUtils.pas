@@ -30,10 +30,6 @@ const
   DesignPos : TPoint = (X : 0; Y : -1);
   MaxHist : integer = 50;
 
-  // errors from SHgetFileOperation
-  FACILITY_PreWin32 = 128;
-  FACILITY_ShellExec = 129;
-
   // Bildschirm-Auflösung bei der Programmentwicklung
   PixelsPerInchOnDesign = 96;
   { "Scaled = true" passt die Formulare automatisch an andere Textgrößen an
@@ -273,13 +269,6 @@ function ShutDownWindows (Prompt : string; Restart : boolean; RsFlags : longword
 { ---------------------------------------------------------------- }
 // Tastaturpuffer löschen
 function ClearKeyboardBuffer : Integer;
-
-{ ---------------------------------------------------------------- }
-(* erzeugen einer System-Fehlermeldung *)
-function SystemErrorMessage(ASysError : cardinal) : string;
-function NoError(ASysError : cardinal) : boolean;
-function ThisError(ASysError,ThisError : cardinal) : boolean;
-function IsSysError(ASysError : cardinal) : boolean;
 
 { ---------------------------------------------------------------- }
 // Liste der auf dem System vorhandenen Codepages erstellen
@@ -578,7 +567,7 @@ procedure ScaleButtonGlyphs (AControl : TWinControl; OldDPI,NewDPI : integer);
 var
   i : integer;
 begin
-  if MulDiv(100,NewDPI,OldDPI)<130 then Exit;
+  if MulDiv(100,NewDPI,OldDPI)<120 then Exit;
 //  if MulDiv(NewDPI,100,OldDPI)<=150 then Exit;
   with AControl do for i := 0 to ControlCount-1 do begin
     ScaleGlyph(Controls[i],OldDPI,NewDPI);
@@ -1330,44 +1319,6 @@ var
 begin
   Result := 0;
   while PeekMessage(Msg,0,WM_KEYFIRST,WM_KEYLAST,PM_REMOVE) do inc(Result);
-  end;
-
-{------------------------------------------------------------------}
-// erzeugen einer System-Fehlermeldung
-// siehe: Win-SDK - Structure of COM Error Codes
-function SystemErrorMessage(ASysError : cardinal) : string;
-begin
-  if Win32MajorVersion<6 then begin
-    case LongRec(ASysError).Hi and $7FF of
-    FACILITY_NULL,
-    FACILITY_WIN32: Result:=SysErrorMessage(ASysError and $FFFF);
-    FACILITY_WINDOWS: Result:=rsWindowsError;
-    FACILITY_STORAGE: Result:=rsStorageError;
-    FACILITY_RPC: Result:=rsRpcError;
-  //  FACILITY_ITF: Result:=rsInterfaceError;
-    FACILITY_DISPATCH: Result:=rsDispatchError;
-    FACILITY_PreWin32: Result:=rsPreWin32Error;
-    FACILITY_ShellExec: Result:=rsShellExec;
-    else Result:=rsUnknownError;
-      end;
-    Result:=Result+Format(' (0x%.8x)',[ASysError]);
-    end
-  else Result:=SysErrorMessage(ASysError)+Format(' (0x%.8x)',[ASysError]);
-  end;
-
-function NoError(ASysError : cardinal) : boolean;
-begin
-  Result:=ASysError and $FFFF =NO_ERROR;
-  end;
-
-function ThisError(ASysError,ThisError : cardinal) : boolean;
-begin
-  Result:=(ASysError and $FFFF) = ThisError;
-  end;
-
-function IsSysError(ASysError : cardinal) : boolean;
-begin
-  Result:=ASysError and $FFFF <>NO_ERROR;
   end;
 
 {------------------------------------------------------------------}

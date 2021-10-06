@@ -25,7 +25,7 @@
    Vers. 2.4 - Mar. 2010 : adjustable window sizes
    Vers. 3.0 - Apr. 2012 : Delphi XE2
    Vers. 3.1 - Nov. 2015 : Delph 10, adaption to new shell control components
-   last modified: January 2020
+   last modified: October 2021
    *)
 
 unit ShellDirDlg;
@@ -90,10 +90,10 @@ type
     procedure PopupMenuPopup(Sender: TObject);
     procedure cbxSelectedDirCloseUp(Sender: TObject);
     procedure cbxSelectedDirChange(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
     FDefaultDir,FIniName,FIniSection : string;
-    procedure NewColWidths (n1,n2,n3,n4 : integer);
     procedure ShowFiles (AShow : boolean);
     procedure AddHistory (ADir : string);
     procedure DeleteHistory (ADir : string);
@@ -141,7 +141,6 @@ begin
   WriteDebugLog('Create ShellDirDlg');
 {$EndIf}
   TranslateComponent (self,'dialogs');
-  NewColWidths(20,10,15,15);
   FIniName:='';
   FIniSection:='';
   FDefaultDir:='';
@@ -204,6 +203,11 @@ begin
     end;
   end;
 
+procedure TShellDirDialog.FormResize(Sender: TObject);
+begin
+  with ShellListView do SetColWidths([GetWidth-48,12,15,17]) // Anzahl Zeichen pro Spalte
+  end;
+
 procedure TShellDirDialog.ResetPosition;
 begin
   Top:=50; Left:=50;
@@ -247,15 +251,6 @@ begin
     if i>=0 then Delete (i);
     ItemIndex:=0;
     end;
-  end;
-
-// set column widths in number of characters
-procedure TShellDirDialog.NewColWidths (n1,n2,n3,n4 : integer);
-begin
-  ShellListView.SetColWidths([MulDiv(n1,Screen.PixelsPerInch,PixelsPerInchOnDesign),
-                        MulDiv(n2,Screen.PixelsPerInch,PixelsPerInchOnDesign),
-                        MulDiv(n3,Screen.PixelsPerInch,PixelsPerInchOnDesign),
-                        MulDiv(n4,Screen.PixelsPerInch,PixelsPerInchOnDesign)]);
   end;
 
 { ------------------------------------------------------------------- }
@@ -467,7 +462,7 @@ begin
     d:=Left+Width;
     Visible:=true;
     ShellTreeView.ShellListView:=ShellListView;
-    with cbxSelectedDir do if length(Text)>0 then ShellTreeView.Path:=Text;
+    with cbxSelectedDir do if (length(Text)>0) and DirectoryExists(Text) then ShellTreeView.Path:=Text;
     end
   else with PanelLeft do begin
     d:=Width;
@@ -504,9 +499,7 @@ begin
     s:=GetDesktopFolder(CSIDL_PERSONAL);
     r:='rfMyComputer';
 //    r:='rfPersonal';
-    if length(s)=0 then begin
-      s:=GetCurrentDir;
-      end;
+    if length(s)=0 then s:=GetCurrentDir;
     end
   else begin
     if copy(s,1,2)='\\' then begin
@@ -516,6 +509,7 @@ begin
     end;
   with ShellTreeView do begin
     Root:=r;
+    sleep(500);    // new Feb. 2021
     Path:=s;
     if assigned(Selected) then try Selected.Expand(false); except end;
     end;

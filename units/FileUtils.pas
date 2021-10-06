@@ -167,6 +167,9 @@ function UnixTimeToFileTime (ut : cardinal) : TFileTime;
 // convert Filetime to seconds
 function FileTimeToSeconds (ft : TFileTime) : cardinal;
 
+// convert Filetime to string
+function FileTimeToString (ft : TFileTime) : string;
+
 // set Filetime to 0
 function ResetFileTime : TFileTime;
 
@@ -251,7 +254,7 @@ function GetFileAttrData(const FileName : string; var FileData : TWin32FileAttri
 
 { ---------------------------------------------------------------- }
 // get file size as int64
-function GetFileSize (const FileData: TWin32FindData) : int64; overload;
+function GetFileSize (const FileData: TWin32FindData) : int64; overload; deprecated; // from Delphi 7
 function GetFileSize (const FileData: TWin32FileAttributeData) : int64; overload;
 function LongFileSize (const FileName : string) : int64;
 
@@ -369,6 +372,9 @@ function IsSubPath (const Path1,Path2 : string) : boolean;
 // Check if Path is a root path (e.g. "C:\..")
 function IsRootPath (const Path : string) : boolean;
 
+// Check if Path2 is identical to Path1 (both are full paths)
+function IsSamePath (const Path1,Path2 : string) : boolean;
+
 // Check if Path is an absolute path (starting with \ or drive)
 function ContainsFullPath (const Path : string) : boolean;
 
@@ -481,7 +487,7 @@ type
 implementation
 
 uses System.StrUtils, System.Masks, Winapi.PsAPI, WinApi.AccCtrl, WinApi.AclApi,
-  Winapi.Shlwapi, FileConsts, WinApiUtils, ExtSysUtils;
+  Winapi.Shlwapi, WinApiUtils, FileConsts, ExtSysUtils;
 
 { ---------------------------------------------------------------- }
 constructor ECopyError.Create(const Msg: string; FError : integer);
@@ -942,14 +948,16 @@ begin
   end;
 
 function GetFileInfo(const FileName : string; var FSize : int64;
-                      var FTime : TFileTime; var FAttr : cardinal;
-                      IncludeDirs : boolean = false) : boolean;
+                     var FTime : TFileTime; var FAttr : cardinal;
+                     IncludeDirs : boolean = false) : boolean;
 var
   n : cardinal;
 begin
   Result:=GetFileInfo(FileName,FSize,FTime,FAttr,n,IncludeDirs);
   end;
 
+{ ------------------------------------------------------------------- }
+// get file size, timestamps and attributes
 function GetFileData (const FileName : string; var FileData : TFileData) : boolean;
 var
   FindRec : TSearchRec;
@@ -1229,6 +1237,15 @@ begin
     end;
   end;
 
+// convert Filetime to string
+function FileTimeToString (ft : TFileTime) : string;
+var
+  dt : TDateTime;
+begin
+  if FileTimeToDateTime(ft,dt) then Result:=DateTimeToStr(dt)
+  else Result:='???';
+  end;
+
 { ------------------------------------------------------------------- }
 // get DOS time stamp of directory (similar to FileAge)
 function DirectoryAge(const DirName: string; FollowLink : Boolean = True): Integer;
@@ -1420,10 +1437,13 @@ begin
 // Change file extension (from end to last period)
 function NewExt (Name,Ext  : string) : string;
 begin
-  Name:=DelExt(Name);
-  if (length(Ext)>0) and (Ext[1]=Punkt) then delete(Ext,1,1);
-  if length(Ext)>0 then Result:=Name+Punkt+Ext
-  else Result:=Name;
+  if length(Name)>0 then begin
+    Name:=DelExt(Name);
+    if (length(Ext)>0) and (Ext[1]=Punkt) then delete(Ext,1,1);
+    if length(Ext)>0 then Result:=Name+Punkt+Ext
+    else Result:=Name;
+    end
+  else Result:='';
   end;
 
 { --------------------------------------------------------------- }
@@ -1590,7 +1610,7 @@ function GetExistingParentPath (const Path,DefPath : string) : string;
 var
   sd : string;
 begin
-  if length(Path)=0 then Result:=DefPath
+  if (length(Path)=0) or not ContainsFullPath(Path) then Result:=DefPath
   else begin
     Result:=Path; sd:=ExtractFileDrive(Path);
     if not DirectoryExists(Result) then begin
@@ -1613,8 +1633,15 @@ begin
 // Check if Path is a root path (e.g. "C:\..")
 function IsRootPath (const Path : string) : boolean;
 begin
-  Result:=AnsiSameText(IncludeTrailingPathDelimiter(ExtractFileDrive(Path)),Path);
+  Result:=AnsiSameText(ExtractFileDrive(Path),ExcludeTrailingPathDelimiter(Path));
   end;
+
+// Check if Path2 is identical to Path1 (both are full paths)
+function IsSamePath (const Path1,Path2 : string) : boolean;
+begin
+  Result:=(length(Path1)>0) and AnsiSameText(SetDirName(Path1),SetDirName(Path2));
+  end;
+
 
 // Check if Path is an absolute path (starting with \ or drive)
 function ContainsFullPath (const Path : string) : boolean;
@@ -2011,7 +2038,7 @@ begin
   end;
 
 { ---------------------------------------------------------------- }
-function GetFileSize (const FileData: TWin32FindData) : int64;
+function GetFileSize (const FileData: TWin32FindData) : int64;  // required in Delphi 7
 begin
   with TInt64(Result) do begin
     Lo:=FileData.nFileSizeLow; Hi:=FileData.nFileSizeHigh;
@@ -2043,7 +2070,7 @@ begin
   with Result do begin
     Name:=SearchRec.Name;
     Attr:=SearchRec.Attr;
-    Size:=GetFileSize(SearchRec.FindData);
+    Size:=SearchRec.Size;
     CreationTime:=FileTimeToLocalDateTime(SearchRec.FindData.ftCreationTime);
     DateTime:=SearchRec.TimeStamp;
     FileTime:=SearchRec.FindData.ftLastWriteTime;
@@ -2321,7 +2348,7 @@ begin
   FindResult:=FindFirst(ExpandToPath(sd,'*',se),faAllFiles,DirInfo);
   while FindResult=0 do with DirInfo do begin
     if NotSpecialDir(Name) then begin
-      inc(FileCount); inc(FileSize,GetFileSize(DirInfo.FindData));
+      inc(FileCount); inc(FileSize,Size);
       end;
     FindResult:=FindNext(DirInfo);
     end;
@@ -2457,7 +2484,7 @@ end;
 {$IFDEF Trace}
 var
   fDebug : TextFile;
-  DebugOn : boolean;
+  DebugOn : boolean = false;
 
 procedure OpenDebugLog (Filename : string);
 begin
