@@ -848,8 +848,6 @@ object MainForm: TMainForm
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 1
-    ExplicitTop = 236
-    ExplicitHeight = 225
   end
   object pnExtract: TPanel
     Left = 0
@@ -859,7 +857,6 @@ object MainForm: TMainForm
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 131
     DesignSize = (
       631
       105)
@@ -872,7 +869,7 @@ object MainForm: TMainForm
     end
     object Label3: TLabel
       Left = 15
-      Top = 73
+      Top = 78
       Width = 45
       Height = 13
       Caption = 'File filter:'
@@ -892,7 +889,7 @@ object MainForm: TMainForm
     end
     object bbStart: TBitBtn
       Left = 530
-      Top = 60
+      Top = 65
       Width = 86
       Height = 31
       Hint = 'Start extraction'
@@ -1008,7 +1005,7 @@ object MainForm: TMainForm
     end
     object cbFilter: TComboBox
       Left = 85
-      Top = 69
+      Top = 74
       Width = 396
       Height = 21
       Anchors = [akLeft, akTop, akRight]
@@ -1018,7 +1015,7 @@ object MainForm: TMainForm
     end
     object bbFilter: TBitBtn
       Left = 490
-      Top = 60
+      Top = 65
       Width = 31
       Height = 31
       Anchors = [akTop, akRight]
