@@ -28,7 +28,7 @@ uses
 
 const
   ProgName = 'InnoUnpack';
-  Vers = ' Version 1.7.0';
+  Vers = ' Version 1.7.1';
   CopRgt = '© 2014-2021 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -54,13 +54,13 @@ type
     cxDupl: TCheckBox;
     cxOverwrite: TCheckBox;
     cxStrip: TCheckBox;
-    bbArchivInfo: TBitBtn;
     bbCopyResult: TBitBtn;
     Label3: TLabel;
     cbFilter: TComboBox;
     bbFilter: TBitBtn;
     bbDir: TBitBtn;
     bbFile: TBitBtn;
+    cxEmbedded: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure InfoBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -76,7 +76,6 @@ type
     procedure bbStartClick(Sender: TObject);
     procedure cbFileCloseUp(Sender: TObject);
     procedure cbDirCloseUp(Sender: TObject);
-    procedure bbArchivInfoClick(Sender: TObject);
     procedure bbCopyResultClick(Sender: TObject);
     procedure bbFilterClick(Sender: TObject);
     procedure cbFilterCloseUp(Sender: TObject);
@@ -124,12 +123,14 @@ const
 //  iniPpSz = 'BufferSize';
 
 procedure TMainForm.FormCreate(Sender: TObject);
+var
+  i : integer;
 begin
   TranslateComponent(self);
   DragAcceptFiles(MainForm.Handle, true);
   InitPaths(AppPath,UserPath,ProgPath);
   IniName:=Erweiter(AppPath,PrgName,IniExt);
-  with TIniFile.Create(IniName) do begin
+  with TUnicodeIniFile.CreateForRead(IniName) do begin
     Left:=ReadInteger(CfgSekt,iniLeft,Left);
     Top:=ReadInteger(CfgSekt,iniTop,Top);
     ClientWidth:=ReadInteger(CfgSekt,iniWdt,ClientWidth);
@@ -144,7 +145,11 @@ begin
     ItemIndex:=0;
     end;
   LoadHistory(Ininame,FileSekt,iniFName,cbFile.Items,mList);
-  with cbFile do if Items.Count>0 then ItemIndex:=0;
+  with cbFile do begin
+    with Items do for i:=Count-1 downto 0 do
+      if not FileExists(Strings[i]) then Delete(i);
+    if Items.Count>0 then ItemIndex:=0;
+    end;
   LoadHistory(Ininame,DirSekt,iniFName,cbDir.Items,mList);
   with cbDir do if Items.Count>0 then ItemIndex:=0;
   pnExtract.Visible:=false;
@@ -152,7 +157,7 @@ begin
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  with TIniFile.Create(IniName) do begin
+  with TUnicodeIniFile.CreateForWrite(IniName) do begin
     WriteInteger(CfgSekt,iniLeft,Left);
     WriteInteger(CfgSekt,iniTop,Top);
     WriteInteger(CfgSekt,iniWdt,ClientWidth);
@@ -172,7 +177,8 @@ begin
   if not FileExists(UnpProg) then begin
     if not LoadUnpacker then Close;
     end;
-  if FileExists(cbFile.Text) then bbListClick(Sender);
+  if FileExists(cbFile.Text) then bbListClick(Sender)
+  else bbFileClick(Sender);
   end;
 
 procedure TMainForm.bbExitClick(Sender: TObject);
@@ -312,21 +318,23 @@ begin
   end;
 
 procedure TMainForm.bbListClick(Sender: TObject);
+var
+  s : string;
 begin
   pnExtract.Visible:=false;
-  Execute(UnpProg+' -v',cbFile.Text,'','');
+  s:=MakeQuotedStr(UnpProg)+' -v';
+  if cxEmbedded.Checked then s:=s+' -m';
+  Execute(s,cbFile.Text,'','');
   end;
 
 procedure TMainForm.bbVerifyClick(Sender: TObject);
+var
+  s : string;
 begin
   pnExtract.Visible:=false;
-  Execute(UnpProg+' -t',cbFile.Text,'','');
-  end;
-
-procedure TMainForm.bbArchivInfoClick(Sender: TObject);
-begin
-  pnExtract.Visible:=false;
-  Execute(UnpProg+' -m',cbFile.Text,'','');
+  s:=MakeQuotedStr(UnpProg)+' -t';
+  if cxEmbedded.Checked then s:=s+' -m';
+  Execute(s,cbFile.Text,'','');
   end;
 
 procedure TMainForm.bbOptionsClick(Sender: TObject);
@@ -342,19 +350,22 @@ begin
   if not ContainsFullPath(sd) then begin
     cmd:=ExtractFilePath(cbFile.Text);
     if length(cmd)=0 then cmd:=PrgPath;
-    sd:=AnsiQuotedStr(cmd,Quote)+sd;
-    end;
+    sd:=MakeQuotedStr(cmd)+sd;
+    end
+  else sd:=MakeQuotedStr(sd);
   s:=cbFilter.Text; sf:='';
   repeat
-    sf:=sf+MakeQuotedStr(ReadNxtStr(s,';'),[Space])+Space;
+    sf:=sf+MakeQuotedStr(ReadNxtStr(s,';'))+Space;
     until (length(s)=0);
   sf:=Trim(sf);
   if AnsiSameText(sf,'*.*') then sf:='';
-  cmd:=UnpProg+' -b ';
+  cmd:=MakeQuotedStr(UnpProg)+' -b ';
   if cxStrip.Checked then cmd:=cmd+'-e ' else cmd:=cmd+'-x ';
+  if cxEmbedded.Checked then cmd:=cmd+'-m ';
   if cxOverwrite.Checked then cmd:=cmd+'-y ';
   if cxDupl.Checked then cmd:=cmd+'-a ';
-  Execute(cmd+'-d'+sd,cbFile.Text+Space,sf,'*** '+_('Extracting setup file ...'));
+  Execute(cmd+'-d'+sd,cbFile.Text,sf,'*** '
+    +Format(_('Extracting setup file ...'+sLineBreak+'Destination directory: %s'),[sd]));
   end;
 
 procedure TMainForm.InfoBtnClick(Sender: TObject);
@@ -374,7 +385,7 @@ var
   hChildStdoutWr  : THandle;
   chBuf           : array [0..BUFSIZE] of AnsiChar;
   dwRead,ec,wc    : DWord;
-  s           : string;
+  s,sc        : string;
   sa          : RawByteString;
   vi          : TFileVersionInfo;
 
@@ -395,24 +406,29 @@ var
     end;
 
 begin
-  s:=Command+Space+AnsiQuotedStr(Erweiter(PrgPath,Filename,''),Quote)+Space+Filter;
-  if not FileExists(cbFile.Text) then begin
+  with mmDos,Lines do begin
+    Clear;
+    Add(_('Filename: ')+FileName);
+    Add('');
+    end;
+  if not FileExists(FileName) then begin
     s:=SysErrorMessage(ERROR_FILE_NOT_FOUND);
     mmDos.Lines.Add(_('Error: ')+s);
     ErrorDialog(s);
     Exit;
     end;
+  s:=Command+' -u '+MakeQuotedStr(Erweiter(PrgPath,Filename,''));
+  if length(Filter)>0 then s:=s+Space+Filter;
   with mmDos,Lines do begin
-    Clear;
-    if GetFileVersion (cbFile.Text,vi) then begin
+    if GetFileVersion (Filename,vi) then begin
       Add(_('Name: ')+vi.Description);
       Add(_('Version: ')+vi.Version);
       Add(_('Copyright: ')+Trim(vi.Copyright));
       Add(_('Company: ')+vi.Company);
       Add(_('Comment: ')+vi.Comments);
-      Add('');
-      if length(Comment)>0 then Add(Comment);
       end;
+    Add('');
+    if length(Comment)>0 then Add(Comment);
     end;
   Application.ProcessMessages;
   Screen.Cursor:=crHourglass;
@@ -432,6 +448,7 @@ begin
     dwFlags := STARTF_USESTDHANDLES or STARTF_USESHOWWINDOW;
     wShowWindow:=SW_HIDE;
     hStdOutput:=hChildStdoutWr;
+//    hStdError:=hChildStdoutWr;
     end;
   try
      if CreateProcess(nil,                // Anwendungsname
@@ -458,7 +475,8 @@ begin
           chBuf[dwread]:=#0;
           sa:=sa+chBuf;
           end;
-        s:=RawByteToUnicode(sa,850);
+        s:=Utf8Decode(sa);
+//        s:=RawByteToUnicode(sa,850);
         s:=ReplaceStr(s,CrLf,Lf); // Convert Unix style output
         s:=ReplaceStr(s,Lf,CrLf);
         mmDos.SetSelTextBuf(PChar(s));
