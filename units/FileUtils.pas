@@ -1491,7 +1491,7 @@ begin
   end;
 
 { --------------------------------------------------------------- }
-// Expand filename to full path and add extension (if not existst)
+// Expand filename to full path and add extension (if not exists)
 function ExpandToPath (Pfad,Name,Ext : string) : string;
 begin
   if (length(Ext)>0) and (Ext[1]=Punkt) then delete(Ext,1,1);

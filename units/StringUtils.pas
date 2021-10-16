@@ -317,7 +317,8 @@ function ReadNxtChr (var s   : String;
 function ReadNxtQuotedStr (var s : string;
                            ADelim,AQuote : char) : string;
 
-function MakeQuotedStr (const s : string; CheckChars : array of char) : string;
+function MakeQuotedStr (const s : string; CheckChars : array of char) : string; overload;
+function MakeQuotedStr (const s : string) : string; overload;
 function ExtractEnclosedString(const AString : string; EncChar : Char; var Pos : integer) : string;
 
 function ReplaceEnvString(const AString,AEnv : string) : string;
@@ -1353,6 +1354,11 @@ begin
       end;
     if ok then Result:=AnsiQuotedStr(s,Quote) else Result:=s;
     end;
+  end;
+
+function MakeQuotedStr (const s : string) : string;
+begin
+  Result:=MakeQuotedStr(s,[Space]);
   end;
 
 { ------------------------------------------------------------------- }
