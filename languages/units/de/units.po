@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Delphi-Units - Deutsche Übersetzung\n"
-"POT-Creation-Date: 2019-11-07 11:31\n"
+"POT-Creation-Date: 2021-02-06 15:55\n"
 "PO-Revision-Date: 2019-11-07 11:31+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <pb@rathlev-home.de>\n"

@@ -1,8 +1,8 @@
 #  Doesn't have any letters
 #. ShellDirDialog..PopupMenu..N1..Caption
-#: ShellDirDlg.dfm:851
+#: ShellDirDlg.dfm:2289
 #. ShellFileDialog..PopupMenu..N1..Caption
-#: ShellFileDlg.dfm:915
+#: ShellFileDlg.dfm:919
 msgid "-"
 msgstr ""
 
@@ -26,21 +26,19 @@ msgstr ""
 
 #  Doesn't have any letters
 #. AccountDialog..edtRepPwd..PasswordChar
-#: AccountDlg.dfm:212
+#: AccountDlg.dfm:219
 #. AccountDialog..edtPwd..PasswordChar
-#: AccountDlg.dfm:221
+#: AccountDlg.dfm:228
 #. FtpDialog..pnSettings..edtFtpPwd..PasswordChar
-#: FtpDlg.dfm:224
+#: FtpDlg.dfm:230
 #. LogonDialog..PwdEdit..PasswordChar
-#: LogonDlg.dfm:218
-#. MailDialog..Panel3..edPwd..PasswordChar
-#: MailDlg.dfm:443
-#. NewPwdDialog..edtRepPwd..PasswordChar
-#: NewPwdDlg.dfm:218
-#. NewPwdDialog..edtPwd..PasswordChar
-#: NewPwdDlg.dfm:227
+#: LogonDlg.dfm:219
+#. NewPwdDialog..paPwd..edtPwd..PasswordChar
+#: NewPwdDlg.dfm:46
+#. NewPwdDialog..paConfirm..edtRepPwd..PasswordChar
+#: NewPwdDlg.dfm:292
 #. PasswordDialog..pnInput..edtPwd..PasswordChar
-#: PwdDlg.dfm:123
+#: PwdDlg.dfm:111
 msgid "*"
 msgstr ""
 
@@ -267,9 +265,9 @@ msgstr ""
 
 #  Seems like a Font.Name extract
 #. ShowTextDialog..Memo..Font.Name
-#: ShowMemo.dfm:761
+#: ShowMemo.dfm:752
 #. ShowtextDialog..Memo..Font.Name
-#: ShowText.dfm:258
+#: ShowText.dfm:458
 msgid "Courier New"
 msgstr ""
 
@@ -299,7 +297,7 @@ msgstr ""
 #. InputMaskedTextDialog..Descriptor..Caption
 #: InpMaskedText.dfm:24
 #. InputMathExpDialog..Descriptor..Caption
-#: InpMath.dfm:25
+#: InpMath.dfm:28
 #. InputNumberDialog..Descriptor..Caption
 #: InpNumber.dfm:27
 #. InputNumberDialog..Descriptor2..Caption
@@ -307,7 +305,7 @@ msgstr ""
 #. InputTextDialog..Descriptor..Caption
 #: InpText.dfm:27
 #. MemoDialog..paTop..Descriptor..Caption
-#: MemoDlg.dfm:133
+#: MemoDlg.dfm:137
 #. InputNumber..Descriptor1..Caption
 #: NumDlg.dfm:32
 #. InputNumber..Descriptor2..Caption
@@ -349,17 +347,17 @@ msgstr ""
 #. InputMaskedTextDialog..Caption
 #: InpMaskedText.dfm:5
 #. InputMathExpDialog..Caption
-#: InpMath.dfm:6
+#: InpMath.dfm:5
 #. ListenDialog..Caption
 #: Listdlg.dfm:6
 #. MemoDialog..Caption
 #: MemoDlg.dfm:5
 #. NewPwdDialog..Caption
-#: NewPwdDlg.dfm:6
+#: NewPwdDlg.dfm:5
 #. InputNumber..Caption
 #: NumDlg.dfm:5
 #. PasswordDialog..Caption
-#: PwdDlg.dfm:4
+#: PwdDlg.dfm:5
 #. SelectDialog..Caption
 #: SelectDlg.dfm:5
 #. ShellFileDialog..Caption
@@ -521,18 +519,18 @@ msgstr ""
 
 #  Seems like a propertie Value
 #. ShellFileDialog..pnlTop..ShellComboBox..Root
-#: ShellFileDlg.dfm:679
+#: ShellFileDlg.dfm:683
 #. ShellFileDialog..ShellListView..Root
-#: ShellFileDlg.dfm:888
+#: ShellFileDlg.dfm:892
 #. ShowFilesDialog..lvFiles..Root
-#: ShowFilesDlg.dfm:151
+#: ShowFilesDlg.dfm:154
 msgid "rfDesktop"
 msgstr ""
 
 #. ShellDirDialog..PanelLeft..ShellTreeView..Root
-#: ShellDirDlg.dfm:46
+#: ShellDirDlg.dfm:48
 #. ShellDirDialog..PanelRight..ShellListView..Root
-#: ShellDirDlg.dfm:828
+#: ShellDirDlg.dfm:2265
 msgid "rfMyComputer"
 msgstr ""
 
@@ -570,23 +568,33 @@ msgstr ""
 #. AccountDialog..Font.Name
 #: AccountDlg.dfm:13
 #. AccountDialog..Label1..Font.Name
-#: AccountDlg.dfm:30
+#: AccountDlg.dfm:33
 #. AccountDialog..Label2..Font.Name
-#: AccountDlg.dfm:69
+#: AccountDlg.dfm:46
 #. AppListDialog..Font.Name
 #: AppListDlg.dfm:11
 #. CharTableDialog..Font.Name
-#: CharTableDlg.dfm:12
+#: CharTableDlg.dfm:11
 #. CharTableDialog..CharGrid..Font.Name
-#: CharTableDlg.dfm:165
+#: CharTableDlg.dfm:170
+#. ColumnDialog..Font.Name
+#: ColumnDlg.dfm:14
 #. ConfirmCheckDialog..Font.Name
 #: ConfirmCheckDlg.dfm:12
 #. ConfirmReplDialog..Font.Name
 #: ConfirmReplDlg.dfm:12
+#. CsvImportDialog..Font.Name
+#: CsvDialog.dfm:12
 #. CsvImportDialog..CancelBtn..Font.Name
-#: CsvDialog.dfm:120
+#: CsvDialog.dfm:124
+#. DateFormatDialog..Font.Name
+#: DateFormatDlg.dfm:12
+#. DetailInfoDialog..Font.Name
+#: DetailInfoDlg.dfm:12
 #. WortListDialog..Font.Name
 #: DListDlg.dfm:13
+#. Download..Font.Name
+#: DownloadProgress.dfm:12
 #. DStringListDialog..Font.Name
 #: DStringListDlg.dfm:12
 #. EditHistListDialog..Font.Name
@@ -601,6 +609,8 @@ msgstr ""
 #: ExportDlg.dfm:13
 #. FileFilterDialog..Font.Name
 #: FileFilterDlg.dfm:13
+#. FileListDialog..Font.Name
+#: FileListDlg.dfm:12
 #. FilterDialog..Font.Name
 #: FilterDlg.dfm:11
 #. FindReplDialog..Font.Name
@@ -609,10 +619,14 @@ msgstr ""
 #: FtpDirDlg.dfm:12
 #. FtpDialog..Font.Name
 #: FtpDlg.dfm:12
+#. FtpProxyDialog..Font.Name
+#: FtpProxyDlg.dfm:12
 #. GTCDialog..Font.Name
 #: GTCDlg.dfm:11
 #. HelpWindow..Font.Name
 #: HelpWin.dfm:11
+#. HttpProxyDialog..Font.Name
+#: HttpProxyDlg.dfm:12
 #. InputDFloatDialog..Font.Name
 #: InpDFloat.dfm:12
 #. DInputNumberDialog..Font.Name
@@ -622,13 +636,15 @@ msgstr ""
 #. InputMaskedTextDialog..Font.Name
 #: InpMaskedText.dfm:12
 #. InputMathExpDialog..Font.Name
-#: InpMath.dfm:13
+#: InpMath.dfm:12
 #. InputNumberDialog..Font.Name
 #: InpNumber.dfm:12
 #. InputTextDialog..Font.Name
 #: InpText.dfm:12
 #. KalenderDlg..Font.Name
 #: Kalender.dfm:13
+#. LanguageDialog..Font.Name
+#: LanguageDlg.dfm:12
 #. ListenDialog..Font.Name
 #: Listdlg.dfm:13
 #. ListSelectDialog..Font.Name
@@ -636,21 +652,25 @@ msgstr ""
 #. LogonDialog..Font.Name
 #: LogonDlg.dfm:12
 #. LogonDialog..Label1..Font.Name
-#: LogonDlg.dfm:54
+#: LogonDlg.dfm:55
 #. LogonDialog..Label2..Font.Name
-#: LogonDlg.dfm:67
+#: LogonDlg.dfm:68
 #. InputLptPortDialog..Font.Name
 #: LptSelect.dfm:12
+#. MemoDialog..Font.Name
+#: MemoDlg.dfm:12
 #. MoveListDialog..Font.Name
 #: MoveListDlg.dfm:13
 #. NewPwdDialog..Font.Name
-#: NewPwdDlg.dfm:13
-#. NewPwdDialog..Label1..Font.Name
-#: NewPwdDlg.dfm:33
-#. NewPwdDialog..Label2..Font.Name
-#: NewPwdDlg.dfm:73
+#: NewPwdDlg.dfm:12
+#. NewPwdDialog..paPwd..Label1..Font.Name
+#: NewPwdDlg.dfm:37
+#. NewPwdDialog..paConfirm..laRepeat..Font.Name
+#: NewPwdDlg.dfm:283
 #. InputNumber..Font.Name
 #: NumDlg.dfm:12
+#. OpenFilesDialog..Font.Name
+#: OpenFilesDlg.dfm:12
 #. PrintPageDialog..Font.Name
 #: PrintPageDlg.dfm:13
 #. ProgressWindow..Font.Name
@@ -658,33 +678,45 @@ msgstr ""
 #. ProgressWindow..ActionLabel..Font.Name
 #: ProgWind.dfm:37
 #. PasswordDialog..Font.Name
-#: PwdDlg.dfm:11
+#: PwdDlg.dfm:12
 #. PasswordDialog..pnTop..lblPrompt..Font.Name
-#: PwdDlg.dfm:67
+#: PwdDlg.dfm:73
 #. PasswordDialog..pnInput..Label1..Font.Name
-#: PwdDlg.dfm:92
+#: PwdDlg.dfm:101
 #. RandDialog..Font.Name
 #: RandDlg.dfm:13
 #. SearchPathDialog..Font.Name
 #: SearchPathDlg.dfm:11
 #. SearchPathDialog..Liste..Font.Name
-#: SearchPathDlg.dfm:219
+#: SearchPathDlg.dfm:258
 #. SelectColorDialog..Font.Name
 #: SelectColorDlg.dfm:12
+#. SelectDateDialog..Font.Name
+#: SelectDateDlg.dfm:11
+#. SelectDialog..Font.Name
+#: SelectDlg.dfm:12
+#. SelectDialog..lbCaption..Font.Name
+#: SelectDlg.dfm:28
 #. SelectFilesDialog..Font.Name
 #: SelectFilesDlg.dfm:11
+#. SelectFontDialog..Font.Name
+#: SelectFontDlg.dfm:12
 #. SelectFontDialog..edPreview..Font.Name
-#: SelectFontDlg.dfm:201
+#: SelectFontDlg.dfm:205
 #. SelectFromListDialog..Font.Name
 #: SelectFromListDlg.dfm:11
+#. SelectListItemsDialog..Font.Name
+#: SelectListItems.dfm:11
 #. ShellDirDialog..Font.Name
 #: ShellDirDlg.dfm:12
+#. ShellFileDialog..Font.Name
+#: ShellFileDlg.dfm:11
 #. ShellFileDialog..pnlBottom..Label1..Font.Name
-#: ShellFileDlg.dfm:712
+#: ShellFileDlg.dfm:716
 #. frmShow..Font.Name
 #: Show.dfm:12
 #. frmShow..panButtons..Font.Name
-#: Show.dfm:45
+#: Show.dfm:46
 #. ShowFilesDialog..Font.Name
 #: ShowFilesDlg.dfm:11
 #. ShowImageDialog..Font.Name
@@ -692,7 +724,7 @@ msgstr ""
 #. ShowTextDialog..Font.Name
 #: ShowMemo.dfm:12
 #. ShowTextDialog..FontDialog..Font.Name
-#: ShowMemo.dfm:791
+#: ShowMemo.dfm:782
 #. ShowtextDialog..Font.Name
 #: ShowText.dfm:10
 #. SizeDialog..Font.Name
@@ -738,6 +770,8 @@ msgstr ""
 #. WebBrowserWin..Font.Name
 #: WebBrowser.dfm:10
 #. Download..Font.Name
+#: WebDownloadDlg.dfm:12
+#. Download..Font.Name
 #: WebUpdateDlg.dfm:12
 msgid "Tahoma"
 msgstr ""
@@ -776,9 +810,9 @@ msgid "Wort 2:"
 msgstr ""
 
 #. SelectDateDialog..paTop..pcMode..tsFixed..Caption
-#: SelectDateDlg.dfm:197
+#: SelectDateDlg.dfm:201
 #. SelectDateDialog..paTop..pcMode..tsRelative..Caption
-#: SelectDateDlg.dfm:221
+#: SelectDateDlg.dfm:225
 msgid "x"
 msgstr ""
 
