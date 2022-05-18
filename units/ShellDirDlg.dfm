@@ -17,6 +17,7 @@ object ShellDirDialog: TShellDirDialog
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
+  OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -26,6 +27,7 @@ object ShellDirDialog: TShellDirDialog
     Height = 406
     Align = alRight
     MinSize = 1
+    OnMoved = FormResize
     ExplicitLeft = 380
     ExplicitTop = 340
     ExplicitHeight = 100
@@ -38,9 +40,9 @@ object ShellDirDialog: TShellDirDialog
     Align = alClient
     TabOrder = 0
     object ShellTreeView: TShellTreeView
-      Left = 107
+      Left = 97
       Top = 1
-      Width = 300
+      Width = 310
       Height = 313
       ObjectTypes = [otFolders]
       Root = 'rfMyComputer'
@@ -62,7 +64,7 @@ object ShellDirDialog: TShellDirDialog
     object panRoot: TPanel
       Left = 1
       Top = 1
-      Width = 106
+      Width = 96
       Height = 313
       Align = alLeft
       BevelInner = bvLowered
@@ -72,15 +74,16 @@ object ShellDirDialog: TShellDirDialog
       ParentCtl3D = False
       TabOrder = 1
       DesignSize = (
-        106
+        96
         313)
       object spbNetwork: TSpeedButton
         Tag = 103
         Left = 2
         Top = 227
-        Width = 104
+        Width = 94
         Height = 71
         Anchors = [akLeft, akTop, akRight]
+        GroupIndex = 1
         Caption = 'Network'
         Flat = True
         Glyph.Data = {
@@ -522,14 +525,17 @@ object ShellDirDialog: TShellDirDialog
         NumGlyphs = 2
         Spacing = 0
         OnClick = spbNetworkClick
+        ExplicitWidth = 104
       end
       object spbComputer: TSpeedButton
         Tag = 102
         Left = 2
         Top = 152
-        Width = 104
+        Width = 94
         Height = 71
         Anchors = [akLeft, akTop, akRight]
+        GroupIndex = 1
+        Down = True
         Caption = 'Computer'
         Flat = True
         Glyph.Data = {
@@ -971,14 +977,16 @@ object ShellDirDialog: TShellDirDialog
         NumGlyphs = 2
         Spacing = 0
         OnClick = spbComputerClick
+        ExplicitWidth = 104
       end
       object spbDesktop: TSpeedButton
         Tag = 100
         Left = 2
         Top = 2
-        Width = 104
+        Width = 94
         Height = 71
         Anchors = [akLeft, akTop, akRight]
+        GroupIndex = 1
         Caption = 'Desktop'
         Flat = True
         Glyph.Data = {
@@ -1420,14 +1428,16 @@ object ShellDirDialog: TShellDirDialog
         NumGlyphs = 2
         Spacing = 0
         OnClick = spbDesktopClick
+        ExplicitWidth = 104
       end
       object spbMyFiles: TSpeedButton
         Tag = 101
         Left = 2
         Top = 77
-        Width = 104
+        Width = 94
         Height = 71
         Anchors = [akLeft, akTop, akRight]
+        GroupIndex = 1
         Caption = 'My Documents'
         Flat = True
         Glyph.Data = {
@@ -1869,6 +1879,7 @@ object ShellDirDialog: TShellDirDialog
         NumGlyphs = 2
         Spacing = 0
         OnClick = spbMyFilesClick
+        ExplicitWidth = 104
       end
     end
     object Panel1: TPanel
@@ -2088,7 +2099,7 @@ object ShellDirDialog: TShellDirDialog
         ExplicitLeft = 375
       end
       object cbxFiles: TCheckBox
-        Left = 93
+        Left = 95
         Top = 4
         Width = 225
         Height = 17
@@ -2099,9 +2110,9 @@ object ShellDirDialog: TShellDirDialog
       end
       object btbCancel: TBitBtn
         Left = 297
-        Top = 60
+        Top = 55
         Width = 101
-        Height = 26
+        Height = 31
         Anchors = [akTop, akRight]
         Cancel = True
         Caption = 'Cancel'
@@ -2162,9 +2173,9 @@ object ShellDirDialog: TShellDirDialog
       end
       object btbOK: TBitBtn
         Left = 222
-        Top = 60
+        Top = 55
         Width = 71
-        Height = 26
+        Height = 31
         Anchors = [akTop, akRight]
         Caption = 'OK'
         Default = True

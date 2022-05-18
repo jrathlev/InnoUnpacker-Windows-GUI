@@ -13,7 +13,7 @@
   the specific language governing rights and limitations under the License.
 
   Version 2.0 - Nov. 2011
-          last changed: Jan. 2020
+          last changed: Dec. 2021
 
   Hinweise zur Verwendung:
   ========================
@@ -31,7 +31,7 @@
       InitTranslation('CfgDir','CfgName',['Delphi10','Indy10','more domains..']);
       ...
     dabei sind:  CfgDir  - Unterverzeichnis für die Konfigurations-Dateien (ini,cfg)
-                           in "Anwendungsdaten  oder abdolutes Verzeichnis
+                           in "Anwendungsdaten  oder absolutes Verzeichnis
                  CfgName - Name der Cfg-Datei zum Speichern der Spracheinstellung
                            (leer: Name der Anwendung)
   2. im Haupt-Formular:
@@ -152,8 +152,9 @@ var
 implementation
 
 uses
-  Winapi.Windows, Vcl.Forms, Winapi.ShlObj, System.IniFiles, GnuGetText, IniFileUtils,
-  UnitConsts, StringUtils, WinShell, InitProg, Placeholders;
+  Winapi.Windows, Vcl.Forms, Winapi.ShlObj, System.IniFiles, System.StrUtils,
+  System.IOUtils, GnuGetText, IniFileUtils, UnitConsts, StringUtils, WinShell,
+  InitProg, Placeholders;
 
 { ------------------------------------------------------------------- }
 (* Name enthält vollständigen Pfad *)
@@ -381,26 +382,39 @@ function ReadLanguageCode : TLangCodeString;
 var
   s,si  : string;
   j     : integer;
-  ok    : boolean;
+  ok,po : boolean;
 begin
-  ok:=false; si:=''; Result:='';
+  ok:=false; po:=false; si:=''; Result:='';
   for j:=1 to ParamCount do if not ok then begin   // prüfe Befehlszeile
     s:=ParamStr(j);
     if (s[1]='/') or (s[1]='-') then begin
       delete (s,1,1);
       if ReadOptionValue(s,siLangOption) then Result:=s  // Sprache
       else if ReadOptionValue(s,siAltIni) then si:=ReplacePathPlaceHolder(s)  // anderer Ort für Ini-Datei
-      else if CompareOption(s,siPortable) then si:=ExtractFilePath(Application.ExeName) // portable environment
+      else if CompareOption(s,siPortable) then begin
+        po:=true;
+        if length(si)=0 then si:=ExtractFilePath(Application.ExeName) // portable environment
+        end;
       end;
     end;
   if length(si)>0 then begin
-    if ContainsFullPath(si) then begin
-  //    si:=ExpandFileName(si);
-      if (ExtractFileExt(si)<>'') then si:=ExtractFilePath(si);
+    if AnsiEndsText(PathDelim,si) then CfgName:=si+ExtractFilename(CfgName) // is path
+    else begin
+      s:=ExtractFilename(si);
+      if po then s:=ChangeFileExt(s,'.'+CfgExt)
+      else s:=ExtractFileName(CfgName);
+      if ContainsFullPath(si) then si:=ExtractFilePath(si)
+      else if po then begin
+        if Pos(PathDelim,si)>0 then
+          si:=IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName))+si
+        else si:=ExtractFilePath(Application.ExeName);
+        end
+      else begin
+        if Pos(PathDelim,si)>0 then si:=ExtractFilePath(ExpandFileName(si))
+        else si:=ExtractFilePath(CfgName);
+        end;
+      CfgName:=IncludeTrailingPathDelimiter(si)+s;
       end
-    else if Pos(PathDelim,si)>0 then si:=ExtractFilePath(ExpandFileName(si))
-    else si:='';  // nur alternative Ini-Datei ohne Pfad
-    if length(si)>0 then CfgName:=IncludeTrailingPathDelimiter(si)+ExtractFilename(CfgName);
     end;
   LangFromCfg:=length(Result)=0;
   if LangFromCfg then begin    //aus Konfigurations-Datei

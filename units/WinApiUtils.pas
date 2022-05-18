@@ -187,7 +187,17 @@ const
   EOAC_DISABLE_AAA             = $1000;
   EOAC_NO_CUSTOM_MARSHAL       = $2000;
 
-  NameSamCompatible            = 2;    // from secur32.dll
+  // from secur32.dll
+  NameUnknown            = 0;
+  NameFullyQualifiedDN   = 1;
+  NameSamCompatible      = 2;
+  NameDisplay            = 3;
+  NameUniqueId           = 6;
+  NameCanonical          = 7;
+  NameUserPrincipal      = 8;
+  NameCanonicalEx        = 9;
+  NameServicePrincipal   = 10;
+  NameDnsDomain          = 12;
 
 type
   TLuidArray = array of TLuid;
@@ -498,6 +508,9 @@ function IsExeRunning(const AExeName: string; FullPath : boolean = false): boole
 // Liste aller laufenden und sichtbaren Programme
 function GetProgramList(const List: TStrings): Boolean;
 
+// Handle von dem in der Z-Reihenfolge obersten sichtbaren Programm
+function GetTopProgram : HWND;
+
 // Handle von dem in der Z-Reihenfolge vorangehenden sichtbaren Programm
 function GetPreviousProgram : HWND;
 
@@ -777,15 +790,14 @@ begin
   Strdispose(p);
   end;
 
-function UserFullName : string;
+function GetExtendedUserName(NameFormat : DWORD; var UserName : string) : boolean;
 var
   p : pchar;
   size : dword;
   Secur32Handle : THandle;
   GetUserNameEx : TGetUserNameEx;
-  ok : boolean;
 begin
-  ok:=false;
+  Result:=false;
   Secur32Handle:=FpuSaveLoadLibrary(secur32);
   try
     if Secur32Handle<>0 then begin
@@ -793,9 +805,9 @@ begin
       if assigned(GetUserNameEx) then begin
         size:=1024;
         p:=StrAlloc(size);
-        if GetUserNameEx (NameSamCompatible,p,size) then begin
-          Result:=p;
-          ok:=true;
+        if GetUserNameEx (NameFormat,p,size) then begin
+          UserName:=p;
+          Result:=true;
           end;
         StrDispose(p);
         end;
@@ -803,7 +815,11 @@ begin
   finally
     FreeLibrary(Secur32Handle);
     end;
-  if not ok then Result:=UserName
+  end;
+
+function UserFullName : string;
+begin
+  if not GetExtendedUserName(NameSamCompatible,Result) then Result:=UserName;
   end;
 
 function ComputerName : string;
@@ -1277,7 +1293,18 @@ begin
   end;
 end;
 
-// get handle to previous visible process (like Ctrl + Alt)
+// get handle to top visible process
+function GetTopProgram : HWND;
+var
+  sl : TStringList;
+begin
+  sl:=TStringList.Create;
+  Result:=0;
+  if GetProgramList(sl) then with sl do if Count>1 then Result:=HWND(Objects[0]);
+  sl.Free;
+  end;
+
+  // get handle to previous visible process (like Ctrl + Alt)
 function GetPreviousProgram : HWND;
 var
   sl : TStringList;

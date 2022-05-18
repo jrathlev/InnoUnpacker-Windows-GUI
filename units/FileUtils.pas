@@ -119,11 +119,27 @@ type
 
   TReparseType = (rtNone,rtJunction,rtSymbolic);
 
+// similar to TFileStream but different error handling
+  TExtFileStream = class(THandleStream)
+  strict private
+    FFileName: string;
+  public
+    constructor Create(const AFileName: string; Mode: Word); overload;
+    constructor Create(const AFileName: string; Mode: Word; Rights: Cardinal); overload;
+    destructor Destroy; override;
+    function Read(var Buffer; Count: Longint; var ReadCount : Longint): integer; overload;
+    function Write(const Buffer; Count: Longint; var WriteCount : Longint): integer; overload;
+    property FileName: string read FFileName;
+  end;
+
 { ---------------------------------------------------------------- }
-  ECopyError = class(EInOutError)
+  EExtFileStreamError = class(EInOutError)
   public
     constructor Create(const Msg: string; FError : integer);
+    constructor CreateResFmt(ResStringRec : PResStringRec; const Args: array of const; FError : integer);
     end;
+
+   ECopyError = class(EExtFileStreamError);
 
 { ---------------------------------------------------------------- }
 // Write opt. Debug Log
@@ -487,12 +503,70 @@ type
 implementation
 
 uses System.StrUtils, System.Masks, Winapi.PsAPI, WinApi.AccCtrl, WinApi.AclApi,
-  Winapi.Shlwapi, WinApiUtils, FileConsts, ExtSysUtils;
+  Winapi.Shlwapi, System.RTLConsts, WinApiUtils, FileConsts, ExtSysUtils;
 
 { ---------------------------------------------------------------- }
-constructor ECopyError.Create(const Msg: string; FError : integer);
+{ TExtFileStream }
+
+constructor TExtFileStream.Create(const AFileName: string; Mode: Word);
+begin
+  Create(AFilename, Mode, 0);
+end;
+
+constructor TExtFileStream.Create(const AFileName: string; Mode: Word; Rights: Cardinal);
+var
+  LShareMode : Word;
+  err        : dword;
+begin
+  if (Mode and fmCreate = fmCreate) then
+  begin
+    LShareMode := Mode and $FF;
+    if LShareMode = $FF then
+      LShareMode := fmShareExclusive; // For compat in case $FFFF passed as Mode
+    inherited Create(FileCreate(AFileName, LShareMode, Rights));
+    if FHandle = INVALID_HANDLE_VALUE then begin
+      err:=GetLastError;
+      raise EExtFileStreamError.CreateResFmt(@SFCreateErrorEx,[ExpandFileName(AFileName),SysErrorMessage(err)],err);
+      end;
+    end
+  else begin
+    inherited Create(FileOpen(AFileName, Mode));
+    if FHandle = INVALID_HANDLE_VALUE then begin
+      err:=GetLastError;
+      raise EExtFileStreamError.CreateResFmt(@SFOpenErrorEx, [ExpandFileName(AFileName), SysErrorMessage(err)],err);
+      end;
+    end;
+  FFileName := AFileName;
+  end;
+
+destructor TExtFileStream.Destroy;
+begin
+  if FHandle <> INVALID_HANDLE_VALUE then FileClose(FHandle);
+  inherited Destroy;
+end;
+
+function TExtFileStream.Read(var Buffer; Count: Longint; var ReadCount : Longint) : integer;
+begin
+  ReadCount:=FileRead(FHandle, Buffer, Count);
+  if ReadCount<0 then Result:=GetLastError else Result:=ERROR_SUCCESS;
+  end;
+
+function TExtFileStream.Write(const Buffer; Count: Longint; var WriteCount : Longint): integer;
+begin
+  WriteCount:=FileWrite(FHandle, Buffer, Count);
+  if WriteCount<0 then Result:=GetLastError else Result:=ERROR_SUCCESS;
+  end;
+
+{ ---------------------------------------------------------------- }
+constructor EExtFileStreamError.Create(const Msg: string; FError : integer);
 begin
   inherited Create (Msg);
+  ErrorCode:=FError;
+  end;
+
+constructor EExtFileStreamError.CreateResFmt(ResStringRec : PResStringRec; const Args: array of const; FError : integer);
+begin
+  inherited Create (Format(LoadResString(ResStringRec), Args));
   ErrorCode:=FError;
   end;
 
@@ -521,11 +595,14 @@ begin
       if uid<>UcBom then begin  // in Unicode konvertieren
         fs.Position:=0;
         sl:=TStringList.Create;
-        sl.LoadFromStream(fs);
-        sl.Insert(0,UcSection);
-        fs.Size:=0;
-        sl.SaveToStream(fs,TEncoding.Unicode);
-        sl.Free;
+        try
+          sl.LoadFromStream(fs);
+          sl.Insert(0,UcSection);
+          fs.Size:=0;    // siehe THandleStream.SetSize
+          sl.SaveToStream(fs,TEncoding.Unicode);
+        finally
+          sl.Free;
+          end;
         end
     finally
       fs.Free;
@@ -1642,7 +1719,6 @@ begin
   Result:=(length(Path1)>0) and AnsiSameText(SetDirName(Path1),SetDirName(Path2));
   end;
 
-
 // Check if Path is an absolute path (starting with \ or drive)
 function ContainsFullPath (const Path : string) : boolean;
 begin
@@ -1780,46 +1856,41 @@ begin
 function CopyFileData(const SrcFilename,DestFilename : string;
          BlockSize : integer = defBlockSize): cardinal;
 var
-  srcfile,destfile : TFileStream;
+  srcfile,destfile : TExtFileStream;
   FBuffer          : array of byte;
   NRead,NWrite     : Integer;
 begin
-  Result:=S_OK;
+  Result:=ERROR_SUCCESS;
   if AnsiSameText(SrcFilename,DestFilename) then Exit;
   try
-    srcfile:=TFileStream.Create(SrcFilename,fmOpenRead+fmShareDenyNone);
+    srcfile:=TExtFileStream.Create(SrcFilename,fmOpenRead+fmShareDenyNone);
   except
-    on EFOpenError do Result:=GetLastError;
+    on E:EExtFileStreamError do Result:=E.ErrorCode;
     end;
-  if Result=S_OK then begin
+  if Result=ERROR_SUCCESS then begin
     try
-      destfile:=TFileStream.Create(DestFilename,fmCreate);
+      destfile:=TExtFileStream.Create(DestFilename,fmCreate);
     except
-      on EFCreateError do begin
+      on E:EExtFileStreamError do begin
         try srcfile.Free; except end;
-        Result:=GetLastError;
+        Result:=E.ErrorCode;
         end;
       end;
     end;
-  if Result=S_OK then begin
+  if Result=ERROR_SUCCESS then begin
     SetLength(FBuffer,BlockSize);
-    repeat
-      try
-        NRead:=srcfile.Read(FBuffer[0],BlockSize);
-      except
-        on EReadError do Result:=GetLastError;
-        end;
-      if Result=S_OK then begin
-        try
-          NWrite:=destfile.Write(FBuffer[0],NRead);
-          if NWrite<NRead then Result:=ERROR_DISK_FULL; // Ziel-Medium voll
-        except
-          on EWriteError do Result:=GetLastError;
+    try
+      repeat
+        Result:=srcfile.Read(FBuffer[0],BlockSize,NRead);
+        if Result=ERROR_SUCCESS then begin
+          Result:=destfile.Write(FBuffer[0],NRead,NWrite);
+          if (Result=ERROR_SUCCESS) and (NWrite<NRead) then Result:=ERROR_DISK_FULL; // Ziel-Medium voll
           end;
-        end;
-      until (NRead<BlockSize) or (Result<>S_OK);
-    try srcfile.Free; destfile.Free; except end;
-    FBuffer:=nil;
+        until (NRead<BlockSize) or (Result<>ERROR_SUCCESS);
+    finally
+      try srcfile.Free; destfile.Free; except end;
+      FBuffer:=nil;
+      end;
     end;
   end;
 
@@ -1830,10 +1901,10 @@ begin
 procedure CopyFileTS (const SrcFilename,DestFilename : string;
                       AAttr : integer = -1; BlockSize : integer = defBlockSize);
 var
-  srcfile, destfile : TFileStream;
+  srcfile, destfile : TExtFileStream;
   FTime             : TFileTime;
   Buffer            : pointer;
-  NRead,NWrite      : Integer;
+  NRead,NWrite,ec   : Integer;
   Attr              : word;
 begin
   if AnsiSameText(srcfilename,destfilename) then Exit;
@@ -1843,65 +1914,50 @@ begin
       FTime:=GetFileLastWriteTime(srcfilename);
       if AAttr<0 then Attr:=FileGetAttr(srcfilename) else Attr:=AAttr;
       try
-        srcfile:=TFileStream.Create(srcfilename,fmOpenRead+fmShareDenyNone);
+        srcfile:=TExtFileStream.Create(srcfilename,fmOpenRead+fmShareDenyNone);
       except
-        on EFOpenError do
-          raise ECopyError.Create (TryFormat(rsErrOpening,[srcfilename]),GetLastError);
+        on E:EExtFileStreamError do
+          raise ECopyError.Create (TryFormat(rsErrOpening,[srcfilename]),E.ErrorCode);
         end;
       // Ziel immer überschreiben
       if FileExists(destfilename) then begin
-        if FileSetAttr(destfilename,faArchive)<>0 then begin
+        ec:=FileSetAttr(destfilename,faArchive);
+        if ec<>ERROR_SUCCESS then begin
           try srcfile.Free; except end;
-          raise ECopyError.Create (TryFormat(rsErrCreating,[destfilename]),GetLastError);
+          raise ECopyError.Create (TryFormat(rsErrCreating,[destfilename]),ec);
           end;
         end;
       try
-        destfile:=TFileStream.Create(destfilename,fmCreate);
+        destfile:=TExtFileStream.Create(destfilename,fmCreate);
       except
-        on EFCreateError do begin
+        on E:EExtFileStreamError do begin
           try srcfile.Free; except end;
-          raise ECopyError.Create (TryFormat(rsErrCreating,[destfilename]),GetLastError);
+          raise ECopyError.Create (TryFormat(rsErrCreating,[destfilename]),E.ErrorCode);
           end;
         end;
-      repeat
-        try
-          NRead:=srcfile.Read(Buffer^,BlockSize);
-        except
-          on EReadError do
-            raise ECopyError.Create (TryFormat(rsErrReading,[srcfilename]),GetLastError);
-          end;
-        try
-          NWrite:=destfile.Write(Buffer^,NRead);
+      try
+        repeat
+          ec:=srcfile.Read(Buffer^,BlockSize,NRead);
+          if ec<>ERROR_SUCCESS then
+            raise ECopyError.Create (TryFormat(rsErrReading,[srcfilename]),ec);
+          ec:=destfile.Write(Buffer^,NRead,NWrite);
+          if ec<>ERROR_SUCCESS then
+            raise ECopyError.Create (TryFormat(rsErrWriting,[destfilename]),ec);
           if NWrite<NRead then  // Ziel-Medium voll
-            raise ECopyError.Create (TryFormat(rsErrWriting,[destfilename]),GetLastError);
-        except
-          on EWriteError do
-            raise ECopyError.Create (TryFormat(rsErrWriting,[destfilename]),GetLastError);
-          end;
-        until NRead<BlockSize;
-      if  destfile.Size<>srcfile.Size then begin
-      // z.B. wenn "srcfile" gelockt ist (siehe LockFile)
-        srcfile.Free; destfile.Free;
-        raise ECopyError.Create (TryFormat(rsErrReading,[srcfilename]),GetLastError);
+            raise ECopyError.Create (TryFormat(rsErrWriting,[destfilename]),ERROR_DISK_FULL);
+          until NRead<BlockSize;
+      finally
+        try srcfile.Free; except; end;
+        try destfile.Free; except; end;
         end;
-      try
-        srcfile.Free;
-      except
-        on EFileStreamError do
-          raise ECopyError.Create (TryFormat(rsErrClosing,[srcfilename]),GetLastError);
-        end;
-      try
-        destfile.Free;
-      except
-        on EFileStreamError do
-          raise ECopyError.Create (TryFormat(rsErrClosing,[destfilename]),GetLastError);
-        end;
-      if SetFileLastWriteTime(destfilename,FTime,true)=0 then begin
-        if FileSetAttr(destfilename,Attr)>0 then
-          raise ECopyError.Create (TryFormat(rsErrSetAttr,[destfilename]),GetLastError);
+      ec:=SetFileLastWriteTime(destfilename,FTime,true);
+      if ec=ERROR_SUCCESS then begin
+        ec:=FileSetAttr(destfilename,Attr);
+        if ec<>ERROR_SUCCESS then
+          raise ECopyError.Create (TryFormat(rsErrSetAttr,[destfilename]),ec);
         end
       else
-        raise ECopyError.Create (TryFormat(rsErrTimeStamp,[destfilename]),GetLastError);
+        raise ECopyError.Create (TryFormat(rsErrTimeStamp,[destfilename]),ec);
     finally
       FreeMem(Buffer,BlockSize);
       end;
@@ -1963,7 +2019,6 @@ var
   fsd : TWin32FindStream;
   sn  : string;
   n   : integer;
-
 begin
   Result:=FileFindFirstStream(SrcFilename,fsd); // default data stream
   if Result=S_OK then begin
@@ -2127,12 +2182,9 @@ begin
   Result:=false; LinkPath:=''; RpType:=rtNone;
   if Attr=-1 then Exit;
   if (Attr and FILE_ATTRIBUTE_REPARSE_POINT <>0) then begin  //directory entry is a reparse point
-    Result:=true;
     RpType:=GetReparsePointType(ExcludeTrailingPathDelimiter(Path));
     LinkPath:=GetLinkPath(ExcludeTrailingPathDelimiter(Path));
-//    if (length(LinkPath)>0) then begin
-//      if AnsiStartsText(LinkPath,Path) then LinkPath:='';  // avoid recursions
-//      end;
+    Result:=RpType<>rtNone;
     end;
   end;
 

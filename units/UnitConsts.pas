@@ -72,11 +72,12 @@ resourcestring
 // Strings from SystemInfo
   rsVersionLongStr = '%s%s (Version %d.%d, Build %d, %6:s)';
   rsSPVersionLongStr = '%s%s - Service Pack %5:d (Version %2:d.%3:d, Build %4:d, %6:s)';
-  rsVersion10LongStr = '%s%s (Version %d, Build %d, %s)';
+  rsVersion10LongStr = '%s%s (Version %s, Build %d, %s)';
   rsVersionShortStr = '%s (%2:s)';
   rsSPVersionShortStr = '%s - Service Pack %1:d (%2:s)';
-  rsVersion10ShortStr = '%s (Version %d, %s)';
+  rsVersion10ShortStr = '%s (Version %s, %s)';
   rsVersion10Str = '%s (Version %d, Build %d, %s)';
+  rsWindows11 = 'Windows 11';
 
   rsProfessionalN = 'Professional';
   rsProfessionalMC = 'Professional with Media Center';

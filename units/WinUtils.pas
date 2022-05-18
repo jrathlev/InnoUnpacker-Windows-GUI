@@ -28,7 +28,7 @@ uses Winapi.Windows, System.SysUtils, System.Classes, System.Types, Vcl.Graphics
 const
   CenterPos : TPoint = (X : -1; Y : -1);
   DesignPos : TPoint = (X : 0; Y : -1);
-  MaxHist : integer = 50;
+  defMaxHist : integer = 50;
 
   // Bildschirm-Auflösung bei der Programmentwicklung
   PixelsPerInchOnDesign = 96;
@@ -84,6 +84,10 @@ type
     procedure HideHint;
     property OnTerminate : TNotifyEvent read FOnTerminate write FOnTerminate;
     end;
+
+{ ---------------------------------------------------------------- }
+// Format without raising an exception on errors
+function SafeFormat(const AFormat: string; const Args: array of const): string;
 
 { ---------------------------------------------------------------- }
 // erweiterte Drucker-Angaben (alle Angaben in mm)
@@ -248,7 +252,7 @@ procedure RemoveFromHistory (History : TStrings; const hs : string);
 
 { ---------------------------------------------------------------- }
 // Entferne alle Objekte einer String-Liste oder einer ListView-Liste aus dem Speicher
-procedure FreeListObjects(Liste : TStrings);
+procedure FreeListObjects (Liste : TStrings);
 procedure FreeListViewData (Liste : TListItems);
 
 { ---------------------------------------------------------------- }
@@ -338,6 +342,17 @@ procedure TTimerHint.HideHint;
 begin
   FTimer.Enabled:=false;
   ReleaseHandle;
+  end;
+
+{ --------------------------------------------------------------- }
+// Format without raising an exception on errors
+function SafeFormat(const AFormat: string; const Args: array of const): string;
+begin
+  try
+    Result:=Format(AFormat,Args);
+  except
+    on E:Exception do Result:=rsFormatError+AFormat;
+    end;
   end;
 
 { ------------------------------------------------------------------- }
@@ -579,7 +594,7 @@ begin
 // Scale image for High DPI awareness
 procedure ScaleImage (AImage : TImage; OldDPI,NewDPI : integer);
 var
-  bm,gl : TBitmap;
+  bm : TBitmap;
 begin
   if MulDiv(100,NewDPI,OldDPI)<130 then Exit;
   bm:=TBitmap.Create;
@@ -1081,7 +1096,7 @@ begin
 procedure LoadHistory (IniFile : TIniFile; const Section,Ident : string;
                        History : TStrings; CvQuote : boolean);
 begin
-  LoadHistory(IniFile,Section,Ident,History,MaxHist,CvQuote);
+  LoadHistory(IniFile,Section,Ident,History,defMaxHist,CvQuote);
   end;
 
 procedure LoadHistory (const IniName,Section,Ident : string;
@@ -1097,7 +1112,7 @@ begin
 procedure LoadHistory (const IniName,Section,Ident : string;
                        History : TStrings; CvQuote : boolean); overload;
 begin
-  LoadHistory(IniName,Section,Ident,History,MaxHist,CvQuote);
+  LoadHistory(IniName,Section,Ident,History,defMaxHist,CvQuote);
   end;
 
 procedure LoadHistory (const IniName,Section : string;
@@ -1134,7 +1149,7 @@ begin
 procedure SaveHistory (IniFile : TIniFile; const Section,Ident : string;
                        Erase : boolean; History : TStrings; CvQuote : boolean);
 begin
-  SaveHistory(IniFile,Section,Ident,Erase,History,MaxHist,CvQuote);
+  SaveHistory(IniFile,Section,Ident,Erase,History,defMaxHist,CvQuote);
   end;
 
 procedure SaveHistory (const IniName,Section,Ident : string;
@@ -1143,14 +1158,14 @@ var
   IniFile : TIniFile;
 begin
   IniFile:=TIniFile.Create(IniName);
-  SaveHistory(IniFile,Section,Ident,Erase,History,MaxHist,CvQuote);
+  SaveHistory(IniFile,Section,Ident,Erase,History,defMaxHist,CvQuote);
   IniFile.Free;
   end;
 
 procedure SaveHistory (const IniName,Section,Ident : string;
                        Erase : boolean; History : TStrings; CvQuote : boolean);
 begin
-  SaveHistory(IniName,Section,Ident,Erase,History,MaxHist,CvQuote);
+  SaveHistory(IniName,Section,Ident,Erase,History,defMaxHist,CvQuote);
   end;
 
 procedure SaveHistory (const IniName,Section : string; Erase : boolean;
@@ -1181,7 +1196,7 @@ begin
 
 procedure AddToHistory (History : TStrings; const hs : string);
 begin
-  AddToHistory (History,hs,MaxHist);
+  AddToHistory (History,hs,defMaxHist);
   end;
 
 procedure AddToHistory (Combo : TComboBox; const hs : string);

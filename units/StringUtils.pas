@@ -266,9 +266,18 @@ function CountSubStr (const ASubStr,AString : string) : integer;
    Begrenzer (Del) lesen
    s wird um den verarbeiteten Teil gekürzt *)
 function ReadNxtInt (var s   : String;
+                     Dels    : TSysCharSet;
+                     Default : int64;
+                     var err : boolean) : int64; overload;
+
+function ReadNxtInt (var s   : String;
                      Del     : char;
                      Default : int64;
                      var err : boolean) : int64; overload;
+
+function ReadNxtInt (var s   : String;
+                     Dels    : TSysCharSet;
+                     Default : int64) : int64; overload;
 
 function ReadNxtInt (var s   : String;
                      Del     : char;
@@ -361,7 +370,7 @@ procedure QuickSort (var SList; Count,RSize : Integer; Compare : TCompFunction);
 
 implementation
 
-uses System.StrUtils, System.Masks, System.Classes, ExtSysUtils;
+uses System.StrUtils, System.Masks, System.Classes, UnitConsts;
 
 { ---------------------------------------------------------------- }
 (* Umwandeln eines Zeichens in eines Großbuchstaben (auch Umlaute)
@@ -1121,22 +1130,42 @@ begin
 (* Integer, Double oder String aus einem String s bis zum nächsten Tenner lesen
    s wird um den verarbeiteten Teil gekürzt *)
 function ReadNxtInt (var s   : String;
-                     Del     : char;
+                     Dels    : TSysCharSet;
                      Default : int64;
                      var err : boolean) : int64;
 var
-  n    : int64;
-  i,ic : integer;
+  n,i,ic : integer;
 begin
-  s:=TrimLeft(s); i:=pos(Del,s);
-  if i=0 then i:=succ(length(s));
-  val(copy(s,1,pred(i)),n,ic);
-  if ic=0 then ReadNxtInt:=n
-  else begin
-    ReadNxtInt:=Default;
-    err:=true;
-    end;
-  delete(s,1,i);
+  s:=TrimLeft(s);
+  n:=length(s);
+  if n>0 then begin
+    i:=1;
+    while (i<=n) and not CharInSet(AnsiChar(s[i]),Dels) do inc(i);
+    val(copy(s,1,pred(i)),Result,ic);
+    if ic>0 then begin
+      ReadNxtInt:=Default;
+      err:=true;
+      end;
+    delete(s,1,i);
+    end
+  else Result:=Default;
+  end;
+
+function ReadNxtInt (var s   : String;
+                     Dels    : TSysCharSet;
+                     Default : int64) : int64; overload;
+var
+  err : boolean;
+begin
+  Result:=ReadNxtInt(s,Dels,Default,err);
+  end;
+
+function ReadNxtInt (var s   : String;
+                     Del     : char;
+                     Default : int64;
+                     var err : boolean) : int64;
+begin
+  Result:=ReadNxtInt(s,[Del],Default,err);
   end;
 
 function ReadNxtInt (var s   : String;
@@ -1481,25 +1510,34 @@ begin
   end;
 
 { ------------------------------------------------------------------- }
+function SafeFormat(const AFormat: string; const Args: array of const): string;
+begin
+  try
+    Result:=Format(AFormat,Args);
+  except
+    on E:Exception do Result:=rsFormatError+AFormat;
+    end;
+  end;
+
 function GetPluralString (const sNo,sOne,sMany : string; n : integer; ThSep : boolean) : string;
 begin
   if n=1 then Result:=sOne
   else if (n=0) and (length(sNo)>0) then Result:=sNo
   else begin
     ThSep:=ThSep and (n>=10000);
-    if ThSep then Result:=TryFormat(ReplaceStr(sMany,'%u','%.0n'),[1.0*n])
-    else Result:=TryFormat(sMany,[n]);
+    if ThSep then Result:=SafeFormat(ReplaceStr(sMany,'%u','%.0n'),[1.0*n])
+    else Result:=SafeFormat(sMany,[n]);
     end;
   end;
 
 function GetPluralString (const sNo,sOne,sMany : string; n : integer; const s : string; ThSep : boolean) : string;
 begin
-  if n=1 then Result:=TryFormat(sOne,[s])
+  if n=1 then Result:=SafeFormat(sOne,[s])
   else if (n=0) and (length(sNo)>0) then Result:=sNo
   else begin
     ThSep:=ThSep and (n>=10000);
-    if ThSep then Result:=TryFormat(ReplaceStr(sMany,'%u','%.0n'),[1.0*n,s])
-    else Result:=TryFormat(sMany,[n,s]);
+    if ThSep then Result:=SafeFormat(ReplaceStr(sMany,'%u','%.0n'),[1.0*n,s])
+    else Result:=SafeFormat(sMany,[n,s]);
     end;
   end;
 
@@ -1508,7 +1546,7 @@ begin
   if n=1 then Result:='1 '+sOne
   else begin
     ThSep:=ThSep and (n>=10000);
-    if ThSep then Result:=TryFormat('%.0n',[1.0*n])+Space+sMany
+    if ThSep then Result:=SafeFormat('%.0n',[1.0*n])+Space+sMany
     else Result:=IntToStr(n)+Space+sMany;
     end;
   end;

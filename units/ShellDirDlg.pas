@@ -25,7 +25,7 @@
    Vers. 2.4 - Mar. 2010 : adjustable window sizes
    Vers. 3.0 - Apr. 2012 : Delphi XE2
    Vers. 3.1 - Nov. 2015 : Delph 10, adaption to new shell control components
-   last modified: October 2021
+   last modified: April 2022
    *)
 
 unit ShellDirDlg;
@@ -125,8 +125,7 @@ implementation
 {$R *.dfm}
 
 uses System.IniFiles, Vcl.Dialogs, System.StrUtils, Winapi.ShlObj, Winapi.Shellapi,
-  Winapi.ActiveX, ExtSysUtils, WmiUtils, WinShell, WinUtils, FileUtils, IniFileUtils,
-  GnuGetText, SelectDlg;
+  Winapi.ActiveX, WinShell, WinUtils, FileUtils, GnuGetText, SelectDlg;
 
 const
   FMaxLen = 15;
@@ -147,8 +146,8 @@ begin
   panRoot.ParentBackground:=false;
   Top:=(Screen.Height-Height) div 2;
   Left:=(Screen.Width-Width) div 2;
-  if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion>=10) then // Windows 10
-    spbNetwork.Visible:=Smb1Installed;
+//  if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion>=10) then // Windows 10
+//    spbNetwork.Visible:=Smb1Installed;
   end;
 
 {$IFDEF HDPI}   // scale glyphs and images for High DPI
@@ -171,7 +170,7 @@ const
   iniLWidth = 'DirWidth';
   iniRWidth= 'FileWidth';
 
-(* load history list *)
+(* load posiition and history list *)
 procedure TShellDirDialog.LoadFromIni(IniName, Section : string);
 var
   i       : integer;
@@ -213,22 +212,37 @@ begin
   Top:=50; Left:=50;
   end;
 
-(* save history list *)
+(* save posiition and history list *)
 procedure TShellDirDialog.FormDestroy(Sender: TObject);
 var
-  i       : integer;
+  i : integer;
 begin
   if (length(FIniName)>0) and (length(FIniSection)>0) then begin
-    EraseSectionFromIniFile(FIniName,FIniSection);
-    with cbxSelectedDir.Items do for i:=0 to Count-1 do
-      WriteStringToIniFile(FIniName,FIniSection,iniHistory+IntToStr(i),Strings[i]);
-    WriteIntegerToIniFile(FIniName,FIniSection,iniTop,Top);
-    WriteIntegerToIniFile(FIniName,FIniSection,iniLeft,Left);
-    WriteIntegerToIniFile(FIniName,FIniSection,iniHeight,Height);
-    WriteIntegerToIniFile(FIniName,FIniSection,iniLWidth,PanelLeft.Width);
-    WriteIntegerToIniFile(FIniName,FIniSection,iniRWidth,PanelRight.Width);
-    WriteBoolToIniFile(FIniName,FIniSection,iniFileView,cbxFiles.Checked);
-    UpdateIniFile(FIniName);
+    with TIniFile.Create(FIniName) do begin
+      try
+        EraseSection(FIniSection);
+        with cbxSelectedDir.Items do for i:=0 to Count-1 do
+          WriteString(FIniSection,iniHistory+IntToStr(i),Strings[i]);
+        WriteInteger(FIniSection,iniTop,Top);
+        WriteInteger(FIniSection,iniLeft,Left);
+        WriteInteger(FIniSection,iniHeight,Height);
+        WriteInteger(FIniSection,iniLWidth,PanelLeft.Width);
+        WriteInteger(FIniSection,iniRWidth,PanelRight.Width);
+        WriteBool(FIniSection,iniFileView,cbxFiles.Checked);
+      finally
+        Free;
+        end;
+      end;
+//    EraseSectionFromIniFile(FIniName,FIniSection);
+//    with cbxSelectedDir.Items do for i:=0 to Count-1 do
+//      WriteStringToIniFile(FIniName,FIniSection,iniHistory+IntToStr(i),Strings[i]);
+//    WriteIntegerToIniFile(FIniName,FIniSection,iniTop,Top);
+//    WriteIntegerToIniFile(FIniName,FIniSection,iniLeft,Left);
+//    WriteIntegerToIniFile(FIniName,FIniSection,iniHeight,Height);
+//    WriteIntegerToIniFile(FIniName,FIniSection,iniLWidth,PanelLeft.Width);
+//    WriteIntegerToIniFile(FIniName,FIniSection,iniRWidth,PanelRight.Width);
+//    WriteBoolToIniFile(FIniName,FIniSection,iniFileView,cbxFiles.Checked);
+//    UpdateIniFile(FIniName);
     end;
   end;
 
@@ -264,6 +278,7 @@ begin
     end;
   with cbxSelectedDir do begin
     if Items.Count>0 then Style:=csDropDown else Style:=csSimple;
+    if DirectoryExists(Text) then ShellTreeView.Path:=Text;
     end;
   end;
 
@@ -283,14 +298,23 @@ begin
 {------------------------------------------------------------------- }
 (* go to parent directory *)
 procedure TShellDirDialog.spbUpClick(Sender: TObject);
+var
+  s : string;
 begin
   with ShellTreeView do begin
 //    s:=SelectedFolder.Parent.PathName;
     if (Selected.Parent=nil) then begin
       Root:='rfMyComputer'; // Path:='';
+      spbComputer.Down:=true;
+      end
+    else if Root='rfPersonal' then begin
+      s:=ExtractParentPath(Path);
+      Root:='rfMyComputer'; // Path:='';
+      spbComputer.Down:=true;
+      Path:=s;
       end
     else if (Selected.Parent.Level>0) then Path:=SelectedFolder.Parent.PathName;
-    Selected.MakeVisible;
+    if assigned(Selected) then Selected.MakeVisible;
     SetFocus;
     end;
 {  s:=cbxSelectedDir.Text;
@@ -313,13 +337,14 @@ begin
 procedure TShellDirDialog.spbHomeClick(Sender: TObject);
 begin
   if not SetCurrentDir(FDefaultDir) then begin
-    ErrorDialog(TryFormat(dgettext('dialogs','Directory not found:'+sLineBreak+'%s!'),[FDefaultDir]));
+    ErrorDialog(SafeFormat(dgettext('dialogs','Directory not found:'+sLineBreak+'%s!'),[FDefaultDir]));
     DeleteHistory(FDefaultDir);
     end
   else with ShellTreeView do begin
     if (Root='rfNetwork') or ((length(FDefaultDir)=3) and (copy(FDefaultDir,2,2)=':\')) then Root:=FDefaultDir
     else begin
       Root:='rfMyComputer';
+      spbComputer.Down:=true;
       try Path:=FDefaultDir; except end;
       Selected.MakeVisible;
       end;
@@ -336,9 +361,10 @@ begin
   if InputQuery (ShellTreeView.Path,dgettext('dialogs','New subdirectory:'),s) then begin
     s:=IncludeTrailingPathDelimiter(ShellTreeView.Path)+s;
     if not ForceDirectories(s) then
-      ErrorDialog(TryFormat(dgettext('dialogs','Could not create directory:'+sLineBreak+'%s!'),[s]))
+      ErrorDialog(SafeFormat(dgettext('dialogs','Could not create directory:'+sLineBreak+'%s!'),[s]))
     else with ShellTreeView do begin
       Root:='rfMyComputer';
+      spbComputer.Down:=true;
       try Path:=s; except end;
       Selected.MakeVisible;
       end;
@@ -355,7 +381,7 @@ var
 begin
   s:=ShellTreeView.Path;
   n:=SelectOption(dgettext('dialogs','Delete directory'),
-    TryFormat(dgettext('dialogs','Delete "%s"'),[s]),mtConfirmation,[fsBold],
+    SafeFormat(dgettext('dialogs','Delete "%s"'),[s]),mtConfirmation,[fsBold],
     [dgettext('dialogs','Definitely'),dgettext('dialogs','To recycle bin')]);
   if n>=0 then begin
     spbUpClick(Sender);
@@ -363,15 +389,15 @@ begin
       fc:=0; dc:=0; ec:=0;
       DeleteDirectory(s,'',true,dc,fc,ec);
       err:=ec>0;
-      if not err then InfoDialog(TryFormat(dgettext('dialogs','%u directories with %u files deleted!'),[dc,fc]));
+      if not err then InfoDialog(SafeFormat(dgettext('dialogs','%u directories with %u files deleted!'),[dc,fc]));
       end
     else begin
       if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion>=6) then // IsVista or newer
         err:=IShellDeleteDir (Application.Handle,SetDirName(s),true)<>NO_ERROR
       else err:=ShellDeleteAll (Application.Handle,SetDirName(s),'',true)<>NO_ERROR;
-      if not err then InfoDialog(TryFormat(dgettext('dialogs','%s moved to Recycle Bin!'),[s]));
+      if not err then InfoDialog(SafeFormat(dgettext('dialogs','%s moved to Recycle Bin!'),[s]));
       end;
-    if err then ErrorDialog(TryFormat(dgettext('dialogs','Error deleting directory:'+sLineBreak+'%s!'),[s]));
+    if err then ErrorDialog(SafeFormat(dgettext('dialogs','Error deleting directory:'+sLineBreak+'%s!'),[s]));
     itmUpdateClick(Sender);
     end;
   end;
@@ -411,16 +437,20 @@ procedure TShellDirDialog.ShellTreeViewChange(Sender: TObject;
   Node: TTreeNode);
 var
   s,s1,s2,s3,s4 : string;
+  sf : TShellFolder;
 begin
-  if Active then with ShellTreeView,SelectedFolder do begin
-    btbOk.Enabled:=fpFileSystem in Properties;
-    cbxSelectedDir.Text:=PathName;
-    if fpIsLink in Properties then begin
-      s:=IncludeTrailingPathDelimiter(PathName)+NetLink;
-      if FileExists(s) then begin
-        GetLink(s,s1,s2,s3,s4);
-        cbxSelectedDir.Text:=s1;
-        end
+  if Active then with ShellTreeView do begin
+    sf:=SelectedFolder;
+    if assigned(sf) then with sf do begin
+      btbOk.Enabled:=fpFileSystem in Properties;
+      cbxSelectedDir.Text:=PathName;
+      if fpIsLink in Properties then begin
+        s:=IncludeTrailingPathDelimiter(PathName)+NetLink;
+        if FileExists(s) then begin
+          GetLink(s,s1,s2,s3,s4);
+          cbxSelectedDir.Text:=s1;
+          end
+        end;
       end;
     end;
   end;
@@ -495,6 +525,7 @@ var
 begin
   s:=ADir;
   if length(s)=0 then s:=FDefaultDir;
+  spbComputer.Down:=true;
   if (length(s)=0) or not DirectoryExists(s)then begin
     s:=GetDesktopFolder(CSIDL_PERSONAL);
     r:='rfMyComputer';
@@ -504,6 +535,8 @@ begin
   else begin
     if copy(s,1,2)='\\' then begin
       r:='rfNetwork';
+//      r:='rfDesktop';
+      spbNetwork.Down:=true;
       end
     else r:='rfMyComputer';
     end;
@@ -530,12 +563,12 @@ begin
     else ObjectTypes:=ObjectTypes-[otHidden,otHiddenSystem];
     ShowZip:=not ZipAsFiles;
     end;
-  if (copy(Dir,1,2)='\\') and not spbNetwork.Visible then begin
-    ErrorDialog(_('Browsing the network is not supported on this system!'));
-    SelectDir(HomeDir);
+//  if (copy(Dir,1,2)='\\') and not spbNetwork.Visible then begin
+//    ErrorDialog(_('Browsing the network is not supported on this system!'));
+//    SelectDir(HomeDir);
 //    Exit;
-    end
-  else SelectDir(Dir);
+//    end
+  SelectDir(Dir);
   with ShellListView do begin
     if Hidden then ObjectTypes:=ObjectTypes+[otHidden,otHiddenSystem]
     else ObjectTypes:=ObjectTypes-[otHidden,otHiddenSystem];
