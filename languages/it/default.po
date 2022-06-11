@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: InnoUnpack\n"
+"POT-Creation-Date: 2021-10-16 11:20\n"
+"PO-Revision-Date: 2022-06-11 12:49+0200\n"
+"Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
+"Language-Team: bovirus <bovirus(a)gmail.com>\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. MainForm..Caption
+#: UnpackMain.dfm:4
+msgid "Inspect and unpack InnoSetup files"
+msgstr "Analizza e decomprimi i file Inno Setup"
+
+#. MainForm..pnTop..Label2..Caption
+#: UnpackMain.dfm:35
+msgid "InnoSetup Archive:"
+msgstr "Archivio Inno Setup:"
+
+#. MainForm..pnTop..InfoBtn..Hint
+#: UnpackMain.dfm:42
+msgid "About the program"
+msgstr "Info sul programma"
+
+#. MainForm..pnTop..bbOptions..Hint
+#: UnpackMain.dfm:143
+msgid "Select unpack tool"
+msgstr "Seleziona strumento decompressione"
+
+#. MainForm..pnTop..bbExit..Hint
+#: UnpackMain.dfm:234
+msgid "Quit program"
+msgstr "Esci dal programma"
+
+#. MainForm..pnTop..bbList..Caption
+#: UnpackMain.dfm:326
+msgid "List files"
+msgstr "Elenco file"
+
+#. MainForm..pnTop..bbExtract..Caption
+#: UnpackMain.dfm:417
+msgid "Extract files"
+msgstr "Estrai file"
+
+#. MainForm..pnTop..bbVerify..Caption
+#: UnpackMain.dfm:508
+msgid "Verify archive"
+msgstr "Verifica archivio"
+
+#. MainForm..pnTop..bbCopyResult..Hint
+#: UnpackMain.dfm:598
+msgid "Copy output to clipboard"
+msgstr "Copia output negli Appunti"
+
+#. MainForm..pnTop..cxEmbedded..Caption
+#: UnpackMain.dfm:750
+msgid "Process embedded files"
+msgstr "Elabora file incorporati"
+
+#. MainForm..pnExtract..Label1..Caption
+#: UnpackMain.dfm:786
+msgid "Destination directory:"
+msgstr "Cartella destinazione:"
+
+#. MainForm..pnExtract..Label3..Caption
+#: UnpackMain.dfm:793 UnpackMain.pas:305
+msgid "File filter:"
+msgstr "Filtro file:"
+
+#. MainForm..pnExtract..cbDir..Hint
+#: UnpackMain.dfm:800
+msgid "Extract files to this directory"
+msgstr "Estrai file in questa cartella"
+
+#. MainForm..pnExtract..bbStart..Hint
+#: UnpackMain.dfm:813
+msgid "Start extraction"
+msgstr "Avvia estrazione"
+
+#. MainForm..pnExtract..bbStart..Caption
+#: UnpackMain.dfm:815
+msgid "Start"
+msgstr "Estrai"
+
+#. MainForm..pnExtract..cxDupl..Caption
+#: UnpackMain.dfm:905
+msgid "Process duplicate files"
+msgstr "Elabora file duplicati"
+
+#. MainForm..pnExtract..cxOverwrite..Caption
+#: UnpackMain.dfm:913
+msgid "Overwrite files"
+msgstr "Sovrascrivi file"
+
+#. MainForm..pnExtract..cxStrip..Caption
+#: UnpackMain.dfm:921
+msgid "Strip paths"
+msgstr "Estrai senza percorsi"
+
+#: UnpackMain.pas:206
+msgid "This application only allows dropping of exe files!"
+msgstr "Questa applicazione consente solo di rilasciare i file exe!"
+
+#: UnpackMain.pas:235 UnpackMain.pas:264
+msgid "Programs|*.exe|all|*.*"
+msgstr "Programmi|*.exe|Tutti i file|*.*"
+
+#: UnpackMain.pas:236
+msgid "Select InnoSetup archive"
+msgstr "Seleziona archivio Inno Setup"
+
+#: UnpackMain.pas:265
+msgid "Search for \"innounp.exe\""
+msgstr "Ricerca \"innounp.exe\""
+
+#: UnpackMain.pas:286
+msgid "Select directory for extracted files"
+msgstr "Seleziona la cartella dove estrarre i file"
+
+#: UnpackMain.pas:368
+msgid ""
+"Extracting setup file ...\n"
+"Destination directory: %s"
+msgstr ""
+"Estrazione installer programma...\n"
+"Cartella destinazione: %s"
+
+#: UnpackMain.pas:411
+msgid "Filename: "
+msgstr "Nome file: "
+
+#. DOS-Ausgabe anzeigen
+#: UnpackMain.pas:416 UnpackMain.pas:490 UnpackMain.pas:492
+msgid "Error: "
+msgstr "Errore: "
+
+#: UnpackMain.pas:424
+msgid "Name: "
+msgstr "Nome: "
+
+#: UnpackMain.pas:425
+msgid "Version: "
+msgstr "Versione: "
+
+#: UnpackMain.pas:426
+msgid "Copyright: "
+msgstr "Copyright: "
+
+#: UnpackMain.pas:427
+msgid "Company: "
+msgstr "Società: "
+
+#: UnpackMain.pas:428
+msgid "Comment: "
+msgstr "Commento: "
