@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
 "POT-Creation-Date: 2021-10-16 11:20\n"
-"PO-Revision-Date: 2022-06-11 13:31+0200\n"
+"PO-Revision-Date: 2022-06-11 14:05+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0.1\n"
-"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #. MainForm..Caption
 #: UnpackMain.dfm:4
