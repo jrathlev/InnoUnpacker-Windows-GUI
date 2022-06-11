@@ -1,0 +1,1669 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Delphi units\n"
+"POT-Creation-Date: 2021-02-06 15:55\n"
+"PO-Revision-Date: 2019-11-07 11:41+0100\n"
+"Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
+"Language-Team: Andrea <andr.rubi@gmail.com>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+
+#. Strings from ComPort
+#. Programmer's name for it: rsComNoError
+#. Strings from CpDrv
+#. Programmer's name for it: rsComNoError
+#: CommPortConsts.pas:25 UnitConsts.pas:54
+msgid "No errors on COM connection"
+msgstr "Nessun errore sul collegamento COM"
+
+#. Programmer's name for it: rsComOpenError
+#. Programmer's name for it: rsComOpenError
+#: CommPortConsts.pas:26 UnitConsts.pas:55
+msgid "Error opening COM port"
+msgstr "Errore apertura porta COM"
+
+#. Programmer's name for it: rsComStateError
+#. Programmer's name for it: rsComStateError
+#: CommPortConsts.pas:27 UnitConsts.pas:56
+msgid "Error setting COM port state"
+msgstr "Errore impostazione porta COM"
+
+#. Programmer's name for it: rsComFlushError
+#. Programmer's name for it: rsComFlushError
+#: CommPortConsts.pas:28 UnitConsts.pas:57
+msgid "Error flushing COM buffers"
+msgstr "Errore di pulizia buffer COM"
+
+#. Programmer's name for it: rsComSetupError
+#. Programmer's name for it: rsComSetupError
+#: CommPortConsts.pas:29 UnitConsts.pas:58
+msgid "Error initializing COM port"
+msgstr "Errore durante l'inizializzazione della porta COM"
+
+#. Programmer's name for it: rsErrOpening
+#: FileConsts.pas:22
+msgid "Error opening \"%s\""
+msgstr "Errore apertura \"%s\""
+
+#. Programmer's name for it: rsErrCreating
+#: FileConsts.pas:23
+msgid "Error creating \"%s\""
+msgstr "Errore creazione \"%s\""
+
+#. Programmer's name for it: rsErrReading
+#: FileConsts.pas:24
+msgid "Error reading from \"%s\""
+msgstr "Errore lettura da \"%s\""
+
+#. Programmer's name for it: rsExtractErr
+#: FileConsts.pas:25
+msgid "Error extracting from \"%s\""
+msgstr "Errore durante l'estrazione da \" %s\""
+
+#. Programmer's name for it: rsErrWriting
+#: FileConsts.pas:26
+msgid "Error writing to \"%s\""
+msgstr "Errore scrittura in \"%s\""
+
+#. Programmer's name for it: rsErrVerify
+#: FileConsts.pas:27
+msgid "Error verifying \"%s\""
+msgstr "Errore verifica \"%s\""
+
+#. Programmer's name for it: rsErrClosing
+#: FileConsts.pas:28
+msgid "Error closing \"%s\""
+msgstr "Errore chiusura \"%s\""
+
+#. Programmer's name for it: rsErrSetAttr
+#: FileConsts.pas:29
+msgid "Error setting attributes of \"%s\""
+msgstr "Errore impostazione attributi di \"%s\""
+
+#. Programmer's name for it: rsErrTimeStamp
+#: FileConsts.pas:30
+msgid "Error setting timestamps of \"%s\""
+msgstr "Errore impostazione date e oda di \"%s\""
+
+#. Programmer's name for it: rsErrAcl
+#: FileConsts.pas:31
+msgid "Error setting permissions of \"%s\""
+msgstr "Errore impostazione permesso di \"%s\""
+
+#. Programmer's name for it: rsErrDirEntry
+#: FileConsts.pas:32
+msgid "Error writing directory entry: \"%s\""
+msgstr "Errore durante la scrittura di entrata: \"%s\""
+
+#. Programmer's name for it: rsErrAddDir
+#: FileConsts.pas:33
+msgid "Error adding directory to \"%s\""
+msgstr "Errore durante l'aggiunta della directory a \" %s\""
+
+#. Programmer's name for it: rsErrAddFile
+#: FileConsts.pas:34
+msgid "Error adding file to \"%s\""
+msgstr "Errore durante l'aggiunta di file a \" %s\""
+
+#. Programmer's name for it: rsErrAddStream
+#: FileConsts.pas:35
+msgid "Error adding stream to \"%s\""
+msgstr "Errore durante l'aggiunta del flusso a \" %s\""
+
+#. Programmer's name for it: rsErrCompFile
+#: FileConsts.pas:36
+msgid "Error comparing file from \"%s\" to \"%s\""
+msgstr "Errore durante il confronto di file da \" %s\" a \" %s\""
+
+#. Programmer's name for it: rsErrEndRecord
+#: FileConsts.pas:37
+msgid "Error writing end record"
+msgstr "Errore di scrittura record finale"
+
+#. Programmer's name for it: rsErrNotFound
+#: FileConsts.pas:38
+msgid "File not found: \"%s\""
+msgstr "File non trovato: \"%s\""
+
+#. Programmer's name for it: rsErrSystem
+#: FileConsts.pas:39
+msgid "System error: %s"
+msgstr "Errore di sistema: %s"
+
+#. Programmer's name for it: rsError
+#: FileConsts.pas:41
+msgid "Error - "
+msgstr "Errore - "
+
+#. Programmer's name for it: rsError2
+#: FileConsts.pas:42
+msgid "Error(2) - "
+msgstr "Errore(2) - "
+
+#. Programmer's name for it: rsWarning
+#: FileConsts.pas:43
+msgid "Warning - "
+msgstr "Attenzione - "
+
+#. Programmer's name for it: rsInfo
+#: FileConsts.pas:44
+msgid "Info - "
+msgstr "Info - "
+
+#. Programmer's name for it: rsFileCreate
+#: FileConsts.pas:45
+msgid "Could not create file"
+msgstr "Impossibile creare il file"
+
+#. Programmer's name for it: rsFileOpen
+#: FileConsts.pas:46
+msgid "Could not open file"
+msgstr "Impossibile aprire il file"
+
+#. Programmer's name for it: rsFileClose
+#: FileConsts.pas:47
+msgid "Could not close file"
+msgstr "Impossibile chiudere il file"
+
+#. Programmer's name for it: rsFileRead
+#: FileConsts.pas:48
+msgid "Could not read from file"
+msgstr "Impossibile leggere dal file"
+
+#. Programmer's name for it: rsFileWrite
+#: FileConsts.pas:49
+msgid "Could not write to file"
+msgstr "Impossibile scrivere sul file"
+
+#. Programmer's name for it: rsFileAttr
+#: FileConsts.pas:50
+msgid "Attributes could not be set"
+msgstr "Gli attributi dei file non possono essere impostati"
+
+#. Programmer's name for it: rsFileFull
+#: FileConsts.pas:51
+msgid "Low disk space"
+msgstr "Spazio disco insufficiente"
+
+#. Programmer's name for it: rsFileGZip
+#: FileConsts.pas:52
+msgid "Illegal file header"
+msgstr "Intestazione file non valida"
+
+#. Programmer's name for it: rsFileCheck
+#: FileConsts.pas:53
+msgid "Corrupt file"
+msgstr "File corrotto"
+
+#. Programmer's name for it: rsFileECrypt
+#: FileConsts.pas:54
+msgid "Encryption failed"
+msgstr "Crittografia fallita"
+
+#. Programmer's name for it: rsFileDCrypt
+#: FileConsts.pas:55
+msgid "Decryption failed"
+msgstr "Decifratura fallita"
+
+#. Programmer's name for it: rsFileVerify
+#: FileConsts.pas:56
+msgid "Verification failed"
+msgstr "Verifica fallita"
+
+#. Programmer's name for it: rsLongPath
+#: FileConsts.pas:57
+msgid "Path too long"
+msgstr "Percorso troppo lungo"
+
+#. Programmer's name for it: rsNotFound
+#: FileConsts.pas:58
+msgid "File not found"
+msgstr "File non trovato"
+
+#. Programmer's name for it: rsFileTS
+#: FileConsts.pas:59
+msgid "Timestamp could not be set"
+msgstr "Timestamp non può essere impostato"
+
+#. Programmer's name for it: rsStorage
+#: FileConsts.pas:60
+msgid "Error copying document summary"
+msgstr "Errore durante la copia del riepilogo documento"
+
+#. Programmer's name for it: rsTimeout
+#: FileConsts.pas:61
+msgid "Timeout error on copying file"
+msgstr "Errore di Timeout durante la copia del file"
+
+#. Programmer's name for it: rsStream
+#: FileConsts.pas:62
+msgid "Undefined stream"
+msgstr "Stream indefinito"
+
+#. Programmer's name for it: rsAcl
+#: FileConsts.pas:63
+msgid "Permissions could not be copied"
+msgstr "Permesso del file non può essere copiato"
+
+#. Programmer's name for it: rsFileExists
+#: FileConsts.pas:64
+msgid "File already exists"
+msgstr "File già esistente"
+
+#. Programmer's name for it: rsSzMismatch
+#: FileConsts.pas:65
+msgid "Size mismatch"
+msgstr "Dimensioni non corrispondente"
+
+#. Programmer's name for it: rsVerOpen
+#: FileConsts.pas:66
+msgid "Could not open destination file for verification"
+msgstr "Impossibile aprire il file di destinazione per la verifica"
+
+#. Programmer's name for it: rsDirCreate
+#: FileConsts.pas:67
+msgid "Could not create directory"
+msgstr "Impossibile creare la directory"
+
+#. Programmer's name for it: rsFtpRead
+#: FileConsts.pas:68
+msgid "Could not read from FTP"
+msgstr "Impossibile leggere dall'FTP"
+
+#. Programmer's name for it: rsFtpWrite
+#: FileConsts.pas:69
+msgid "Could not write to FTP"
+msgstr "Impossibile scrivere sull'FTP"
+
+#. Programmer's name for it: rsFtpConnect
+#: FileConsts.pas:70
+msgid "Could not connect to FTP server"
+msgstr "Impossibile connettersi con il server FTP"
+
+#. Programmer's name for it: rsFtpBroken
+#: FileConsts.pas:71
+msgid "FTP connection was closed by server"
+msgstr "Connessione FTP chiusa dal server"
+
+#. Programmer's name for it: rsFtpDatConn
+#: FileConsts.pas:72
+msgid "Could not open FTP data connection"
+msgstr "Impossibile aprire una connessione FTP"
+
+#. Programmer's name for it: rsFtpTimeout
+#: FileConsts.pas:73
+msgid "Timeout error on copying file via FTP"
+msgstr "Timeout error durante la copia del file via FTP"
+
+#. Programmer's name for it: rsCompare
+#: FileConsts.pas:74
+msgid "Different content"
+msgstr "Contenuto diverso"
+
+#. Programmer's name for it: rsZipCrSeg
+#: FileConsts.pas:75
+msgid "Error creating new zip segment"
+msgstr "Errore durante la creazione di un nuovo segmento zip"
+
+#. Programmer's name for it: rsSignature
+#: FileConsts.pas:76
+msgid "Illegal zip signature"
+msgstr "Firma zip illegale"
+
+#. Programmer's name for it: rsExtract
+#: FileConsts.pas:77
+msgid "Could not extract file"
+msgstr "Impossibile estrarre il file"
+
+#. Programmer's name for it: rsFormat
+#: FileConsts.pas:78
+msgid "Unsupported file format"
+msgstr "Formato del file non supportato"
+
+#. Programmer's name for it: rsTmpFile
+#: FileConsts.pas:79
+msgid "Could not rename temporary file"
+msgstr "Impossibile rinominare file temporaneo"
+
+#. Programmer's name for it: rsZipRdSeg
+#: FileConsts.pas:80
+msgid "Error reading next zip segment"
+msgstr "Errore durante la lettura del segmento di zip successivo"
+
+#. Programmer's name for it: rsAltStreams
+#: FileConsts.pas:81
+msgid "Error copying alternate data streams"
+msgstr "Errore durante la copia di flussi di dati alternativi"
+
+#. Programmer's name for it: rsFileDel
+#: FileConsts.pas:82
+msgid "Error deleting file"
+msgstr "Errore durante l'eliminazione del file"
+
+#. Programmer's name for it: rsFileRen
+#: FileConsts.pas:83
+msgid "Error renaming file"
+msgstr "Errore durante la ridenominazione del file"
+
+#. Programmer's name for it: rsUserBreak
+#: FileConsts.pas:85
+msgid "Terminated by user"
+msgstr "Terminato dall'utente"
+
+#. Programmer's name for it: rsUnknownErrCode
+#: FileConsts.pas:86
+msgid "Unknown error code ($%.8x)"
+msgstr "Codice di errore sconosciuto ($%.8x)"
+
+#. Programmer's name for it: rsCopy
+#: FileConsts.pas:87
+msgid " (Copy)"
+msgstr " (Copia)"
+
+#. Programmer's name for it: rsGZip
+#: FileConsts.pas:88
+msgid " (gzip)"
+msgstr " (gzip)"
+
+#. Programmer's name for it: rsGUnzip
+#: FileConsts.pas:89
+msgid " (gunzip)"
+msgstr " (gunzip)"
+
+#. Programmer's name for it: rsZip
+#: FileConsts.pas:90
+msgid " (Zip)"
+msgstr " (Zip)"
+
+#. Programmer's name for it: rsUnzip
+#: FileConsts.pas:91
+msgid " (Unzip)"
+msgstr " (Unzip)"
+
+#. Programmer's name for it: rsEnCrypt
+#: FileConsts.pas:92
+msgid " (Encrypt)"
+msgstr " (Crittografare)"
+
+#. Programmer's name for it: rsDeCrypt
+#: FileConsts.pas:93
+msgid " (Decrypt)"
+msgstr " (Decriptare)"
+
+#. Programmer's name for it: rsNoFileInfo
+#: FileConsts.pas:95
+msgid "File information not available"
+msgstr "Informazioni sul file non disponibili"
+
+#. Programmer's name for it: rsDescription
+#: FileConsts.pas:96
+msgid "Description: "
+msgstr "Descrizione: "
+
+#. Programmer's name for it: rsCompany
+#: FileConsts.pas:97
+msgid "Company: "
+msgstr "Compagnia: "
+
+#. Programmer's name for it: rsCopyright
+#: FileConsts.pas:98
+msgid "Copyright: "
+msgstr "Copyright: "
+
+#. Programmer's name for it: rsVersion
+#: FileConsts.pas:99
+msgid "File version: "
+msgstr "Versione file: "
+
+#. Programmer's name for it: rsFileDate
+#: FileConsts.pas:100
+msgid "Last modified: "
+msgstr "Ultima modifica: "
+
+#. Programmer's name for it: rsGlobalInfo
+#: FilePropConsts.pas:23
+msgid "Global info"
+msgstr "Info Globali"
+
+#. Programmer's name for it: rsDocInfo
+#: FilePropConsts.pas:24
+msgid "Document info"
+msgstr "Info Documenti"
+
+#. Programmer's name for it: rsUserInfo
+#: FilePropConsts.pas:25
+msgid "User info"
+msgstr "Info Utente"
+
+#. Programmer's name for it: rsAudioInfo
+#: FilePropConsts.pas:26
+msgid "Audio info"
+msgstr "Info Audio"
+
+#. Programmer's name for it: rsVideoInfo
+#: FilePropConsts.pas:27
+msgid "Video info"
+msgstr "Info Video"
+
+#. Programmer's name for it: rsImageInfo
+#: FilePropConsts.pas:28
+msgid "Image info"
+msgstr "Info Immagini"
+
+#. Programmer's name for it: rsmediaInfo
+#: FilePropConsts.pas:29
+msgid "Media info"
+msgstr "Info Media"
+
+#. Titel
+#. Programmer's name for it: rsTitel
+#: FilePropConsts.pas:31
+msgid "Title"
+msgstr "Titolo"
+
+#. Thema
+#. Programmer's name for it: rsSubject
+#: FilePropConsts.pas:32
+msgid "Subject"
+msgstr "Soggetto"
+
+#. Autor
+#. Programmer's name for it: rsAuthor
+#: FilePropConsts.pas:33
+msgid "Author"
+msgstr "Autore"
+
+#. Stichwörter
+#. Programmer's name for it: rsKeywords
+#: FilePropConsts.pas:34
+msgid "Keywords"
+msgstr "Password"
+
+#. Kommentare
+#. Programmer's name for it: rsComments
+#: FilePropConsts.pas:35
+msgid "Comments"
+msgstr "Commento"
+
+#. Vorlage
+#. Programmer's name for it: rsTemplate
+#: FilePropConsts.pas:36
+msgid "Template"
+msgstr "Modello"
+
+#. Zuletzt gespeichert von
+#. Programmer's name for it: rsLastSaved
+#: FilePropConsts.pas:37
+msgid "Last saved by"
+msgstr "Ultimo salvataggio da"
+
+#. Version
+#. Programmer's name for it: rsRevNumber
+#: FilePropConsts.pas:38
+msgid "Revision Number"
+msgstr "Numero di Revisione"
+
+#. Gesamte Bearbeitungszeit
+#. Programmer's name for it: rsTotalTime
+#: FilePropConsts.pas:39
+msgid "Total editing time"
+msgstr "Tempo totale di modifica"
+
+#. Zuletzt gedruckt
+#. Programmer's name for it: rsLastPrinted
+#: FilePropConsts.pas:40
+msgid "Last printed"
+msgstr "Ultima stampa"
+
+#. Erstellt am
+#. Programmer's name for it: rsContentCreate
+#: FilePropConsts.pas:41
+msgid "Content created"
+msgstr "Contenuto creato"
+
+#. Zuletzt gespeichert
+#. Programmer's name for it: rsDateLastSaved
+#: FilePropConsts.pas:42
+msgid "Date last saved"
+msgstr "Data ultimo salvataggio"
+
+#. Seiten
+#. Programmer's name for it: rsPages
+#: FilePropConsts.pas:43
+msgid "Pages"
+msgstr "Pagine"
+
+#. Wortanzahl
+#. Programmer's name for it: rsWordCount
+#: FilePropConsts.pas:44
+msgid "Word count"
+msgstr "Numero di parole"
+
+#. Zeichenanzahl
+#. Programmer's name for it: rsCharCount
+#: FilePropConsts.pas:45
+msgid "Character count"
+msgstr "Numero di caratteri"
+
+#. Miniaturbild
+#. Programmer's name for it: rsThumbnail
+#: FilePropConsts.pas:46
+msgid "Thumbnail"
+msgstr "Anteprima"
+
+#. Anwendungsname
+#. Programmer's name for it: rsProgName
+#: FilePropConsts.pas:47
+msgid "Program name"
+msgstr "Nome Programma"
+
+#. Sicherheit
+#. Programmer's name for it: rsSecurity
+#: FilePropConsts.pas:48
+msgid "Security"
+msgstr "Sicurezza"
+
+#. Kategorie
+#. Programmer's name for it: rsCategory
+#: FilePropConsts.pas:50
+msgid "Category"
+msgstr "Categoria"
+
+#. Präsentationsformat
+#. Programmer's name for it: rsPresentation
+#: FilePropConsts.pas:51
+msgid "Presentation format"
+msgstr "Formato di presentazione"
+
+#. Byzeanzahl
+#. Programmer's name for it: rsByteCount
+#: FilePropConsts.pas:52
+msgid "Byte count"
+msgstr "Numero Byte"
+
+#. Zeilenanzahl
+#. Programmer's name for it: rsLineCount
+#: FilePropConsts.pas:53
+msgid "Line count"
+msgstr "Numero Linee"
+
+#. Absatzanzahl
+#. Programmer's name for it: rsParCount
+#: FilePropConsts.pas:54
+msgid "Paragraph count"
+msgstr "Numero Paragrafi"
+
+#. Folien
+#. Programmer's name for it: rsSlides
+#: FilePropConsts.pas:55
+msgid "Slides"
+msgstr "Scorrere"
+
+#. Hinweise
+#. Programmer's name for it: rsNotes
+#: FilePropConsts.pas:56
+msgid "Notes"
+msgstr "Note"
+
+#. Anzahl ausgeblendeter Elemente
+#. Programmer's name for it: rsHidden
+#: FilePropConsts.pas:57
+msgid "Hidden elements"
+msgstr "Elementi nascosti"
+
+#. Multimediaclips
+#. Programmer's name for it: rsClips
+#: FilePropConsts.pas:58
+msgid "Clips"
+msgstr "Fermaglio"
+
+#. Skalierung
+#. Programmer's name for it: esScale
+#: FilePropConsts.pas:59
+msgid "Scale"
+msgstr "Scala"
+
+#. Überschriftenpaare
+#. Programmer's name for it: rsHeadPairs
+#: FilePropConsts.pas:60
+msgid "Heading pairs"
+msgstr "Coppia testata"
+
+#. Dokumententeile
+#. Programmer's name for it: rsDocParts
+#: FilePropConsts.pas:61
+msgid "Document parts"
+msgstr "Parti Documento"
+
+#. Manager
+#. Programmer's name for it: rsManager
+#: FilePropConsts.pas:62
+msgid "Manager"
+msgstr "Gestore"
+
+#. Firma
+#. Programmer's name for it: rsCompany
+#: FilePropConsts.pas:63
+msgid "Company"
+msgstr "Compagnia"
+
+#. Zu aktualisierende Verknüpfungen
+#. Programmer's name for it: rsLinkUpdate
+#: FilePropConsts.pas:64
+msgid "Links to update"
+msgstr "Link per Aggiornamento"
+
+#. Programmer's name for it: rsYes
+#: FilePropConsts.pas:66
+msgid "Yes"
+msgstr "Si"
+
+#. Programmer's name for it: rsNo
+#: FilePropConsts.pas:67
+msgid "No"
+msgstr "No"
+
+#. Strings for FTP connections
+#. Programmer's name for it: rsFtpConn
+#: FtpConsts.pas:23
+msgid "FTP connection"
+msgstr "Connessione FTP"
+
+#. Programmer's name for it: rsTryConnect
+#: FtpConsts.pas:24
+msgid "Trying to connect to FTP server"
+msgstr "Tentativo di connessione al server FTP"
+
+#. Programmer's name for it: rsConnected
+#: FtpConsts.pas:25
+msgid "Connection to FTP server established"
+msgstr "Connessione al server FTP stabilita"
+
+#. Programmer's name for it: rsConnectErr
+#: FtpConsts.pas:26
+msgid "Connection to FTP server failed"
+msgstr "Connessione al server FTP fallita"
+
+#. Programmer's name for it: rsConnectTo
+#: FtpConsts.pas:27
+msgid "Connection to FTP server: %s:%u"
+msgstr "Connessione al server FTP: %s:%u"
+
+#. Programmer's name for it: rsFtpHint
+#: FtpConsts.pas:28
+msgid ""
+"Connection to FTP server: %s:%u\n"
+"for user: %s\n"
+"requires a password!"
+msgstr ""
+"Connessione al server FTP: %s:%u\n"
+"per l'utente: %s\n"
+"richiede la password!"
+
+#. Programmer's name for it: rsProxyHint
+#: FtpConsts.pas:29
+msgid ""
+"Connection to FTP proxy server: %s:%u\n"
+"for user: %s\n"
+"requires a password!"
+msgstr ""
+"Connessione al server proxy FTP: %s:%u\n"
+"per l'utente: %s\n"
+"richiede la password!"
+
+#. Programmer's name for it: rsReconnect
+#: FtpConsts.pas:30
+msgid "FTP connection broken - try to reconnect"
+msgstr "Persa connessione FTP  - ricollegare"
+
+#. Programmer's name for it: rsNoConnect
+#: FtpConsts.pas:31
+msgid "FTP connection lost!"
+msgstr "Persa connessione FTP!"
+
+#. Programmer's name for it: rsFtpWelcome
+#: FtpConsts.pas:32
+msgid "FTP welcome message:"
+msgstr "FTP messaggio di benvenuto:"
+
+#. Programmer's name for it: rsFtpStatus
+#: FtpConsts.pas:33
+msgid "FTP status query:"
+msgstr "FTP interrogazione di stato:"
+
+#. Programmer's name for it: rsFtpFeat
+#: FtpConsts.pas:34
+msgid "Supported features: "
+msgstr "Funzionalità supportate:"
+
+#. Programmer's name for it: rsFtpRespCode
+#: FtpConsts.pas:35
+msgid "Response code: "
+msgstr "Codice di risposta: "
+
+#. Programmer's name for it: rsFtpResponse
+#: FtpConsts.pas:36
+msgid "Last FTP response: "
+msgstr "Ultima risposta FTP: "
+
+#. Programmer's name for it: rsIndyError
+#: FtpConsts.pas:37
+msgid "Reported error: "
+msgstr "Errore riportato: "
+
+#. Programmer's name for it: rsUnexpected
+#: FtpConsts.pas:38
+msgid "Unexpected response to command: "
+msgstr "Risposta inaspettata di comando: "
+
+#. Programmer's name for it: rsFtpTimeOut
+#: FtpConsts.pas:39
+msgid "Timeout on command: "
+msgstr "Timeout a comando: "
+
+#. Programmer's name for it: rsFtpBase
+#: FtpConsts.pas:40
+msgid "FTP root directory: \"%s\""
+msgstr "FTP directory radice: \"%s\""
+
+#. Programmer's name for it: rsFtpDir
+#: FtpConsts.pas:41
+msgid "Current FTP directory: \"%s\""
+msgstr "FTP directory utente: \"%s\""
+
+#. 'Fehler (öffnende/schließende Klammern)'
+#. Programmer's name for it: rsMathErrPar
+#: MathExpConsts.pas:22
+msgid "Error (left/right parenthesis)"
+msgstr "Errore(sinistra/destra parentesi)"
+
+#. Eingabefehler (öffnende Klammer fehlt)';
+#. Programmer's name for it: rsMathErrLeftPar
+#: MathExpConsts.pas:23
+msgid "Input error (missing left parenthesis)"
+msgstr "Errore di inserimento (manca parentesi sinistra)"
+
+#. 'Eingabefehler (kein Klammerinhalt)';
+#. Programmer's name for it: rsMathErrEmptyPar
+#: MathExpConsts.pas:24
+msgid "Input error (empty parentheses)"
+msgstr "Errore di inserimento (mancano parentesi)"
+
+#. 'Division durch Null';
+#. Programmer's name for it: rsMathErrDivZero
+#: MathExpConsts.pas:25
+msgid "Division by zero"
+msgstr "Divisione per zero"
+
+#. 'Unzulässiges Argument';
+#. Programmer's name for it: rsMathErrInvalidArg
+#: MathExpConsts.pas:26
+msgid "Invalid argument"
+msgstr "Argomento non valido"
+
+#. 'Operation führt zu Überlauf';
+#. Programmer's name for it: rsMathErrOverflow
+#: MathExpConsts.pas:27
+msgid "Overflow on operation"
+msgstr "Troppe operazioni"
+
+#. 'Unidentifizierbarer Ausdruck';
+#. Programmer's name for it: rsMathErrInvalidExp
+#. 'Unvollständiger Ausdruck';
+#. Programmer's name for it: rsMathErrIncompExp
+#: MathExpConsts.pas:28 MathExpConsts.pas:30
+msgid "Invalid expression"
+msgstr "Espressione non valida"
+
+#. 'Unerwartetes Operationssymbol';
+#. Programmer's name for it: rsMathErrUnexpOper
+#: MathExpConsts.pas:29
+msgid "Unexpected operator"
+msgstr "Operatore imprevisto"
+
+#. 'Operationssymbol fehlt';
+#. Programmer's name for it: rsMathErrMissOper
+#: MathExpConsts.pas:31
+msgid "Missing operator"
+msgstr "Operatore mancante"
+
+#. 'Potenz mit unzulässiger (negativer) Basis';
+#. Programmer's name for it: rsMathErrNegPower
+#: MathExpConsts.pas:32
+msgid "Power with invalid (negative) base"
+msgstr "Potenza non valida (negativa)"
+
+#. '"Null hoch Null"';
+#. Programmer's name for it: rsMathErrZeroPower
+#: MathExpConsts.pas:33
+msgid "Zero to power of zero"
+msgstr "Zero potenza di Zero"
+
+#. '"Null durch Null"';
+#. Programmer's name for it: rsMathErrZeroZero
+#: MathExpConsts.pas:34
+msgid "Divide zero by zero"
+msgstr "Divider Zero per Zero"
+
+#. 'Unzulässige Kombination von Operanden';
+#. Programmer's name for it: rsMathErrInvalidOps
+#: MathExpConsts.pas:35
+msgid "Invalid combination of operands"
+msgstr "Combinazioni di operandi invalidi"
+
+#. 'Unerlaubtes Zeichen';
+#. Programmer's name for it: rsMathErrInvalidChar
+#: MathExpConsts.pas:36
+msgid "Invalid character"
+msgstr "Carattere non valido"
+
+#. 'Unzulässiges Argument (Überlaufgefahr)';
+#. Programmer's name for it: rsMathErrInvalidOvfl
+#: MathExpConsts.pas:37
+msgid "Invalid argument (potential overflow)"
+msgstr "Argomento non valido (troppo potenziale)"
+
+#. 'Speicherplatz fehlt ("stack overflow")';
+#. Programmer's name for it: rsMathErrStackOvfl
+#: MathExpConsts.pas:38
+msgid "Low memory (\"stack overflow\")"
+msgstr "Memoria insufficiente (\"stack overflow\")"
+
+#. 'Speicherplatz fehlt ("string overflow")';
+#. Programmer's name for it: rsMathErrMemOvfl
+#: MathExpConsts.pas:39
+msgid "Low memory (\"string overflow\")"
+msgstr "Memoria insufficiente (\"string overflow\")"
+
+#. 'Unbekannter Fehler';
+#. Programmer's name for it: rsMathErrUnknown
+#: MathExpConsts.pas:40
+msgid "Unknown error"
+msgstr "Errore sconosciuto"
+
+#. Strings from ExtSysUtils
+#. Programmer's name for it: rsFormatError
+#. Programmer's name for it: rsFormatError
+#: UnitConsts.pas:27 WinTaskConsts.pas:22
+msgid "Format error: "
+msgstr "Formato errore: "
+
+#. '%s ist kein gültiger Hexwert';
+#. Programmer's name for it: rsHexError
+#: UnitConsts.pas:31
+msgid "%s is not a valid hex value"
+msgstr "%S non è un valore hex valido"
+
+#. '%s ist kein gültiger Oktalwert';
+#. Programmer's name for it: rsOctError
+#: UnitConsts.pas:32
+msgid "%s is not a valid octal value"
+msgstr "&s non è un valore octal valido"
+
+#. '%s ist kein gültiger Binärwert';
+#. Programmer's name for it: rsBinError
+#: UnitConsts.pas:33
+msgid "%s is not a valid binary value"
+msgstr "&s non è un valore binary valido"
+
+#. Strings from LangUtils
+#. Programmer's name for it: rsSystemDefault
+#: UnitConsts.pas:37
+msgid "&System default"
+msgstr "&Sistema predefinito"
+
+#. Programmer's name for it: rsLangRestart
+#: UnitConsts.pas:38
+msgid "Changing language requires the program to be restarted!"
+msgstr "Cambio della lingua occorre riavviare il programma!"
+
+#. Strings from TextFilter
+#. Programmer's name for it: rsIllRegExp
+#: UnitConsts.pas:42
+msgid "Illegal regular expression!"
+msgstr "Espressione regolare non valida!"
+
+#. Programmer's name for it: rsIllmask
+#: UnitConsts.pas:43
+msgid "Illegal mask!"
+msgstr "Maschera non valida!"
+
+#. Strings from WinExecute
+#. Programmer's name for it: rsExecuteError
+#: UnitConsts.pas:47
+msgid "Error executing process"
+msgstr "Errore di esecuzione processo"
+
+#. Programmer's name for it: rsCreatePipeError
+#: UnitConsts.pas:48
+msgid "Stdout pipe creation failed"
+msgstr "Creazione tubo Stdout fallita"
+
+#. Programmer's name for it: rsDupHandleError
+#: UnitConsts.pas:49
+msgid "DuplicateHandle failed"
+msgstr "Duplicare Processo fallita"
+
+#. Programmer's name for it: rsCloseHandleError
+#: UnitConsts.pas:50
+msgid "Closing handle failed"
+msgstr "Chiusura processo fallita"
+
+#. Strings from WinUtils
+#. Programmer's name for it: rsUnknownError
+#: UnitConsts.pas:62
+msgid "Unknown system error code"
+msgstr "Errore di siystema sconosciuto"
+
+#. Programmer's name for it: rsWindowsError
+#: UnitConsts.pas:63
+msgid "Windows error"
+msgstr "Errore Windows"
+
+#. Programmer's name for it: rsStorageError
+#: UnitConsts.pas:64
+msgid "Storage error"
+msgstr "Errore archivio"
+
+#. Programmer's name for it: rsRpcError
+#: UnitConsts.pas:65
+msgid "Remote procedure call error"
+msgstr "Errore di Remote Procedure Call"
+
+#. Programmer's name for it: rsInterfaceError
+#: UnitConsts.pas:66
+msgid "Interface error"
+msgstr "Errore interfaccia"
+
+#. Programmer's name for it: rsDispatchError
+#: UnitConsts.pas:67
+msgid "Dispatch error"
+msgstr "Errore Dispatch"
+
+#. Programmer's name for it: rsPreWin32Error
+#: UnitConsts.pas:68
+msgid "Error in SHFileOperation"
+msgstr "Errore in SHFileOperation"
+
+#. Programmer's name for it: rsShellExec
+#: UnitConsts.pas:69
+msgid "ShellExecute error"
+msgstr "Errore in ShellExecute"
+
+#. Programmer's name for it: rsProfessionalMC
+#: UnitConsts.pas:82
+msgid "Professional with Media Center"
+msgstr "Professional with Media Center"
+
+#. Programmer's name for it: rsEnterpriseServerIT
+#: UnitConsts.pas:90
+msgid "Server Enterprise for Itanium-based Systems"
+msgstr "Server Enterprise for Itanium-based Systems"
+
+#. Programmer's name for it: rsEssServerV
+#: UnitConsts.pas:100
+msgid "Essential Server without Hyper-V"
+msgstr "Essential Server without Hyper-V"
+
+#. Programmer's name for it: rsUnlicensed
+#: UnitConsts.pas:114
+msgid "Unlicensed product"
+msgstr "Prodotto senza licenza"
+
+#. Misc.
+#. Programmer's name for it: rsVersion
+#: UnitConsts.pas:118
+msgid "Version"
+msgstr "Versione"
+
+#. Programmer's name for it: rsLongCopyRight
+#: UnitConsts.pas:119
+msgid ""
+"%s Dr. J. Rathlev\n"
+" 24222 Schwentinental, Germany"
+msgstr ""
+"%s Dr. J. Rathlev\n"
+" 24222 Schwentinental, Germany"
+
+#. Programmer's name for it: rsCopyRight
+#: UnitConsts.pas:120
+msgid "%s Dr. J. Rathlev"
+msgstr "%s Dr. J. Rathlev"
+
+#. Programmer's name for it: rsNotAvail
+#: UnitConsts.pas:121
+msgid "not available"
+msgstr "non disponibile"
+
+#. Programmer's name for it: rsConnectTo
+#: UnitConsts.pas:122
+msgid "Connect to .."
+msgstr "Connessione a .."
+
+#. Programmer's name for it: rsUnknown
+#: UnitConsts.pas:123
+msgid "<Unknown>"
+msgstr "<Sconosciuto>"
+
+#. Programmer's name for it: rsVssNotAvail
+#: VssConsts.pas:24
+msgid "Volume Shadow Copy could not be initialized on this system!"
+msgstr ""
+"Copie shadow del volume non possono essere inizializzati su questo sistema!"
+
+#. Programmer's name for it: rsInitBackupComps
+#: VssConsts.pas:25
+msgid "Initializing IVssBackupComponents Interface ..."
+msgstr "Inizializzazione interfaccia IVssBackupComponents  ..."
+
+#. Programmer's name for it: rsInitMetaData
+#: VssConsts.pas:26
+msgid "Initialize writer metadata ..."
+msgstr "Inizio scritture metadati ..."
+
+#. Programmer's name for it: rsGatherMetaData
+#: VssConsts.pas:27
+msgid "Gathering writer metadata ..."
+msgstr "Raccolta dei metadati scritti ..."
+
+#. Programmer's name for it: rsGatherWriterStatus
+#: VssConsts.pas:28
+msgid "Gathering writer status ..."
+msgstr "Raccolta stato scrittura ..."
+
+#. Programmer's name for it: rsDscvDirExclComps
+#: VssConsts.pas:29
+msgid "Discover directly excluded components ..."
+msgstr "Scopri i componenti direttamente esclusi ..."
+
+#. Programmer's name for it: rsDscvNsExclComps
+#: VssConsts.pas:30
+msgid "Discover components that reside outside the shadow set ..."
+msgstr "Scopri i componenti che risiedono al di fuori del set shadow ..."
+
+#. Programmer's name for it: rsDscvAllExclComps
+#: VssConsts.pas:31
+msgid "Discover all excluded components ..."
+msgstr "Scopri tutti i componenti esclusi ..."
+
+#. Programmer's name for it: rsDscvExclWriters
+#: VssConsts.pas:32
+msgid "Discover excluded writers ..."
+msgstr "Scopri scrittori esclusi ..."
+
+#. Programmer's name for it: rsDscvExpInclComps
+#: VssConsts.pas:33
+msgid "Discover explicitly included components ..."
+msgstr "Scopri i componenti esplicitamente inclusi ..."
+
+#. Programmer's name for it: rsSelExpInclComps
+#: VssConsts.pas:34
+msgid "Select explicitly included components ..."
+msgstr "Selezionare i componenti esplicitamente incluso ..."
+
+#. Programmer's name for it: rsSaveBackCompsDoc
+#: VssConsts.pas:35
+msgid "Saving the backup components document ..."
+msgstr "Salvare il documento componenti di backup ..."
+
+#. Programmer's name for it: rsAddVolSnapSet
+#: VssConsts.pas:36
+msgid "Add volumes to snapshot set ..."
+msgstr "Aggiungere volumi di snapshot impostare ..."
+
+#. Programmer's name for it: rsPrepBackup
+#: VssConsts.pas:37
+msgid "Preparing for backup ..."
+msgstr "Preparazione per il backup ..."
+
+#. Programmer's name for it: rsCreateShadowCopy
+#: VssConsts.pas:38
+msgid "Creating the shadow copy ..."
+msgstr "Creazione della copia shadow  ..."
+
+#. Programmer's name for it: rsCreateCopySuccess
+#: VssConsts.pas:39
+msgid "Shadow copy set successfully created"
+msgstr "Copia Shadow create con successo"
+
+#. Programmer's name for it: rsQueryShadowCopies
+#: VssConsts.pas:40
+msgid "Querying all shadow copies in the system ..."
+msgstr "Interrogare tutte le copie shadow del sistema ..."
+
+#. Programmer's name for it: rsQuerySnapshotSetID
+#: VssConsts.pas:41
+msgid "Querying all shadow copies with the SnapshotSetID %s ..."
+msgstr "Interrogazione di tutte le copie replicate con il SnapshotSetID %s ..."
+
+#. Programmer's name for it: rsCreateShadowSet
+#: VssConsts.pas:42
+msgid "Creating shadow set {%s} ..."
+msgstr "Creazione set shadow {%s} ..."
+
+#. Programmer's name for it: rsCompleteBackup
+#: VssConsts.pas:43
+msgid "Completing the backup ..."
+msgstr "Backup completato ..."
+
+#. Unbekannt
+#. Programmer's name for it: rsTrgUnknown
+#: WinTaskConsts.pas:24
+msgid "Unknown"
+msgstr "Sconosciuto"
+
+#. Bereit
+#. Programmer's name for it: rsTrgReady
+#: WinTaskConsts.pas:25
+msgid "Ready"
+msgstr "Pronto"
+
+#. In Warteschlange
+#. Programmer's name for it: rsTrgQueued
+#: WinTaskConsts.pas:26
+msgid "Queued"
+msgstr "In coda"
+
+#. Wird ausgeführt
+#. Programmer's name for it: rsTrgRunning
+#: WinTaskConsts.pas:27
+msgid "Running"
+msgstr "In esecuzione"
+
+#. Deaktiviert
+#. Programmer's name for it: rsTrgDisabled
+#: WinTaskConsts.pas:28
+msgid "Disabled"
+msgstr "Disattivato"
+
+#. Programm starten
+#. Programmer's name for it: rsTrgActionExec
+#: WinTaskConsts.pas:30
+msgid "Start a program"
+msgstr "Avvio programma"
+
+#. Programmer's name for it: rsTragActionCom
+#: WinTaskConsts.pas:31
+msgid "File handler"
+msgstr "Gestione File"
+
+#. E-Mail senden
+#. Programmer's name for it: rsTragActionMail
+#: WinTaskConsts.pas:32
+msgid "Send an email"
+msgstr "Invia tramite posta elettronica"
+
+#. Meldung anzeigen
+#. Programmer's name for it: rsTragActionMsg
+#: WinTaskConsts.pas:33
+msgid "Display a message"
+msgstr "Visualizzare un messaggio"
+
+#. Bei einem Ereignis
+#. Programmer's name for it: rsTrgTypeEvent
+#. Bei einem Ereignis
+#. Programmer's name for it: rsTrgEvent
+#: WinTaskConsts.pas:35 WinTaskConsts.pas:82
+msgid "On an event"
+msgstr "Al verificarsi di un evento"
+
+#. Einmal
+#. Programmer's name for it: rsTrgTypeTime
+#: WinTaskConsts.pas:36
+msgid "One time"
+msgstr "Una volta"
+
+#. Täglich
+#. Programmer's name for it: rsTrgTypeDaily
+#: WinTaskConsts.pas:37
+msgid "Daily"
+msgstr "Ogni giorno"
+
+#. Wöchentlich
+#. Programmer's name for it: rsTrgTypeWeekly
+#: WinTaskConsts.pas:38
+msgid "Weekly"
+msgstr "Settimanale"
+
+#. Monatlich
+#. Programmer's name for it: rsTrgTypeMonthly
+#: WinTaskConsts.pas:39
+msgid "Monthly"
+msgstr "Ogni mese"
+
+#. Im Leerlauf
+#. Programmer's name for it: rsTrgTypeIdle
+#: WinTaskConsts.pas:40
+msgid "On idle"
+msgstr "Inattivo"
+
+#. Bei Aufgabenerstellung/-änderung
+#. Programmer's name for it: rsTrgTypeRegister
+#: WinTaskConsts.pas:41
+msgid "On task creation/modification"
+msgstr "Alla creazione/modifica di attività"
+
+#. Beim Start
+#. Programmer's name for it: rsTrgTypeStartup
+#: WinTaskConsts.pas:42
+msgid "At startup"
+msgstr "All'avvio"
+
+#. Bei Anmeldung
+#. Programmer's name for it: rsTrgTypeLogon
+#: WinTaskConsts.pas:43
+msgid "At log on"
+msgstr "All'accesso"
+
+#. Programmer's name for it: rsTrgTypeStateChg
+#: WinTaskConsts.pas:44
+msgid "On session state change"
+msgstr "Cambio di Stato della Sessione"
+
+#. Programmer's name for it: rsTrgTypeCustom
+#: WinTaskConsts.pas:45
+msgid "Custom trigger"
+msgstr "Attivazione personalizzata"
+
+#. Ersten
+#. Programmer's name for it: rsTrgFirst
+#: WinTaskConsts.pas:47
+msgid "First"
+msgstr "Primo"
+
+#. Zweiten
+#. Programmer's name for it: rsTrgSecond
+#: WinTaskConsts.pas:48
+msgid "Second"
+msgstr "Secondo"
+
+#. Dritten
+#. Programmer's name for it: rsTrgThird
+#: WinTaskConsts.pas:49
+msgid "Third"
+msgstr "Terzo"
+
+#. Vierten
+#. Programmer's name for it: rsTrgFourth
+#: WinTaskConsts.pas:50
+msgid "Fourth"
+msgstr "Quarto"
+
+#. Fünften
+#. Programmer's name for it: rsTrgFifth
+#: WinTaskConsts.pas:51
+msgid "Fifth"
+msgstr "Quinto"
+
+#. Letzten
+#. Programmer's name for it: rsTrgLast
+#: WinTaskConsts.pas:52
+msgid "Last"
+msgstr "Ultimo"
+
+#. Sekunde
+#. Programmer's name for it: rsTrgSec
+#: WinTaskConsts.pas:54
+msgid "second"
+msgstr "secondo"
+
+#. Sekunden
+#. Programmer's name for it: rsTrgSecs
+#: WinTaskConsts.pas:55
+msgid "seconds"
+msgstr "secondi"
+
+#. jede Sekunde
+#. Programmer's name for it: rsTrgEverySec
+#: WinTaskConsts.pas:56
+msgid "every second"
+msgstr "ogni secondo"
+
+#. alle %u Sekunden
+#. Programmer's name for it: rsTrgEverySecs
+#: WinTaskConsts.pas:57
+msgid "every %u seconds"
+msgstr "ogni %u secondi"
+
+#. Minute
+#. Programmer's name for it: rsTrgMin
+#: WinTaskConsts.pas:58
+msgid "minute"
+msgstr "minuto"
+
+#. Minuten
+#. Programmer's name for it: rsTrgMins
+#: WinTaskConsts.pas:59
+msgid "minutes"
+msgstr "minuti"
+
+#. jede Minute
+#. Programmer's name for it: rsTrgEveryMin
+#: WinTaskConsts.pas:60
+msgid "every minute"
+msgstr "ogni minuto"
+
+#. alle %u Minuten
+#. Programmer's name for it: rsTrgEveryMins
+#: WinTaskConsts.pas:61
+msgid "every %u minutes"
+msgstr "ogni %u minuti"
+
+#. Stunde
+#. Programmer's name for it: rsTrgHour
+#: WinTaskConsts.pas:62
+msgid "hour"
+msgstr "ora"
+
+#. Stunden
+#. Programmer's name for it: rsTrgHours
+#: WinTaskConsts.pas:63
+msgid "hours"
+msgstr "ore"
+
+#. jede Stunde
+#. Programmer's name for it: rsTrgEveryHour
+#: WinTaskConsts.pas:64
+msgid "every hour"
+msgstr "omni hora"
+
+#. alle %u Stunden
+#. Programmer's name for it: rsTrgEveryHours
+#: WinTaskConsts.pas:65
+msgid "every %u hours"
+msgstr "ogni %u ora"
+
+#. Tag
+#. Programmer's name for it: rsTrgDay
+#: WinTaskConsts.pas:66
+msgid "day"
+msgstr "giorno"
+
+#. Tage
+#. Programmer's name for it: rsTrgDays
+#: WinTaskConsts.pas:67
+msgid "%u days"
+msgstr "%u giorni"
+
+#. jeden Tag
+#. Programmer's name for it: rsTrgEveryDay
+#: WinTaskConsts.pas:68
+msgid "every day"
+msgstr "tutti i giorni"
+
+#. alle %u Tage
+#. Programmer's name for it: rsTrgEveryDays
+#: WinTaskConsts.pas:69
+msgid "every %u days"
+msgstr "ogni %u giorni"
+
+#. Um %0:s am %1:s
+#. Programmer's name for it: rsTrgOnce
+#: WinTaskConsts.pas:70
+msgid "At %0:s on %1:s"
+msgstr "A %0:s da %1:s"
+
+#. Jeden Tag um %s
+#. Programmer's name for it: rsTrgDailyAt
+#: WinTaskConsts.pas:72
+msgid "At %s every day"
+msgstr "A %s ogni giorno"
+
+#. Um %0:s alle %1:u Tage
+#. Programmer's name for it: rsTrgRDailyAt
+#: WinTaskConsts.pas:73
+msgid "At %0:s every %1:u days"
+msgstr "A %0:s ogni %1:u giorni"
+
+#. Wöchentlich um %0:s jeden %1:s, beginnend mit dem %2:s
+#. Programmer's name for it: rsTrgWeekly
+#: WinTaskConsts.pas:74
+msgid "At %0:s every %1:s of every week, starting %2:s"
+msgstr "Alle %0:s ogni %1:s di ogni settimana, a partire dal giorno %2:s"
+
+#. Um %0:s jeden %1:s alle %2:u Wochen, beginnend mit dem %3:s
+#. Programmer's name for it: rsTrgRWeekly
+#: WinTaskConsts.pas:75
+msgid "At %0:s every %1:s of every %2:u weeks, starting %3:s"
+msgstr "Alle %0:s ogni %1:s di ogni %2:u settimane, a partire dal giorno %3:s"
+
+#. Um %0:s am %1:s %2:s, beginnend mit dem %3:s
+#. Programmer's name for it: rsTrgMonthly
+#: WinTaskConsts.pas:76
+msgid "At %0:s on %1:s of %2:s, starting %3:s"
+msgstr "Alle %0:s del giorno %1:s di %2:s, a partire dal giorno %3:s"
+
+#. Wird am %0:s %1:s jeden %2:s beginnend mit dem %3:s ausgeführt
+#. Programmer's name for it: rsTrgDMonthly
+#: WinTaskConsts.pas:77
+msgid "Runs on the %0:s %1:s, each %2:s starting %3:s"
+msgstr ""
+"Viene eseguita la %0:s settimana di %1:s di %2:s, apartire dal giorno %3:s"
+
+#. Programmer's name for it: rsTrgAnyLogon
+#: WinTaskConsts.pas:78
+msgid "At logon of any user"
+msgstr "All' accesso dell' utente "
+
+#. Bei Anmeldung eines Benutzers
+#. Programmer's name for it: rsTrgLogon
+#: WinTaskConsts.pas:79
+msgid "At logon of %s"
+msgstr "All' accesso di %s"
+
+#. Beim Systemstart
+#. Programmer's name for it: rsTrgStartup
+#: WinTaskConsts.pas:80
+msgid "At system startup"
+msgstr "All'avvio del computer"
+
+#. Wenn der Computer inaktiv ist
+#. Programmer's name for it: rsTrgIdle
+#: WinTaskConsts.pas:81
+msgid "When computer is idle"
+msgstr "Quando il computer è inattivito"
+
+#. Programmer's name for it: rsTrgEventTime
+#: WinTaskConsts.pas:83
+msgid ", starting at %0:s on %1:s"
+msgstr ", a partire a %0:s da %1:s"
+
+#. Bei Aufgabenerstellung oder -änderung
+#. Programmer's name for it: rsTrgRegistration
+#: WinTaskConsts.pas:85
+msgid "When task is created or modified"
+msgstr "Alla creazione o alla modifica dell' attività"
+
+#. Nach Auslösung alle %0:s für die Dauer von %1:s wiederholen
+#. Programmer's name for it: rsTrgRepeat
+#: WinTaskConsts.pas:87
+msgid " - After triggered, repeat every %0:s for a duration of %1:s"
+msgstr " -Dopo l'attivazione, ripetere ogni %0:s per una durata di %1:s"
+
+#. Programmer's name for it: rsCompAT
+#: WinTaskConsts.pas:89
+msgid "deprecated"
+msgstr "deprecato"
+
+#. Programmer's name for it: rsXP
+#: WinTaskConsts.pas:90
+msgid "Windows XP"
+msgstr "Windows XP"
+
+#. Programmer's name for it: rsVista
+#: WinTaskConsts.pas:91
+msgid "Windows Vista"
+msgstr "Windows Vista"
+
+#. Programmer's name for it: rsWin7
+#: WinTaskConsts.pas:92
+msgid "Windows 7"
+msgstr "Windows 7"
+
+#. Programmer's name for it: rsWin10
+#: WinTaskConsts.pas:93
+msgid "Windows 10"
+msgstr "Windows 10"
+
+#~ msgid "No hash file found"
+#~ msgstr "Nessun file hash trovato"
+
+#~ msgid "Server Enterprise (core)"
+#~ msgstr "Server Enterprise (core)"
+
+#~ msgid "Home Basic"
+#~ msgstr "Home Basic"
+
+#~ msgid "MD5 verification failed"
+#~ msgstr "Verifica MD5 non riuscito"
+
+#~ msgid "Home Premium"
+#~ msgstr "Home Premium"
+
+#~ msgid "Home Premium Server"
+#~ msgstr "Home Premium Server"
+
+#~ msgid "Home Server"
+#~ msgstr "Home Server"
+
+#~ msgid "Hyper-V Server"
+#~ msgstr "Hyper-V Server"
+
+#~ msgid "Essential Business Management Server"
+#~ msgstr "Essential Business Management Server"
+
+#~ msgid "Essential Business Security Server"
+#~ msgstr "Essential Business Security Server"
+
+#~ msgid "Essential Business Messaging Server"
+#~ msgstr "Essential Business Messaging Server"
+
+#~ msgid "Could not open reference file"
+#~ msgstr "Impossibile aprire il file di riferimento"
+
+#~ msgid "Essential Server"
+#~ msgstr "Essential Server"
+
+#~ msgid "Server Foundation"
+#~ msgstr "Server Foundation"
+
+#~ msgid "Small Business Server"
+#~ msgstr "Small Business Server"
+
+#~ msgid "SHA256 verification failed"
+#~ msgstr "Verifica SHA256 non riuscito"
+
+#~ msgid "Small Business Server Premium"
+#~ msgstr "Small Business Server Premium"
+
+#~ msgid "Server Standard Edition (full)"
+#~ msgstr "Server Standard Edition (full)"
+
+#~ msgid "Server Standard Edition (core)"
+#~ msgstr "Server Standard Edition (core)"
+
+#~ msgid "Starter Edition"
+#~ msgstr "Starter Edition"
+
+#~ msgid "Storage Server Enterprise"
+#~ msgstr "Storage Server Enterprise"
+
+#~ msgid "Storage Server Express"
+#~ msgstr "Storage Server Express"
+
+#~ msgid "Professional"
+#~ msgstr "Professional"
+
+#~ msgid "Storage Server Standard"
+#~ msgstr "Storage Server Standard"
+
+#~ msgid "Storage Server Workgroup"
+#~ msgstr "Storage Server Workgroup"
+
+#~ msgid "Ultimate Edition"
+#~ msgstr "Ultimate Edition"
+
+#~ msgid "Web Server Edition"
+#~ msgstr "Web Server Edition"
+
+#~ msgid "File details could not be copied"
+#~ msgstr "Dettagli del file non può essere copiato"
+
+#~ msgid "Web Server Edition (core)"
+#~ msgstr "Web Server Edition (core)"
+
+#, fuzzy
+#~ msgid "%s%s (Version %d, Build %d, %s)"
+#~ msgstr "%s%s (Version %d.%d, Build %d, %6:s)"
+
+#, fuzzy
+#~ msgid "%s (Version %d, %s)"
+#~ msgstr "%s%s (Version %d.%d, Build %d, %6:s)"
+
+#, fuzzy
+#~ msgid "%s (Version %d, Build %d, %s)"
+#~ msgstr "%s%s (Version %d.%d, Build %d, %6:s)"
+
+#~ msgid "J. Rathlev (IEAP, Kiel University)"
+#~ msgstr "A.Rubini"
+
+#~ msgid "Business"
+#~ msgstr "Business"
+
+#~ msgid "%s%s - Service Pack %5:d (Version %2:d.%3:d, Build %4:d, %6:s)"
+#~ msgstr "%s%s - Service Pack %5:d (Version %2:d.%3:d, Build %4:d, %6:s)"
+
+#~ msgid "%s (%2:s)"
+#~ msgstr "%s (%2:s)"
+
+#~ msgid "%s - Service Pack %1:d (%2:s)"
+#~ msgstr "%s - Service Pack %1:d (%2:s)"
+
+#, fuzzy
+#~ msgid "Contents mismatch"
+#~ msgstr "Contenuto creato"
+
+#~ msgid "Verify failed - size mismatch"
+#~ msgstr "Verifica fallita - dimensione non corrispondente"
+
+#~ msgid "B"
+#~ msgstr "B"
+
+#~ msgid "Verify failed - could not open destination file"
+#~ msgstr "Verifica fallita - impossibile aprire il file"
+
+#~ msgid "kB"
+#~ msgstr "kB"
+
+#~ msgid "MB"
+#~ msgstr "MB"
+
+#~ msgid "GB"
+#~ msgstr "GB"
+
+#~ msgid "Cluster Server"
+#~ msgstr "Cluster Server"
+
+#~ msgid "kMGT"
+#~ msgstr "kMGT"
+
+#~ msgid "Server Datacenter (full)"
+#~ msgstr "Server Datacenter (full)"
+
+#~ msgid "Server Datacenter (core)"
+#~ msgstr "Server Datacenter (core)"
+
+#~ msgid "Enterprise"
+#~ msgstr "Enterprise"
+
+#~ msgid "Server Enterprise (full)"
+#~ msgstr "Server Enterprise (full)"
