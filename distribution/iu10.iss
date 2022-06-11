@@ -1,6 +1,6 @@
 ; Setup script for InnoUnpack (32 bit)
 ; ====================================
-;  © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
+;  Â© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
 ;  The contents of this file may be used under the terms of the
 ;  Mozilla Public License ("MPL") or
@@ -24,7 +24,7 @@ AppPublisher=Dr. J. Rathlev
 AppPublisherURL=http://www.rathlev-home.de/?tools/progtools.html
 AppSupportURL=http://www.rathlev-home.de/?tools/progtools.html
 AppUpdatesURL=http://www.rathlev-home.de/?tools/progtools.html
-AppCopyright=Copyright © 2014-{#Year} Dr. J. Rathlev
+AppCopyright=Copyright Â© 2014-{#Year} Dr. J. Rathlev
 VersionInfoVersion={#ApplicationVersion}
 DefaultDirName={commonpf}\Unpack InnoSetup
 DefaultGroupName=Unpack InnoSetup
@@ -44,8 +44,8 @@ DisableProgramGroupPage=auto
 [Languages]
 Name: "en"; MessagesFile: compiler:Default.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
 Name: "de"; MessagesFile: compiler:Languages\German.isl; LicenseFile:"..\..\..\Common\license-de.rtf";
-Name: "it"; MessagesFile: compiler:Languages\French.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
-Name: "fr"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
+Name: "fr"; MessagesFile: compiler:Languages\French.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
+Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
