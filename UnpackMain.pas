@@ -28,8 +28,8 @@ uses
 
 const
   ProgName = 'InnoUnpack';
-  Vers = ' Version 1.7.1';
-  CopRgt = '© 2014-2021 Dr. J. Rathlev, D-24222 Schwentinental';
+  Vers = ' Version 1.8.0';
+  CopRgt = '© 2014-2022 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
   defPipeSize = 64*1024;

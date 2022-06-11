@@ -747,6 +747,7 @@ object MainForm: TMainForm
       Top = 70
       Width = 296
       Height = 17
+      Anchors = [akLeft, akTop, akRight]
       Caption = 'Process embedded files'
       TabOrder = 8
       OnClick = bbListClick
