@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2022-06-11 13:05\n"
-"PO-Revision-Date: 2022-06-11 14:04+0200\n"
+"POT-Creation-Date: 2022-06-12 12:21\n"
+"PO-Revision-Date: 2022-06-12 12:21+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: de_DE\n"
@@ -69,8 +69,8 @@ msgstr "Eingebettete Dateien verarbeiten"
 
 #. MainForm..pnExtract..Label1..Caption
 #: UnpackMain.dfm:787
-msgid "Destination directory:"
-msgstr "Ziel-Verzeichnis:"
+msgid "Extract to directory:"
+msgstr "In dieses Verzeichnis extrahieren:"
 
 #. MainForm..pnExtract..Label3..Caption
 #: UnpackMain.dfm:794 UnpackMain.pas:305
@@ -89,8 +89,8 @@ msgstr "Starte extrahieren"
 
 #. MainForm..pnExtract..bbStart..Caption
 #: UnpackMain.dfm:816
-msgid "Start"
-msgstr "Start"
+msgid "Extract"
+msgstr "Extrahieren"
 
 #. MainForm..pnExtract..cxDupl..Caption
 #: UnpackMain.dfm:906
@@ -104,20 +104,24 @@ msgstr "Dateien überschreiben"
 
 #. MainForm..pnExtract..cxStrip..Caption
 #: UnpackMain.dfm:922
-msgid "Strip paths"
-msgstr "Pfade verkürzen"
+msgid "Without paths"
+msgstr "Ohne Pfade"
 
 #: UnpackMain.pas:206
 msgid "This application only allows dropping of exe files!"
 msgstr "Diese Anwendung akzeptiert nur Exe-Dateien!"
 
-#: UnpackMain.pas:235 UnpackMain.pas:264
+#: UnpackMain.pas:235
 msgid "Programs|*.exe|all|*.*"
 msgstr "Programme|*.exe|alle|*.*"
 
 #: UnpackMain.pas:236
 msgid "Select InnoSetup archive"
 msgstr "InnoSetup-Archiv auswählen"
+
+#: UnpackMain.pas:264
+msgid "Programs|*.exe|All files|*.*"
+msgstr "Programme|*.exe|alle Dateien|*.*"
 
 #: UnpackMain.pas:265
 msgid "Search for \"innounp.exe\""
@@ -163,6 +167,15 @@ msgstr "Firma: "
 #: UnpackMain.pas:428
 msgid "Comment: "
 msgstr "Kommentar: "
+
+#~ msgid "Destination directory:"
+#~ msgstr "Ziel-Verzeichnis:"
+
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgid "Strip paths"
+#~ msgstr "Pfade verkürzen"
 
 #~ msgid "Archive info"
 #~ msgstr "Archiv-Info"

@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2021-10-16 11:20\n"
-"PO-Revision-Date: 2022-06-11 14:05+0200\n"
+"POT-Creation-Date: 2022-06-12 12:21\n"
+"PO-Revision-Date: 2022-06-12 12:22+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -60,61 +60,65 @@ msgid "Copy output to clipboard"
 msgstr "Copia output negli Appunti"
 
 #. MainForm..pnTop..cxEmbedded..Caption
-#: UnpackMain.dfm:750
+#: UnpackMain.dfm:751
 msgid "Process embedded files"
 msgstr "Elabora file incorporati"
 
 #. MainForm..pnExtract..Label1..Caption
-#: UnpackMain.dfm:786
-msgid "Destination directory:"
-msgstr "Cartella destinazione:"
+#: UnpackMain.dfm:787
+msgid "Extract to directory:"
+msgstr "Estrarre nella directory:"
 
 #. MainForm..pnExtract..Label3..Caption
-#: UnpackMain.dfm:793 UnpackMain.pas:305
+#: UnpackMain.dfm:794 UnpackMain.pas:305
 msgid "File filter:"
 msgstr "Filtro file:"
 
 #. MainForm..pnExtract..cbDir..Hint
-#: UnpackMain.dfm:800
+#: UnpackMain.dfm:801
 msgid "Extract files to this directory"
 msgstr "Estrai file in questa cartella"
 
 #. MainForm..pnExtract..bbStart..Hint
-#: UnpackMain.dfm:813
+#: UnpackMain.dfm:814
 msgid "Start extraction"
 msgstr "Avvia estrazione"
 
 #. MainForm..pnExtract..bbStart..Caption
-#: UnpackMain.dfm:815
-msgid "Start"
+#: UnpackMain.dfm:816
+msgid "Extract"
 msgstr "Estrai"
 
 #. MainForm..pnExtract..cxDupl..Caption
-#: UnpackMain.dfm:905
+#: UnpackMain.dfm:906
 msgid "Process duplicate files"
 msgstr "Elabora file duplicati"
 
 #. MainForm..pnExtract..cxOverwrite..Caption
-#: UnpackMain.dfm:913
+#: UnpackMain.dfm:914
 msgid "Overwrite files"
 msgstr "Sovrascrivi file"
 
 #. MainForm..pnExtract..cxStrip..Caption
-#: UnpackMain.dfm:921
-msgid "Strip paths"
-msgstr "Estrai senza percorsi"
+#: UnpackMain.dfm:922
+msgid "Without paths"
+msgstr "Senza percorsi"
 
 #: UnpackMain.pas:206
 msgid "This application only allows dropping of exe files!"
 msgstr "Questa applicazione consente solo di rilasciare i file exe!"
 
-#: UnpackMain.pas:235 UnpackMain.pas:264
+#: UnpackMain.pas:235
 msgid "Programs|*.exe|all|*.*"
 msgstr "Programmi|*.exe|Tutti i file|*.*"
 
 #: UnpackMain.pas:236
 msgid "Select InnoSetup archive"
 msgstr "Seleziona archivio Inno Setup"
+
+#: UnpackMain.pas:264
+msgid "Programs|*.exe|All files|*.*"
+msgstr "Programmi|*.exe|Tutti i file|*.*"
 
 #: UnpackMain.pas:265
 msgid "Search for \"innounp.exe\""
@@ -160,3 +164,12 @@ msgstr "Società: "
 #: UnpackMain.pas:428
 msgid "Comment: "
 msgstr "Commento: "
+
+#~ msgid "Destination directory:"
+#~ msgstr "Cartella destinazione:"
+
+#~ msgid "Start"
+#~ msgstr "Estrai"
+
+#~ msgid "Strip paths"
+#~ msgstr "Estrai senza percorsi"
