@@ -28,7 +28,7 @@ uses
 
 const
   ProgName = 'InnoUnpack';
-  Vers = ' Version 1.8.1';
+  Vers = ' Version 1.8.2';
   CopRgt = '© 2014-2022 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -151,6 +151,7 @@ begin
   LoadHistory(Ininame,DirSekt,iniFName,cbDir.Items,mList);
   with cbDir do if Items.Count>0 then ItemIndex:=0;
   pnExtract.Visible:=false;
+  Caption:=ProgName+Vers+' - '+_('Inspect and unpack InnoSetup files');
   end;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -312,7 +313,7 @@ begin
 
 procedure TMainForm.bbExtractClick(Sender: TObject);
 begin
-  pnExtract.Visible:=true;
+  with pnExtract do Visible:=not Visible;
   end;
 
 procedure TMainForm.bbListClick(Sender: TObject);
