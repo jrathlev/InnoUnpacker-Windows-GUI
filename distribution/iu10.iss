@@ -65,9 +65,9 @@ Source: "..\Unpack-View.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\Unpack InnoSetup"; Filename: "{app}\InnoUnpack.exe"
-Name: "{group}\{cm:UninstallProgram,Unpack InnoSetup}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\Unpack InnoSetup"; Filename: "{app}\InnoUnpack.exe"; Tasks: desktopicon
+Name: "{group}\{#ProgramName}"; Filename: "{app}\InnoUnpack.exe"
+Name: "{group}\{cm:UninstallProgram,{#ProgramName}}"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\{#ProgramName}"; Filename: "{app}\InnoUnpack.exe"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\InnoUnpack.exe"; Description: "{cm:LaunchProgram,Unpack InnoSetup}"; Flags: nowait postinstall runasoriginaluser
