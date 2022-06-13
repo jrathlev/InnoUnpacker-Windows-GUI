@@ -22,8 +22,8 @@
 [Setup]
 PrivilegesRequired=admin
 AppName={#ProgramName}
-AppVerName={#ProgramName} {#ApplicationVersion}
 AppVersion={#ApplicationVersion}
+AppVerName={#ProgramName} {#ApplicationVersion}
 AppPublisher={#ProgramAuthor}
 AppPublisherURL={#ProgramWebURL}
 AppSupportURL={#ProgramWebURL}
