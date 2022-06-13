@@ -17,8 +17,8 @@
 
 [Setup]
 PrivilegesRequired=admin
-AppName=InnoUnpack
-AppVerName=InnoUnpack {#ApplicationVersion}
+AppName=Unpack InnoSetup
+AppVerName=Unpack InnoSetup {#ApplicationVersion}
 AppVersion={#ApplicationVersion}
 AppPublisher=Dr. J. Rathlev
 AppPublisherURL=http://www.rathlev-home.de/?tools/progtools.html
@@ -30,14 +30,14 @@ DefaultDirName={commonpf}\Unpack InnoSetup
 DefaultGroupName=Unpack InnoSetup
 OutputDir=.
 OutputBaseFilename=InnoUnpack-setup
-SetupIconFile=..\InnoUnpack_Icon.ico
-UninstallDisplayIcon=..\InnoUnpack_Icon.ico
+SetupIconFile=..\Unpack-View.ico
+UninstallDisplayIcon={app}\Unpack-View.ico
 WizardImageFile=..\..\..\Common\WizImage-JR.bmp
 WizardSmallImageFile=..\..\..\Common\WizSmallImage-JR.bmp
 Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
-ShowLanguageDialog=auto
+ShowLanguageDialog=yes
 DisableDirPage=auto
 DisableProgramGroupPage=auto
 
@@ -45,7 +45,7 @@ DisableProgramGroupPage=auto
 Name: "en"; MessagesFile: compiler:Default.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
 Name: "de"; MessagesFile: compiler:Languages\German.isl; LicenseFile:"..\..\..\Common\license-de.rtf";
 Name: "fr"; MessagesFile: compiler:Languages\French.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
-Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
+Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\Common\license-it.rtf";
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -54,7 +54,10 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "..\Release\Win32\InnoUnpack.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
 Source: "..\Release\Win32\innounp.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
 Source: "..\Release\Win32\innounp.htm"; DestDir: "{app}"; Flags: ignoreversion restartreplace
+Source: "..\Release\Win32\locale\*.mo"; DestDir: "{app}\locale"; Flags: recursesubdirs ignoreversion restartreplace
+Source: "..\Release\Win32\language.cfg"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion restartreplace
 Source: "..\..\..\Common\license-*.rtf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Unpack-View.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
