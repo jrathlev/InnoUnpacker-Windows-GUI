@@ -1,6 +1,6 @@
 ; Setup script for InnoUnpack (32 bit)
 ; ====================================
-;  © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
+;  Â© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
 ;  The contents of this file may be used under the terms of the
 ;  Mozilla Public License ("MPL") or
@@ -14,22 +14,26 @@
 
 #define ApplicationVersion GetVersionNumbersString('..\Release\Win32\InnoUnpack.exe')
 #define Year GetDateTimeString('yyyy','','')
+#define ProgramName "Unpack InnoSetup"
+#define ProgramAuthor "Dr. J. Rathlev"
+#define ProgramWebURL "http://www.rathlev-home.de/?tools/progtools.html"
+#define OutputFile "InnoUnpack-setup"
 
 [Setup]
 PrivilegesRequired=admin
-AppName=Unpack InnoSetup
-AppVerName=Unpack InnoSetup {#ApplicationVersion}
+AppName={#ProgramName}
+AppVerName={#ProgramName} {#ApplicationVersion}
 AppVersion={#ApplicationVersion}
-AppPublisher=Dr. J. Rathlev
-AppPublisherURL=http://www.rathlev-home.de/?tools/progtools.html
-AppSupportURL=http://www.rathlev-home.de/?tools/progtools.html
-AppUpdatesURL=http://www.rathlev-home.de/?tools/progtools.html
-AppCopyright=© 2014-{#Year} Dr. J. Rathlev
+AppPublisher={#ProgramAuthor}
+AppPublisherURL={#ProgramWebURL}
+AppSupportURL={#ProgramWebURL}
+AppUpdatesURL={#ProgramWebURL}
+AppCopyright=Â© 2014-{#Year} {#ProgramAuthor}
 VersionInfoVersion={#ApplicationVersion}
-DefaultDirName={commonpf}\Unpack InnoSetup
-DefaultGroupName=Unpack InnoSetup
+DefaultDirName={commonpf}\{#ProgramName}
+DefaultGroupName={#ProgramName}
 OutputDir=.
-OutputBaseFilename=InnoUnpack-setup
+OutputBaseFilename={#OutputFile}
 SetupIconFile=..\Unpack-View.ico
 UninstallDisplayIcon={app}\Unpack-View.ico
 WizardImageFile=..\..\..\Common\WizImage-JR.bmp
@@ -42,9 +46,9 @@ DisableDirPage=auto
 DisableProgramGroupPage=auto
 
 [Languages]
-Name: "en"; MessagesFile: compiler:Default.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
-Name: "de"; MessagesFile: compiler:Languages\German.isl; LicenseFile:"..\..\..\Common\license-de.rtf";
-Name: "fr"; MessagesFile: compiler:Languages\French.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
+Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"..\..\..\Common\license-en.rtf";
+Name: "de"; MessagesFile: compiler:Languages\German.isl;  LicenseFile:"..\..\..\Common\license-de.rtf";
+Name: "fr"; MessagesFile: compiler:Languages\French.isl;  LicenseFile:"..\..\..\Common\license-en.rtf";
 Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\Common\license-it.rtf";
 
 [Tasks]
