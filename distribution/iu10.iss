@@ -1,6 +1,6 @@
 ; Setup script for InnoUnpack (32 bit)
 ; ====================================
-;  Â© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
+;  © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
 ;  The contents of this file may be used under the terms of the
 ;  Mozilla Public License ("MPL") or
@@ -24,7 +24,7 @@ AppPublisher=Dr. J. Rathlev
 AppPublisherURL=http://www.rathlev-home.de/?tools/progtools.html
 AppSupportURL=http://www.rathlev-home.de/?tools/progtools.html
 AppUpdatesURL=http://www.rathlev-home.de/?tools/progtools.html
-AppCopyright=Copyright Â© 2014-{#Year} Dr. J. Rathlev
+AppCopyright=© 2014-{#Year} Dr. J. Rathlev
 VersionInfoVersion={#ApplicationVersion}
 DefaultDirName={commonpf}\Unpack InnoSetup
 DefaultGroupName=Unpack InnoSetup
