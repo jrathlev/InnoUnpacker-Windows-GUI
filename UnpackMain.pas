@@ -28,7 +28,7 @@ uses
 
 const
   ProgName = 'InnoUnpack';
-  Vers = ' Version 1.8.0';
+  Vers = ' Version 1.8.1';
   CopRgt = '© 2014-2022 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -84,7 +84,6 @@ type
     AppPath,UserPath,
     IniName,ProgPath,
     UnpProg          : string;
-//    PipeSize         : integer;
     function LoadUnpacker : boolean;
     procedure Execute (const Command,FileName,Filter,Comment : string);
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
@@ -136,7 +135,6 @@ begin
     ClientWidth:=ReadInteger(CfgSekt,iniWdt,ClientWidth);
     ClientHeight:=ReadInteger(CfgSekt,iniHgt,ClientHeight);
     UnpProg:=ReadString(CfgSekt,iniUnp,'');
-//    PipeSize:=ReadInteger(CfgSekt,iniPpSz,defPipeSize);
     Free;
     end;
   LoadHistory(Ininame,FilterSekt,'',cbFilter.Items,mList);
@@ -163,7 +161,6 @@ begin
     WriteInteger(CfgSekt,iniWdt,ClientWidth);
     WriteInteger(CfgSekt,iniHgt,ClientHeight);
     WriteString(CfgSekt,iniUnp,UnpProg);
-//    WriteInteger(CfgSekt,iniPpSz,PipeSize);
     Free;
     end;
   SaveHistory(Ininame,FilterSekt,'',true,cbFilter.Items,mList);
@@ -192,6 +189,7 @@ var
    Filename: PChar;
 begin
   inherited;
+  Filename:=nil;
   n:= DragQueryFile(Msg.WParam, $FFFFFFFF, Filename, 255);
   if n>0 then begin
     size := DragQueryFile(Msg.WParam, 0 , nil, 0) + 1;
@@ -232,7 +230,7 @@ begin
     if length(cbFile.Text)>0 then InitialDir:=ExtractFilePath(cbFile.Text)
     else InitialDir:=UserPath;
     Filename:='';
-    Filter:=_('Programs|*.exe|all|*.*');
+    Filter:=_('Programs|*.exe|All files|*.*');
     Title:=_('Select InnoSetup archive');
     if Execute then begin
       AddToHistory(cbFile.Items,Filename,mList);
@@ -261,7 +259,7 @@ begin
     if length(UnpProg)>0 then InitialDir:=ExtractFilePath(UnpProg)
     else InitialDir:=ProgPath;
     Filename:=ExtractFilename(UnpProg);
-    Filter:=_('Programs|*.exe|all|*.*');
+    Filter:=_('Programs|*.exe|All files|*.*');
     Title:=_('Search for "innounp.exe"');
     Result:=Execute;
     if Result then UnpProg:=Filename;
@@ -475,8 +473,7 @@ begin
           chBuf[dwread]:=#0;
           sa:=sa+chBuf;
           end;
-        s:=Utf8Decode(sa);
-//        s:=RawByteToUnicode(sa,850);
+        s:=UTF8ToString(sa);
         s:=ReplaceStr(s,CrLf,Lf); // Convert Unix style output
         s:=ReplaceStr(s,Lf,CrLf);
         mmDos.SetSelTextBuf(PChar(s));

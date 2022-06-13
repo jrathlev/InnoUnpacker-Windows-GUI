@@ -35,7 +35,7 @@ object MainForm: TMainForm
       Caption = 'InnoSetup Archive:'
     end
     object InfoBtn: TSpeedButton
-      Left = 545
+      Left = 550
       Top = 60
       Width = 36
       Height = 36
@@ -127,7 +127,7 @@ object MainForm: TMainForm
     object cbFile: TComboBox
       Left = 10
       Top = 30
-      Width = 579
+      Width = 586
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       ParentShowHint = False
@@ -136,7 +136,7 @@ object MainForm: TMainForm
       OnCloseUp = cbFileCloseUp
     end
     object bbOptions: TBitBtn
-      Left = 465
+      Left = 470
       Top = 60
       Width = 36
       Height = 36
@@ -227,7 +227,7 @@ object MainForm: TMainForm
       OnClick = bbOptionsClick
     end
     object bbExit: TBitBtn
-      Left = 585
+      Left = 590
       Top = 60
       Width = 36
       Height = 36
@@ -318,7 +318,7 @@ object MainForm: TMainForm
       OnClick = bbExitClick
     end
     object bbList: TBitBtn
-      Left = 320
+      Left = 325
       Top = 60
       Width = 141
       Height = 36
@@ -409,7 +409,7 @@ object MainForm: TMainForm
       OnClick = bbListClick
     end
     object bbExtract: TBitBtn
-      Left = 465
+      Left = 470
       Top = 100
       Width = 156
       Height = 36
@@ -500,7 +500,7 @@ object MainForm: TMainForm
       OnClick = bbExtractClick
     end
     object bbVerify: TBitBtn
-      Left = 320
+      Left = 325
       Top = 100
       Width = 141
       Height = 36
@@ -591,7 +591,7 @@ object MainForm: TMainForm
       OnClick = bbVerifyClick
     end
     object bbCopyResult: TBitBtn
-      Left = 505
+      Left = 510
       Top = 60
       Width = 36
       Height = 36
@@ -682,7 +682,7 @@ object MainForm: TMainForm
       OnClick = bbCopyResultClick
     end
     object bbFile: TBitBtn
-      Left = 595
+      Left = 600
       Top = 25
       Width = 26
       Height = 26
@@ -782,9 +782,9 @@ object MainForm: TMainForm
     object Label1: TLabel
       Left = 10
       Top = 0
-      Width = 104
+      Width = 98
       Height = 13
-      Caption = 'Destination directory:'
+      Caption = 'Extract to directory:'
     end
     object Label3: TLabel
       Left = 15
@@ -796,7 +796,7 @@ object MainForm: TMainForm
     object cbDir: TComboBox
       Left = 10
       Top = 15
-      Width = 576
+      Width = 586
       Height = 21
       Hint = 'Extract files to this directory'
       Anchors = [akLeft, akTop, akRight]
@@ -807,13 +807,13 @@ object MainForm: TMainForm
       OnExit = cbDirExit
     end
     object bbStart: TBitBtn
-      Left = 530
+      Left = 525
       Top = 65
-      Width = 86
+      Width = 101
       Height = 31
       Hint = 'Start extraction'
       Anchors = [akTop, akRight]
-      Caption = 'Start'
+      Caption = 'Extract'
       Glyph.Data = {
         96090000424D9609000000000000360000002800000028000000140000000100
         18000000000060090000120B0000120B00000000000000000000C0DCC0C0DCC0
@@ -919,7 +919,7 @@ object MainForm: TMainForm
       Top = 45
       Width = 126
       Height = 17
-      Caption = 'Strip paths'
+      Caption = 'Without paths'
       TabOrder = 5
     end
     object cbFilter: TComboBox
@@ -1021,7 +1021,7 @@ object MainForm: TMainForm
       OnClick = bbFilterClick
     end
     object bbDir: TBitBtn
-      Left = 595
+      Left = 600
       Top = 10
       Width = 26
       Height = 26
