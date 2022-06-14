@@ -14,111 +14,114 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#. MainForm..Caption
-#: UnpackMain.dfm:4
-msgid "Inspect and unpack InnoSetup files"
-msgstr "Analizza e decomprimi i file Inno Setup"
-
-#. MainForm..pnTop..Label2..Caption
-#: UnpackMain.dfm:35
-msgid "InnoSetup Archive:"
-msgstr "Archivio Inno Setup:"
-
 #. MainForm..pnTop..InfoBtn..Hint
 #: UnpackMain.dfm:42
 msgid "About the program"
 msgstr "Info sul programma"
 
-#. MainForm..pnTop..bbOptions..Hint
-#: UnpackMain.dfm:143
-msgid "Select unpack tool"
-msgstr "Seleziona strumento decompressione"
+#: UnpackMain.pas:428
+msgid "Comment: "
+msgstr "Commento: "
 
-#. MainForm..pnTop..bbExit..Hint
-#: UnpackMain.dfm:234
-msgid "Quit program"
-msgstr "Esci dal programma"
-
-#. MainForm..pnTop..bbList..Caption
-#: UnpackMain.dfm:326
-msgid "List files"
-msgstr "Elenco file"
-
-#. MainForm..pnTop..bbExtract..Caption
-#: UnpackMain.dfm:417
-msgid "Extract files"
-msgstr "Estrai file"
-
-#. MainForm..pnTop..bbVerify..Caption
-#: UnpackMain.dfm:508
-msgid "Verify archive"
-msgstr "Verifica archivio"
+#: UnpackMain.pas:427
+msgid "Company: "
+msgstr "Società: "
 
 #. MainForm..pnTop..bbCopyResult..Hint
 #: UnpackMain.dfm:598
 msgid "Copy output to clipboard"
 msgstr "Copia output negli Appunti"
 
-#. MainForm..pnTop..cxEmbedded..Caption
-#: UnpackMain.dfm:751
-msgid "Process embedded files"
-msgstr "Elabora file incorporati"
+#: UnpackMain.pas:426
+msgid "Copyright: "
+msgstr "Copyright: "
 
-#. MainForm..pnExtract..Label1..Caption
-#: UnpackMain.dfm:787
-msgid "Extract to directory:"
-msgstr "Estrarre nella directory:"
-
-#. MainForm..pnExtract..Label3..Caption
-#: UnpackMain.dfm:794 UnpackMain.pas:305
-msgid "File filter:"
-msgstr "Filtro file:"
-
-#. MainForm..pnExtract..cbDir..Hint
-#: UnpackMain.dfm:801
-msgid "Extract files to this directory"
-msgstr "Estrai file in questa cartella"
-
-#. MainForm..pnExtract..bbStart..Hint
-#: UnpackMain.dfm:814
-msgid "Start extraction"
-msgstr "Avvia estrazione"
+#. DOS-Ausgabe anzeigen
+#: UnpackMain.pas:416 UnpackMain.pas:490 UnpackMain.pas:492
+msgid "Error: "
+msgstr "Errore: "
 
 #. MainForm..pnExtract..bbStart..Caption
 #: UnpackMain.dfm:816
 msgid "Extract"
 msgstr "Estrai"
 
-#. MainForm..pnExtract..cxDupl..Caption
-#: UnpackMain.dfm:906
-msgid "Process duplicate files"
-msgstr "Elabora file duplicati"
+#. MainForm..pnTop..bbExtract..Caption
+#: UnpackMain.dfm:417
+msgid "Extract files"
+msgstr "Estrai file"
+
+#. MainForm..pnExtract..cbDir..Hint
+#: UnpackMain.dfm:801
+msgid "Extract files to this directory"
+msgstr "Estrai file in questa cartella"
+
+#. MainForm..pnExtract..Label1..Caption
+#: UnpackMain.dfm:787
+msgid "Extract to directory:"
+msgstr "Estrai nella cartella:"
+
+#: UnpackMain.pas:368
+msgid "Extracting setup file ...\n"
+"Destination directory: %s"
+msgstr "Estrazione installer programma...\n"
+"Cartella destinazione: %s"
+
+#. MainForm..pnExtract..Label3..Caption
+#: UnpackMain.dfm:794 UnpackMain.pas:305
+msgid "File filter:"
+msgstr "Filtro file:"
+
+#: UnpackMain.pas:411
+msgid "Filename: "
+msgstr "Nome file: "
+
+#. MainForm..pnTop..Label2..Caption
+#: UnpackMain.dfm:35
+msgid "InnoSetup Archive:"
+msgstr "Archivio Inno Setup:"
+
+#. MainForm..Caption
+#: UnpackMain.dfm:4
+msgid "Inspect and unpack InnoSetup files"
+msgstr "Analizza e decomprimi i file Inno Setup"
+
+#. MainForm..pnTop..bbList..Caption
+#: UnpackMain.dfm:326
+msgid "List files"
+msgstr "Elenco file"
+
+#: UnpackMain.pas:424
+msgid "Name: "
+msgstr "Nome: "
 
 #. MainForm..pnExtract..cxOverwrite..Caption
 #: UnpackMain.dfm:914
 msgid "Overwrite files"
 msgstr "Sovrascrivi file"
 
-#. MainForm..pnExtract..cxStrip..Caption
-#: UnpackMain.dfm:922
-msgid "Without paths"
-msgstr "Senza percorsi"
+#. MainForm..pnExtract..cxDupl..Caption
+#: UnpackMain.dfm:906
+msgid "Process duplicate files"
+msgstr "Elabora file duplicati"
 
-#: UnpackMain.pas:206
-msgid "This application only allows dropping of exe files!"
-msgstr "Questa applicazione consente solo di rilasciare i file exe!"
+#. MainForm..pnTop..cxEmbedded..Caption
+#: UnpackMain.dfm:751
+msgid "Process embedded files"
+msgstr "Elabora file incorporati"
+
+#: UnpackMain.pas:264
+msgid "Programs|*.exe|All files|*.*"
+msgstr "Programmi|*.exe|Tutti i file|*.*"
 
 #: UnpackMain.pas:235
 msgid "Programs|*.exe|all|*.*"
 msgstr "Programmi|*.exe|Tutti i file|*.*"
 
-#: UnpackMain.pas:236
-msgid "Select InnoSetup archive"
-msgstr "Seleziona archivio Inno Setup"
-
-#: UnpackMain.pas:264
-msgid "Programs|*.exe|All files|*.*"
-msgstr "Programmi|*.exe|Tutti i file|*.*"
+#. MainForm..pnTop..bbExit..Hint
+#: UnpackMain.dfm:234
+msgid "Quit program"
+msgstr "Esci dal programma"
 
 #: UnpackMain.pas:265
 msgid "Search for \"innounp.exe\""
@@ -126,44 +129,42 @@ msgstr "Ricerca \"innounp.exe\""
 
 #: UnpackMain.pas:286
 msgid "Select directory for extracted files"
-msgstr "Seleziona la cartella dove estrarre i file"
+msgstr "Seleziona la cartella dove estrarre i "
+"file"
 
-#: UnpackMain.pas:368
-msgid ""
-"Extracting setup file ...\n"
-"Destination directory: %s"
-msgstr ""
-"Estrazione installer programma...\n"
-"Cartella destinazione: %s"
+#: UnpackMain.pas:236
+msgid "Select InnoSetup archive"
+msgstr "Seleziona archivio Inno Setup"
 
-#: UnpackMain.pas:411
-msgid "Filename: "
-msgstr "Nome file: "
+#. MainForm..pnTop..bbOptions..Hint
+#: UnpackMain.dfm:143
+msgid "Select unpack tool"
+msgstr "Seleziona strumento decompressione"
 
-#. DOS-Ausgabe anzeigen
-#: UnpackMain.pas:416 UnpackMain.pas:490 UnpackMain.pas:492
-msgid "Error: "
-msgstr "Errore: "
+#. MainForm..pnExtract..bbStart..Hint
+#: UnpackMain.dfm:814
+msgid "Start extraction"
+msgstr "Avvia estrazione"
 
-#: UnpackMain.pas:424
-msgid "Name: "
-msgstr "Nome: "
+#: UnpackMain.pas:206
+msgid "This application only allows dropping of exe "
+"files!"
+msgstr "Questa applicazione consente solo di rilasciare i file "
+"exe!"
+
+#. MainForm..pnTop..bbVerify..Caption
+#: UnpackMain.dfm:508
+msgid "Verify archive"
+msgstr "Verifica archivio"
 
 #: UnpackMain.pas:425
 msgid "Version: "
 msgstr "Versione: "
 
-#: UnpackMain.pas:426
-msgid "Copyright: "
-msgstr "Copyright: "
-
-#: UnpackMain.pas:427
-msgid "Company: "
-msgstr "Società: "
-
-#: UnpackMain.pas:428
-msgid "Comment: "
-msgstr "Commento: "
+#. MainForm..pnExtract..cxStrip..Caption
+#: UnpackMain.dfm:922
+msgid "Without paths"
+msgstr "Estrai senza percorsi"
 
 #~ msgid "Destination directory:"
 #~ msgstr "Cartella destinazione:"
@@ -173,3 +174,4 @@ msgstr "Commento: "
 
 #~ msgid "Strip paths"
 #~ msgstr "Estrai senza percorsi"
+
