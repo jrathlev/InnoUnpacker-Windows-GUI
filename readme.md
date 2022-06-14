@@ -2,7 +2,7 @@
 
 ##### Inspect and unpack InnoSetup archives
 
-[Inno Setup](http://www.jrsoftware.org/isinfo.php") is a popular program
+[Inno Setup](http://www.jrsoftware.org/isinfo.php) is a popular program
 for making software installations. To verify and get files out of the self-extracting 
 executable, you can use the open source console application
 [Innounp](http://sourceforge.net/projects/innounp).
