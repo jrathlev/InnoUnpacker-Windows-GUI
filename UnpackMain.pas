@@ -27,8 +27,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
 
 const
-  ProgName = 'InnoUnpack';
-  Vers = ' Version 1.8.2';
+  ProgName = 'InnoUnpacker';
+  Vers = ' 1.8.3';
   CopRgt = '© 2014-2022 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
