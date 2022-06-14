@@ -1,5 +1,5 @@
 ; Setup script for InnoUnpacker (32 bit)
-; ====================================
+; ======================================
 ;  © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
 ;  The contents of this file may be used under the terms of the
@@ -17,7 +17,7 @@
 #define ProgramName "InnoUnpacker"
 #define ProgramAuthor "Dr. J. Rathlev"
 #define ProgramWebURL "http://www.rathlev-home.de/?tools/progtools.html"
-#define OutputFile "InnoUnpack-setup"
+#define OutputFile "InnoUnpacker-setup"
 
 [Setup]
 PrivilegesRequired=admin
@@ -72,10 +72,3 @@ Name: "{commondesktop}\{#ProgramName}"; Filename: "{app}\InnoUnpack.exe"; Tasks:
 [Run]
 Filename: "{app}\InnoUnpack.exe"; Description: "{cm:LaunchProgram,{#ProgramName}}"; Flags: nowait postinstall runasoriginaluser
 
-[Code]
-function ReadVersionNumber (const FName : string) : string;
-var
-  sv : string;
-begin
-  if GetVersionNumbersString(FName,sv) then Result:=sv else Result:='1.0';
-  end;
