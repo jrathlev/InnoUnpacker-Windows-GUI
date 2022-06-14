@@ -1,6 +1,6 @@
 ; Setup script for InnoUnpacker (32 bit)
 ; ======================================
-;  © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
+;  Â© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
 ;  The contents of this file may be used under the terms of the
 ;  Mozilla Public License ("MPL") or
