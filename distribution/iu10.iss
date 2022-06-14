@@ -14,22 +14,26 @@
 
 #define ApplicationVersion GetVersionNumbersString('..\Release\Win32\InnoUnpack.exe')
 #define Year GetDateTimeString('yyyy','','')
+#define ProgramName "Unpack InnoSetup"
+#define ProgramAuthor "Dr. J. Rathlev"
+#define ProgramWebURL "http://www.rathlev-home.de/?tools/progtools.html"
+#define OutputFile "InnoUnpack-setup"
 
 [Setup]
 PrivilegesRequired=admin
-AppName=Unpack InnoSetup
-AppVerName=Unpack InnoSetup {#ApplicationVersion}
+AppName={#ProgramName}
 AppVersion={#ApplicationVersion}
-AppPublisher=Dr. J. Rathlev
-AppPublisherURL=http://www.rathlev-home.de/?tools/progtools.html
-AppSupportURL=http://www.rathlev-home.de/?tools/progtools.html
-AppUpdatesURL=http://www.rathlev-home.de/?tools/progtools.html
-AppCopyright=© 2014-{#Year} Dr. J. Rathlev
+AppVerName={#ProgramName} {#ApplicationVersion}
+AppPublisher={#ProgramAuthor}
+AppPublisherURL={#ProgramWebURL}
+AppSupportURL={#ProgramWebURL}
+AppUpdatesURL={#ProgramWebURL}
+AppCopyright=2014-{#Year} {#ProgramAuthor}
 VersionInfoVersion={#ApplicationVersion}
-DefaultDirName={commonpf}\Unpack InnoSetup
-DefaultGroupName=Unpack InnoSetup
+DefaultDirName={commonpf}\{#ProgramName}
+DefaultGroupName={#ProgramName}
 OutputDir=.
-OutputBaseFilename=InnoUnpack-setup
+OutputBaseFilename={#OutputFile}
 SetupIconFile=..\Unpack-View.ico
 UninstallDisplayIcon={app}\Unpack-View.ico
 WizardImageFile=..\..\..\Common\WizImage-JR.bmp
@@ -42,9 +46,9 @@ DisableDirPage=auto
 DisableProgramGroupPage=auto
 
 [Languages]
-Name: "en"; MessagesFile: compiler:Default.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
-Name: "de"; MessagesFile: compiler:Languages\German.isl; LicenseFile:"..\..\..\Common\license-de.rtf";
-Name: "fr"; MessagesFile: compiler:Languages\French.isl; LicenseFile:"..\..\..\Common\license-en.rtf";
+Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"..\..\..\Common\license-en.rtf";
+Name: "de"; MessagesFile: compiler:Languages\German.isl;  LicenseFile:"..\..\..\Common\license-de.rtf";
+Name: "fr"; MessagesFile: compiler:Languages\French.isl;  LicenseFile:"..\..\..\Common\license-en.rtf";
 Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\Common\license-it.rtf";
 
 [Tasks]
@@ -61,9 +65,9 @@ Source: "..\Unpack-View.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\Unpack InnoSetup"; Filename: "{app}\InnoUnpack.exe"
-Name: "{group}\{cm:UninstallProgram,Unpack InnoSetup}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\Unpack InnoSetup"; Filename: "{app}\InnoUnpack.exe"; Tasks: desktopicon
+Name: "{group}\{#ProgramName}"; Filename: "{app}\InnoUnpack.exe"
+Name: "{group}\{cm:UninstallProgram,{#ProgramName}}"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\{#ProgramName}"; Filename: "{app}\InnoUnpack.exe"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\InnoUnpack.exe"; Description: "{cm:LaunchProgram,Unpack InnoSetup}"; Flags: nowait postinstall runasoriginaluser
@@ -75,5 +79,3 @@ var
 begin
   if GetVersionNumbersString(FName,sv) then Result:=sv else Result:='1.0';
   end;
-
-
