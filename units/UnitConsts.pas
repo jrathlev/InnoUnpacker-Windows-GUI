@@ -122,6 +122,7 @@ resourcestring
   rsNotAvail = 'not available';
   rsConnectTo = 'Connect to ..';
   rsUnknown = '<Unknown>';
+  rsAnyKey = 'Strike any key to continue ...';
 
 implementation
 

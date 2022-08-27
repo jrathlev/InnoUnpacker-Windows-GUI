@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-12 12:21\n"
-"PO-Revision-Date: 2022-06-12 12:21+0200\n"
+"POT-Creation-Date: 2022-06-16 10:08\n"
+"PO-Revision-Date: 2022-06-16 10:09+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. MainForm..Caption
-#: UnpackMain.dfm:4
+#: UnpackMain.dfm:4 UnpackMain.pas:154
 msgid "Inspect and unpack InnoSetup files"
 msgstr "Inspecter et décompresser les fichiers InnoSetup"
 
@@ -74,7 +74,7 @@ msgid "Extract to directory:"
 msgstr "Extraire dans le répertoire :"
 
 #. MainForm..pnExtract..Label3..Caption
-#: UnpackMain.dfm:794 UnpackMain.pas:305
+#: UnpackMain.dfm:794 UnpackMain.pas:304
 msgid "File filter:"
 msgstr "Filtre du fichier:"
 
@@ -106,33 +106,34 @@ msgstr "Écraser les fichiers"
 #. MainForm..pnExtract..cxStrip..Caption
 #: UnpackMain.dfm:922
 msgid "Without paths"
-msgstr ""
+msgstr "Sans chemins"
 
-#: UnpackMain.pas:206
+#. MainForm..pnExtract..bbFilter..Hint
+#: UnpackMain.dfm:940
+msgid "Edit file filter"
+msgstr "Dialogue de filtre de fichier"
+
+#: UnpackMain.pas:205
 msgid "This application only allows dropping of exe files!"
 msgstr "Cette application ne permet que le dépôt de fichiers exe !"
 
-#: UnpackMain.pas:235
-msgid "Programs|*.exe|all|*.*"
-msgstr "Programmes|*.exe|tous|*.*"
+#: UnpackMain.pas:234 UnpackMain.pas:263
+msgid "Programs|*.exe|All files|*.*"
+msgstr "Programmes|*.exe|Tous le fichiers|*.*"
 
-#: UnpackMain.pas:236
+#: UnpackMain.pas:235
 msgid "Select InnoSetup archive"
 msgstr "Choisissez l'archive InnoSetup"
 
 #: UnpackMain.pas:264
-msgid "Programs|*.exe|All files|*.*"
-msgstr "Programmes|*.exe|Tous le fichiers|*.*"
-
-#: UnpackMain.pas:265
 msgid "Search for \"innounp.exe\""
 msgstr "Recherche pour \"innounp.exe\""
 
-#: UnpackMain.pas:286
+#: UnpackMain.pas:285
 msgid "Select directory for extracted files"
 msgstr "Sélectionnez le répertoire pour l'extraction des fichiers"
 
-#: UnpackMain.pas:368
+#: UnpackMain.pas:367
 msgid ""
 "Extracting setup file ...\n"
 "Destination directory: %s"
@@ -140,34 +141,37 @@ msgstr ""
 "Extraction du fichier d'installation...\n"
 "Répertoire de destination: %s"
 
-#: UnpackMain.pas:411
+#: UnpackMain.pas:410
 msgid "Filename: "
 msgstr "Nom du fichier: "
 
 #. DOS-Ausgabe anzeigen
-#: UnpackMain.pas:416 UnpackMain.pas:490 UnpackMain.pas:492
+#: UnpackMain.pas:415 UnpackMain.pas:488 UnpackMain.pas:490
 msgid "Error: "
 msgstr "Erreur: "
 
-#: UnpackMain.pas:424
+#: UnpackMain.pas:423
 msgid "Name: "
 msgstr "Nom: "
 
-#: UnpackMain.pas:425
+#: UnpackMain.pas:424
 msgid "Version: "
 msgstr "Version: "
 
-#: UnpackMain.pas:426
+#: UnpackMain.pas:425
 msgid "Copyright: "
 msgstr "Copyright: "
 
-#: UnpackMain.pas:427
+#: UnpackMain.pas:426
 msgid "Company: "
 msgstr "Entreprise: "
 
-#: UnpackMain.pas:428
+#: UnpackMain.pas:427
 msgid "Comment: "
 msgstr "Commentaire: "
+
+#~ msgid "Programs|*.exe|all|*.*"
+#~ msgstr "Programmes|*.exe|tous|*.*"
 
 #~ msgid "Destination directory:"
 #~ msgstr "Répertoire de destination:"

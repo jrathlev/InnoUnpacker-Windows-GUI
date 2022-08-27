@@ -6,19 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2022-06-12 12:21\n"
-"PO-Revision-Date: 2022-06-12 12:21+0200\n"
+"POT-Creation-Date: 2022-06-16 10:08\n"
+"PO-Revision-Date: 2022-06-16 10:12+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. MainForm..Caption
-#: UnpackMain.dfm:4
+#: UnpackMain.dfm:4 UnpackMain.pas:154
 msgid "Inspect and unpack InnoSetup files"
 msgstr "Überprüfen und Entpacken von InnoSetup-Dateien"
 
@@ -73,7 +73,7 @@ msgid "Extract to directory:"
 msgstr "In dieses Verzeichnis extrahieren:"
 
 #. MainForm..pnExtract..Label3..Caption
-#: UnpackMain.dfm:794 UnpackMain.pas:305
+#: UnpackMain.dfm:794 UnpackMain.pas:304
 msgid "File filter:"
 msgstr "Datei-Filter:"
 
@@ -107,31 +107,32 @@ msgstr "Dateien überschreiben"
 msgid "Without paths"
 msgstr "Ohne Pfade"
 
-#: UnpackMain.pas:206
+#. MainForm..pnExtract..bbFilter..Hint
+#: UnpackMain.dfm:940
+msgid "Edit file filter"
+msgstr "Datei-Filter bearbeiten"
+
+#: UnpackMain.pas:205
 msgid "This application only allows dropping of exe files!"
 msgstr "Diese Anwendung akzeptiert nur Exe-Dateien!"
 
-#: UnpackMain.pas:235
-msgid "Programs|*.exe|all|*.*"
-msgstr "Programme|*.exe|alle|*.*"
+#: UnpackMain.pas:234 UnpackMain.pas:263
+msgid "Programs|*.exe|All files|*.*"
+msgstr "Programme|*.exe|alle Dateien|*.*"
 
-#: UnpackMain.pas:236
+#: UnpackMain.pas:235
 msgid "Select InnoSetup archive"
 msgstr "InnoSetup-Archiv auswählen"
 
 #: UnpackMain.pas:264
-msgid "Programs|*.exe|All files|*.*"
-msgstr "Programme|*.exe|alle Dateien|*.*"
-
-#: UnpackMain.pas:265
 msgid "Search for \"innounp.exe\""
 msgstr "Suche nach \"innounp.exe\""
 
-#: UnpackMain.pas:286
+#: UnpackMain.pas:285
 msgid "Select directory for extracted files"
 msgstr "Verzeichnis für zu extrahierende Dateien"
 
-#: UnpackMain.pas:368
+#: UnpackMain.pas:367
 msgid ""
 "Extracting setup file ...\n"
 "Destination directory: %s"
@@ -139,34 +140,37 @@ msgstr ""
 "Setup-Datei wird extrahiert …\n"
 "Ziel-Verzeichnis: %s"
 
-#: UnpackMain.pas:411
+#: UnpackMain.pas:410
 msgid "Filename: "
 msgstr "Dateiname: "
 
 #. DOS-Ausgabe anzeigen
-#: UnpackMain.pas:416 UnpackMain.pas:490 UnpackMain.pas:492
+#: UnpackMain.pas:415 UnpackMain.pas:488 UnpackMain.pas:490
 msgid "Error: "
 msgstr "Fehler: "
 
-#: UnpackMain.pas:424
+#: UnpackMain.pas:423
 msgid "Name: "
 msgstr "Name: "
 
-#: UnpackMain.pas:425
+#: UnpackMain.pas:424
 msgid "Version: "
 msgstr "Version: "
 
-#: UnpackMain.pas:426
+#: UnpackMain.pas:425
 msgid "Copyright: "
 msgstr "Copyright: "
 
-#: UnpackMain.pas:427
+#: UnpackMain.pas:426
 msgid "Company: "
 msgstr "Firma: "
 
-#: UnpackMain.pas:428
+#: UnpackMain.pas:427
 msgid "Comment: "
 msgstr "Kommentar: "
+
+#~ msgid "Programs|*.exe|all|*.*"
+#~ msgstr "Programme|*.exe|alle|*.*"
 
 #~ msgid "Destination directory:"
 #~ msgstr "Ziel-Verzeichnis:"

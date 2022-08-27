@@ -43,6 +43,11 @@ function NoError(ASysError : cardinal) : boolean;
 function ThisError(ASysError,ThisError : cardinal) : boolean;
 function IsSysError(ASysError : cardinal) : boolean;
 
+{ ---------------------------------------------------------------- }
+// read key from keyboard
+function ReadKey : Word;
+procedure WaitForAnyKey;
+
 implementation
 
 uses UnitConsts;
@@ -106,5 +111,26 @@ function DosPathToUnixPath(const Path: string): string;
 begin
   Result:=Path.Replace('\', '/');
 end;
+
+{ --------------------------------------------------------------- }
+// read key from keyboard
+function ReadKey : Word;
+var
+  nRead : Cardinal;
+  Hdl   : THandle;
+  Rec   : TInputRecord;
+begin
+  FlushConsoleInputBuffer(STD_INPUT_HANDLE);
+  Hdl := GetStdHandle(STD_INPUT_HANDLE);
+  repeat
+    ReadConsoleInput(Hdl,Rec,1,nRead);
+    until (Rec.EventType=KEY_EVENT) and (nRead=1) and (Rec.Event.KeyEvent.bKeyDown);
+  Result := Rec.Event.KeyEvent.wVirtualKeyCode;
+  end;
+
+procedure WaitForAnyKey;
+begin
+  write(rsAnyKey); readkey; writeln;
+  end;
 
 end.

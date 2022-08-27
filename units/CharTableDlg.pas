@@ -13,7 +13,7 @@
    the specific language governing rights and limitations under the License.
     
    Vers. 1 - Sep. 2002 
-   last modified: Nov. 2020
+   last modified: Nov. 2021
    *)
     
 unit CharTableDlg;
@@ -108,23 +108,13 @@ begin
 function CharFromTable (APos : TPoint; const AFontName : TFontName) : char;
 begin
   if not assigned(CharTableDialog) then CharTableDialog:=TCharTableDialog.Create(Application);
+  AdjustFormPosition(Screen,CharTableDialog,APos);
   with CharTableDialog do begin
-    with APos do begin
-      if (Y < 0) or (X < 0) then Position:=poScreenCenter
-      else begin
-        Position:=poDesigned;
-        if X<0 then X:=Left;
-        if Y<0 then Y:=Top;
-        CheckScreenBounds(Screen,x,y,Width,Height);
-        Left:=x; Top:=y;
-        end;
-      end;
     GridFontName:=AFontName;
     if ShowModal=mrOK then with CharGrid do Result:=chr(16*pred(Row)+pred(Col))
     else Result:=#0;
-    Release;
     end;
-  CharTableDialog:=nil;
+  FreeAndNil(CharTableDialog);
   end;
 
 end.

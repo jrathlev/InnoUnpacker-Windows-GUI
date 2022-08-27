@@ -1438,7 +1438,7 @@ object ShellDirDialog: TShellDirDialog
         Height = 71
         Anchors = [akLeft, akTop, akRight]
         GroupIndex = 1
-        Caption = 'My Documents'
+        Caption = 'Documents'
         Flat = True
         Glyph.Data = {
           36360000424D3636000000000000360000002800000060000000300000000100
@@ -2169,7 +2169,7 @@ object ShellDirDialog: TShellDirDialog
           DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0}
         ModalResult = 2
         NumGlyphs = 2
-        TabOrder = 1
+        TabOrder = 3
       end
       object btbOK: TBitBtn
         Left = 222
@@ -2240,8 +2240,9 @@ object ShellDirDialog: TShellDirDialog
         Top = 30
         Width = 393
         Height = 21
+        Hint = 'Directory'
         Anchors = [akLeft, akTop, akRight]
-        TabOrder = 3
+        TabOrder = 1
         OnChange = cbxSelectedDirChange
         OnCloseUp = cbxSelectedDirCloseUp
       end

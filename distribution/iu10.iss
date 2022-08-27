@@ -1,6 +1,6 @@
 ; Setup script for InnoUnpacker (32 bit)
 ; ======================================
-;  Â© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
+;  © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
 ;  The contents of this file may be used under the terms of the
 ;  Mozilla Public License ("MPL") or
@@ -34,8 +34,8 @@ DefaultDirName={commonpf}\{#ProgramName}
 DefaultGroupName={#ProgramName}
 OutputDir=.
 OutputBaseFilename={#OutputFile}
-SetupIconFile=..\Unpack-View.ico
-UninstallDisplayIcon={app}\Unpack-View.ico
+SetupIconFile=..\pack-view.ico
+UninstallDisplayIcon={app}\InnoUnpack.exe
 WizardImageFile=..\..\..\Common\WizImage-JR.bmp
 WizardSmallImageFile=..\..\..\Common\WizSmallImage-JR.bmp
 Compression=lzma
@@ -61,7 +61,7 @@ Source: "..\Release\Win32\innounp.htm"; DestDir: "{app}"; Flags: ignoreversion r
 Source: "..\Release\Win32\locale\*.mo"; DestDir: "{app}\locale"; Flags: recursesubdirs ignoreversion restartreplace
 Source: "..\Release\Win32\language.cfg"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion restartreplace
 Source: "..\..\..\Common\license-*.rtf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Unpack-View.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\pack-view.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

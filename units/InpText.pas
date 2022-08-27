@@ -13,7 +13,7 @@
    the specific language governing rights and limitations under the License.
 
    Vers. 1 - Sep. 2002 
-   last modified: Aug 2020
+   last modified: July 2022
    *)
 
 unit InpText;
@@ -27,13 +27,14 @@ type
   TInputTextDialog = class(TForm)
     OKBtn: TBitBtn;
     CancelBtn: TBitBtn;
-    Descriptor: TLabel;
     CharTabBtn: TBitBtn;
     TextFeld: TComboBox;
+    Descriptor: TStaticText;
     procedure CharTabBtnClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure TextFeldKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FIniName,FIniSection : string;
@@ -44,7 +45,7 @@ type
 {$EndIf}
     // History-Liste laden (optional)
     procedure LoadFromIni(AIniName,AIniSection : string);
-    function Execute (Pos        : TPoint;
+    function Execute (APos       : TPoint;
                       Titel,Desc : string;
                       ShowTable  : boolean;
                       AFontName  : TFontName;
@@ -52,7 +53,7 @@ type
   end;
 
 (* Text eingeben, Ergebnis: "true" bei "ok" *)
-function InputText(Pos        : TPoint;
+function InputText(APos       : TPoint;
                    Titel,Desc : string;
                    ShowTable  : boolean;
                    AFontName  : TFontName;
@@ -60,7 +61,7 @@ function InputText(Pos        : TPoint;
                    ASortHist  : boolean;
                    var AText  : string) : boolean; overload;
 
-function InputText(Pos        : TPoint;
+function InputText(APos       : TPoint;
                    Titel,Desc : string;
                    ShowTable  : boolean;
                    var AText  : string) : boolean; overload;
@@ -72,7 +73,8 @@ implementation
 
 {$R *.DFM}
 
-uses CharTableDlg, System.IniFiles, WinUtils, GnuGetText;
+uses CharTableDlg, System.IniFiles, GnuGetText, WinUtils
+  {$IFDEF ACCESSIBLE}, ShowMessageDlg{$ENDIF};
 
 { ------------------------------------------------------------------- }
 procedure TInputTextDialog.LoadFromIni(AIniName,AIniSection : string);
@@ -109,6 +111,16 @@ begin
     SaveHistory(FIniName,FIniSection,true,TextFeld);
   end;
 
+procedure TInputTextDialog.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+{$IFDEF ACCESSIBLE}
+  if (Key=VK_F11) then begin
+    with ActiveControl do if length(Hint)>0 then ShowHintInfo(Hint);
+    end;
+{$ENDIF}
+  end;
+
 { ------------------------------------------------------------------- }
 procedure TInputTextDialog.TextFeldKeyPress(Sender: TObject;
   var Key: Char);
@@ -130,7 +142,7 @@ begin
   end;
 
 { ------------------------------------------------------------------- }
-function TInputTextDialog.Execute (Pos        : TPoint;
+function TInputTextDialog.Execute (APos       : TPoint;
                                    Titel,Desc : string;
                                    ShowTable  : boolean;
                                    AFontName  : TFontName;
@@ -138,16 +150,7 @@ function TInputTextDialog.Execute (Pos        : TPoint;
 var
   w : integer;
 begin
-  with Pos do begin
-    if (Y < 0) or (X < 0) then Position:=poScreenCenter
-    else begin
-      Position:=poDesigned;
-      if X<0 then X:=Left;
-      if Y<0 then Y:=Top;
-      CheckScreenBounds(Screen,x,y,Width,Height);
-      Left:=x; Top:=y;
-      end;
-    end;
+  AdjustFormPosition(Screen,self,APos);
   if length(Titel)>0 then Caption:=Titel;
   Descriptor.Caption:=Desc;
   CharTabBtn.Visible:=ShowTable;
@@ -157,6 +160,7 @@ begin
     if Items.Count=0 then Style:=csSimple else Style:=csDropDown;
     AutoComplete:=true;
     Text:=AText;
+    Hint:=Desc;
     end;
   w:=TextFeld.Canvas.TextWidth(AText)+20;
   if w>311 then ClientWidth:=w else ClientWidth:=311;
@@ -170,7 +174,7 @@ begin
 
 { ------------------------------------------------------------------- }
 (* Txt eingeben, Ergebnis: "true" bei "ok" *)
-function InputText(Pos        : TPoint;
+function InputText(APos       : TPoint;
                    Titel,Desc : string;
                    ShowTable  : boolean;
                    AFontName  : TFontName;
@@ -184,19 +188,19 @@ begin
       Clear; Sorted:=ASortHist;
       Items.Assign(AHistory);
       end;
-    Result:=Execute(Pos,Titel,Desc,ShowTable,AFontName,AText);
+    Result:=Execute(APos,Titel,Desc,ShowTable,AFontName,AText);
     if Result and assigned(AHistory) then AHistory.Assign(TextFeld.Items);
     Release;
     end;
   InputTextDialog:=nil;
   end;
 
-function InputText(Pos        : TPoint;
+function InputText(APos       : TPoint;
                    Titel,Desc : string;
                    ShowTable  : boolean;
                    var AText  : string) : boolean; overload;
 begin
-  Result:=InputText(Pos,Titel,Desc,ShowTable,'',nil,false,AText);
+  Result:=InputText(APos,Titel,Desc,ShowTable,'',nil,false,AText);
   end;
 
 end.

@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-06-11 13:05\n"
-"PO-Revision-Date: 2022-06-11 13:05\n"
+"POT-Creation-Date: 2022-06-16 10:08\n"
+"PO-Revision-Date: 2022-06-16 10:08\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,6 +17,7 @@ msgstr ""
 
 #. MainForm..Caption
 #: UnpackMain.dfm:4
+#: UnpackMain.pas:154
 msgid "Inspect and unpack InnoSetup files"
 msgstr ""
 
@@ -67,12 +68,12 @@ msgstr ""
 
 #. MainForm..pnExtract..Label1..Caption
 #: UnpackMain.dfm:787
-msgid "Destination directory:"
+msgid "Extract to directory:"
 msgstr ""
 
 #. MainForm..pnExtract..Label3..Caption
 #: UnpackMain.dfm:794
-#: UnpackMain.pas:305
+#: UnpackMain.pas:304
 msgid "File filter:"
 msgstr ""
 
@@ -88,7 +89,7 @@ msgstr ""
 
 #. MainForm..pnExtract..bbStart..Caption
 #: UnpackMain.dfm:816
-msgid "Start"
+msgid "Extract"
 msgstr ""
 
 #. MainForm..pnExtract..cxDupl..Caption
@@ -103,64 +104,69 @@ msgstr ""
 
 #. MainForm..pnExtract..cxStrip..Caption
 #: UnpackMain.dfm:922
-msgid "Strip paths"
+msgid "Without paths"
 msgstr ""
 
-#: UnpackMain.pas:206
+#. MainForm..pnExtract..bbFilter..Hint
+#: UnpackMain.dfm:940
+msgid "Edit file filter"
+msgstr ""
+
+#: UnpackMain.pas:205
 msgid "This application only allows dropping of exe "
 "files!"
 msgstr ""
 
-#: UnpackMain.pas:235
-#: UnpackMain.pas:264
-msgid "Programs|*.exe|all|*.*"
+#: UnpackMain.pas:234
+#: UnpackMain.pas:263
+msgid "Programs|*.exe|All files|*.*"
 msgstr ""
 
-#: UnpackMain.pas:236
+#: UnpackMain.pas:235
 msgid "Select InnoSetup archive"
 msgstr ""
 
-#: UnpackMain.pas:265
+#: UnpackMain.pas:264
 msgid "Search for \"innounp.exe\""
 msgstr ""
 
-#: UnpackMain.pas:286
+#: UnpackMain.pas:285
 msgid "Select directory for extracted files"
 msgstr ""
 
-#: UnpackMain.pas:368
+#: UnpackMain.pas:367
 msgid "Extracting setup file ...\n"
 "Destination directory: %s"
 msgstr ""
 
-#: UnpackMain.pas:411
+#: UnpackMain.pas:410
 msgid "Filename: "
 msgstr ""
 
-#: UnpackMain.pas:416
+#: UnpackMain.pas:415
 #. DOS-Ausgabe anzeigen
+#: UnpackMain.pas:488
 #: UnpackMain.pas:490
-#: UnpackMain.pas:492
 msgid "Error: "
 msgstr ""
 
-#: UnpackMain.pas:424
+#: UnpackMain.pas:423
 msgid "Name: "
 msgstr ""
 
-#: UnpackMain.pas:425
+#: UnpackMain.pas:424
 msgid "Version: "
 msgstr ""
 
-#: UnpackMain.pas:426
+#: UnpackMain.pas:425
 msgid "Copyright: "
 msgstr ""
 
-#: UnpackMain.pas:427
+#: UnpackMain.pas:426
 msgid "Company: "
 msgstr ""
 
-#: UnpackMain.pas:428
+#: UnpackMain.pas:427
 msgid "Comment: "
 msgstr ""
 

@@ -13,7 +13,9 @@
    the specific language governing rights and limitations under the License.
     
    Vers. 1 - Apr. 2005
-   last modified: Nov. 2020
+   Vers. 2 - July 2022: define compiler switch "ACCESSIBLE" to make the
+                        messages accessible to screenreaders
+   last modified: July 2022
     *)
     
 unit SelectFromListDlg;
@@ -38,14 +40,14 @@ type
     btnDelete: TBitBtn;
     btnEdit: TBitBtn;
     gbxMove: TGroupBox;
-    lbDesc: TLabel;
     btnDefault: TBitBtn;
-    Panel1: TPanel;
-    Panel2: TPanel;
-    lbHint: TLabel;
+    paEdit: TPanel;
+    paList: TPanel;
     btnPrompt: TBitBtn;
     UpBtn: TBitBtn;
     DownBtn: TBitBtn;
+    lbHint: TStaticText;
+    lbDesc: TStaticText;
     procedure btnInsertClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -55,6 +57,7 @@ type
     procedure DownBtnClick(Sender: TObject);
     procedure btnDefaultClick(Sender: TObject);
     procedure btnPromptClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FEdit : boolean;
@@ -104,7 +107,8 @@ implementation
 
 {$R *.DFM}
 
-uses Vcl.Dialogs, InpText, GnuGetText, ExtSysUtils, WinUtils;
+uses Vcl.Dialogs, InpText, GnuGetText, ExtSysUtils, WinUtils,
+   {$IFDEF ACCESSIBLE} ShowMessageDlg {$ELSE} MsgDialogs {$ENDIF};
 
 {------------------------------------------------------------------- }
 procedure TSelectFromListDialog.FormCreate(Sender: TObject);
@@ -113,6 +117,16 @@ begin
   FCheckEntry:=nil; dist:=10;
   lbHint.Width:=gbxEdit.Width;
   end;
+
+procedure TSelectFromListDialog.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+{$IFDEF ACCESSIBLE}
+  if (Key=VK_F11) then begin
+    with ActiveControl do if length(Hint)>0 then ShowHintInfo(Hint);
+    end;
+{$ENDIF}
+end;
 
 {$IFDEF HDPI}   // scale glyphs and images for High DPI
 procedure TSelectFromListDialog.AfterConstruction;
@@ -148,13 +162,13 @@ var
   n : integer;
 begin
   with lbxStringList do if Multiselect then begin
-    if ConfirmDialog (DialogPos(Sender),Caption,dgettext('dialogs','Remove all selected items?'),mbYes) then begin
+    if ConfirmDialog (DialogPos(Sender),dgettext('dialogs','Remove all selected items?')) then begin
       for n:=Items.Count-1 downto 0 do if Selected[n] then Items.Delete(n);
       end
     end
   else if ItemIndex>=0 then begin
     s:=Items[ItemIndex];
-    if ConfirmDialog (DialogPos(Sender),Caption,TryFormat(dgettext('dialogs','Remove item: "%s"?'),[s]),mbYes) then begin
+    if ConfirmDialog (DialogPos(Sender),TryFormat(dgettext('dialogs','Remove item: "%s"?'),[s])) then begin
       n:=ItemIndex;
       Items.Delete(ItemIndex);
       if n>Items.Count then ItemIndex:=Items.Count-1 else ItemIndex:=n;
@@ -179,7 +193,7 @@ begin
 
 procedure TSelectFromListDialog.btnDefaultClick(Sender: TObject);
 begin
-  if ConfirmDialog(DialogPos(Sender),Caption,dgettext('dialogs','Reset to default values?'),mbYes) then with lbxStringList do begin
+  if ConfirmDialog(DialogPos(Sender),dgettext('dialogs','Reset to default values')+'?') then with lbxStringList do begin
     Clear;
     Items.DelimitedText:=DefDelimitedText;
     end;
@@ -242,20 +256,15 @@ function TSelectFromListDialog.Execute (APos : TPoint; Titel,Desc,Hint : string;
 var
   i,h,d : integer;
 begin
-  with APos do begin
-    if (Y < 0) or (X < 0) then Position:=poScreenCenter
-    else begin
-      Position:=poDesigned;
-      CheckScreenBounds(Screen,x,y,Width,Height);
-      Left:=x; Top:=y;
-      end;
-    end;
+  AdjustFormPosition(Screen,self,APos);
   Caption:=Titel;
   CancelBtn.Visible:=ShowCancel;
   FCheckEntry:=CheckEntry;
   FText:=''; h:=gbxEdit.Top;
   lbDesc.Caption:=Desc;
-  lbHint.Caption:=Hint;
+  with lbHint do begin
+    Caption:=Hint; TabStop:=length(Hint)>0;
+    end;
   FEdit:=soEdit in Options;
   btnPrompt.Visible:=soPrompt in Options;
   gbxEdit.Visible:=FEdit;
@@ -284,6 +293,7 @@ begin
 //    Items.Delimiter:=SList.Delimiter;
 //    Items.QuoteChar:=SList.QuoteChar;
 //    Items:=SList;
+    Hint:=Desc;
     Items.Assign(SList);
     Columns:=ACols;
     ExtendedSelect:=soMulti in Options;

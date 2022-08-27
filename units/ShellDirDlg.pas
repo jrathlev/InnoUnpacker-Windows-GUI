@@ -24,8 +24,10 @@
    Vers. 2.3 - Sep. 2009 : history list for selected directories
    Vers. 2.4 - Mar. 2010 : adjustable window sizes
    Vers. 3.0 - Apr. 2012 : Delphi XE2
-   Vers. 3.1 - Nov. 2015 : Delph 10, adaption to new shell control components
-   last modified: April 2022
+   Vers. 3.1 - Nov. 2015 : Delphi 10, adaption to new shell control components
+   Vers. 3.2 - July 2022 : define compiler switch "ACCESSIBLE" to make dialog
+                        messages accessible to screenreaders
+   last modified: July 2022
    *)
 
 unit ShellDirDlg;
@@ -125,7 +127,8 @@ implementation
 {$R *.dfm}
 
 uses System.IniFiles, Vcl.Dialogs, System.StrUtils, Winapi.ShlObj, Winapi.Shellapi,
-  Winapi.ActiveX, WinShell, WinUtils, FileUtils, GnuGetText, SelectDlg;
+  Winapi.ActiveX, WinShell, WinUtils, {$IFDEF ACCESSIBLE} ShowMessageDlg {$ELSE} MsgDialogs {$ENDIF},
+  FileUtils, GnuGetText, SelectDlg;
 
 const
   FMaxLen = 15;
@@ -478,9 +481,26 @@ begin
 procedure TShellDirDialog.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Shift=[]) and (Key=VK_F5) then
-    with ShellTreeView do if assigned(Selected) then Refresh(Selected);
-  if Key=VK_Return then ModalResult:=mrOK;
+  if (Shift=[]) and (Key=VK_F5) then begin
+    with ShellTreeView do if assigned(Selected) then Refresh(Selected)
+    end
+{$IFDEF ACCESSIBLE}
+  else if (Key=VK_F11) then begin
+    with ActiveControl do if length(Hint)>0 then ShowHintInfo(Hint);
+    end
+  else if ssCtrl in Shift then begin
+    case Key of
+    ord('T'),ord('t') : SpeedButtonClick(spbDesktop);
+    ord('D'),ord('d') : SpeedButtonClick(spbMyFiles);
+    ord('C'),ord('c') : SpeedButtonClick(spbComputer);
+    ord('W'),ord('w') : SpeedButtonClick(spbNetwork);
+    ord('N'),ord('n') : SpeedButtonClick(spbNew);
+    ord('U'),ord('u') : SpeedButtonClick(spbUp);
+    ord('H'),ord('h') : SpeedButtonClick(spbHome);
+      end;
+    end
+{$ENDIF}
+  else if Key=VK_Return then ModalResult:=mrOK;
   end;
 
 procedure TShellDirDialog.ShowFiles (AShow : boolean);

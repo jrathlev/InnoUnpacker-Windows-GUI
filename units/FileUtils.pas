@@ -37,15 +37,17 @@
          4.1 - Jan. 2017: several changes and enhancements
          4.2 - Jan. 2019: new functtion: GetExistingParentPath
          4.3 - Jan. 2020: new function: RemoveFirstDir
+         4.4 - June 2022: extensions to be used with portable devices
 
-   last modified: Sept. 2020
+   last modified: July 2022
    *)
 
 unit FileUtils;
 
 interface
 
-uses WinApi.Windows, System.Classes, System.SysUtils, System.IniFiles;
+uses WinApi.Windows, System.Classes, System.SysUtils, System.IniFiles,
+  IStreamApi;
 
 const
   Punkt = '.';
@@ -57,7 +59,7 @@ const
   FILE_WRITE_ATTRIBUTES = $0100;
   defBlockSize = 256*1024;
 
-  faAllFiles  = faArchive+faReadOnly+faHidden+faSysfile;
+  faAllFiles  = faArchive+faReadOnly+faHidden+faSysfile+faNormal;
   faNoArchive = faReadOnly+faHidden+faSysfile;
   faSuperHidden = faHidden+faSysfile;  //  hidden system dirs and files
 
@@ -85,6 +87,7 @@ type
     procedure WriteInt64(const Section, Ident: string; Value: int64);
   end;
 
+{ ------------------------------------------------------------------- }
   TInt64 = record
     case integer of
     0: (AsInt64 : int64);
@@ -95,12 +98,33 @@ type
     5 :(FileTime : TFileTime);
     end;
 
+  TFileStreamData = record
+    FileStream: IStream;
+    BufferSize: Cardinal;
+    procedure Reset;
+  end;
+
   TFileTimestamps = record
-    Valid          : boolean;
-    CreationTime,
-    LastAccessTime,
-    LastWriteTime  : TFileTime;
-    end;
+    Valid: boolean;
+    CreationTime, LastAccessTime, LastWriteTime: TFileTime;
+    procedure Reset;
+    procedure SetTimeStamps(CTime, MTime: TDateTime);
+  end;
+
+  TFileData = record
+  private
+    function GetModTime: TDateTime;
+    function GetCreateTime: TDateTime;
+  public
+    FileName,FullPath : string;
+    StreamData: TFileStreamData;
+    FileSize: int64;
+    FileAttr: Cardinal;
+    TimeStamps: TFileTimestamps;
+    procedure Reset;
+    property CreationTime: TDateTime read GetCreateTime;
+    property ModifiedTime: TDateTime read GetModTime;
+  end;
 
   TFileInfo = record
     Name     : string;
@@ -111,14 +135,9 @@ type
     Attr,Res : cardinal;
     end;
 
-  TFileData = record
-    TimeStamps : TFileTimestamps;
-    FileSize   : int64;
-    FileAttr   : cardinal;
-    end;
-
   TReparseType = (rtNone,rtJunction,rtSymbolic);
 
+{ ------------------------------------------------------------------- }
 // similar to TFileStream but different error handling
   TExtFileStream = class(THandleStream)
   strict private
@@ -202,7 +221,7 @@ function GetFileInfo (const FileName : string; var FSize : int64;
 function GetFileInfo (const FileName : string; var FileInfo : TFileInfo;
                       IncludeDirs : boolean = false) : boolean; overload;
 
-function GetFileData (const FileName : string; var FileData : TFileData) : boolean;
+function GetFileData (const AFileName : string; var FileData : TFileData) : boolean;
 
 // get file version, description, ...
 function GetFileInfoString (const Filename : string) : string;
@@ -378,6 +397,9 @@ function RemoveFirstDir (const Dir : string) : string;
 
 // Extract last subdirectory from path
 function ExtractLastDir (const Path : string) : string;
+
+// Extract first subdirectory from path and remove from Path
+function ExtractFirstDir (var Path : string) : string;
 
 // Get last existing parent path, set DefPath if not found
 function GetExistingParentPath (const Path,DefPath : string) : string;
@@ -1035,16 +1057,16 @@ begin
 
 { ------------------------------------------------------------------- }
 // get file size, timestamps and attributes
-function GetFileData (const FileName : string; var FileData : TFileData) : boolean;
+function GetFileData (const AFileName : string; var FileData : TFileData) : boolean;
 var
   FindRec : TSearchRec;
   FindResult : integer;
 begin
   Result:=false;            // does not exist
   with FileData do begin
-    FillChar(TimeStamps,sizeof(TFileTimestamps),0);
-    FileSize:=0; FileAttr:=INVALID_FILE_ATTRIBUTES;
-    FindResult:=FindFirst(FileName,faAnyFile,FindRec);
+    Reset;
+    FileName:=ExtractFileName(AFileName);
+    FindResult:=FindFirst(AFileName,faAnyFile,FindRec);
     if (FindResult=0) then with FindRec do begin
       TimeStamps:=GetTimestampsFromFindData(FindData);
       FileSize:=Size;
@@ -1669,6 +1691,23 @@ begin
 function ExtractLastDir (const Path : string) : string;
 begin
   Result:=ExtractFileName(ExcludeTrailingPathDelimiter(Path));
+  end;
+
+// Extract first subdirectory from path and remove from Path
+function ExtractFirstDir (var Path : string) : string;
+var
+  n : integer;
+begin
+  Result:='';
+  if not ContainsFullPath(Path) then begin
+    n:=Pos(PathDelim,Path);
+    if n>0 then begin
+      Result:=copy(Path,1,n-1); delete(Path,1,n);
+      end
+    else begin
+      Result:=Path; Path:='';
+      end;
+    end;
   end;
 
 function RemoveFirstDir (const Dir : string) : string;
@@ -2511,7 +2550,7 @@ constructor TUcStringList.Create;
 begin
   inherited Create;
   FHasBom:=false;
-end;
+  end;
 
 procedure TUcStringList.LoadFromStream(Stream: TStream; Encoding: TEncoding);
 var
@@ -2529,8 +2568,52 @@ begin
     FHasBom:=Size>0;
   finally
     EndUpdate;
+   end;
   end;
-end;
+
+// -----------------------------------------------------------------------------
+// Reset timestamps and file data
+procedure TFileTimestamps.Reset;
+begin
+  Valid:=false;
+  CreationTime:=ResetFileTime;
+  LastWriteTime:=ResetFileTime;
+  LastAccessTime:=ResetFileTime;
+  end;
+
+procedure TFileTimestamps.SetTimeStamps(CTime, MTime: TDateTime);
+begin
+  Valid:=True;
+  CreationTime:=LocalDateTimeToFileTime(CTime);
+  LastWriteTime:=LocalDateTimeToFileTime(MTime);
+  LastAccessTime:=LastWriteTime;
+  end;
+
+procedure TFileStreamData.Reset;
+begin
+  FileStream:=nil;
+  BufferSize:=0;
+  end;
+
+procedure TFileData.Reset;
+begin
+  FileName:='';
+  FullPath:='';
+  FileSize:=0;
+  FileAttr:=faArchive;
+  TimeStamps.Reset;
+  StreamData.Reset;
+  end;
+
+function TFileData.GetModTime: TDateTime;
+begin
+  Result:=FileTimeToLocalDateTime(TimeStamps.LastWriteTime);
+  end;
+
+function TFileData.GetCreateTime: TDateTime;
+begin
+  Result:=FileTimeToLocalDateTime(TimeStamps.CreationTime);
+  end;
 
 { ------------------------------------------------------------------- }
 {$IFDEF Trace}
