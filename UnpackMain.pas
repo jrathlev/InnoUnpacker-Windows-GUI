@@ -98,8 +98,8 @@ implementation
 
 {$R *.dfm}
 
-uses GnuGetText, WinUtils, FileUtils, InitProg, System.IniFiles, System.StrUtils,
-  StringUtils, WinApiUtils, ShellDirDlg, Winapi.ShellApi, SelectFromListDlg;
+uses System.IniFiles, System.StrUtils, Winapi.ShellApi, GnuGetText, WinUtils, MsgDialogs,
+  FileUtils, InitProg, StringUtils, WinApiUtils, ShellDirDlg, SelectFromListDlg;
 
 const
   mList = 20;
@@ -384,7 +384,7 @@ var
   hChildStdoutWr  : THandle;
   chBuf           : array [0..BUFSIZE] of AnsiChar;
   dwRead,ec,wc    : DWord;
-  s,sc        : string;
+  s           : string;
   sa          : RawByteString;
   vi          : TFileVersionInfo;
 
