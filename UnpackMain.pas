@@ -15,7 +15,19 @@
 
    J. Rathlev, Jan. 2008
    Vers. 1.6 (August 2020): added filter to extract single files
-   last modified: October 2021
+   Vers. 1.7 (October 2021): console output uses UTF8
+   Vers. 1.8 (June 2022): "embedded option" added
+   Vers. 1.9 (August 2022): command line options added
+   last modified: August 2022
+
+   Command line options: [<setupname>] [/d:<destdir>] [/f:<filter>] [/m] [/s] [/a] [/o]
+     <setupname> : name of setup file to be unpacked
+     <destdir>   : destination directory for unpacked files
+     <filter>    : file filter
+     /m          : process internal embedded files
+     /s          : extract files without paths
+     /a          : process all copies of duplicate files
+     /o          : overwrite files
    *)
 
 unit UnpackMain;
@@ -28,7 +40,7 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  Vers = ' 1.8.3';
+  Vers = ' 1.9.0';
   CopRgt = '© 2014-2022 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -40,7 +52,6 @@ type
     Label2: TLabel;
     cbFile: TComboBox;
     bbOptions: TBitBtn;
-    InfoBtn: TSpeedButton;
     bbExit: TBitBtn;
     mmDos: TMemo;
     bbList: TBitBtn;
@@ -61,6 +72,9 @@ type
     bbDir: TBitBtn;
     bbFile: TBitBtn;
     cxEmbedded: TCheckBox;
+    bbDown: TBitBtn;
+    bbUp: TBitBtn;
+    InfoBtn: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure InfoBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -79,6 +93,8 @@ type
     procedure bbCopyResultClick(Sender: TObject);
     procedure bbFilterClick(Sender: TObject);
     procedure cbFilterCloseUp(Sender: TObject);
+    procedure bbUpClick(Sender: TObject);
+    procedure bbDownClick(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -100,6 +116,17 @@ implementation
 
 uses System.IniFiles, System.StrUtils, Winapi.ShellApi, GnuGetText, WinUtils, MsgDialogs,
   FileUtils, InitProg, StringUtils, WinApiUtils, ShellDirDlg, SelectFromListDlg;
+
+{ ------------------------------------------------------------------- }
+resourcestring
+  rsInfo = 'Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/o]'+sLineBreak+
+     #9'<name>'#9': name of setup file to be unpacked'+sLineBreak+
+     #9'<ddir>'#9': destination directory for unpacked files'+sLineBreak+
+     #9'<filter>'#9': file filter'+sLineBreak+
+     #9'/m'#9': process internal embedded files'+sLineBreak+
+     #9'/s'#9': extract files without paths'+sLineBreak+
+     #9'/a'#9': process all copies of duplicate files'+sLineBreak+
+     #9'/o'#9': overwrite files';
 
 const
   mList = 20;
@@ -124,6 +151,7 @@ const
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   i : integer;
+  s : string;
 begin
   TranslateComponent(self);
   DragAcceptFiles(MainForm.Handle, true);
@@ -152,6 +180,19 @@ begin
   with cbDir do if Items.Count>0 then ItemIndex:=0;
   pnExtract.Visible:=false;
   Caption:=ProgName+Vers+' - '+_('Inspect and unpack InnoSetup files');
+  if ParamCount>0 then for i:=1 to ParamCount do begin
+    s:=ParamStr(i);
+    if (s[1]='/') or (s[1]='-') then begin
+      Delete(s,1,1);
+      if CompareOption(s,'m') then cxEmbedded.Checked:=true
+      else if CompareOption(s,'s') then cxStrip.Checked:=true
+      else if CompareOption(s,'a') then cxDupl.Checked:=true
+      else if CompareOption(s,'o') then cxOverwrite.Checked:=true
+      else if ReadOptionValue(s,'d') then cbDir.Text:=s
+      else if ReadOptionValue(s,'f') then cbFilter.Text:=s;
+      end
+    else cbFile.Text:=s;
+    end
   end;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -208,6 +249,7 @@ begin
   DragFinish(Msg.WParam);
 end;
 
+{ ------------------------------------------------------------------- }
 procedure TMainForm.cbFileCloseUp(Sender: TObject);
 begin
   with cbFile do begin
@@ -320,10 +362,12 @@ procedure TMainForm.bbListClick(Sender: TObject);
 var
   s : string;
 begin
-  pnExtract.Visible:=false;
-  s:=MakeQuotedStr(UnpProg)+' -v';
-  if cxEmbedded.Checked then s:=s+' -m';
-  Execute(s,cbFile.Text,'','');
+  if Visible then begin
+    pnExtract.Visible:=false;
+    s:=MakeQuotedStr(UnpProg)+' -v';
+    if cxEmbedded.Checked then s:=s+' -m';
+    Execute(s,cbFile.Text,'','');
+    end;
   end;
 
 procedure TMainForm.bbVerifyClick(Sender: TObject);
@@ -367,12 +411,23 @@ begin
     +Format(_('Extracting setup file ...'+sLineBreak+'Destination directory: %s'),[sd]));
   end;
 
+procedure TMainForm.bbUpClick(Sender: TObject);
+begin
+  mmDos.Perform(WM_VSCROLL,SB_TOP,0);
+  end;
+
+procedure TMainForm.bbDownClick(Sender: TObject);
+begin
+  mmDos.Perform(WM_VSCROLL,SB_BOTTOM,0);
+  end;
+
 procedure TMainForm.InfoBtnClick(Sender: TObject);
 begin
   InfoDialog ('',Caption+' ('+Vers+')'+sLineBreak+CopRgt
-           +sLineBreak+'E-Mail: '+EmailAdr);
+           +sLineBreak+'E-Mail: '+EmailAdr+sLineBreak+sLineBreak+rsInfo);
   end;
 
+{ ------------------------------------------------------------------- }
 procedure TMainForm.Execute (const Command,FileName,Filter,Comment : string);
 const
   BUFSIZE = 4096;
@@ -483,7 +538,7 @@ begin
       // DOS-Ausgabe anzeigen
       with mmDos do begin
         SelLength:=0;
-        Perform(WM_VSCROLL,SB_BOTTOM,0);
+        Perform(WM_VSCROLL,SB_TOP,0);
         end;
       if wc<>WAIT_OBJECT_0 then mmDos.Lines.Add('*** '+_('Error: ')+SysErrorMessage(wc));
       end
