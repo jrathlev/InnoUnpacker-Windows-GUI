@@ -9,8 +9,8 @@ executable, you can use the open source console application
 
 **InnoUnpacker** is a graphical user interface (GUI) for this console application
 that makes the usage more comfortable.
-The executable setup to be processed can be loaded via a file selection dialog,  
-just by drag & drop or using the command line. The basic file info and the list 
+The executable setup to be processed can be loaded via a file selection dialog, just 
+by drag & drop or using the command line. The basic file info and the list 
 of included files are displayed immediately. To extract files, just click the 
 appropriate button and select the destination directory. Optionally, a filter 
 can be specified to extract only the matching files.
