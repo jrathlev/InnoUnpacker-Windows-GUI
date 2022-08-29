@@ -1,0 +1,2697 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Dialogs\n"
+"POT-Creation-Date: 2022-08-17 12:29\n"
+"PO-Revision-Date: 2022-08-15 17:34+0200\n"
+"Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
+"Language-Team: Robert Kovacs <info@korosoft.hu>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+
+#. AccountDialog..btnShow..Hint
+#. FtpDialog..pnSettings..btnShow..Hint
+#. FtpProxyDialog..cbShowPwd..Caption
+#. HttpProxyDialog..btnShow..Hint
+#. MailDialog..Panel3..cbShowPwd..Caption
+#. NewPwdDialog..paBottom..btnShow..Hint
+#: AccountDlg.dfm:30 FtpDlg.dfm:37 FtpProxyDlg.dfm:172 HttpProxyDlg.dfm:52
+#: MailDlg.dfm:668 NewPwdDlg.dfm:59
+msgid "Show password"
+msgstr "Jelszó megmutatása"
+
+#. AccountDialog..OKBtn..Caption
+#. AppListDialog..paButtons..OKBtn..Caption
+#. ColumnDialog..btbOK..Caption
+#. CsvImportDialog..OKBtn..Caption
+#. DateFormatDialog..OKBtn..Caption
+#. DetailInfoDialog..pnTop..OKBtn..Caption
+#. WortListDialog..OKBtn..Caption
+#. DStringListDialog..OKBtn..Caption
+#. EditHistListDialog..OKBtn..Caption
+#. EditStringListDialog..OKBtn..Caption
+#. EtikettenDialog..OKBtn..Caption
+#. ExportDialog..OKBtn..Caption
+#. FileFilterDialog..OKBtn..Caption
+#. FileListDialog..OKBtn..Caption
+#. FilterDialog..OKBtn..Caption
+#. FtpDirDialog..OKBtn..Caption
+#. FtpDialog..pnSettings..OKBtn..Caption
+#. FtpProxyDialog..OKBtn..Caption
+#. GTCDialog..StatusPanel..OKBtn..Caption
+#. HttpProxyDialog..OKBtn..Caption
+#. InputDFloatDialog..OKBtn..Caption
+#. InputFloatDialog..OKBtn..Caption
+#. InputMaskedTextDialog..OKBtn..Caption
+#. InputMathExpDialog..OKBtn..Caption
+#. InputNumberDialog..OKBtn..Caption
+#. InputTextDialog..OKBtn..Caption
+#. KalenderDlg..OKBtn..Caption
+#. LanguageDialog..btbOK..Caption
+#. ListenDialog..OKBtn..Caption
+#. InputLptPortDialog..OKBtn..Caption
+#. MailDialog..OKBtn..Caption
+#. MemoDialog..paBottom..OKBtn..Caption
+#. MoveListDialog..OKBtn..Caption
+#. NewPwdDialog..paBottom..OKBtn..Caption
+#. InputNumber..OKBtn..Caption
+#. OpenFilesDialog..OKBtn..Caption
+#. PathDialog..OKBtn..Caption
+#. PasswordDialog..pnBottom..OKBtn..Caption
+#. RandDialog..OKBtn..Caption
+#. SearchPathDialog..OKBtn..Caption
+#. SelectColorDialog..OKBtn..Caption
+#. SelectFilesDialog..OKBtn..Caption
+#. SelectFontDialog..OKBtn..Caption
+#. SelectFromListDialog..paEdit..OKBtn..Caption
+#. SelectListItemDialog..OKBtn..Caption
+#. SelectListItemsDialog..OKBtn..Caption
+#. ShellDirDialog..PanelLeft..Panel1..btbOK..Caption
+#. ShellFileDialog..pnlBottom..btbOK..Caption
+#. frmShow..panButtons..Panel2..btnOK..Caption
+#. ShowFilesDialog..pnBottom..OKBtn..Caption
+#. ShowImageDialog..Panel1..Panel2..btnOK..Caption
+#. SizeDialog..OKBtn..Caption
+#. KeyboardDialog..OKBtn..Caption
+#. PageFormatDialog..OKBtn..Caption
+#. TextEingabe..OKBtn..Caption
+#. TimeCompareDialog..pnBottom..OKBtn..Caption
+#: AccountDlg.dfm:124 AppListDlg.dfm:369 ColumnDlg.dfm:221 CsvDialog.dfm:51
+#: DateFormatDlg.dfm:35 DetailInfoDlg.dfm:72 DListDlg.dfm:491
+#: DStringListDlg.dfm:389 EditHistListDlg.dfm:31 EditStringListDlg.dfm:34
+#: EtikettDlg.dfm:31 ExportDlg.dfm:25 FileFilterDlg.dfm:491 FileListDlg.dfm:511
+#: FilterDlg.dfm:32 FtpDirDlg.dfm:38 FtpDlg.dfm:347 FtpProxyDlg.dfm:31
+#: GTCDlg.dfm:92 HttpProxyDlg.dfm:115 InpDFloat.dfm:50 InpFloat.dfm:37
+#: InpMaskedText.dfm:31 InpMath.dfm:36 InpNumber.dfm:54 InpText.dfm:30
+#: Kalender.dfm:227 LanguageDlg.dfm:96 Listdlg.dfm:477 LptSelect.dfm:24
+#: MailDlg.dfm:31 MemoDlg.dfm:48 MoveListDlg.dfm:30 NewPwdDlg.dfm:215
+#: NumDlg.dfm:46 OpenFilesDlg.dfm:34 PathDlg.dfm:49 PwdDlg.dfm:345
+#: RandDlg.dfm:43 SearchPathDlg.dfm:280 SelectColorDlg.dfm:46
+#: SelectFilesDlg.dfm:34 SelectFontDlg.dfm:29 SelectFromListDlg.dfm:601
+#: SelectListItemDlg.dfm:30 SelectListItems.dfm:39 ShellDirDlg.dfm:2180
+#: ShellFileDlg.dfm:2155 Show.dfm:65 ShowFilesDlg.dfm:48 ShowImage.dfm:53
+#: Sizedlg.dfm:25 SynEdKeyDlg.dfm:56 SynEdPageDlg.dfm:24 Textdlg.dfm:34
+#: TimeCompDlg.dfm:99 TransferStat.pas:277
+msgid "OK"
+msgstr "OK"
+
+#. AccountDialog..CancelBtn..Caption
+#. AppListDialog..paButtons..CancelBtn..Caption
+#. CharTableDialog..CancelBtn..Caption
+#. ColumnDialog..btbCancel..Caption
+#. ConfirmCheckDialog..CancelBtn..Caption
+#. ConfirmReplDialog..btnCancel..Caption
+#. CsvImportDialog..CancelBtn..Caption
+#. DateFormatDialog..CancelBtn..Caption
+#. WortListDialog..CancelBtn..Caption
+#. DStringListDialog..CancelBtn..Caption
+#. EditHistListDialog..CancelBtn..Caption
+#. EditStringListDialog..CancelBtn..Caption
+#. EtikettenDialog..CancelBtn..Caption
+#. ExportDialog..CancelBtn..Caption
+#. FileFilterDialog..CancelBtn..Caption
+#. FileListDialog..CancelBtn..Caption
+#. FilterDialog..CancelBtn..Caption
+#. FtpDirDialog..CancelBtn..Caption
+#. FtpDialog..pnSettings..CancelBtn..Caption
+#. FtpProxyDialog..CancelBtn..Caption
+#. GTCDialog..StatusPanel..CancelBtn..Caption
+#. HttpProxyDialog..CancelBtn..Caption
+#. InputDFloatDialog..CancelBtn..Caption
+#. InputFloatDialog..CancelBtn..Caption
+#. InputMaskedTextDialog..CancelBtn..Caption
+#. InputMathExpDialog..CancelBtn..Caption
+#. InputNumberDialog..CancelBtn..Caption
+#. InputTextDialog..CancelBtn..Caption
+#. KalenderDlg..CancelBtn..Caption
+#. LanguageDialog..btbCancel..Caption
+#. ListenDialog..CancelBtn..Caption
+#. LogonDialog..CancelBtn..Caption
+#. InputLptPortDialog..CancelBtn..Caption
+#. MailDialog..CancelBtn..Caption
+#. MemoDialog..paBottom..CancelBtn..Caption
+#. MoveListDialog..CancelBtn..Caption
+#. NewPwdDialog..paBottom..CancelBtn..Caption
+#. InputNumber..CancelBtn..Caption
+#. OpenFilesDialog..CancelBtn..Caption
+#. PathDialog..CancelBtn..Caption
+#. PrintPageDialog..CancelBtn..Caption
+#. PasswordDialog..pnBottom..CancelBtn..Caption
+#. RandDialog..CancelBtn..Caption
+#. SearchPathDialog..CancelBtn..Caption
+#. SelectColorDialog..CancelBtn..Caption
+#. SelectFilesDialog..CancelBtn..Caption
+#. SelectFontDialog..CancelBtn..Caption
+#. SelectFromListDialog..paEdit..CancelBtn..Caption
+#. SelectListItemDialog..CancelBtn..Caption
+#. SelectListItemsDialog..CancelBtn..Caption
+#. ShellDirDialog..PanelLeft..Panel1..btbCancel..Caption
+#. ShellDirDialog..PopupMenu..cancel1..Caption
+#. ShellFileDialog..pnlBottom..btbCancel..Caption
+#. ShellFileDialog..PopupMenu..cancel1..Caption
+#. SizeDialog..CancelBtn..Caption
+#. StatusWindow..btnCancel..Caption
+#. KeyboardDialog..CancelBtn..Caption
+#. PageFormatDialog..CancelBtn..Caption
+#. TextEingabe..CancelBtn..Caption
+#. TimeCompareDialog..pnBottom..CancelBtn..Caption
+#. TransferStatus..Panel2..Button..Caption
+#. WebBrowserWin..ActionList..ActionCancel..Caption
+#. Spalten in letzter Zeile
+#: AccountDlg.dfm:188 AppListDlg.dfm:33 CharTableDlg.dfm:91 ColumnDlg.dfm:284
+#: ConfirmCheckDlg.dfm:201 ConfirmReplDlg.dfm:34 CsvDialog.dfm:115
+#: DateFormatDlg.dfm:99 DListDlg.dfm:555 DStringListDlg.dfm:452
+#: EditHistListDlg.dfm:95 EditStringListDlg.dfm:98 EtikettDlg.dfm:94
+#: ExportDlg.dfm:89 FileFilterDlg.dfm:554 FileListDlg.dfm:575 FilterDlg.dfm:96
+#: FtpDirDlg.dfm:102 FtpDlg.dfm:235 FtpProxyDlg.dfm:95 GTCDlg.dfm:154
+#: HttpProxyDlg.dfm:178 InpDFloat.dfm:113 InpFloat.dfm:100 InpMaskedText.dfm:94
+#: InpMath.dfm:100 InpNumber.dfm:118 InpText.dfm:94 Kalender.dfm:292
+#: LanguageDlg.dfm:35 Listdlg.dfm:540 LogonDlg.dfm:134 LptSelect.dfm:87
+#: MailDlg.dfm:95 MemoDlg.dfm:113 MoveListDlg.dfm:93 NewPwdDlg.dfm:153
+#: NumDlg.dfm:111 OpenFilesDlg.dfm:98 PathDlg.dfm:96 PrintPageDlg.dfm:56
+#: PwdDlg.dfm:283 RandDlg.dfm:108 SearchPathDlg.dfm:344 SelectColorDlg.dfm:109
+#: SelectFilesDlg.dfm:98 SelectFontDlg.dfm:93 SelectFromListDlg.dfm:754
+#: SelectListItemDlg.dfm:93 SelectListItems.dfm:103 ShellDirDlg.dfm:2118
+#: ShellDirDlg.dfm:2294 ShellFileDlg.dfm:2227 ShellFileDlg.dfm:2332
+#: Sizedlg.dfm:90 StatWind.dfm:50 SynEdKeyDlg.dfm:126 SynEdPageDlg.dfm:87
+#: Textdlg.dfm:99 TimeCompDlg.dfm:37 TransferStat.dfm:91 WebBrowser.dfm:199
+#: SelectDlg.pas:201 TransferStat.pas:241
+msgid "Cancel"
+msgstr "Mégse"
+
+#. AccountDialog..edtName..EditLabel.Caption
+#. ColumnDialog..Label1..Caption
+#. FileListDialog..laName..Caption
+#. FtpDialog..pnTitle..edName..EditLabel.Caption
+#: AccountDlg.dfm:251 ColumnDlg.dfm:212 FileListDlg.dfm:483 FtpDlg.dfm:543
+#: DStringListDlg.pas:306 DStringListDlg.pas:308 DStringListDlg.pas:327
+#: DStringListDlg.pas:329
+msgid "Name:"
+msgstr "Név:"
+
+#. AccountDialog..edtName..TextHint
+#. FtpProxyDialog..edUser..TextHint
+#. LogonDialog..cbName..Hint
+#: AccountDlg.dfm:253 FtpProxyDlg.dfm:196 LogonDlg.dfm:272
+msgid "User name"
+msgstr "Felhasználó neve"
+
+#. AccountDialog..edtPwd..EditLabel.Caption
+#. FtpDialog..pnSettings..Label3..Caption
+#. FtpProxyDialog..edProxyPwd..EditLabel.Caption
+#. HttpProxyDialog..Label3..Caption
+#. LogonDialog..PwdEdit..EditLabel.Caption
+#. MailDialog..Panel3..Label6..Caption
+#. PasswordDialog..pnInput..Label1..Caption
+#: AccountDlg.dfm:262 FtpDlg.dfm:144 FtpProxyDlg.dfm:205 HttpProxyDlg.dfm:38
+#: LogonDlg.dfm:294 MailDlg.dfm:521 PwdDlg.dfm:94
+msgid "Password:"
+msgstr "Jelszó:"
+
+#. AccountDialog..edtPwd..TextHint
+#. FtpProxyDialog..edProxyPwd..TextHint
+#. NewPwdDialog..paPwd..edtPwd..TextHint
+#. PasswordDialog..pnInput..edtPwd..Hint
+#. PasswordDialog..pnInput..edtPwd..TextHint
+#: AccountDlg.dfm:265 FtpProxyDlg.dfm:207 NewPwdDlg.dfm:40 PwdDlg.dfm:107
+#: PwdDlg.dfm:111
+msgid "Password"
+msgstr "Jelszó"
+
+#. AccountDialog..edtRepPwd..EditLabel.Caption
+#. NewPwdDialog..paConfirm..edtRepPwd..EditLabel.Caption
+#: AccountDlg.dfm:274 NewPwdDlg.dfm:288
+msgid "Repeat password:"
+msgstr "Jelszó ismétlése:"
+
+#. AccountDialog..edtRepPwd..TextHint
+#. NewPwdDialog..paConfirm..edtRepPwd..TextHint
+#: AccountDlg.dfm:277 NewPwdDlg.dfm:291
+msgid "Confirm password"
+msgstr "Jelszó megerősítése"
+
+#. AppListDialog..Caption
+#: AppListDlg.dfm:4
+msgid "Edit application list"
+msgstr "Alkalmazáslista szerkesztése"
+
+#. AppListDialog..paButtons..gbxEdit..Caption
+#: AppListDlg.dfm:94
+msgid "Application"
+msgstr "Alkalmazás"
+
+#. AppListDialog..paButtons..gbxEdit..btnAdd..Caption
+#. ColumnDialog..btnInsert..Caption
+#. EditStringListDialog..btnAdd..Caption
+#. SelectFromListDialog..paEdit..gbxEdit..btnInsert..Caption
+#: AppListDlg.dfm:101 ColumnDlg.dfm:489 EditStringListDlg.dfm:482
+#: SelectFromListDlg.dfm:48
+msgid "Add"
+msgstr "Hozzáadás"
+
+#. AppListDialog..paButtons..gbxEdit..btnDelete..Caption
+#. ColumnDialog..btnDelete..Caption
+#. DStringListDialog..spdRem..Caption
+#. EditHistListDialog..btnDelete..Caption
+#. EditStringListDialog..btnDelete..Caption
+#. SelectFromListDialog..paEdit..gbxEdit..btnDelete..Caption
+#: AppListDlg.dfm:190 ColumnDlg.dfm:399 DStringListDlg.dfm:288
+#: EditHistListDlg.dfm:167 EditStringListDlg.dfm:302 SelectFromListDlg.dfm:139
+msgid "Remove"
+msgstr "Eltávolítás"
+
+#. AppListDialog..paButtons..gbxEdit..btnEdit..Caption
+#. ColumnDialog..btnEdit..Caption
+#. SelectFromListDialog..paEdit..gbxEdit..btnEdit..Caption
+#: AppListDlg.dfm:279 ColumnDlg.dfm:579 SelectFromListDlg.dfm:230
+msgid "Change"
+msgstr "Változtatás"
+
+#. AppListDialog..paButtons..gbxMove..Caption
+#: AppListDlg.dfm:431
+msgid "Change order"
+msgstr "Sorrend módosítása"
+
+#. AppListDialog..paButtons..gbxMove..UpBtn..Hint
+#. ColumnDialog..UpBtn..Hint
+#. EditHistListDialog..gbxMove..UpBtn..Hint
+#. EditStringListDialog..gbxMove..UpBtn..Hint
+#. ListenDialog..UpBtn..Hint
+#. MoveListDialog..gbxMove..UpBtn..Hint
+#. SearchPathDialog..UpBtn..Hint
+#. SelectFromListDialog..paEdit..gbxMove..UpBtn..Hint
+#: AppListDlg.dfm:440 ColumnDlg.dfm:120 EditHistListDlg.dfm:264
+#: EditStringListDlg.dfm:176 Listdlg.dfm:32 MoveListDlg.dfm:169
+#: SearchPathDlg.dfm:26 SelectFromListDlg.dfm:419
+msgid "Move item up"
+msgstr "Felfelé mozgatás"
+
+#. AppListDialog..paButtons..gbxMove..DownBtn..Hint
+#. ColumnDialog..DownBtn..Hint
+#. EditHistListDialog..gbxMove..DownBtn..Hint
+#. EditStringListDialog..gbxMove..DownBtn..Hint
+#. ListenDialog..DownBtn..Hint
+#. MoveListDialog..gbxMove..DownBtn..Hint
+#. SearchPathDialog..DownBtn..Hint
+#. SelectFromListDialog..paEdit..gbxMove..DownBtn..Hint
+#: AppListDlg.dfm:478 ColumnDlg.dfm:29 EditHistListDlg.dfm:354
+#: EditStringListDlg.dfm:238 Listdlg.dfm:121 MoveListDlg.dfm:258
+#: SearchPathDlg.dfm:89 SelectFromListDlg.dfm:509
+msgid "Move item down"
+msgstr "Lefelé mozgatás"
+
+#. AppListDialog..paBottom..edAppPath..EditLabel.Caption
+#. PathDialog..lePath..EditLabel.Caption
+#. SearchPathDialog..PathEdit..EditLabel.Caption
+#: AppListDlg.dfm:550 PathDlg.dfm:142 SearchPathDlg.dfm:519 PathDlg.pas:80
+msgid "Path:"
+msgstr "Útvonal:"
+
+#. AppListDialog..OpenDialog..Filter
+#: AppListDlg.dfm:556
+msgid "Programs|*.exe|all|*.*"
+msgstr "Programok|*.exe|összes|*.*"
+
+#. AppListDialog..OpenDialog..Title
+#: AppListDlg.dfm:558
+msgid "Select application"
+msgstr "Alkalmazás kiválasztása"
+
+#. CharTableDialog..Caption
+#. InputTextDialog..CharTabBtn..Caption
+#: CharTableDlg.dfm:4 InpText.dfm:155
+msgid "Character table"
+msgstr "Betükészlet tábla"
+
+#. CharTableDialog..OKBtn..Caption
+#: CharTableDlg.dfm:27
+msgid "Select"
+msgstr "Kijelölés"
+
+#. CharTableDialog..leValue..EditLabel.Caption
+#: CharTableDlg.dfm:175
+msgid "Hex value:"
+msgstr "Hexaxajz:"
+
+#. ColumnDialog..Caption
+#: ColumnDlg.dfm:6
+msgid "Edit columns"
+msgstr "Oszlopok szerkesztése"
+
+#. ColumnDialog..lvColumns......Caption
+#. SelectFilesDialog..lvFiles......Caption
+#: ColumnDlg.dfm:348 SelectFilesDlg.dfm:162
+msgid "Name"
+msgstr "Név"
+
+#. ColumnDialog..lvColumns......Caption
+#: ColumnDlg.dfm:352
+msgid "Width"
+msgstr "Szélesség"
+
+#. ColumnDialog..lvColumns......Caption
+#: ColumnDlg.dfm:356
+msgid "Sort"
+msgstr "Rendezés"
+
+#. ColumnDialog..edWidth..EditLabel.Caption
+#. SizeDialog..GroupBox..Label2..Caption
+#: ColumnDlg.dfm:376 Sizedlg.dfm:167
+msgid "Width:"
+msgstr "Szélesség:"
+
+#. ColumnDialog..rgSort..Caption
+#: ColumnDlg.dfm:680
+msgid "Sort as"
+msgstr "Rendezés, mint"
+
+#. ColumnDialog..rgSort....Items.Strings
+#: ColumnDlg.dfm:683
+msgid "Text"
+msgstr "Szöveg"
+
+#. ColumnDialog..rgSort....Items.Strings
+#: ColumnDlg.dfm:684
+msgid "Number"
+msgstr "Szám"
+
+#. ConfirmCheckDialog..Caption
+#: ConfirmCheckDlg.dfm:5
+msgid "Confirm"
+msgstr "Megerősít"
+
+#. ConfirmCheckDialog..OKBtn..Caption
+#. FtpDialog..pnSettings..gbSecure..rbNone..Caption
+#. ShowMsgDialog..btLeft..Caption
+#. ShowMsgDialog..btLeft..Caption
+#: ConfirmCheckDlg.dfm:137 FtpDlg.dfm:449 ShowMessageDlg.dfm:196
+#: ShowMessageDlgST.dfm:197 ConfirmCheckDlg.pas:90
+msgid "No"
+msgstr "Nem"
+
+#. ConfirmReplDialog..Caption
+#: ConfirmReplDlg.dfm:5
+msgid "Confirm replacement"
+msgstr "A csere megerősítése"
+
+#. ConfirmReplDialog..btnYes..Caption
+#. ShowMsgDialog..btCenter..Caption
+#. ShowMsgDialog..btCenter..Caption
+#: ConfirmReplDlg.dfm:23 ShowMessageDlg.dfm:184 ShowMessageDlgST.dfm:185
+msgid "&Yes"
+msgstr "&Igen"
+
+#. ConfirmReplDialog..btnNo..Caption
+#: ConfirmReplDlg.dfm:43
+msgid "&No"
+msgstr "&Nem"
+
+#. ConfirmReplDialog..btnAll..Caption
+#: ConfirmReplDlg.dfm:52
+msgid "&All"
+msgstr "&Mind"
+
+#. CsvImportDialog..Caption
+#: CsvDialog.dfm:5
+msgid "Import CSV data"
+msgstr "CSV adat importálása"
+
+#. CsvImportDialog..Panel1..Label3..Caption
+#: CsvDialog.dfm:33
+msgid "Import file:"
+msgstr "Importálandó fájl:"
+
+#. CsvImportDialog..gbDelim..Caption
+#: CsvDialog.dfm:191
+msgid "Column separator"
+msgstr "Oszlop elválasztó"
+
+#. CsvImportDialog..gbDelim..rbSpace..Caption
+#. ExportDialog..DelimGroup....Items.Strings
+#: CsvDialog.dfm:198 ExportDlg.dfm:155
+msgid "Space"
+msgstr "Szóköz"
+
+#. CsvImportDialog..gbDelim..rbTab..Caption
+#. ExportDialog..DelimGroup....Items.Strings
+#: CsvDialog.dfm:207 ExportDlg.dfm:159
+msgid "Tab"
+msgstr "Tab"
+
+#. CsvImportDialog..gbDelim..rbSemi..Caption
+#. ExportDialog..DelimGroup....Items.Strings
+#: CsvDialog.dfm:218 ExportDlg.dfm:156
+msgid "Semicolon"
+msgstr "Pontosvessző"
+
+#. CsvImportDialog..gbDelim..rbComma..Caption
+#. CsvImportDialog..rgDecimal....Items.Strings
+#. ExportDialog..DelimGroup....Items.Strings
+#: CsvDialog.dfm:227 CsvDialog.dfm:346 ExportDlg.dfm:158
+msgid "Comma"
+msgstr "Vessző"
+
+#. CsvImportDialog..gbDelim..rbOtherDel..Caption
+#. CsvImportDialog..gbQuote..rbOtherQuote..Caption
+#: CsvDialog.dfm:236 CsvDialog.dfm:289
+msgid "Other"
+msgstr "Egyéb"
+
+#. CsvImportDialog..gbDelim..rbSlash..Caption
+#: CsvDialog.dfm:252
+msgid "Slash"
+msgstr "Perjel"
+
+#. CsvImportDialog..gbQuote..Caption
+#: CsvDialog.dfm:262
+msgid "Quote character"
+msgstr "Idézőjel betű"
+
+#. CsvImportDialog..gbQuote..rbNoQuote..Caption
+#: CsvDialog.dfm:269
+msgid "None"
+msgstr "Nincs"
+
+#. CsvImportDialog..gbQuote..rbQuote..Caption
+#: CsvDialog.dfm:280
+msgid "Double quote"
+msgstr "Dupla idézőjel"
+
+#. CsvImportDialog..gbLine..Caption
+#: CsvDialog.dfm:306
+msgid "Read data from"
+msgstr "Beolvasott adatokból"
+
+#. CsvImportDialog..gbLine..Label4..Caption
+#: CsvDialog.dfm:313
+msgid "Line:"
+msgstr "Sor:"
+
+#. CsvImportDialog..rgDecimal..Caption
+#: CsvDialog.dfm:341
+msgid "Decimal separator"
+msgstr "Tizedes elválasztó"
+
+#. CsvImportDialog..rgDecimal....Items.Strings
+#: CsvDialog.dfm:345
+msgid "Point"
+msgstr "Pont"
+
+#. CsvImportDialog..GroupBox1..Caption
+#: CsvDialog.dfm:355
+msgid "Preview"
+msgstr "Előnézet"
+
+#. CsvImportDialog..GroupBox1..edCol1..EditLabel.Caption
+#: CsvDialog.dfm:364
+msgid "Column 1"
+msgstr "Oszlop 1"
+
+#. CsvImportDialog..GroupBox1..edCol2..EditLabel.Caption
+#: CsvDialog.dfm:375
+msgid "Column 2"
+msgstr "Oszlop 2"
+
+#. CsvImportDialog..GroupBox1..edCol3..EditLabel.Caption
+#: CsvDialog.dfm:386
+msgid "Column 3"
+msgstr "Oszlop 3"
+
+#. CsvImportDialog..GroupBox1..edCol4..EditLabel.Caption
+#: CsvDialog.dfm:397
+msgid "Column 4"
+msgstr "Oszlop 4"
+
+#. DateFormatDialog..Caption
+#: DateFormatDlg.dfm:5
+msgid "Date format settings"
+msgstr "Dátumformátum-beállítások"
+
+#. DateFormatDialog..Label1..Caption
+#: DateFormatDlg.dfm:27
+msgid "Select format:"
+msgstr "Formátum kiválasztása:"
+
+#. DetailInfoDialog..Caption
+#: DetailInfoDlg.dfm:5
+msgid "Information"
+msgstr "Információ"
+
+#. DetailInfoDialog..pnTop..btDetails..Caption
+#: DetailInfoDlg.dfm:61
+msgid "Details"
+msgstr "Részletek"
+
+#. WortListDialog..LabelLeft..Caption
+#: DListDlg.dfm:32
+msgid "Word 1:"
+msgstr "1. szó:"
+
+#. WortListDialog..LabelRight..Caption
+#: DListDlg.dfm:39
+msgid "Word 2:"
+msgstr "2. szó:"
+
+#. WortListDialog..UpBtn..Hint
+#: DListDlg.dfm:46
+msgid "one line up"
+msgstr "egy sor fel"
+
+#. WortListDialog..DownBtn..Hint
+#: DListDlg.dfm:135
+msgid "one line down"
+msgstr "egy sor le"
+
+#. WortListDialog..DeleteBtn..Hint
+#: DListDlg.dfm:224
+msgid "Delete word"
+msgstr "Szó törlése"
+
+#. WortListDialog..InsertBtn..Hint
+#: DListDlg.dfm:313
+msgid "Insert word"
+msgstr "Szó beszúrása"
+
+#. WortListDialog..ReplBtn..Hint
+#: DListDlg.dfm:402
+msgid "Replace word"
+msgstr "Szócsere"
+
+#. Download..Caption
+#. Download..Caption
+#. Download..Caption
+#: DownloadProgress.dfm:5 WebDownloadDlg.dfm:5 WebUpdateDlg.dfm:5
+msgid "Download file"
+msgstr "Fájl letöltése"
+
+#. Download..edURL..EditLabel.Caption
+#. Download..edURL..EditLabel.Caption
+#. Download..edURL..EditLabel.Caption
+#: DownloadProgress.dfm:29 WebDownloadDlg.dfm:31 WebUpdateDlg.dfm:32
+msgid "Download from URL:"
+msgstr "Letöltés URL- ből:"
+
+#. Download..edFilename..EditLabel.Caption
+#: DownloadProgress.dfm:40
+msgid "to file:"
+msgstr "fájlba:"
+
+#. DStringListDialog..Caption
+#: DStringListDlg.dfm:5
+msgid "Edit double stringlists"
+msgstr "Szerkessze meg a kettős karakterláncokat"
+
+#. DStringListDialog..spdLoad..Hint
+#: DStringListDlg.dfm:24
+msgid "Load from file"
+msgstr "Betöltés fájlból"
+
+#. DStringListDialog..spdEdit..Caption
+#. EditHistListDialog..btnEdit..Caption
+#. EditStringListDialog..btnEdit..Caption
+#: DStringListDlg.dfm:114 EditHistListDlg.dfm:446 EditStringListDlg.dfm:392
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#. DStringListDialog..spdNew..Caption
+#: DStringListDlg.dfm:201
+msgid "New"
+msgstr "Új"
+
+#. DStringListDialog..labGruppen..Caption
+#: DStringListDlg.dfm:375
+msgid "Groups:"
+msgstr "Csoportok:"
+
+#. DStringListDialog..labItems..Caption
+#: DStringListDlg.dfm:382
+msgid "Parts:"
+msgstr "Részek:"
+
+#. EditHistListDialog..Caption
+#: EditHistListDlg.dfm:6
+msgid "Edit list entries"
+msgstr "Bejegyzések szerkesztése"
+
+#. EditHistListDialog..gbxMove..Caption
+#: EditHistListDlg.dfm:257
+msgid "Move entry"
+msgstr "Áthelyezni a bejegyzést"
+
+#. EditStringListDialog..Caption
+#: EditStringListDlg.dfm:5
+msgid "Edit items from list"
+msgstr "Listából szerkeszt"
+
+#. EditStringListDialog..gbxMove..Caption
+#. MoveListDialog..gbxMove..Caption
+#. SelectFromListDialog..paEdit..gbxMove..Caption
+#: EditStringListDlg.dfm:169 MoveListDlg.dfm:162 SelectFromListDlg.dfm:412
+msgid "Move item"
+msgstr "Mozgatás"
+
+#. EtikettenDialog..Caption
+#: EtikettDlg.dfm:5
+msgid "Label layout"
+msgstr "Címkeelrendezés"
+
+#. EtikettenDialog..GroupBox1..Caption
+#: EtikettDlg.dfm:1263
+msgid "Horizontal:"
+msgstr "Vízszintes:"
+
+#. EtikettenDialog..GroupBox1..Label3..Caption
+#: EtikettDlg.dfm:1270
+msgid "Margin (a):"
+msgstr "Margó (a):"
+
+#. EtikettenDialog..GroupBox1..Label4..Caption
+#: EtikettDlg.dfm:1277
+msgid "Width (c):"
+msgstr "Szélesség (c):"
+
+#. EtikettenDialog..GroupBox1..Label5..Caption
+#: EtikettDlg.dfm:1284
+msgid "Distance (e):"
+msgstr "Eltérés (e):"
+
+#. EtikettenDialog..GroupBox1..Label14..Caption
+#. EtikettenDialog..GroupBox2..Label15..Caption
+#: EtikettDlg.dfm:1312 EtikettDlg.dfm:1445
+msgid "Count:"
+msgstr "Számít:"
+
+#. EtikettenDialog..GroupBox2..Caption
+#: EtikettDlg.dfm:1396
+msgid "Vertical:"
+msgstr "Függőleges:"
+
+#. EtikettenDialog..GroupBox2..Label1..Caption
+#: EtikettDlg.dfm:1403
+msgid "Margin (b):"
+msgstr "Margó (b):"
+
+#. EtikettenDialog..GroupBox2..Label2..Caption
+#: EtikettDlg.dfm:1410
+msgid "Height (d):"
+msgstr "Magasság (d):"
+
+#. EtikettenDialog..GroupBox2..Label6..Caption
+#: EtikettDlg.dfm:1417
+msgid "Distance (f):"
+msgstr "Eltérés (f):"
+
+#. EtikettenDialog..cbFrame..Caption
+#: EtikettDlg.dfm:1545
+msgid "Frame around label"
+msgstr "Keret körül címke"
+
+#. ExportDialog..Caption
+#: ExportDlg.dfm:6
+msgid "Import/export format"
+msgstr "Import/export formátum"
+
+#. ExportDialog..DelimGroup..Caption
+#: ExportDlg.dfm:151
+msgid "Character between columns"
+msgstr "Karakter oszlopok között"
+
+#. ExportDialog..DelimGroup....Items.Strings
+#. InputLptPortDialog..LptSel....Items.Strings
+#: ExportDlg.dfm:157 LptSelect.dfm:155
+msgid "other"
+msgstr "egyéb"
+
+#. ExportDialog..SpaltGroup..Caption
+#: ExportDlg.dfm:175
+msgid "Column width"
+msgstr "Oszlop szélesség"
+
+#. ExportDialog..SpaltGroup....Items.Strings
+#: ExportDlg.dfm:178
+msgid "fixed"
+msgstr "rögzített"
+
+#. ExportDialog..SpaltGroup....Items.Strings
+#: ExportDlg.dfm:179
+msgid "variable"
+msgstr "változó"
+
+#. ExportDialog..Panel1..EncloseCB..Caption
+#: ExportDlg.dfm:196
+msgid "Use embrace characters  (\")"
+msgstr "Használat tartalmaz írásjelet (\")"
+
+#. FileFilterDialog..Label2..Caption
+#: FileFilterDlg.dfm:32 AppListDlg.pas:298 AppListDlg.pas:332
+msgid "Description:"
+msgstr "Leírás:"
+
+#. FileFilterDialog..Label3..Caption
+#. OpenFilesDialog..Label1..Caption
+#: FileFilterDlg.dfm:39 OpenFilesDlg.dfm:26
+msgid "Filter:"
+msgstr "Szürő:"
+
+#. FileFilterDialog..UpBtn..Hint
+#: FileFilterDlg.dfm:46
+msgid "Move one line up"
+msgstr "Egy lépés fel"
+
+#. FileFilterDialog..DownBtn..Hint
+#: FileFilterDlg.dfm:135
+msgid "Move one line down"
+msgstr "Egy lépés le"
+
+#. FileFilterDialog..DeleteBtn..Hint
+#: FileFilterDlg.dfm:224
+msgid "Remove from list"
+msgstr "Eltávolit a listából"
+
+#. FileFilterDialog..InsertBtn..Hint
+#: FileFilterDlg.dfm:313
+msgid "Add to list"
+msgstr "Hozzáad a listához"
+
+#. FileFilterDialog..ReplBtn..Hint
+#: FileFilterDlg.dfm:402
+msgid "Replace in list"
+msgstr "Lecserél a listában"
+
+#. FileListDialog..UpBtn..Hint
+#: FileListDlg.dfm:33
+msgid "Move file up"
+msgstr "Fájl mozgatás fel"
+
+#. FileListDialog..DownBtn..Hint
+#: FileListDlg.dfm:123
+msgid "Move file down"
+msgstr "Fájl mozgatás le"
+
+#. FileListDialog..DeleteBtn..Hint
+#: FileListDlg.dfm:213
+msgid "Remove file"
+msgstr "Fájl eltávolítás"
+
+#. FileListDialog..InsertBtn..Hint
+#: FileListDlg.dfm:303
+msgid "Insert file"
+msgstr "Fájl beszúrása"
+
+#. FileListDialog..btSaveAs..Hint
+#: FileListDlg.dfm:393
+msgid "Save as new file"
+msgstr "Új fájl mentése, mint"
+
+#. FileListDialog..Label2..Caption
+#: FileListDlg.dfm:496
+msgid "List of files:"
+msgstr "Fájlok listája:"
+
+#. FileListDialog..Label3..Caption
+#: FileListDlg.dfm:503
+msgid "Common path:"
+msgstr "Közös útvonal:"
+
+#. FilterDialog..Caption
+#: FilterDlg.dfm:4
+msgid "Text filter dialog"
+msgstr "Szöveg szűrése"
+
+#. FilterDialog..gbFilter..IncMaskBtn..Caption
+#: FilterDlg.dfm:169
+msgid "All matching"
+msgstr "Összes egyező"
+
+#. FilterDialog..gbFilter..ExcMaskBtn..Caption
+#: FilterDlg.dfm:178
+msgid "All not matching"
+msgstr "Összes nem egyező"
+
+#. FilterDialog..gbFilter..NoMaskBtn..Caption
+#: FilterDlg.dfm:187
+msgid "All"
+msgstr "Mind"
+
+#. FilterDialog..gbFilter..btnEditMask..Caption
+#: FilterDlg.dfm:199
+msgid "Edit expressions"
+msgstr "Kifejezések szerkesztése"
+
+#. FilterDialog..gbFilter..cbFilter..Hint
+#. FilterDialog..gbFilter..lbMask..Caption
+#: FilterDlg.dfm:287 FilterDlg.dfm:312
+msgid "Filter expressions:"
+msgstr "Szűrőkifejezések:"
+
+#. FilterDialog..gbFilter..rgEval..Caption
+#: FilterDlg.dfm:298
+msgid "Evaluate multiple expressions by"
+msgstr "Több kifejezés kiértékelése"
+
+#. FilterDialog..gbFilter..rgEval....Items.Strings
+#: FilterDlg.dfm:302
+msgid "OR operation"
+msgstr "VAGY művelet"
+
+#. FilterDialog..gbFilter..rgEval....Items.Strings
+#: FilterDlg.dfm:303
+msgid "AND operation"
+msgstr "ÉS működés"
+
+#. FilterDialog..RegExpCB..Caption
+#: FilterDlg.dfm:321
+msgid "Use regular expressions"
+msgstr "Reguláris kifejezések"
+
+#. FindReplDialog..Caption
+#: FindReplDlg.dfm:6
+msgid "Search and replace"
+msgstr "Keres és cserél"
+
+#. FindReplDialog..pnlSearch..Label1..Caption
+#: FindReplDlg.dfm:37
+msgid "Search for:"
+msgstr "Keresés:"
+
+#. FindReplDialog..pnlControls..GroupBox1..Caption
+#. FtpDialog..pnSettings..gbOptions..Caption
+#. PageFormatDialog..GroupBox2..Caption
+#: FindReplDlg.dfm:62 FtpDlg.dfm:409 SynEdPageDlg.dfm:314
+msgid "Options"
+msgstr "Lehetőségek"
+
+#. FindReplDialog..pnlControls..GroupBox1..cbCase..Caption
+#: FindReplDlg.dfm:69
+msgid "Case sensitive"
+msgstr "Borítás"
+
+#. FindReplDialog..pnlControls..GroupBox1..cbWord..Caption
+#: FindReplDlg.dfm:78
+msgid "Whole words"
+msgstr "Egész szavak"
+
+#. FindReplDialog..pnlControls..rgpStart..Caption
+#: FindReplDlg.dfm:88
+msgid "Start "
+msgstr "Indítás: "
+
+#. FindReplDialog..pnlControls..rgpStart....Items.Strings
+#: FindReplDlg.dfm:91
+msgid "from cursor"
+msgstr "kurzorból"
+
+#. FindReplDialog..pnlControls..rgpStart....Items.Strings
+#: FindReplDlg.dfm:92
+msgid "from beginning"
+msgstr "kezdetből"
+
+#. FindReplDialog..pnlControls..rgpDirection..Caption
+#: FindReplDlg.dfm:101
+msgid "Direction"
+msgstr "Irányítás"
+
+#. FindReplDialog..pnlControls..rgpDirection....Items.Strings
+#: FindReplDlg.dfm:104
+msgid "Forward"
+msgstr "Továbbítás"
+
+#. FindReplDialog..pnlControls..rgpDirection....Items.Strings
+#: FindReplDlg.dfm:105
+msgid "Backward"
+msgstr "Hátrafelé"
+
+#. FindReplDialog..pnlControls..rgpRange..Caption
+#: FindReplDlg.dfm:114
+msgid "Range"
+msgstr "Választék"
+
+#. FindReplDialog..pnlControls..rgpRange....Items.Strings
+#: FindReplDlg.dfm:117
+msgid "Whole text"
+msgstr "Egész szöveg"
+
+#. FindReplDialog..pnlControls..rgpRange....Items.Strings
+#: FindReplDlg.dfm:118
+msgid "Selected text"
+msgstr "Kiválasztva a szöveget"
+
+#. FindReplDialog..pnlControls..CancelBtn..Caption
+#. ShowTextDialog..pnTop..EndeBtn..Caption
+#. ShowMsgDialog..btClose..Caption
+#. ShowMsgDialog..btClose..Caption
+#. ShowStringListDialog..CancelBtn..Caption
+#. ShowtextDialog..Panel2..EndeBtn..Caption
+#. WebBrowserWin..ActionList..ActionCancel..Hint
+#: FindReplDlg.dfm:128 ShowMemo.dfm:1155 ShowMessageDlg.dfm:173
+#: ShowMessageDlgST.dfm:174 ShowStringList.dfm:34 ShowText.dfm:37
+#: WebBrowser.dfm:200
+msgid "Close"
+msgstr "Bezár"
+
+#. FindReplDialog..pnlControls..btnSearch..Caption
+#. ShowTextDialog..pnTop..SearchBtn..Caption
+#. ShowtextDialog..Panel2..SearchBtn..Caption
+#: FindReplDlg.dfm:138 ShowMemo.dfm:348 ShowText.dfm:276 FindReplDlg.pas:351
+msgid "&Search"
+msgstr "&Keresés"
+
+#. FindReplDialog..pnlControls..btnReplAll..Caption
+#: FindReplDlg.dfm:148
+msgid "Replace &all"
+msgstr "Mind &lecserél"
+
+#. FindReplDialog..pnlControls..btnRepeat..Caption
+#: FindReplDlg.dfm:157
+msgid "&Continue"
+msgstr "&Folytatás"
+
+#. FindReplDialog..pnlControls..cbAutoclose..Caption
+#: FindReplDlg.dfm:166
+msgid "Keep this window opened"
+msgstr "Tartsa nyiva az ablakot"
+
+#. FindReplDialog..pnlReplace..Label2..Caption
+#: FindReplDlg.dfm:182
+msgid "Replace by:"
+msgstr "Lecserél:"
+
+#. FindReplDialog..pnlReplace..cbConfirm..Caption
+#: FindReplDlg.dfm:196
+msgid "With confirmation"
+msgstr "Megerősítéssel"
+
+#. FtpDirDialog..Caption
+#: FtpDirDlg.dfm:5
+msgid "Select FTP subdirectory"
+msgstr "Választ FTP alkönyvtárakat"
+
+#. FtpDirDialog..Label2..Caption
+#. FtpDirDialog..tvSubDirs..Hint
+#: FtpDirDlg.dfm:29 FtpDirDlg.dfm:163
+msgid "Subdirectories:"
+msgstr "Alkönyvtárak:"
+
+#. FtpDirDialog..btnDirUp..Hint
+#. ShowFilesDialog..pnBottom..btnDirUp..Hint
+#: FtpDirDlg.dfm:177 ShowFilesDlg.dfm:110
+msgid "One directory up"
+msgstr "Könyvtár fel"
+
+#. FtpDirDialog..edBaseDir..EditLabel.Caption
+#: FtpDirDlg.dfm:244
+msgid "Root directory on FTP server"
+msgstr "Főkönyvtár az FTP szerveren"
+
+#. FtpDirDialog..edSubDir..EditLabel.Caption
+#: FtpDirDlg.dfm:256
+msgid "Selected subdirectory:"
+msgstr "Kiválaszva alkönyvtár:"
+
+#. FtpDialog..Caption
+#. Extract parent path
+#: FtpDlg.dfm:5 FtpDirDlg.pas:171 FtpDirDlg.pas:202
+msgid "FTP connection"
+msgstr "FTP kapcsolat"
+
+#. FtpDialog..pnSettings..Label1..Caption
+#. FtpProxyDialog..edProxy..EditLabel.Caption
+#. HttpProxyDialog..Label1..Caption
+#: FtpDlg.dfm:130 FtpProxyDlg.dfm:183 HttpProxyDlg.dfm:24
+msgid "Server name:"
+msgstr "Szerver név:"
+
+#. FtpDialog..pnSettings..Label2..Caption
+#. FtpProxyDialog..edUser..EditLabel.Caption
+#. HttpProxyDialog..Label2..Caption
+#. LogonDialog..Label1..Caption
+#. MailDialog..Panel3..Label5..Caption
+#: FtpDlg.dfm:137 FtpProxyDlg.dfm:194 HttpProxyDlg.dfm:31 LogonDlg.dfm:56
+#: MailDlg.dfm:514
+msgid "User name:"
+msgstr "Felhasználó neve:"
+
+#. FtpDialog..pnSettings..Label4..Caption
+#: FtpDlg.dfm:151
+msgid "Remote directory:"
+msgstr "Távoli könyvtár:"
+
+#. FtpDialog..pnSettings..Label5..Caption
+#. FtpProxyDialog..edtPort..EditLabel.Caption
+#. HttpProxyDialog..Label5..Caption
+#. MailDialog..Panel3..Label7..Caption
+#: FtpDlg.dfm:158 FtpProxyDlg.dfm:216 HttpProxyDlg.dfm:45 MailDlg.dfm:528
+msgid "Port:"
+msgstr "Port:"
+
+#. FtpDialog..pnSettings..Label6..Caption
+#: FtpDlg.dfm:165
+msgid "Filenames:"
+msgstr "Fájl neve:"
+
+#. FtpDialog..pnSettings..btProxy..Caption
+#: FtpDlg.dfm:172
+msgid "Proxy server settings"
+msgstr "Proxy szerver beállítások"
+
+#. FtpDialog..pnSettings..cbProxy..Caption
+#. HttpProxyDialog..cbUseProxy..Caption
+#: FtpDlg.dfm:296 HttpProxyDlg.dfm:270
+msgid "Use proxy server"
+msgstr "Használ proxy szervert"
+
+#. FtpDialog..pnSettings..cbxCase..Text
+#. FtpDialog..pnSettings..cbxCase....Items.Strings
+#: FtpDlg.dfm:308 FtpDlg.dfm:310
+msgid "do not change"
+msgstr "nem módosít"
+
+#. FtpDialog..pnSettings..cbxCase....Items.Strings
+#: FtpDlg.dfm:311
+msgid "change to lower case"
+msgstr "változtat kisbetűsre"
+
+#. FtpDialog..pnSettings..cbxCase....Items.Strings
+#: FtpDlg.dfm:312
+msgid "change to UPPER CASE"
+msgstr "változtat NAGYBETÜRE"
+
+#. FtpDialog..pnSettings..gbOptions..cbPassive..Caption
+#: FtpDlg.dfm:416
+msgid "Use passive mode"
+msgstr "Használ  passzív üzemmódot"
+
+#. FtpDialog..pnSettings..gbOptions..cbUseHost..Caption
+#: FtpDlg.dfm:425
+msgid "Use HOST command"
+msgstr "HOST-parancs használata"
+
+#. FtpDialog..pnSettings..gbOptions..cbUtf8..Caption
+#: FtpDlg.dfm:433
+msgid "Force UTF-8 encoding"
+msgstr "Kényszerített UTF-8 kódolás"
+
+#. FtpDialog..pnSettings..gbSecure..Caption
+#: FtpDlg.dfm:442
+msgid "Use secure data connection"
+msgstr "Biztonságos adatkapcsolat"
+
+#. FtpDialog..pnSettings..gbSecure..rbAvail..Caption
+#: FtpDlg.dfm:460
+msgid "If available"
+msgstr "Ha elérhető"
+
+#. FtpDialog..pnSettings..gbSecure..rbAlways..Caption
+#: FtpDlg.dfm:469
+msgid "Always"
+msgstr "Mindig"
+
+#. FtpDialog..pnSettings..gbSecure..rbRequired..Caption
+#: FtpDlg.dfm:478
+msgid "Require"
+msgstr "Kérés"
+
+#. FtpDialog..pnSettings..cbFtpLog..Hint
+#: FtpDlg.dfm:488
+msgid "This option is only for debugging purposes"
+msgstr "Ez a opció van szánva csak hibakeresés terveknek"
+
+#. FtpDialog..pnSettings..cbFtpLog..Caption
+#. MailDialog..Panel1..cbMailLog..Caption
+#: FtpDlg.dfm:489 MailDlg.dfm:460
+msgid "Write communication log to file"
+msgstr "Fájl értesítési napló írása"
+
+#. FtpDialog..pnSettings..cbQuotes..Caption
+#: FtpDlg.dfm:499
+msgid "Allow filenames to be enclosed in quotes"
+msgstr "Macskakörmökben csatolt fájlneveket enged"
+
+#. FtpProxyDialog..Caption
+#: FtpProxyDlg.dfm:5
+msgid "FTP proxy server options"
+msgstr "FTP Proxy szerver lehetőségek"
+
+#. FtpProxyDialog..rgMethod..Caption
+#: FtpProxyDlg.dfm:156
+msgid "Connection method"
+msgstr "Kapcsolat módszer"
+
+#. FtpProxyDialog..rgMethod....Items.Strings
+#: FtpProxyDlg.dfm:159
+msgid "Send command USER user@hostname"
+msgstr "Parancs küldés FELHASZÁLÓ felhasználó@hostnév"
+
+#. FtpProxyDialog..rgMethod....Items.Strings
+#: FtpProxyDlg.dfm:160
+msgid "Send command SITE (with logon)"
+msgstr "Parancs küldés WEBLAP (bejelentkezéssel)"
+
+#. FtpProxyDialog..rgMethod....Items.Strings
+#: FtpProxyDlg.dfm:161
+msgid "Send command OPEN"
+msgstr "Parancs küldés MEGNYITÁS"
+
+#. FtpProxyDialog..rgMethod....Items.Strings
+#: FtpProxyDlg.dfm:162
+msgid "USER user@firewalluser@hostname"
+msgstr "FELHASZNÁLÓ felhasználó@hostnév"
+
+#. FtpProxyDialog..rgMethod....Items.Strings
+#: FtpProxyDlg.dfm:163
+msgid "Transparent"
+msgstr "Átlátszó"
+
+#. FtpProxyDialog..rgMethod....Items.Strings
+#: FtpProxyDlg.dfm:164
+msgid "USER hostuserID@hostname firewallUsername"
+msgstr "FELHASZNÁLÓ hostfelhasználóID tűzfalfelhasználó"
+
+#. FtpProxyDialog..edProxy..TextHint
+#: FtpProxyDlg.dfm:185
+msgid "Server name"
+msgstr "Szerver név"
+
+#. FtpProxyDialog..edtPort..TextHint
+#: FtpProxyDlg.dfm:218
+msgid "Port"
+msgstr "Port"
+
+#. GTCDialog..Caption
+#: GTCDlg.dfm:4
+msgid "Create texture"
+msgstr "Létrehozd a felépítést"
+
+#. GTCDialog..DataGB..Caption
+#: GTCDlg.dfm:24
+msgid "Color spectrum"
+msgstr "Színes spektrum"
+
+#. GTCDialog..DataGB..Label3..Caption
+#: GTCDlg.dfm:32
+msgid "Start:"
+msgstr "Indítás:"
+
+#. GTCDialog..DataGB..Label4..Caption
+#: GTCDlg.dfm:39
+msgid "Range:"
+msgstr "Választék:"
+
+#. HelpWindow..Caption
+#: HelpWin.dfm:4
+msgid "Help"
+msgstr "Súgó"
+
+#. HelpWindow..pnlTop..BackBtn..Hint
+#: HelpWin.dfm:35
+msgid "Previous"
+msgstr "Korábbi"
+
+#. HelpWindow..pnlTop..FwdBtn..Hint
+#: HelpWin.dfm:98
+msgid "Next"
+msgstr "Tovább"
+
+#. HelpWindow..pnlTop..HomeBtn..Hint
+#. WebBrowserWin..ActionList..ActionHome..Hint
+#: HelpWin.dfm:161 WebBrowser.dfm:179
+msgid "Home"
+msgstr "Nyitólap"
+
+#. HelpWindow..pnlTop..EndeBtn..Hint
+#: HelpWin.dfm:182
+msgid "End"
+msgstr "Vége"
+
+#. HttpProxyDialog..Caption
+#: HttpProxyDlg.dfm:5
+msgid "HTTP proxy settings"
+msgstr "HTTP proxy beállítások"
+
+#. InputNumberDialog..Caption
+#: InpNumber.dfm:5
+msgid "Numeric input"
+msgstr "Számszerű bevitel"
+
+#. InputTextDialog..Caption
+#: InpText.dfm:5
+msgid "Edit text"
+msgstr "Szerkesztő"
+
+#. KalenderDlg..Caption
+#: Kalender.dfm:6
+msgid "Select date"
+msgstr "Válassza ki a dátumot"
+
+#. KalenderDlg..MonatZur..Hint
+#: Kalender.dfm:33
+msgid "one month back"
+msgstr "egy hónap vissza"
+
+#. KalenderDlg..Januar..Hint
+#: Kalender.dfm:58
+msgid "to January"
+msgstr "januárba"
+
+#. KalenderDlg..QuartalZur..Hint
+#: Kalender.dfm:82
+msgid "3 months back"
+msgstr "3 hónappal vissza"
+
+#. KalenderDlg..MonatVor..Hint
+#: Kalender.dfm:107
+msgid "one month forward"
+msgstr "egy hónappal előre"
+
+#. KalenderDlg..QuartalVor..Hint
+#: Kalender.dfm:132
+msgid "3 months forward"
+msgstr "3 hónappal előre"
+
+#. KalenderDlg..Dezember..Hint
+#: Kalender.dfm:157
+msgid "to December"
+msgstr "decemberbe"
+
+#. KalenderDlg..JahrZur..Hint
+#: Kalender.dfm:181
+msgid "one year back"
+msgstr "egy évvel vissza"
+
+#. KalenderDlg..JahrVor..Hint
+#: Kalender.dfm:204
+msgid "one year forward"
+msgstr "egy évvel előre"
+
+#. KalenderDlg..MonatWahl..Hint
+#: Kalender.dfm:364
+msgid "Select month"
+msgstr "Válassza ki a hónapot"
+
+#. KalenderDlg..MonatWahl..Text
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:371 Kalender.dfm:374
+msgid "January"
+msgstr "Január"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:375
+msgid "February"
+msgstr "Február"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:376
+msgid "March"
+msgstr "Március"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:377
+msgid "April"
+msgstr "Április"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:378
+msgid "May"
+msgstr "Május"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:379
+msgid "June"
+msgstr "Junius"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:380
+msgid "July"
+msgstr "Július"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:381
+msgid "August"
+msgstr "Augusztus"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:382
+msgid "September"
+msgstr "Szeptember"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:383
+msgid "October"
+msgstr "Október"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:384
+msgid "November"
+msgstr "November"
+
+#. KalenderDlg..MonatWahl....Items.Strings
+#: Kalender.dfm:385
+msgid "December"
+msgstr "December"
+
+#. KalenderDlg..JahrWahl..Hint
+#: Kalender.dfm:392
+msgid "Select year"
+msgstr "Válassza ki az évet"
+
+#. LanguageDialog..Caption
+#: LanguageDlg.dfm:5
+msgid "Language selection"
+msgstr "Nyelvi kijelölés"
+
+#. ListenDialog..Label2..Caption
+#: Listdlg.dfm:25
+msgid "New item:"
+msgstr "Új elem:"
+
+#. ListenDialog..DeleteBtn..Hint
+#. SelectFromListDialog..paEdit..gbxEdit..btnDelete..Hint
+#: Listdlg.dfm:210 SelectFromListDlg.dfm:137
+msgid "Remove item"
+msgstr "Elem eltávolítása"
+
+#. ListenDialog..InsertBtn..Hint
+#. SelectFromListDialog..Hint
+#. SelectFromListDialog..paEdit..gbxEdit..btnInsert..Hint
+#: Listdlg.dfm:299 SelectFromListDlg.dfm:4 SelectFromListDlg.dfm:46
+#: EditStringListDlg.pas:96 SelectFromListDlg.pas:152
+msgid "Add item"
+msgstr "Hozzáad elemet"
+
+#. ListenDialog..ReplBtn..Hint
+#: Listdlg.dfm:388
+msgid "Replace item"
+msgstr "Elem lecserélése"
+
+#. LogonDialog..Caption
+#: LogonDlg.dfm:5
+msgid "Connect to"
+msgstr "Kapcsolatfelvétel"
+
+#. LogonDialog..OKBtn..Caption
+#: LogonDlg.dfm:71
+msgid "Logon"
+msgstr "Bejelentkezés"
+
+#. LogonDialog..SkipBtn..Caption
+#: LogonDlg.dfm:198
+msgid "&Skip"
+msgstr "&Üres utasítás"
+
+#. InputLptPortDialog..Caption
+#: LptSelect.dfm:5
+msgid "LPT selection"
+msgstr "LPT kijelölés"
+
+#. InputLptPortDialog..LptSel..Caption
+#: LptSelect.dfm:148
+msgid "Printer (Port/Irq)"
+msgstr "Nyomtatás (Port/Irq)"
+
+#. InputLptPortDialog..Panel1..Descriptor1..Caption
+#: LptSelect.dfm:172
+msgid "Port addr.:"
+msgstr "Port cím:"
+
+#. InputLptPortDialog..Panel1..Descriptor2..Caption
+#: LptSelect.dfm:179
+msgid "Interrupt"
+msgstr "Megszakítás"
+
+#. MailDialog..Caption
+#: MailDlg.dfm:5
+msgid "Mail settings"
+msgstr "Email beállítások"
+
+#. MailDialog..Panel1..Label4..Caption
+#: MailDlg.dfm:163
+msgid "Recipients:"
+msgstr "Címzettek:"
+
+#. MailDialog..Panel1..btnAdd..Hint
+#: MailDlg.dfm:180
+msgid "Add recipient"
+msgstr "Címzett hozzáadása"
+
+#. MailDialog..Panel1..btnRemove..Hint
+#: MailDlg.dfm:270
+msgid "Remove recipient"
+msgstr "Címzett eltávolítása"
+
+#. MailDialog..Panel1..btnEdit..Hint
+#: MailDlg.dfm:360
+msgid "Edit recipient"
+msgstr "Címzett szerkesztése"
+
+#. MailDialog..Panel1..edSubject..EditLabel.Caption
+#: MailDlg.dfm:452
+msgid "Subject:"
+msgstr "Tárgy:"
+
+#. MailDialog..Panel2..Label2..Caption
+#: MailDlg.dfm:476
+msgid "Sender:"
+msgstr "Küldő:"
+
+#. MailDialog..Panel2..Label3..Caption
+#: MailDlg.dfm:483
+msgid "Reply-To:"
+msgstr "Válasz:"
+
+#. MailDialog..Panel3..Label1..Caption
+#: MailDlg.dfm:535
+msgid "SMTP server:"
+msgstr "SMTP Szerver:"
+
+#. MailDialog..Panel3..edSmtpPwd..Hint
+#: MailDlg.dfm:542
+msgid "Click button to enter password"
+msgstr "Kattintson a gombra a jelszó beírásához"
+
+#. MailDialog..gbSecure..Caption
+#: MailDlg.dfm:678
+msgid "Use secure connection"
+msgstr "Használ biztonságos kapcsolatot"
+
+#. MailDialog..gbSecure..rbNone..Caption
+#: MailDlg.dfm:685
+msgid "never"
+msgstr "sohasem"
+
+#. MailDialog..gbSecure..rbAvail..Caption
+#: MailDlg.dfm:696
+msgid "TLS, if available"
+msgstr "TLS, ha elérhető"
+
+#. MailDialog..gbSecure..rbTLS..Caption
+#: MailDlg.dfm:705
+msgid "TLS"
+msgstr "TLS"
+
+#. MailDialog..gbSecure..rbSSL..Caption
+#: MailDlg.dfm:714
+msgid "SSL"
+msgstr "SSL"
+
+#. MailDialog..cbMail..Caption
+#: MailDlg.dfm:725
+msgid "Enable mail delivery"
+msgstr "Engedélyez postai kézbesítést"
+
+#. MoveListDialog..Caption
+#. SelectListItemDialog..Caption
+#: MoveListDlg.dfm:6 SelectListItemDlg.dfm:6
+msgid "Change order of list items"
+msgstr "Változása  listaelemeknek"
+
+#. NewPwdDialog..paPwd..edtPwd..EditLabel.Caption
+#: NewPwdDlg.dfm:37
+msgid "Enter password:"
+msgstr "Jelszó megadása:"
+
+#. OpenFilesDialog..Caption
+#. SelectFilesDialog..Caption
+#: OpenFilesDlg.dfm:4 SelectFilesDlg.dfm:4
+msgid "Select files"
+msgstr "Fájlok kijelölése"
+
+#. OpenFilesDialog..lePath..EditLabel.Caption
+#. ShellDirDialog..PanelLeft..Panel1..Label1..Caption
+#. ShellFileDialog..pnlTop..Label2..Caption
+#: OpenFilesDlg.dfm:163 ShellDirDlg.dfm:1967 ShellFileDlg.dfm:2034
+#: ShowFilesDlg.pas:116 ShowFilesDlg.pas:137
+msgid "Directory:"
+msgstr "Könyvtár:"
+
+#. OpenFilesDialog..btnAll..Caption
+#. SelectListItemsDialog..btSelAll..Hint
+#: OpenFilesDlg.dfm:193 SelectListItems.dfm:227
+msgid "Select all"
+msgstr "Mind kijelöl"
+
+#. OpenFilesDialog..btnNone..Caption
+#. SelectListItemsDialog..btSelNone..Hint
+#: OpenFilesDlg.dfm:257 SelectListItems.dfm:164
+msgid "Select none"
+msgstr "Nincs kijelölés"
+
+#. PrintPageDialog..Caption
+#: PrintPageDlg.dfm:6
+msgid "Printer settings"
+msgstr "Nyomtatási beállítások"
+
+#. PrintPageDialog..EinzugLabel..Caption
+#. RandDialog..EinzugLabel..Caption
+#: PrintPageDlg.dfm:28 RandDlg.dfm:28
+msgid "Feeder offset:"
+msgstr "Papíradagoló:"
+
+#. PrintPageDialog..GroupBox1..Caption
+#: PrintPageDlg.dfm:69
+msgid "Page margins"
+msgstr "Oldalmargók"
+
+#. PrintPageDialog..GroupBox1..Label1..Caption
+#. RandDialog..GroupBox1..Label1..Caption
+#. PageFormatDialog..GroupBox1..Label2..Caption
+#: PrintPageDlg.dfm:76 RandDlg.dfm:177 SynEdPageDlg.dfm:162
+msgid "Top:"
+msgstr "Felső:"
+
+#. PrintPageDialog..GroupBox1..Label2..Caption
+#. RandDialog..GroupBox1..Label2..Caption
+#. PageFormatDialog..GroupBox1..Label4..Caption
+#: PrintPageDlg.dfm:90 RandDlg.dfm:191 SynEdPageDlg.dfm:176
+msgid "Bottom:"
+msgstr "Alsó:"
+
+#. PrintPageDialog..GroupBox1..Label4..Caption
+#. RandDialog..GroupBox1..Label4..Caption
+#. PageFormatDialog..GroupBox1..Label1..Caption
+#: PrintPageDlg.dfm:118 RandDlg.dfm:219 SynEdPageDlg.dfm:155
+msgid "Left:"
+msgstr "Bal:"
+
+#. PrintPageDialog..GroupBox1..Label6..Caption
+#. RandDialog..GroupBox1..Label6..Caption
+#. PageFormatDialog..GroupBox1..Label3..Caption
+#: PrintPageDlg.dfm:125 RandDlg.dfm:226 SynEdPageDlg.dfm:169
+msgid "Right:"
+msgstr "Jobb:"
+
+#. PrintPageDialog..rgOrientation..Caption
+#. PageFormatDialog..rgpOrientation..Caption
+#: PrintPageDlg.dfm:178 SynEdPageDlg.dfm:536
+msgid "Orientation"
+msgstr "Eligazítás"
+
+#. PrintPageDialog..rgOrientation....Items.Strings
+#. PageFormatDialog..rgpOrientation....Items.Strings
+#: PrintPageDlg.dfm:182 SynEdPageDlg.dfm:540
+msgid "Portrait"
+msgstr "Álló formátum"
+
+#. PrintPageDialog..rgOrientation....Items.Strings
+#. PageFormatDialog..rgpOrientation....Items.Strings
+#: PrintPageDlg.dfm:183 SynEdPageDlg.dfm:541
+msgid "Landscape"
+msgstr "Fekvő"
+
+#. PasswordDialog..gbEncrypt..Caption
+#: PwdDlg.dfm:27
+msgid "AES encryption depth:"
+msgstr "AES titkosítás alapos:"
+
+#. PasswordDialog..gbEncrypt..rbEnc128..Caption
+#: PwdDlg.dfm:34
+msgid "128 bit"
+msgstr "128 bit"
+
+#. PasswordDialog..gbEncrypt..rbEnc256..Caption
+#: PwdDlg.dfm:42
+msgid "256 bit"
+msgstr "256 bit"
+
+#. PasswordDialog..gbEncrypt..rbEncAuto..Caption
+#: PwdDlg.dfm:50
+msgid "Automatic"
+msgstr "Automatikus"
+
+#. PasswordDialog..pnInput..bbPaste..Hint
+#: PwdDlg.dfm:118
+msgid "Paste from clipboard"
+msgstr "Beillesztés a vágólapról"
+
+#. PasswordDialog..pnBottom..btnSkip..Caption
+#: PwdDlg.dfm:220
+msgid "Skip"
+msgstr "Ugrás"
+
+#. RandDialog..Caption
+#: RandDlg.dfm:6
+msgid "Paper margins"
+msgstr "Papír margók"
+
+#. RandDialog..GroupBox1..Caption
+#: RandDlg.dfm:170
+msgid "Print page margins"
+msgstr "Nyomtatási margók"
+
+#. SearchPathDialog..Caption
+#: SearchPathDlg.dfm:4
+msgid "Edit search path list"
+msgstr "Szerkesztési útvonal"
+
+#. SearchPathDialog..DirBtn..Hint
+#: SearchPathDlg.dfm:152
+msgid "Select path"
+msgstr "Kijelöl útvonalat"
+
+#. SearchPathDialog..sbClearAll..Hint
+#: SearchPathDlg.dfm:216
+msgid "Remove all"
+msgstr "Mind eltávolít"
+
+#. SearchPathDialog..ReplBtn..Hint
+#: SearchPathDlg.dfm:424
+msgid "Replace path in search list"
+msgstr "Lecserél elérést keresési listában"
+
+#. SearchPathDialog..ReplBtn..Caption
+#: SearchPathDlg.dfm:426
+msgid "Replace path"
+msgstr "Elérés lecserélés"
+
+#. SearchPathDialog..InsertBtn..Hint
+#: SearchPathDlg.dfm:529
+msgid "Add path to search list"
+msgstr "Hozzáad elérési utat keresési listában"
+
+#. SearchPathDialog..InsertBtn..Caption
+#: SearchPathDlg.dfm:531
+msgid "Add path"
+msgstr "Elérést hozzáad"
+
+#. SearchPathDialog..DeleteBtn..Hint
+#: SearchPathDlg.dfm:621
+msgid "Remove path from search list"
+msgstr "Listából eltávolít elérést"
+
+#. SearchPathDialog..DeleteBtn..Caption
+#: SearchPathDlg.dfm:623
+msgid "Remove path"
+msgstr "Elérés eltávolítása"
+
+#. SelectColorDialog..Caption
+#. SelectFontDialog..bbColor..Hint
+#: SelectColorDlg.dfm:5 SelectFontDlg.dfm:202
+msgid "Select color"
+msgstr "Szín kiválasztása"
+
+#. SelectColorDialog..Label1..Caption
+#: SelectColorDlg.dfm:25
+msgid "Additional colors:"
+msgstr "További színek:"
+
+#. SelectColorDialog..Label2..Caption
+#: SelectColorDlg.dfm:32
+msgid "Basic colors::"
+msgstr "Alapszínek:"
+
+#. SelectColorDialog..Label3..Caption
+#: SelectColorDlg.dfm:39
+msgid "Selection:"
+msgstr "Kiválasztás:"
+
+#. SelectColorDialog..cbNoColor..Caption
+#: SelectColorDlg.dfm:181
+msgid "no color"
+msgstr "nincs szín"
+
+#. SelectColorDialog..btnSelectColor..Caption
+#: SelectColorDlg.dfm:190
+msgid "Select other color"
+msgstr "Egyéb színek"
+
+#. SelectFilesDialog..lvFiles......Caption
+#: SelectFilesDlg.dfm:167
+msgid "Date"
+msgstr "Dátum"
+
+#. SelectFilesDialog..lvFiles......Caption
+#: SelectFilesDlg.dfm:171
+msgid "Size"
+msgstr "Méret"
+
+#. SelectFontDialog..Caption
+#. ShowTextDialog..pnTop..FontBtn..Hint
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet2..btnFont..Caption
+#: SelectFontDlg.dfm:5 ShowMemo.dfm:1085 SynEdPageDlg.dfm:428
+msgid "Select font"
+msgstr "Választ betűt"
+
+#. SelectFontDialog..cbBold..Caption
+#: SelectFontDlg.dfm:167 SynEdPageDlg.pas:137
+msgid "Bold"
+msgstr "Félkövér"
+
+#. SelectFontDialog..cbItalic..Caption
+#: SelectFontDlg.dfm:177 SynEdPageDlg.pas:138
+msgid "Italic"
+msgstr "Dőlt betű"
+
+#. SelectFontDialog..bbColor..Caption
+#: SelectFontDlg.dfm:204
+msgid "Color"
+msgstr "Szín"
+
+#. SelectFontDialog..edSize..EditLabel.Caption
+#: SelectFontDlg.dfm:270
+msgid "Size:"
+msgstr "Méret:"
+
+#. SelectFromListDialog..Caption
+#: SelectFromListDlg.dfm:5
+msgid "Select item from list"
+msgstr "Kijelöl tétel a listából"
+
+#. SelectFromListDialog..paEdit..gbxEdit..Caption
+#: SelectFromListDlg.dfm:36
+msgid "Edit items"
+msgstr "Tétel szerkesztése"
+
+#. SelectFromListDialog..paEdit..gbxEdit..btnEdit..Hint
+#: SelectFromListDlg.dfm:228 EditHistListDlg.pas:132 EditStringListDlg.pas:120
+#: SelectFromListDlg.pas:186 SelectFromListDlg.pas:209
+msgid "Edit item"
+msgstr "Lista szerkesztése"
+
+#. SelectFromListDialog..paEdit..gbxEdit..btnDefault..Hint
+#: SelectFromListDlg.dfm:319 SelectFromListDlg.pas:196
+msgid "Reset to default values"
+msgstr "Újraindítja a számítógépet alapértelmezett érték visszaállításához"
+
+#. SelectFromListDialog..paEdit..gbxEdit..btnDefault..Caption
+#: SelectFromListDlg.dfm:321
+msgid "Default"
+msgstr "Alapért"
+
+#. SelectFromListDialog..paEdit..btnPrompt..Caption
+#: SelectFromListDlg.dfm:664
+msgid "Prompt"
+msgstr "Gyors"
+
+#. SelectListItemsDialog..Caption
+#: SelectListItems.dfm:4
+msgid "Select items"
+msgstr "Kijelöl tételt"
+
+#. ShellDirDialog..Caption
+#: ShellDirDlg.dfm:5
+msgid "Select directory"
+msgstr "Kijelöl mappát"
+
+#. ShellDirDialog..PanelLeft..panRoot..spbNetwork..Caption
+#. ShellFileDialog..pnlLeft..spbNetwork..Caption
+#: ShellDirDlg.dfm:87 ShellFileDlg.dfm:1380
+msgid "Network"
+msgstr "Hálózat"
+
+#. ShellDirDialog..PanelLeft..panRoot..spbComputer..Caption
+#. ShellFileDialog..pnlLeft..spbComputer..Caption
+#: ShellDirDlg.dfm:539 ShellFileDlg.dfm:36
+msgid "Computer"
+msgstr "Számítógép"
+
+#. ShellDirDialog..PanelLeft..panRoot..spbDesktop..Caption
+#. ShellFileDialog..pnlLeft..spbDesktop..Caption
+#: ShellDirDlg.dfm:990 ShellFileDlg.dfm:484
+msgid "Desktop"
+msgstr "Asztal"
+
+#. ShellDirDialog..PanelLeft..panRoot..spbMyFiles..Caption
+#: ShellDirDlg.dfm:1441
+msgid "Documents"
+msgstr "Dokumentum"
+
+#. ShellDirDialog..PanelLeft..Panel1..spbHome..Hint
+#. ShellFileDialog..pnlTop..spbHome..Hint
+#: ShellDirDlg.dfm:1902 ShellFileDlg.dfm:1839
+msgid "Go to default folder"
+msgstr "Alapértelmezett mappa"
+
+#. ShellDirDialog..PanelLeft..Panel1..spbUp..Hint
+#. ShellFileDialog..pnlTop..spbUp..Hint
+#. ShowFilesDialog..pnBottom..Hint
+#: ShellDirDlg.dfm:1975 ShellFileDlg.dfm:1904 ShowFilesDlg.dfm:35
+msgid "One folder up"
+msgstr "Egy mappa fel"
+
+#. ShellDirDialog..PanelLeft..Panel1..spbNew..Hint
+#. ShellFileDialog..pnlTop..spbNew..Hint
+#: ShellDirDlg.dfm:2041 ShellFileDlg.dfm:1969
+msgid "Create new folder"
+msgstr "Létrehoz új mappát"
+
+#. ShellDirDialog..PanelLeft..Panel1..cbxFiles..Caption
+#: ShellDirDlg.dfm:2107 ShowFilesDlg.pas:131
+msgid "Show files"
+msgstr "Mutat fájlokat"
+
+#. ShellDirDialog..PanelLeft..Panel1..cbxSelectedDir..Hint
+#: ShellDirDlg.dfm:2243
+msgid "Directory"
+msgstr "Könyvtár"
+
+#. ShellDirDialog..PopupMenu..itmCreate..Caption
+#. ShellFileDialog..PopupMenu..itmCreate..Caption
+#: ShellDirDlg.dfm:2279 ShellFileDlg.dfm:2317
+msgid "Create folder"
+msgstr "Létrehoz mappát"
+
+#. ShellDirDialog..PopupMenu..itmDelete..Caption
+#. ShellFileDialog..PopupMenu..itmDelete..Caption
+#: ShellDirDlg.dfm:2283 ShellFileDlg.dfm:2321
+msgid "Delete folder"
+msgstr "Mappa törlése"
+
+#. ShellDirDialog..PopupMenu..itmUpdate..Caption
+#. ShellFileDialog..PopupMenu..itmUpdate..Caption
+#. ShowTextDialog..pnTop..UpdateBtn..Hint
+#. ShowtextDialog..Panel2..UpdateBtn..Hint
+#: ShellDirDlg.dfm:2290 ShellFileDlg.dfm:2328 ShowMemo.dfm:962 ShowText.dfm:452
+msgid "Update"
+msgstr "Frissítés"
+
+#. ShellFileDialog..pnlLeft..spbMyFiles..Caption
+#: ShellFileDlg.dfm:932
+msgid "My Documents"
+msgstr "Dokumentum"
+
+#. ShellFileDialog..pnlTop..spbLast..Hint
+#: ShellFileDlg.dfm:2041
+msgid "Go to last folder displayed"
+msgstr "Mutasd az utolsó mappát"
+
+#. ShellFileDialog..pnlBottom..Label1..Caption
+#: ShellFileDlg.dfm:2133
+msgid "Filename:"
+msgstr "Fájlnév:"
+
+#. ShellFileDialog..pnlBottom..Label3..Caption
+#: ShellFileDlg.dfm:2147
+msgid "File type:"
+msgstr "Fájl tipus:"
+
+#. ShellFileDialog..pnlBottom..cbFilter..Filter
+#: ShellFileDlg.dfm:2288
+msgid "All files (*.*)|*.*"
+msgstr "Minden fájl (*.*)|*.*"
+
+#. frmShow..Caption
+#: Show.dfm:5
+msgid "Show text"
+msgstr "Szöveg mutatása"
+
+#. ShowTextDialog..pnTop..OpenBtn..Caption
+#: ShowMemo.dfm:40
+msgid "&Open"
+msgstr "&Megnyitás"
+
+#. ShowTextDialog..pnTop..PrintBtn..Caption
+#. ShowtextDialog..Panel2..PrintBtn..Caption
+#: ShowMemo.dfm:106 ShowText.dfm:100
+msgid "&Print"
+msgstr "&Nyomtatás"
+
+#. ShowTextDialog..pnTop..DeleteBtn..Caption
+#: ShowMemo.dfm:227
+msgid "&Delete"
+msgstr "&Törlés"
+
+#. ShowTextDialog..pnTop..PrevErrBtn..Hint
+#: ShowMemo.dfm:469
+msgid "Go to previous error"
+msgstr "Előző hibát mutat"
+
+#. ShowTextDialog..pnTop..PrevSectBtn..Hint
+#: ShowMemo.dfm:592
+msgid "Go to previous section"
+msgstr "Előző rész mutat"
+
+#. ShowTextDialog..pnTop..NextErrBtn..Hint
+#: ShowMemo.dfm:715
+msgid "Go to next error"
+msgstr "Következő hiba"
+
+#. ShowTextDialog..pnTop..NextSectBtn..Hint
+#: ShowMemo.dfm:838
+msgid "Go to next section"
+msgstr "Következő rész"
+
+#. ShowtextDialog..Panel2..DeleteBtn..Caption
+#: ShowText.dfm:188
+msgid "&Erase"
+msgstr "&Kitöröl"
+
+#. ShowtextDialog..Panel2..CopyBtn..Caption
+#: ShowText.dfm:364
+msgid "&Copy"
+msgstr "&Másol"
+
+#. SizeDialog..GroupBox..Caption
+#: Sizedlg.dfm:153
+msgid "Paper size:"
+msgstr "Papir méret:"
+
+#. SizeDialog..GroupBox..Label1..Caption
+#: Sizedlg.dfm:160
+msgid "Length:"
+msgstr "Hosszúság:"
+
+#. StatusWindow..Caption
+#: StatWind.dfm:5
+msgid "Status"
+msgstr "Státusz"
+
+#. KeyboardDialog..Caption
+#: SynEdKeyDlg.dfm:6
+msgid "Keyboard layout"
+msgstr "Billentyűzetkiosztás"
+
+#. KeyboardDialog..Label1..Caption
+#: SynEdKeyDlg.dfm:29
+msgid "Key code:"
+msgstr "Billentyűkód:"
+
+#. KeyboardDialog..Label2..Caption
+#: SynEdKeyDlg.dfm:42
+msgid "Command:"
+msgstr "Parancs:"
+
+#. KeyboardDialog..KeyCmdList......Caption
+#: SynEdKeyDlg.dfm:196
+msgid "Command"
+msgstr "Parancs"
+
+#. KeyboardDialog..KeyCmdList......Caption
+#: SynEdKeyDlg.dfm:200
+msgid "Key code"
+msgstr "Billentyűkód"
+
+#. KeyboardDialog..BitBtn1..Caption
+#: SynEdKeyDlg.dfm:239
+msgid "Remove key code"
+msgstr "Billentyűkód ki"
+
+#. KeyboardDialog..BitBtn2..Caption
+#: SynEdKeyDlg.dfm:306
+msgid "Change key code"
+msgstr "Billentyűkódot vált"
+
+#. PageFormatDialog..GroupBox1..Caption
+#: SynEdPageDlg.dfm:148
+msgid "Margins"
+msgstr "Margók"
+
+#. PageFormatDialog..GroupBox1..Label11..Caption
+#: SynEdPageDlg.dfm:211
+msgid "Gutter:"
+msgstr "Hasábköz:"
+
+#. PageFormatDialog..GroupBox1..cbxDuplex..Caption
+#: SynEdPageDlg.dfm:225
+msgid "Duplex print"
+msgstr "Dupla nyomatatás"
+
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet1..cbxLineNumbers..Caption
+#: SynEdPageDlg.dfm:337
+msgid "Print line numbers"
+msgstr "Nyomtatási szám"
+
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet1..cbxWrapLines..Caption
+#: SynEdPageDlg.dfm:345
+msgid "Line break on long lines"
+msgstr "Sortörés"
+
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet1..cbxHighlight..Caption
+#: SynEdPageDlg.dfm:353
+msgid "Syntax highlighting"
+msgstr "Mondattan kiemelés"
+
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet1..cbxColorPrint..Caption
+#: SynEdPageDlg.dfm:361
+msgid "Color print"
+msgstr "Szin nyomtatás"
+
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet1..pnlHeader..Label9..Caption
+#: SynEdPageDlg.dfm:376
+msgid "Distance to text:"
+msgstr "Eltérés a szövegben:"
+
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet1..cbxHeader..Caption
+#: SynEdPageDlg.dfm:407
+msgid "Print header"
+msgstr "Nyomtatási fejléc"
+
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet2..Label13..Caption
+#: SynEdPageDlg.dfm:421
+msgid "Font:"
+msgstr "Betü:"
+
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet2..Label14..Caption
+#: SynEdPageDlg.dfm:488
+msgid "Font size:"
+msgstr "Betű méret:"
+
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet2..Label15..Caption
+#: SynEdPageDlg.dfm:495
+msgid "Font style:"
+msgstr "Betű stílus:"
+
+#. TimeCompareDialog..Caption
+#: TimeCompDlg.dfm:5
+msgid "File timestamp comparison"
+msgstr "Fájl időbélyeg-összehasonlítása"
+
+#. TimeCompareDialog..paMain..Label5..Caption
+#: TimeCompDlg.dfm:171
+msgid "Time comparison tolerance in s:"
+msgstr "Idő-összehasonlítási tolerancia s-ben:"
+
+#. TimeCompareDialog..paMain..cbDstIgnore....Caption
+#: TimeCompDlg.dfm:181
+msgid ""
+"Ignore 1 hour time difference from daylight saving time (winter - summer)"
+msgstr ""
+"Figyelmen kívül hagyja 1 óra időeltolódás a nyári időszámítás (tél - nyár)"
+
+#. TransferStatus..Caption
+#: TransferStat.dfm:5
+msgid "Transfer status"
+msgstr "Adatátvitel státus"
+
+#. TransferStatus..Panel3..Label1..Caption
+#: TransferStat.dfm:177
+msgid "Protocol:"
+msgstr "Protokoll:"
+
+#. WebBrowserWin..paTop..paTopLeft..btnSize1..Hint
+#. WebBrowserWin..paTop..paTopLeft..btnSize2..Hint
+#. WebBrowserWin..paTop..paTopLeft..btnSize3..Hint
+#: WebBrowser.dfm:45 WebBrowser.dfm:58 WebBrowser.dfm:71
+msgid "Window size"
+msgstr "Ablak méret"
+
+#. WebBrowserWin..ActionList..ActionEdit..Category
+#. WebBrowserWin..ActionList..ActionCancel..Category
+#. WebBrowserWin..ActionList..ActionExit..Category
+#: WebBrowser.dfm:163 WebBrowser.dfm:198 WebBrowser.dfm:205
+msgid "Global"
+msgstr "Teljes"
+
+#. WebBrowserWin..ActionList..ActionEdit..Hint
+#: WebBrowser.dfm:164
+msgid "Edit source txt"
+msgstr "Forrás szöveg szerkesztése"
+
+#. WebBrowserWin..ActionList..ActionRefresh..Category
+#. WebBrowserWin..ActionList..ActionHome..Category
+#. WebBrowserWin..ActionList..ActionBack..Category
+#. WebBrowserWin..ActionList..ActionFwd..Category
+#: WebBrowser.dfm:170 WebBrowser.dfm:177 WebBrowser.dfm:184 WebBrowser.dfm:191
+msgid "Navigation"
+msgstr "Navigálás"
+
+#. WebBrowserWin..ActionList..ActionRefresh..Hint
+#: WebBrowser.dfm:172
+msgid "Reload"
+msgstr "Újrabetölt"
+
+#. WebBrowserWin..ActionList..ActionBack..Hint
+#: WebBrowser.dfm:186
+msgid "Previous page"
+msgstr "Előző oldal"
+
+#. WebBrowserWin..ActionList..ActionFwd..Hint
+#: WebBrowser.dfm:193
+msgid "Next page"
+msgstr "Következő oldal"
+
+#. WebBrowserWin..ActionList..ActionExit..Caption
+#: WebBrowser.dfm:206
+msgid "Exit"
+msgstr "Kilép"
+
+#. WebBrowserWin..ActionList..ActionExit..Hint
+#: WebBrowser.dfm:207
+msgid "OK and close"
+msgstr "OK és bezár"
+
+#. Download..edFilename..EditLabel.Caption
+#: WebUpdateDlg.dfm:43
+msgid "Save as:"
+msgstr "Mentés mint:"
+
+#: AccountDlg.pas:102 NewPwdDlg.pas:139
+msgid "Minimum length of password is %u characters"
+msgstr "Jelszó minimális hosszúsága %u karakterek"
+
+#: AccountDlg.pas:106 NewPwdDlg.pas:143
+msgid "Passwords do not match!"
+msgstr "Jelszavak nem egyeznek!"
+
+#: AppListDlg.pas:297 AppListDlg.pas:331
+msgid "Application (%s)"
+msgstr "Alkalmazás (%s)"
+
+#: AppListDlg.pas:313
+msgid "Remove application: \"%s\"?"
+msgstr "Alkalmazás eltávolítása: \"%s\"?"
+
+#: ConfirmCheckDlg.pas:86
+msgid "Yes"
+msgstr "Igen"
+
+#. Daten importieren  (nicht sichtbar)
+#: DStringListDlg.pas:172
+msgid "all|*.*"
+msgstr "minden|*.*"
+
+#: DStringListDlg.pas:191
+msgid "unknown"
+msgstr "ismeretlen"
+
+#. Teileliste updaten
+#: DStringListDlg.pas:273
+msgid "Error in line %s"
+msgstr "Vonal hiba %s"
+
+#: DStringListDlg.pas:307 DStringListDlg.pas:327
+msgid "Shortcut:"
+msgstr "Parancsikon:"
+
+#: DStringListDlg.pas:342
+msgid "Remove group: \"%s\"?"
+msgstr "Formáció eltávolítása: \"%s\"?"
+
+#: EditHistListDlg.pas:135
+msgid "Item \"%s\" already exists!"
+msgstr "Az elem \"%s\" már létezik!"
+
+#: FileFilterDlg.pas:201
+msgid "File filter dialog"
+msgstr "Fájlszűrő dialógus"
+
+#: FileFilterDlg.pas:205
+msgid "Description"
+msgstr "Leírás"
+
+#: FileFilterDlg.pas:206
+msgid "Filter"
+msgstr "Szűrő"
+
+#: FilterDlg.pas:163 FilterDlg.pas:166
+msgid ""
+"Invalid filter mask!\n"
+"Should resemble %s or %s"
+msgstr ""
+"Érvénytelen képszűrő maszk\n"
+"Hasonlíts %s vagy %s"
+
+#: FindReplDlg.pas:335
+msgid "Replace text"
+msgstr "Lecserél szöveget"
+
+#: FindReplDlg.pas:341
+msgid "&Replace"
+msgstr "&Lecserél"
+
+#: FindReplDlg.pas:345
+msgid "Search for text"
+msgstr "Keresés a szövegben"
+
+#: FtpDirDlg.pas:172 FtpDirDlg.pas:222
+msgid "Searching for directories"
+msgstr "Keresés a  mappákban"
+
+#: FtpDirDlg.pas:205
+msgid ""
+"Connection to FTP server: %s:%u\n"
+"for user: %s\n"
+"requires a password!"
+msgstr ""
+"Kapcsolat FTP szerverhez: %s:%u\n"
+"használatra: %s\n"
+"megkövetel jelszavat!"
+
+#: FtpDirDlg.pas:211
+msgid "Trying to connect to FTP server"
+msgstr "Próba kapcsolódás az FTP szerverhez"
+
+#: FtpDirDlg.pas:232
+msgid "Connection to FTP server failed"
+msgstr "Kapcsolódás az FTP szerverhez sikertelen"
+
+#: FtpDlg.pas:126
+msgid "Secure mode: "
+msgstr "Biztonságos mód: "
+
+#: FtpDlg.pas:261
+msgid "No host specified!"
+msgstr "Nincs gazda számítógép meghatározva!"
+
+#: FtpDlg.pas:265
+msgid "No user name specified!"
+msgstr "Nincs megadva felhasználónév!"
+
+#: FtpProxyDlg.pas:96
+msgid "Invalid port number (%s)"
+msgstr "Érvénytelen port címe (%s)"
+
+#: HelpWin.pas:188
+msgid ""
+"Online help is not available on your system\n"
+"You need to install Internet Explorer Vers. 4 or newer"
+msgstr ""
+"A rendszerén  online segítség nem elérhető\n"
+"Telepítse a Microsoft által készített büngésző 4.0 vagy újabb verziót"
+
+#: InpDFloat.pas:104 InpFloat.pas:80 InpNumber.pas:114 InpNumber.pas:121
+msgid "Error: Out of range (%s)"
+msgstr "Hiba: a tartomány (%s)"
+
+#: Listdlg.pas:204
+msgid "Edit list"
+msgstr "Lista szerkesztés"
+
+#: Listdlg.pas:211
+msgid "No."
+msgstr "Sz."
+
+#: LptSelect.pas:106
+msgid "Error: Invalid port address (%s)"
+msgstr "Hiba: Érvénytelen port címe (%s)"
+
+#: LptSelect.pas:116
+msgid "Error: Invalid interrupt (%s)"
+msgstr "Hiba: Érvénytelen megszakítás (%s)"
+
+#: MailDlg.pas:160
+msgid "Please specify an SMTP server!"
+msgstr "Adja meg az SMTP szervert!"
+
+#: MailDlg.pas:165
+msgid "Please specify at least one recipient!"
+msgstr "Adjon meg egy címzettet!"
+
+#: MailDlg.pas:197
+msgid "New mail recipient"
+msgstr "Új levelezési címzett"
+
+#: MailDlg.pas:198 MailDlg.pas:224
+msgid "Address:"
+msgstr "Cím:"
+
+#: MailDlg.pas:209
+msgid ""
+"Remove recipient:\n"
+"%s\n"
+"from list?"
+msgstr ""
+"Címzett eltávolítása:\n"
+"%s\n"
+"listából?"
+
+#: MailDlg.pas:223
+msgid "Edit mail recipient"
+msgstr "Szerkeszt mail címet"
+
+#: SearchPathDlg.pas:154
+msgid "Clear search path list?"
+msgstr "Útvonal keresési lista törlése?"
+
+#: SelectFontDlg.pas:113
+msgid "The quick brown fox jumps .."
+msgstr "Gyors ugrások ..."
+
+#: SelectFontDlg.pas:153
+msgid "Select font color"
+msgstr "Kijelöl betűszint"
+
+#: SelectFromListDlg.pas:155 SelectFromListDlg.pas:189
+msgid "Invalid entry: \"%s\""
+msgstr "Érvénytelen bejegyzés: \"%s\""
+
+#: SelectFromListDlg.pas:165
+msgid "Remove all selected items?"
+msgstr "Minden kijelölt tétel eltávolítása?"
+
+#: SelectFromListDlg.pas:171
+msgid "Remove item: \"%s\"?"
+msgstr "Törölhető a következő elem: \"%s\"?"
+
+#: ShellDirDlg.pas:280
+msgid "Default: "
+msgstr "Alapértelmezett: "
+
+#: ShellDirDlg.pas:343 ShellFileDlg.pas:278 ShowFilesDlg.pas:141
+msgid ""
+"Directory not found:\n"
+"%s!"
+msgstr ""
+"Könyvtár nem található:\n"
+"%s!"
+
+#: ShellDirDlg.pas:364 ShellFileDlg.pas:349
+msgid "New subdirectory:"
+msgstr "Új alkönyvtárak:"
+
+#: ShellDirDlg.pas:367 ShellFileDlg.pas:352
+msgid ""
+"Could not create directory:\n"
+"%s!"
+msgstr ""
+"Nem lehet létrehozni a könyvtárat:\n"
+"%s!"
+
+#: ShellDirDlg.pas:386
+msgid "Delete directory"
+msgstr "Könyvtár törlés"
+
+#: ShellDirDlg.pas:387
+msgid "Delete \"%s\""
+msgstr "Törlés \"%s\"?"
+
+#: ShellDirDlg.pas:388
+msgid "Definitely"
+msgstr "Végleg"
+
+#: ShellDirDlg.pas:388
+msgid "To recycle bin"
+msgstr "Lomtárig"
+
+#: ShellDirDlg.pas:395
+msgid "%u directories with %u files deleted!"
+msgstr "%u könyvtár %u fájlok törölve!"
+
+#. IsVista or newer
+#: ShellDirDlg.pas:401
+msgid "%s moved to Recycle Bin!"
+msgstr "%s mozgatva lomtárba!"
+
+#: ShellDirDlg.pas:403 ShellFileDlg.pas:366
+msgid ""
+"Error deleting directory:\n"
+"%s!"
+msgstr ""
+"Hiba a mappar törlésekor:\n"
+"%s!"
+
+#: ShellFileDlg.pas:363
+msgid "Directory is not empty, delete anyway?"
+msgstr "Mappa nem üres, törli akkor is?"
+
+#. if LineNr=Lines.Count then SelLength:=0 else SelLength:=Perform(EM_LINEINDEX,LineNr+1,0)-SelStart;
+#: ShowMemo.pas:335 ShowMemo.pas:355 ShowText.pas:218 ShowText.pas:237
+msgid " Line: %u of %u"
+msgstr " Sor: %u közül %u"
+
+#: ShowMemo.pas:378 ShowMemo.pas:561
+msgid "Delete selected text?"
+msgstr "Kijelölt szöveg törlése?"
+
+#. Kopfzeile erzeugen
+#: ShowMemo.pas:427
+msgid "Page: %u"
+msgstr "Oldal: %u"
+
+#. textout(PrinterSettings.Margins.Left,y,StripPath(Caption,72));
+#: ShowMemo.pas:432 ShowMemo.pas:859
+msgid "File: "
+msgstr "Fájl: "
+
+#: ShowMemo.pas:538 ShowText.pas:300
+msgid "Print selected lines?"
+msgstr "Kijelölt sor nyomatatása?"
+
+#: ShowMemo.pas:571 ShowText.pas:369
+msgid "Delete file \"%s\"?"
+msgstr "Fájl törlés \"%s\"?"
+
+#: ShowMemo.pas:589 ShowMemo.pas:859 ShowText.pas:385
+msgid "\"%s\" not found!"
+msgstr "\"%s\" nem található!"
+
+#: ShowMemo.pas:622 ShowMemo.pas:638
+msgid "No further sections!"
+msgstr "Nincs további szakasz!"
+
+#: ShowMemo.pas:719 ShowMemo.pas:734
+msgid "No further errors!"
+msgstr "Nincs további hiba!"
+
+#. Kopfzeile erzeugen
+#: ShowText.pas:287
+msgid "Page: "
+msgstr "Oldal: "
+
+#: ShowText.pas:406 ShowText.pas:470
+msgid "File: \"%s\" not found!"
+msgstr "Fájl: \"%s\" nem található!"
+
+#: SynEdKeyDlg.pas:95
+msgid "<none>"
+msgstr "<üres>"
+
+#: SynEdPageDlg.pas:136
+msgid "Normal"
+msgstr "Normál"
+
+#: SynEdPageDlg.pas:139
+msgid "Bold italic"
+msgstr "Félkövér dőlt"
+
+#: Textdlg.pas:248 Textdlg.pas:279 Textdlg.pas:289 Textdlg.pas:319
+#: Textdlg.pas:325
+msgid "Invalid input"
+msgstr "Érvénytelen bevitel"
+
+#: TransferStat.pas:178
+msgid "Deleting"
+msgstr "Törölve"
+
+#: TransferStat.pas:179 TransferStat.pas:185
+msgid "Delete files:"
+msgstr "Fájlok törlése:"
+
+#: TransferStat.pas:184
+msgid "Synchronizing"
+msgstr "Szinkronizálás"
+
+#: TransferStat.pas:190
+msgid "Copying to"
+msgstr "Átmásolásba"
+
+#: TransferStat.pas:193
+msgid "Copy files:"
+msgstr "Fájl másolás:"
+
+#: TransferStat.pas:201
+msgid "%s of %s copied"
+msgstr "%s ből %s másolva"
+
+#: TransferStat.pas:255
+msgid "Canceled by user!"
+msgstr "Felhasználói megszakítás!"
+
+#. Fehler
+#: TransferStat.pas:259
+msgid "Error during file transfer!"
+msgstr "Hiba a fájl továbbitása során!"
+
+#: TransferStat.pas:265
+msgid ""
+"%u file(s) deleted\n"
+"%u file(s) copied!"
+msgstr ""
+"%u fájl(ok) törölve\n"
+"%u fájl(ok) másolva!"
+
+#: TransferStat.pas:266
+msgid "%u file(s) deleted!"
+msgstr "%u fájl(ok) törölve!"
+
+#: TransferStat.pas:268
+msgid "%u file(s) copied"
+msgstr "%u fájl(ok) másolva"
+
+#: TransferStat.pas:269
+msgid "Nothing to do!"
+msgstr "Semmit ne csináljon!"
+
+#. FreeAndNil(WebBrowser);
+#: WebBrowser.pas:405
+msgid ""
+"The integrated web browser is not available on your system\n"
+"You need to install Internet Explorer Vers. 4 or newer."
+msgstr ""
+"A rendszerén az integrált Web böngésző nem elérhető\n"
+"Szükséges Internet Explorer 4.0 vagy újabb verzió."
+
+#: WebDownloadDlg.pas:261 WebUpdateDlg.pas:472
+msgid "%s verification failed!"
+msgstr "%s ellenőrzés sikertelen!"
+
+#: WebDownloadDlg.pas:263 WebUpdateDlg.pas:474
+msgid "%s hash file not found!"
+msgstr "Az %s hash-fájl nem található!"
+
+#~ msgid "Move entry up"
+#~ msgstr "Bejegyzés feljebb"
+
+#~ msgid "Move entry down"
+#~ msgstr "Bejegyzés lejjebb"
+
+#~ msgid "Move up"
+#~ msgstr "Fel"
+
+#~ msgid "Move down"
+#~ msgstr "Le"
+
+#~ msgid "Edit dates"
+#~ msgstr "Dátumok módosítása"
+
+#~ msgid "Type"
+#~ msgstr "Típus"
+
+#~ msgid "Fixed date"
+#~ msgstr "Fix dátum"
+
+#~ msgid "Relative to Easter"
+#~ msgstr "Relativ keletkezés"
+
+#~ msgid "Relative to 1st of Advent"
+#~ msgstr "Az Advent 1-hez viszonyítva"
+
+#~ msgid "Day of the week in month"
+#~ msgstr "A hét napja a hónapban"
+
+#~ msgid "Periodic days of the week"
+#~ msgstr "A hét periodikus napjai"
+
+#~ msgid "Delete"
+#~ msgstr "Törlés"
+
+#~ msgid "Rename"
+#~ msgstr "Átnevez"
+
+#~ msgid "Show as"
+#~ msgstr "Mutat, mint"
+
+#~ msgid "Holiday"
+#~ msgstr "Szünet"
+
+#~ msgid "Other date"
+#~ msgstr "Egyéb dátum"
+
+#~ msgid "Private date"
+#~ msgstr "Privát dátum"
+
+#~ msgid "Hidden date"
+#~ msgstr "Rejtett dátum"
+
+#~ msgid "Days to follow:"
+#~ msgstr "Következő napok:"
+
+#~ msgid "Day:"
+#~ msgstr "Nap:"
+
+#~ msgid "Month:"
+#~ msgstr "Hónap:"
+
+#~ msgid "Offset"
+#~ msgstr "Eltolás"
+
+#~ msgid "Offset:"
+#~ msgstr "Eltolás:"
+
+#~ msgid "Month"
+#~ msgstr "Hónap"
+
+#~ msgid "in"
+#~ msgstr "ben"
+
+#~ msgid "Monday"
+#~ msgstr "Hétfő"
+
+#~ msgid "Tuesday"
+#~ msgstr "Kedd"
+
+#~ msgid "Wednesday"
+#~ msgstr "Szerda"
+
+#~ msgid "Thursday"
+#~ msgstr "Csütörtök"
+
+#~ msgid "Friday"
+#~ msgstr "Péntek"
+
+#~ msgid "Saturday"
+#~ msgstr "Szombat"
+
+#~ msgid "Sunday"
+#~ msgstr "Vasárnap"
+
+#~ msgid "First"
+#~ msgstr "Első"
+
+#~ msgid "Last"
+#~ msgstr "Utolsó"
+
+#~ msgid "Second"
+#~ msgstr "Második"
+
+#~ msgid "Next to last"
+#~ msgstr "Utolsó előtti"
+
+#~ msgid "Week"
+#~ msgstr "Hét"
+
+#~ msgid "On:"
+#~ msgstr "Rá:"
+
+#~ msgid "Every"
+#~ msgstr "Minden"
+
+#~ msgid "Week(s)"
+#~ msgstr "Hét (hetek)"
+
+#~ msgid "Start in week"
+#~ msgstr "Indítsa el a héten"
+
+#~ msgid "New holiday or date"
+#~ msgstr "Új ünnep dátuma"
+
+#~ msgid ""
+#~ "Remove \"%s\"\n"
+#~ "from list?"
+#~ msgstr ""
+#~ "Eltávolít \"%s\"\n"
+#~ "listából?"
+
+#~ msgid "Rename holiday or date"
+#~ msgstr "Nevezze át a napot vagy dátumot"
+
+#~ msgid "Browsing the network is not supported on this system!"
+#~ msgstr "Böngészés a hálózat nem támogatott ezen a rendszeren!"
+
+#~ msgid "Relative date"
+#~ msgstr "Relatív dátuma"
+
+#~ msgid "Select date:"
+#~ msgstr "Választ dátumot:"
+
+#~ msgid "weeks"
+#~ msgstr "hetek"
+
+#~ msgid "months"
+#~ msgstr "hónapok"
+
+#~ msgid "years"
+#~ msgstr "évek"
+
+#~ msgid "Run automatically"
+#~ msgstr "Automatikus futtatása"
+
+#~ msgid "days"
+#~ msgstr "nap"
+
+#~ msgid "Canceled by user"
+#~ msgstr "Felhasználói megszakítás"
+
+#~ msgid "Text patterns:"
+#~ msgstr "Szöveg minták:"
