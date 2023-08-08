@@ -54,10 +54,16 @@ Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\
 [CustomMessages]
 en.FileAssoc=File associations:
 de.FileAssoc=Dateizuordnungem:
-en.DescContext=Add "Inno Unpack" to context menu of exe files
-de.DescContext=Füge "Inno Unpack" zum Kontext-Menü für exe-Dateien hinzu
-en.InnoUnpack=&Unpack Inno Setup ..
-de.InnoUnpack=Inno Setup entpacken ..
+fr.FileAssoc=Associations de fichiers:
+it.FileAssoc=Associazione file:
+en.DescContext=Add "InnoUnpacker" to context menu of exe files
+de.DescContext=Füge "InnoUnpacker" zum Kontext-Menü für exe-Dateien hinzu
+fr.DescContext=Ajouter "InnoUnpacker" au menu contextuel des fichiers exe
+it.DescContext=Aggiungi "InnoUnpacker" al menu contestuale dei file exe
+en.InnoUnpack=Unpack &Inno Setup ..
+de.InnoUnpack=&Inno Setup entpacken ..
+fr.InnoUnpack=Déballer &Inno Setup ..
+it.InnoUnpack=Disimballare &Inno Setup ..
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
