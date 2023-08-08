@@ -115,7 +115,8 @@ implementation
 {$R *.dfm}
 
 uses System.IniFiles, System.StrUtils, Winapi.ShellApi, GnuGetText, WinUtils, MsgDialogs,
-  FileUtils, InitProg, StringUtils, WinApiUtils, ShellDirDlg, SelectFromListDlg;
+  IniFileUtils, PathUtils, InitProg, StringUtils, WinApiUtils, ShellDirDlg,
+  SelectFromListDlg;
 
 { ------------------------------------------------------------------- }
 resourcestring
