@@ -51,8 +51,21 @@ Name: "de"; MessagesFile: compiler:Languages\German.isl;  LicenseFile:"..\..\..\
 Name: "fr"; MessagesFile: compiler:Languages\French.isl;  LicenseFile:"..\..\..\Common\license-en.rtf";
 Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\Common\license-it.rtf";
 
+[CustomMessages]
+en.FileAssoc=File associations:
+de.FileAssoc=Dateizuordnungem:
+en.DescContext=Add "Inno Unpack" to context menu of exe files
+de.DescContext=Füge "Inno Unpack" zum Kontext-Menü für exe-Dateien hinzu
+en.InnoUnpack=&Unpack Inno Setup ..
+de.InnoUnpack=Inno Setup entpacken ..
+
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "fileassoc"; Description: "{cm:DescContext}"; GroupDescription: "{cm:FileAssoc}"; 
+
+[Registry]
+Root: HKCR; Subkey: "{code:GetKey|EXE}\shell\InnoUnpack"; ValueType: string; ValueName: ""; ValueData: "{cm:InnoUnpack}"; Tasks: fileassoc; Flags: deletevalue
+Root: HKCR; Subkey: "{code:GetKey|EXE}\shell\InnoUnpack\Command"; ValueType: string; ValueName: ""; ValueData: """{app}\InnoUnpack.exe"" ""%1"""; Tasks: fileassoc; Flags: deletevalue
 
 [Files]
 Source: "..\Release\Win32\InnoUnpack.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
@@ -61,6 +74,7 @@ Source: "..\Release\Win32\innounp.htm"; DestDir: "{app}"; Flags: ignoreversion r
 Source: "..\Release\Win32\locale\*.mo"; DestDir: "{app}\locale"; Flags: recursesubdirs ignoreversion restartreplace
 Source: "..\Release\Win32\language.cfg"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion restartreplace
 Source: "..\..\..\Common\license-*.rtf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\InnoUnpack.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\pack-view.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -72,3 +86,14 @@ Name: "{commondesktop}\{#ProgramName}"; Filename: "{app}\InnoUnpack.exe"; Tasks:
 [Run]
 Filename: "{app}\InnoUnpack.exe"; Description: "{cm:LaunchProgram,{#ProgramName}}"; Flags: nowait postinstall runasoriginaluser
 
+[Code]
+function GetKey (Ext : String) : String;
+var
+  App : String;
+begin
+  if not RegQueryStringValue(HKEY_CLASSES_ROOT, '.'+Ext, '', App) then begin
+    App:=Ext+' file';
+    RegWriteStringValue(HKEY_CLASSES_ROOT, '.'+Ext, '', App);
+    end;
+  Result:=App;
+end;
