@@ -1,11 +1,11 @@
 #  Seems like a Font.Name extract
-#. MainForm..mmDos..Font.Name
-#: UnpackMain.dfm:765
+#. MainForm.mmDos.Font.Name
+#: UnpackMain.dfm:968
 msgid "Courier New"
 msgstr ""
 
 #  Seems like a Font.Name extract
-#. MainForm..Font.Name
+#. MainForm.Font.Name
 #: UnpackMain.dfm:11
 msgid "Tahoma"
 msgstr ""

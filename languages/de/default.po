@@ -1,0 +1,163 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: InnoUnpack\n"
+"POT-Creation-Date: 2020-08-11 16:26\n"
+"PO-Revision-Date: 2020-08-11 16:27+0200\n"
+"Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
+"Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+
+#. MainForm..Caption
+#: UnpackMain.dfm:4
+msgid "Inspect and unpack InnoSetup files"
+msgstr "Überprüfen und Entpacken von InnoSetup-Dateien"
+
+#. MainForm..pnTop..Label2..Caption
+#: UnpackMain.dfm:36
+msgid "InnoSetup Archive:"
+msgstr "InnoSetup-Archiv:"
+
+#. MainForm..pnTop..InfoBtn..Hint
+#: UnpackMain.dfm:43
+msgid "About the program"
+msgstr "Über das Programm"
+
+#. MainForm..pnTop..bbOptions..Hint
+#: UnpackMain.dfm:86
+msgid "Select unpack tool"
+msgstr "Unpack-Tool auswählen"
+
+#. MainForm..pnTop..bbExit..Hint
+#: UnpackMain.dfm:113
+msgid "Quit program"
+msgstr "Programm beenden"
+
+#. MainForm..pnTop..bbList..Caption
+#: UnpackMain.dfm:141
+msgid "List files"
+msgstr "Dateien anzeigen"
+
+#. MainForm..pnTop..bbExtract..Caption
+#: UnpackMain.dfm:206
+msgid "Extract files"
+msgstr "Dateien extrahieren"
+
+#. MainForm..pnTop..bbVerify..Caption
+#: UnpackMain.dfm:233
+msgid "Verify archive"
+msgstr "Archiv überprüfen"
+
+#. MainForm..pnTop..bbArchivInfo..Caption
+#: UnpackMain.dfm:298
+msgid "Archive info"
+msgstr "Archiv-Info"
+
+#. MainForm..pnTop..bbCopyResult..Hint
+#: UnpackMain.dfm:319
+msgid "Copy output to clipboard"
+msgstr "Ausgabe in Zwischenablage kopieren"
+
+#. MainForm..pnExtract..Label1..Caption
+#: UnpackMain.dfm:400
+msgid "Destination directory:"
+msgstr "Ziel-Verzeichnis:"
+
+#. MainForm..pnExtract..Label3..Caption
+#: UnpackMain.dfm:407 UnpackMain.pas:289
+msgid "File filter:"
+msgstr "Datei-Filter:"
+
+#. MainForm..pnExtract..cbDir..Hint
+#: UnpackMain.dfm:414
+msgid "Extract files to this directory"
+msgstr "Dateien werden in dieses Verzeichnis extrahiert"
+
+#. MainForm..pnExtract..bbStart..Hint
+#: UnpackMain.dfm:427
+msgid "Start extraction"
+msgstr "Starte extrahieren"
+
+#. MainForm..pnExtract..bbStart..Caption
+#: UnpackMain.dfm:429
+msgid "Start"
+msgstr "Start"
+
+#. MainForm..pnExtract..cxDupl..Caption
+#: UnpackMain.dfm:468
+msgid "Process duplicate files"
+msgstr "Doppelte Dateien verarbeiten"
+
+#. MainForm..pnExtract..cxOverwrite..Caption
+#: UnpackMain.dfm:476
+msgid "Overwrite files"
+msgstr "Dateien überschreiben"
+
+#. MainForm..pnExtract..cxStrip..Caption
+#: UnpackMain.dfm:484
+msgid "Strip paths"
+msgstr "Pfade verkürzen"
+
+#: UnpackMain.pas:198
+msgid "This application only allows dropping of exe files!"
+msgstr "Diese Anwendung akzeptiert nur Exe-Dateien!"
+
+#: UnpackMain.pas:219 UnpackMain.pas:248
+msgid "Programs|*.exe|all|*.*"
+msgstr "Programme|*.exe|alle|*.*"
+
+#: UnpackMain.pas:220
+msgid "Select InnoSetup archive"
+msgstr "InnoSetup-Archiv auswählen"
+
+#: UnpackMain.pas:249
+msgid "Search for \"innounp.exe\""
+msgstr "Suche nach \"innounp.exe\""
+
+#: UnpackMain.pas:270
+msgid "Select directory for extracted files"
+msgstr "Verzeichnis für zu extrahierende Dateien"
+
+#: UnpackMain.pas:347
+msgid "Extracting setup file ..."
+msgstr "Setup-Datei wird extrahiert ..."
+
+#. DOS-Ausgabe anzeigen
+#: UnpackMain.pas:391 UnpackMain.pas:463
+msgid "Error: "
+msgstr "Fehler: "
+
+#: UnpackMain.pas:398
+msgid "Name: "
+msgstr "Name: "
+
+#: UnpackMain.pas:399
+msgid "Version: "
+msgstr "Version: "
+
+#: UnpackMain.pas:400
+msgid "Copyright: "
+msgstr "Copyright: "
+
+#: UnpackMain.pas:401
+msgid "Company: "
+msgstr "Firma: "
+
+#: UnpackMain.pas:402
+msgid "Comment: "
+msgstr "Kommentar: "
+
+#~ msgid "Select InnoSetup package"
+#~ msgstr "InnoSetup-Paket auswaählen"
+
+#~ msgid "About"
+#~ msgstr "Über das Programm"
