@@ -61,6 +61,8 @@ procedure InfoDialog (const Title,Msg : string; Delay : integer;
                       AMonitor : TDefaultMonitor = dmActiveForm); overload;
 procedure InfoDialog (const Title,Msg : string;
                       AMonitor : TDefaultMonitor = dmActiveForm); overload;
+procedure InfoDialog (const Msg : string; Delay : integer;
+                      AMonitor : TDefaultMonitor = dmActiveForm); overload;
 procedure InfoDialog (const Msg : string;
                       AMonitor : TDefaultMonitor = dmActiveForm); overload;
 procedure InfoDialog (Pos : TPoint; const Title,Msg : string;
@@ -215,7 +217,7 @@ begin
 
 // Information an Position ausgeben
 procedure InfoDialog (Pos : TPoint; const Title,Msg : string;
-                     AMonitor : TDefaultMonitor);
+                      AMonitor : TDefaultMonitor);
 begin
   MessageDialog (Title,Msg,mtInformation,[mbOK],Pos,0,AMonitor);
   end;
@@ -238,6 +240,12 @@ procedure InfoDialog (const Title,Msg : string; Delay : integer;
                       AMonitor : TDefaultMonitor);
 begin
   MessageDialog (Title,Msg,mtInformation,[mbOK],CenterPos,Delay,AMonitor);
+  end;
+
+procedure InfoDialog (const Msg : string; Delay : integer;
+                      AMonitor : TDefaultMonitor);
+begin
+  InfoDialog('',Msg,Delay,AMonitor);
   end;
 
 procedure InfoDialog (const Msg :string;

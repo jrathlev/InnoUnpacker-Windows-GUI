@@ -34,7 +34,7 @@ resourcestring
 
 { ------------------------------------------------------------------- }
 // Strings from LangUtils
-  rsSystemDefault = '&System default';
+  rsSystemDefault = '&System default';  // "&" is required so that this entry is always the first when sorting
   rsLangRestart = 'Changing language requires the program to be restarted!';
 
 { ------------------------------------------------------------------- }
@@ -115,11 +115,19 @@ resourcestring
   rsUnlicensed = 'Unlicensed product';
 
 { ------------------------------------------------------------------- }
+// Strings from DateUtilEx
+  rsBegSpring = 'Beginning of spring';
+  rsBegSummer = 'Beginning of summer';
+  rsBegAutumn = 'Beginning of autumn';
+  rsBegWinter = 'Beginning of winter';
+
+{ ------------------------------------------------------------------- }
 // Misc.
   rsVersion = 'Version';
   rsLongCopyRight = '%s Dr. J. Rathlev'+sLineBreak+' 24222 Schwentinental, Germany';
   rsCopyRight = '%s Dr. J. Rathlev';
   rsNotAvail = 'not available';
+  rsNoName = 'unlabeled';
   rsConnectTo = 'Connect to ..';
   rsUnknown = '<Unknown>';
   rsAnyKey = 'Strike any key to continue ...';
@@ -127,3 +135,4 @@ resourcestring
 implementation
 
 end.
+

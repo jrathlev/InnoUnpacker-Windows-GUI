@@ -3,8 +3,6 @@
   All parts of the translation system are kept in this unit.
 
   @author Lars B. Dybdahl and others
-  @version $LastChangedRevision: 220 $
-  @see http://dybdahl.dk/dxgettext/
 -------------------------------------------------------------------------------}
 unit gnugettext;
 (**************************************************************)
@@ -24,11 +22,10 @@ unit gnugettext;
 // Changes J. Rathlev (kontakt(a)rathlev-home.de)
 //    see: JR - 2011-07-29 / 2012-09-10
 //    All Delphi version related compiler switches removed - needs at least Delphi XE2
+//    GetWindowsLanguage uses GetUserPreferredUILanguages (Sept. 2023)
 
 // Information about this file:
-// $LastChangedDate: 2010-08-25 15:40:17 +0200 (mer., 25 août 2010) $
-// $LastChangedRevision: 220 $
-// $HeadURL: http://svn.berlios.de/svnroot/repos/dxgettext/trunk/dxgettext/sample/gnugettext.pas $
+// $LastChangedDate: 2023-11-14 $
 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -100,8 +97,8 @@ function getcurrenttextdomain: DomainString;
 procedure bindtextdomain(const szDomain: DomainString; const szDirectory: FilenameString);
 
 // Set language to use
-procedure UseLanguage(LanguageCode: LanguageString);
-function GetCurrentLanguage:LanguageString;
+procedure UseLanguage (LanguageCode : LanguageString);
+function GetCurrentLanguage : LanguageString;
 
 // Translates a component (form, frame etc.) to the currently selected language.
 // Put TranslateComponent(self) in the OnCreate event of all your forms.
@@ -115,15 +112,16 @@ procedure TP_IgnoreClassProperty (IgnClass:TClass;const propertyname:ComponentNa
 procedure TP_GlobalIgnoreClass (IgnClass:TClass);
 procedure TP_GlobalIgnoreClassProperty (IgnClass:TClass;const propertyname:ComponentNameString);
 procedure TP_GlobalHandleClass (HClass:TClass;Handler:TTranslator);
-procedure TranslateComponent(AnObject: TComponent; const TextDomain:DomainString='');
-procedure RetranslateComponent(AnObject: TComponent; const TextDomain:DomainString='');
+procedure TranslateComponent(AnObject : TComponent; const TextDomain : DomainString='');
+procedure RetranslateComponent(AnObject : TComponent; const TextDomain : DomainString='');
 
 // Add more domains that resourcestrings can be extracted from. If a translation
 // is not found in the default domain, this domain will be searched, too.
 // This is useful for adding mo files for certain runtime libraries and 3rd
 // party component libraries
-procedure AddDomainForResourceString (const domain:DomainString);
-procedure RemoveDomainForResourceString (const domain:DomainString);
+procedure AddDomainForResourceString (const domain : DomainString);
+procedure RemoveDomainForResourceString (const domain : DomainString);
+procedure AddDomains (const Domains : array of DomainString);
 
 // Add more domains that component strings can be extracted from. If a translation
 // is not found in the default domain, this domain will be searched, too.
@@ -277,7 +275,7 @@ type
       DesignTimeCodePage:Integer;  /// See MultiByteToWideChar() in Win32 API for documentation
       constructor Create;
       destructor Destroy; override;
-      procedure UseLanguage(LanguageCode: LanguageString);
+      procedure UseLanguage(LanguageCode : LanguageString);
       procedure GetListOfLanguages (const domain:DomainString; list:TStrings); // Puts list of language codes, for which there are translations in the specified domain, into list
       {$ifndef UNICODE}
       function gettext(const szMsgId: ansistring): TranslatedUnicodeString; overload; virtual;
@@ -288,7 +286,7 @@ type
       function gettext_NoOp(const szMsgId: MsgIdString): TranslatedUnicodeString;
       function ngettext(const singular,plural:MsgIdString;Number:longint):TranslatedUnicodeString; overload; virtual;
       function ngettext_NoExtract(const singular,plural:MsgIdString;Number:longint):TranslatedUnicodeString;
-      function GetCurrentLanguage:LanguageString;
+      function GetCurrentLanguage : LanguageString;
       function GetTranslationProperty (const Propertyname:ComponentNameString):TranslatedUnicodeString;
       function GetTranslatorNameAndEmail:TranslatedUnicodeString;
 
@@ -705,12 +703,12 @@ begin
   DefaultInstance.TP_GlobalHandleClass (HClass, Handler);
 end;
 
-procedure TranslateComponent(AnObject: TComponent; const TextDomain:DomainString='');
+procedure TranslateComponent(AnObject: TComponent; const TextDomain : DomainString='');
 begin
   DefaultInstance.TranslateComponent(AnObject, TextDomain);
 end;
 
-procedure RetranslateComponent(AnObject: TComponent; const TextDomain:DomainString='');
+procedure RetranslateComponent(AnObject: TComponent; const TextDomain : DomainString='');
 begin
   DefaultInstance.RetranslateComponent(AnObject, TextDomain);
 end;
@@ -807,23 +805,37 @@ const
   IDWelsh                     = $0452;  IDXhosa                     = $0434;
   IDZulu                      = $0435;
 
-function GetWindowsLanguage: WideString;
+function GetWindowsLanguage : WideString;
 var
-  langid: Cardinal;
-  langcode: WideString;
-  CountryName: array[0..4] of widechar;
-  LanguageName: array[0..4] of widechar;
-  works: boolean;
+  langid,n,pc : Cardinal;
+  buf : array of Char;
+  LangCode : WideString;
+  CountryName : array[0..4] of widechar;
+  LanguageName : array[0..4] of widechar;
+  works : boolean;
 begin
+  if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion>=6) then begin
+    pc:=0;    // Retrieve the UI language (not the localeinfo) JR - Sept. 2023
+    works:=GetUserPreferredUILanguages(MUI_LANGUAGE_NAME,@n,nil,@pc);  // available since Vista
+    if works then begin
+      SetLength(buf,pc);
+      works:=GetUserPreferredUILanguages(MUI_LANGUAGE_NAME,@n,@buf[0],@pc);
+      if works then LangCode:=ReplaceStr(PChar(@buf[0]),'-','_');
+      buf:=nil;
+      end;
+    end
+  else begin // XP and older
   // The return value of GetLocaleInfo is compared with 3 = 2 characters and a zero
-  works := 3 = GetLocaleInfoW(LOCALE_USER_DEFAULT, LOCALE_SISO639LANGNAME, LanguageName, SizeOf(LanguageName));
-  works := works and (3 = GetLocaleInfoW(LOCALE_USER_DEFAULT, LOCALE_SISO3166CTRYNAME, CountryName, SizeOf(CountryName)));
-  if works then begin
-    // Windows 98, Me, NT4, 2000, XP and newer
-    LangCode := PWideChar(@(LanguageName[0]));
-    if lowercase(LangCode)='no' then LangCode:='nb';
-    LangCode:=LangCode + '_' + PWideChar(@CountryName[0]);
-  end else begin
+    works := 3 = GetLocaleInfoW(LOCALE_USER_DEFAULT, LOCALE_SISO639LANGNAME, LanguageName, SizeOf(LanguageName));
+    works := works and (3 = GetLocaleInfoW(LOCALE_USER_DEFAULT, LOCALE_SISO3166CTRYNAME, CountryName, SizeOf(CountryName)));
+    if works then begin
+      // Windows 98, Me, NT4, 2000, XP and newer
+      LangCode := PWideChar(@(LanguageName[0]));
+      if lowercase(LangCode)='no' then LangCode:='nb';
+      LangCode:=LangCode + '_' + PWideChar(@CountryName[0]);
+      end;
+    end;
+  if not works then begin
     // This part should only happen on Windows 95.
     langid := GetThreadLocale;
     case langid of
@@ -1125,6 +1137,13 @@ begin
     ResourceStringDomainListCS.EndWrite;
   end;
 end;
+
+procedure AddDomains (const Domains : array of DomainString);
+var
+  i : integer;
+begin
+  for i:=0 to High(Domains) do AddDomainForResourceString(Domains[i]);
+  end;
 
 procedure AddDomainForComponent (const domain:DomainString);
 begin

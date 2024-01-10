@@ -37,6 +37,7 @@ const
     Umrechnung verwendet werden:
     n:=MulDiv(n(96),Screen.PixelsPerInch,PixelsPerInchOnDesign)
   }
+  MinScale = 120;  // scale icons if MonDpi/DesignDpi>1.2
 
 type
   TBoolFunction = function : boolean of object;
@@ -573,7 +574,7 @@ procedure ScaleGlyph (AControl : TControl; OldDPI,NewDPI : integer);
 var
   bm,bms,gl : TBitmap;
 begin
-  if MulDiv(100,NewDPI,OldDPI)<130 then Exit;
+  if MulDiv(100,NewDPI,OldDPI)<MinScale then Exit;
   bm:=TBitmap.Create;
   if AControl is TBitBtn then begin
     gl:=(AControl as TBitBtn).Glyph; bm.Assign(gl);
@@ -605,7 +606,7 @@ procedure ScaleButtonGlyphs (AControl : TWinControl; OldDPI,NewDPI : integer);
 var
   i : integer;
 begin
-  if MulDiv(100,NewDPI,OldDPI)<120 then Exit;
+  if MulDiv(100,NewDPI,OldDPI)<MinScale then Exit;
 //  if MulDiv(NewDPI,100,OldDPI)<=150 then Exit;
   with AControl do for i := 0 to ControlCount-1 do begin
     ScaleGlyph(Controls[i],OldDPI,NewDPI);
@@ -619,7 +620,7 @@ procedure ScaleImage (AImage : TImage; OldDPI,NewDPI : integer);
 var
   bm : TBitmap;
 begin
-  if MulDiv(100,NewDPI,OldDPI)<130 then Exit;
+  if MulDiv(100,NewDPI,OldDPI)<MinScale then Exit;
   bm:=TBitmap.Create;
   try
     with AIMage do begin
@@ -645,7 +646,7 @@ var
   mb,ib,sib,smb   : TBitmap;
   til             : TImageList;
 begin
-  if MulDiv(100,NewDPI,OldDPI)<120 then Exit;
+  if MulDiv(100,NewDPI,OldDPI)<MinScale then Exit;
   with imgList do OldSize.Create(Width,Height);
   til:=TImageList.Create(nil);  //create temporary list
   try
@@ -753,7 +754,7 @@ begin
     end;
   end;
 
-// scale Screen fonts - only to called from main form
+// scale Screen fonts - only to be called from main form
 procedure ScaleScreenFonts (OldDPI,NewDPI : integer);
 begin
   with Screen do begin

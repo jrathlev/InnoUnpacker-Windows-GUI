@@ -65,6 +65,7 @@ const
   CrLf = #13#10;
   Cr = #13;
   Lf = #10;
+  ColSpace  = ': ';
 
   FloatChars : set of char = ['0'..'9',Period,'-','+','E','e'];
 
@@ -709,11 +710,9 @@ begin
 function FillSpace (len : integer) : string;
 var
   i : integer;
-  s : string;
 begin
-  s:='';
-  for i:=1 to len do s:=s+' ';
-  Result:=s;
+  Result:='';
+  for i:=1 to len do Result:=Result+' ';
   end;
 
 {------------------------------------------------------------------}

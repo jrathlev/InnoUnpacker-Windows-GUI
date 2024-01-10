@@ -129,8 +129,8 @@ type
   protected
     procedure DoLangItemClick(Sender : TObject); virtual;
     procedure DoLangMeasureItem (Sender: TObject; ACanvas: TCanvas; var Width, Height: Integer);
-    function GetLangIndex (Value: TLangCodeString) : integer;
-    procedure SetLangCode (Value: TLangCodeString);
+    function GetLangIndex (const Value: TLangCodeString) : integer;
+    procedure SetLangCode (const Value: TLangCodeString);
   public
     constructor Create (const APath,Filename : string);
     destructor Destroy; override;
@@ -278,14 +278,14 @@ begin
   AddMenuItems; { ab sofort bleibt das Menü aktuell }
   end;
 
-function TLanguageList.GetLangIndex (Value: TLangCodeString) : integer;
+function TLanguageList.GetLangIndex (const Value: TLangCodeString) : integer;
 begin
   for Result:=0 to Count-1 do
      if LangCodeStringToCardinal(Value)=Objects[Result] then Exit;
   Result:=-1;
   end;
 
-procedure TLanguageList.SetLangCode (Value: TLangCodeString);
+procedure TLanguageList.SetLangCode (const Value: TLangCodeString);
 var
   n : integer;
 begin
@@ -348,7 +348,7 @@ begin
 
 { ------------------------------------------------------------------- }
 // GnuGetText ermittelt als System-Standard nicht die Sprache sondern die lokale
-// Einstellung (GetLocaleInfo)
+// Einstellung (GetLocaleInfo) (korrigiert Sept. 2023)
 // Bsp: engl. System mit lokaler Einstellung "German" gibt:
 //    GetLocaleInfo oder GetUserDefaultLangID   ==> de_DE
 //    GetUserDefaultUILanguage                  ==> 1033 = $409 = "English (US)"
