@@ -20,19 +20,19 @@ object MainForm: TMainForm
     Left = 0
     Top = 0
     Width = 631
-    Height = 141
+    Height = 146
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
       631
-      141)
+      146)
     object Label2: TLabel
       Left = 10
       Top = 15
-      Width = 93
+      Width = 92
       Height = 13
-      Caption = 'InnoSetup Archive:'
+      Caption = 'InnoSetup archive:'
     end
     object cbFile: TComboBox
       Left = 10
@@ -654,7 +654,7 @@ object MainForm: TMainForm
     end
     object cxEmbedded: TCheckBox
       Left = 10
-      Top = 70
+      Top = 60
       Width = 296
       Height = 17
       Anchors = [akLeft, akTop, akRight]
@@ -667,6 +667,7 @@ object MainForm: TMainForm
       Top = 100
       Width = 36
       Height = 36
+      Hint = 'Scroll down'
       Anchors = [akTop, akRight]
       Glyph.Data = {
         96090000424D9609000000000000360000002800000028000000140000000100
@@ -747,6 +748,8 @@ object MainForm: TMainForm
         C0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0
         DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0}
       NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 6
       OnClick = bbDownClick
     end
@@ -755,6 +758,7 @@ object MainForm: TMainForm
       Top = 100
       Width = 36
       Height = 36
+      Hint = 'Scroll up'
       Anchors = [akTop, akRight]
       Glyph.Data = {
         96090000424D9609000000000000360000002800000028000000140000000100
@@ -835,6 +839,8 @@ object MainForm: TMainForm
         C0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0
         DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0C0DCC0}
       NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 5
       OnClick = bbUpClick
     end
@@ -929,12 +935,32 @@ object MainForm: TMainForm
       TabOrder = 10
       OnClick = InfoBtnClick
     end
+    object cxEncrypted: TCheckBox
+      Left = 10
+      Top = 80
+      Width = 296
+      Height = 17
+      Caption = 'InnoSetup archive is encrypted'
+      TabOrder = 12
+      OnClick = cxEncryptedClick
+    end
+    object edPassword: TLabeledEdit
+      Left = 60
+      Top = 115
+      Width = 121
+      Height = 21
+      EditLabel.Width = 50
+      EditLabel.Height = 13
+      EditLabel.Caption = 'Password:'
+      TabOrder = 13
+      Visible = False
+    end
   end
   object mmDos: TMemo
     Left = 0
-    Top = 246
+    Top = 251
     Width = 631
-    Height = 215
+    Height = 210
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -944,15 +970,18 @@ object MainForm: TMainForm
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 1
+    ExplicitTop = 246
+    ExplicitHeight = 215
   end
   object pnExtract: TPanel
     Left = 0
-    Top = 141
+    Top = 146
     Width = 631
     Height = 105
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 141
     DesignSize = (
       631
       105)

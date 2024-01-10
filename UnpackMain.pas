@@ -35,13 +35,14 @@ unit UnpackMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls;
 
 const
   ProgName = 'InnoUnpacker';
-  Vers = ' 1.9.0';
-  CopRgt = '© 2014-2022 Dr. J. Rathlev, D-24222 Schwentinental';
+  Vers = ' 1.9.1';
+  CopRgt = '© 2014-2023 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
   defPipeSize = 64*1024;
@@ -75,6 +76,8 @@ type
     bbDown: TBitBtn;
     bbUp: TBitBtn;
     InfoBtn: TBitBtn;
+    cxEncrypted: TCheckBox;
+    edPassword: TLabeledEdit;
     procedure FormCreate(Sender: TObject);
     procedure InfoBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -95,6 +98,7 @@ type
     procedure cbFilterCloseUp(Sender: TObject);
     procedure bbUpClick(Sender: TObject);
     procedure bbDownClick(Sender: TObject);
+    procedure cxEncryptedClick(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -189,8 +193,10 @@ begin
       else if CompareOption(s,'s') then cxStrip.Checked:=true
       else if CompareOption(s,'a') then cxDupl.Checked:=true
       else if CompareOption(s,'o') then cxOverwrite.Checked:=true
+      else if ReadOptionValue(s,'p') then edPassword.Text:=s
       else if ReadOptionValue(s,'d') then cbDir.Text:=s
       else if ReadOptionValue(s,'f') then cbFilter.Text:=s;
+      cxEncrypted.Checked:=length(edPassword.Text)>0;
       end
     else cbFile.Text:=s;
     end
@@ -297,6 +303,11 @@ begin
   with cbDir do AddToHistory(Items,Text,mList);
   end;
 
+procedure TMainForm.cxEncryptedClick(Sender: TObject);
+begin
+  edPassword.Visible:=cxEncrypted.Checked;
+  end;
+
 function TMainForm.LoadUnpacker : boolean;
 begin
   with OpenDialog do begin
@@ -365,8 +376,9 @@ var
 begin
   if Visible then begin
     pnExtract.Visible:=false;
-    s:=MakeQuotedStr(UnpProg)+' -v';
+    s:=MakeQuotedStr(UnpProg)+' -b -v';
     if cxEmbedded.Checked then s:=s+' -m';
+    if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
     Execute(s,cbFile.Text,'','');
     end;
   end;
@@ -376,8 +388,9 @@ var
   s : string;
 begin
   pnExtract.Visible:=false;
-  s:=MakeQuotedStr(UnpProg)+' -t';
+  s:=MakeQuotedStr(UnpProg)+' -b -t';
   if cxEmbedded.Checked then s:=s+' -m';
+  if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
   Execute(s,cbFile.Text,'','');
   end;
 
@@ -403,12 +416,13 @@ begin
     until (length(s)=0);
   sf:=Trim(sf);
   if AnsiSameText(sf,'*.*') then sf:='';
-  cmd:=MakeQuotedStr(UnpProg)+' -b ';
-  if cxStrip.Checked then cmd:=cmd+'-e ' else cmd:=cmd+'-x ';
-  if cxEmbedded.Checked then cmd:=cmd+'-m ';
-  if cxOverwrite.Checked then cmd:=cmd+'-y ';
-  if cxDupl.Checked then cmd:=cmd+'-a ';
-  Execute(cmd+'-d'+sd,cbFile.Text,sf,'*** '
+  cmd:=MakeQuotedStr(UnpProg)+' -b';
+  if cxStrip.Checked then cmd:=cmd+' -e' else cmd:=cmd+' -x';
+  if cxEmbedded.Checked then cmd:=cmd+' -m';
+  if cxEncrypted.Checked then cmd:=cmd+' -p'+edPassword.Text;
+  if cxOverwrite.Checked then cmd:=cmd+' -y';
+  if cxDupl.Checked then cmd:=cmd+' -a';
+  Execute(cmd+' -d'+sd,cbFile.Text,sf,'*** '
     +Format(_('Extracting setup file ...'+sLineBreak+'Destination directory: %s'),[sd]));
   end;
 
