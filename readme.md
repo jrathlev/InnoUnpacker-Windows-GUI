@@ -16,4 +16,4 @@ of included files are displayed. To extract files, just click the
 appropriate button and select the destination directory. Optionally, a filter 
 can be specified to extract only the matching files.
 
-[Application download](https://www.rathlev-home.de/index-e.html?home-e.html#unpack)
+[Application download](https://www.rathlev-home.de/index-e.html?tools/prog-e.html#unpack)
