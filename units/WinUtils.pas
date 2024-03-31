@@ -123,7 +123,8 @@ function MaxTextWidth(const Text : string; Canvas : TCanvas) : integer;
 
 // calculate text width for given font
 function GetTextWidth(const Text : string; AFont : TFont) : integer;
-function GetMaxTextWidth(const Text : string; AFont : TFont) : integer;
+function GetMaxTextWidth(sl : TStrings; AFont : TFont) : integer; overload;
+function GetMaxTextWidth(const Text : string; AFont : TFont) : integer; overload;
 function GetMaxTextExtent(const Text : string; AFont : TFont) : TSize;
 
 // Count number of lines in Text separated by sLineBreak
@@ -192,9 +193,9 @@ procedure AdjustClientWidth (AForm : TForm; AControl : TControl; Dist : integer 
 
 { ---------------------------------------------------------------- }
 // History list management
-procedure LoadHistory (IniFile : TIniFile; const Section,Ident : string;
+procedure LoadHistory (IniFile : TCustomIniFile; const Section,Ident : string;
                        History : TStrings; MaxCount : integer; CvQuote : boolean = false); overload;
-procedure LoadHistory (IniFile : TIniFile; const Section,Ident : string;
+procedure LoadHistory (IniFile : TCustomIniFile; const Section,Ident : string;
                        History : TStrings; CvQuote : boolean = false); overload;
 procedure LoadHistory (const IniName,Section,Ident : string;
                        History : TStrings; MaxCount : integer; CvQuote : boolean = false); overload;
@@ -203,9 +204,9 @@ procedure LoadHistory (const IniName,Section,Ident : string;
 procedure LoadHistory (const IniName,Section : string;
                        Combo : TComboBox; MaxHist : integer = 0; CvQuote : boolean = false); overload;
 
-procedure SaveHistory (IniFile : TIniFile; const Section,Ident : string;
+procedure SaveHistory (IniFile : TCustomIniFile; const Section,Ident : string;
                        Erase : boolean; History : TStrings; MaxCount : integer; CvQuote : boolean = false); overload;
-procedure SaveHistory (IniFile : TIniFile; const Section,Ident : string;
+procedure SaveHistory (IniFile : TCustomIniFile; const Section,Ident : string;
                        Erase : boolean; History : TStrings; CvQuote : boolean = false); overload;
 procedure SaveHistory (const IniName,Section,Ident : string;
                        Erase : boolean; History : TStrings; MaxCount : integer; CvQuote : boolean = false); overload;
@@ -541,9 +542,22 @@ begin
   bm.Free;
   end;
 
+function GetMaxTextWidth(sl : TStrings; AFont : TFont) : integer;
+var
+  i : integer;
+  bm  : TBitmap;
+begin
+  Result:=0;
+  bm:=TBitmap.Create;                      // prepare temp. canvas
+  bm.Canvas.Font.Assign(AFont);
+  with sl do for i:=0 to Count-1 do begin
+    Result:=Max(Result,bm.Canvas.TextWidth(Strings[i]));
+    end;
+  bm.Free;
+  end;
+
 function GetMaxTextExtent(const Text : string; AFont : TFont) : TSize;
 var
-  w,h : integer;
   bm  : TBitmap;
 begin
   bm:=TBitmap.Create;                      // prepare temp. canvas
@@ -963,7 +977,7 @@ begin
 const
   iniHist = 'History';
 
-procedure LoadHistory (IniFile : TIniFile; const Section,Ident : string;
+procedure LoadHistory (IniFile : TCustomIniFile; const Section,Ident : string;
                        History : TStrings; MaxCount : integer; CvQuote : boolean);
 var
   i : integer;
@@ -984,7 +998,7 @@ begin
     end;
   end;
 
-procedure LoadHistory (IniFile : TIniFile; const Section,Ident : string;
+procedure LoadHistory (IniFile : TCustomIniFile; const Section,Ident : string;
                        History : TStrings; CvQuote : boolean);
 begin
   LoadHistory(IniFile,Section,Ident,History,defMaxHist,CvQuote);
@@ -993,9 +1007,9 @@ begin
 procedure LoadHistory (const IniName,Section,Ident : string;
                        History : TStrings; MaxCount : integer; CvQuote : boolean);
 var
-  IniFile : TIniFile;
+  IniFile : TMemIniFile;
 begin
-  IniFile:=TIniFile.Create(IniName);
+  IniFile:=TMemIniFile.Create(IniName);
   LoadHistory(IniFile,Section,Ident,History,MaxCount,CvQuote);
   IniFile.Free;
   end;
@@ -1017,7 +1031,7 @@ begin
     end;
   end;
 
-procedure SaveHistory (IniFile : TIniFile; const Section,Ident : string;
+procedure SaveHistory (IniFile : TCustomIniFile; const Section,Ident : string;
                        Erase : boolean; History : TStrings; MaxCount : integer; CvQuote : boolean);
 var
   i,n : integer;
@@ -1037,7 +1051,7 @@ begin
     end;
   end;
 
-procedure SaveHistory (IniFile : TIniFile; const Section,Ident : string;
+procedure SaveHistory (IniFile : TCustomIniFile; const Section,Ident : string;
                        Erase : boolean; History : TStrings; CvQuote : boolean);
 begin
   SaveHistory(IniFile,Section,Ident,Erase,History,defMaxHist,CvQuote);
@@ -1046,10 +1060,11 @@ begin
 procedure SaveHistory (const IniName,Section,Ident : string;
                        Erase : boolean; History : TStrings; MaxCount : integer; CvQuote : boolean);
 var
-  IniFile : TIniFile;
+  IniFile : TMemIniFile;
 begin
-  IniFile:=TIniFile.Create(IniName);
+  IniFile:=TMemIniFile.Create(IniName);
   SaveHistory(IniFile,Section,Ident,Erase,History,defMaxHist,CvQuote);
+  IniFile.UpdateFile;
   IniFile.Free;
   end;
 

@@ -26,8 +26,10 @@
    Vers. 3.0 - Apr. 2012 : Delphi XE2
    Vers. 3.1 - Nov. 2015 : Delphi 10, adaption to new shell control components
    Vers. 3.2 - July 2022 : define compiler switch "ACCESSIBLE" to make dialog
-                        messages accessible to screenreaders
-   last modified: September 2023
+                           messages accessible to screenreaders
+   Vers. 3.3 - Mar. 2024 : changed to TMemIniFile
+
+   last modified: March 2024
    *)
 
 unit ShellDirDlg;
@@ -232,13 +234,13 @@ const
 procedure TShellDirDialog.LoadFromIni(const IniName, Section : string);
 var
   i       : integer;
-  IniFile : TIniFile;
+  IniFile : TMemIniFile;
   s       : string;
 begin
   FIniName:=IniName; FIniSection:=Section;
   if FileExists(FIniName) and (length(FIniSection)>0) then begin
     DirList.Clear;
-    IniFile:=TIniFile.Create(IniName);
+    IniFile:=TMemIniFile.Create(IniName);
     for i:=0 to FMaxLen-1 do begin
       s:=IniFile.ReadString(FIniSection,iniHistory+IntToStr(i),'');
       if s<>'' then DirList.Add(s);
@@ -265,7 +267,7 @@ var
   i : integer;
 begin
   if (length(FIniName)>0) and (length(FIniSection)>0) then begin
-    with TIniFile.Create(FIniName) do begin
+    with TMemIniFile.Create(FIniName) do begin
       try
         EraseSection(FIniSection);
         with DirList do for i:=0 to Count-1 do
@@ -276,6 +278,7 @@ begin
         WriteInteger(FIniSection,iniLWidth,PanelLeft.Width);
         WriteInteger(FIniSection,iniRWidth,PanelRight.Width);
         WriteBool(FIniSection,iniFileView,cbxFiles.Checked);
+        UpdateFile;
       finally
         Free;
         end;
