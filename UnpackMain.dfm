@@ -970,8 +970,6 @@ object MainForm: TMainForm
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 1
-    ExplicitTop = 246
-    ExplicitHeight = 215
   end
   object pnExtract: TPanel
     Left = 0
@@ -981,7 +979,6 @@ object MainForm: TMainForm
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 141
     DesignSize = (
       631
       105)

@@ -41,8 +41,8 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  Vers = ' 1.9.1';
-  CopRgt = '© 2014-2023 Dr. J. Rathlev, D-24222 Schwentinental';
+  ProgVers = ' 1.9.2';
+  CopRgt = '© 2014-2024 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
   defPipeSize = 64*1024;
@@ -103,7 +103,8 @@ type
     { Private-Deklarationen }
     AppPath,UserPath,
     IniName,ProgPath,
-    UnpProg          : string;
+    ProgVersName,ProgVersDate,
+    UnpProg               : string;
     function LoadUnpacker : boolean;
     procedure Execute (const Command,FileName,Filter,Comment : string);
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
@@ -161,6 +162,7 @@ begin
   TranslateComponent(self);
   DragAcceptFiles(MainForm.Handle, true);
   InitPaths(AppPath,UserPath,ProgPath);
+  InitVersion(ProgName,ProgVers,CopRgt,3,3,ProgVersName,ProgVersDate);
   IniName:=Erweiter(AppPath,PrgName,IniExt);
   with TUnicodeIniFile.CreateForRead(IniName) do begin
     Left:=ReadInteger(CfgSekt,iniLeft,Left);
@@ -184,7 +186,7 @@ begin
   LoadHistory(Ininame,DirSekt,iniFName,cbDir.Items,mList);
   with cbDir do if Items.Count>0 then ItemIndex:=0;
   pnExtract.Visible:=false;
-  Caption:=ProgName+Vers+' - '+_('Inspect and unpack InnoSetup files');
+  Caption:=ProgVersName+' - '+_('Inspect and unpack InnoSetup files');
   if ParamCount>0 then for i:=1 to ParamCount do begin
     s:=ParamStr(i);
     if (s[1]='/') or (s[1]='-') then begin
@@ -438,7 +440,7 @@ begin
 
 procedure TMainForm.InfoBtnClick(Sender: TObject);
 begin
-  InfoDialog ('',Caption+' ('+Vers+')'+sLineBreak+CopRgt
+  InfoDialog (Caption+sLineBreak+VersInfo.CopyRight
            +sLineBreak+'E-Mail: '+EmailAdr+sLineBreak+sLineBreak+rsInfo);
   end;
 
