@@ -4,10 +4,12 @@
 
 [Inno Setup](http://www.jrsoftware.org/isinfo.php) is a popular program
 for making software installations. To verify and get files out of the self-extracting 
-executable, you can use the open source console application
-[Innounp](http://sourceforge.net/projects/innounp).
+executable, only an open source console application is available:
 
-**InnoUnpacker** is a graphical user interface (GUI) for this console application
+- Original version [Innounp](http://sourceforge.net/projects/innounp) (can be used up to InnoSetup 6.1)
+- Updated Unicode version [Innounp-1](innounp-1) (can be used up to InnoSetup 6.3)
+
+**InnoUnpacker** is a graphical user interface (GUI) for these console applications
 that makes the usage more comfortable.
 The executable setup to be processed can be loaded via a file selection dialog, just 
 by drag & drop, using the command line or by an entry in the Windows context menu for exe files. 
