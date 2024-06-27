@@ -1,8 +1,8 @@
 ### Inno Setup Unpacker
 
-##### Unpacker for installations made by Inno Setup
+#### Unpacker for installations made by Inno Setup
 
-##### Branch of the project on [SourceForge](http://sourceforge.net/projects/innounp)
+#### Branch of the project on [SourceForge](http://sourceforge.net/projects/innounp)
 
 [Inno Setup](http://www.jrsoftware.org/isinfo.php) is a popular program
 for making software installations. *Inno Setup Unpacker* is console application
