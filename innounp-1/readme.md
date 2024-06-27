@@ -1,11 +1,13 @@
-### Inno Setup Unpacker
+### Inno Setup Unpacker - Console version
 
 #### Unpacker for installations made by Inno Setup
 
-#### Branch of the project on [SourceForge](http://sourceforge.net/projects/innounp)
+#### Supports Inno Setup versions 2.0.7 through 6.3.1
+
+##### Branch of the project on [SourceForge](http://sourceforge.net/projects/innounp)
 
 [Inno Setup](http://www.jrsoftware.org/isinfo.php) is a popular program
-for making software installations. *Inno Setup Unpacker* is console application
+for making software installations. *Inno Setup Unpacker* is a console application
 to verify and get files out of the self-extracting executable.
 
 Since there have been no updates of the SourceForge project since 2020 and the 
