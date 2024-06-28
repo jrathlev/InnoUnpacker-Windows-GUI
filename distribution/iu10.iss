@@ -36,8 +36,8 @@ OutputDir=.
 OutputBaseFilename={#OutputFile}
 SetupIconFile=..\pack-view.ico
 UninstallDisplayIcon={app}\InnoUnpack.exe
-WizardImageFile=..\..\..\Common\WizImage-JR.bmp
-WizardSmallImageFile=..\..\..\Common\WizSmallImage-JR.bmp
+WizardImageFile=WizImage-JR.bmp
+WizardSmallImageFile=WizSmallImage-JR.bmp
 Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
@@ -46,10 +46,10 @@ DisableDirPage=auto
 DisableProgramGroupPage=auto
 
 [Languages]
-Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"..\..\..\Common\license-en.rtf";
-Name: "de"; MessagesFile: compiler:Languages\German.isl;  LicenseFile:"..\..\..\Common\license-de.rtf";
-Name: "fr"; MessagesFile: compiler:Languages\French.isl;  LicenseFile:"..\..\..\Common\license-en.rtf";
-Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\Common\license-it.rtf";
+Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"license-en.rtf";
+Name: "de"; MessagesFile: compiler:Languages\German.isl;  LicenseFile:"license-de.rtf";
+Name: "fr"; MessagesFile: compiler:Languages\French.isl;  LicenseFile:"license-en.rtf";
+Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"license-it.rtf";
 
 [CustomMessages]
 en.FileAssoc=File associations:
@@ -75,11 +75,11 @@ Root: HKCR; Subkey: "{code:GetKey|EXE}\shell\InnoUnpack\Command"; ValueType: str
 
 [Files]
 Source: "..\Release\Win32\InnoUnpack.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
-Source: "..\Release\Win32\innounp.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
-Source: "..\Release\Win32\innounp.htm"; DestDir: "{app}"; Flags: ignoreversion restartreplace
+Source: "..\innounp-1\Release\innounp.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
+Source: "..\innounp-1\docs\innounp.htm"; DestDir: "{app}"; Flags: ignoreversion restartreplace
 Source: "..\Release\Win32\locale\*.mo"; DestDir: "{app}\locale"; Flags: recursesubdirs ignoreversion restartreplace
 Source: "..\Release\Win32\language.cfg"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion restartreplace
-Source: "..\..\..\Common\license-*.rtf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "license-*.rtf"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\InnoUnpack.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\pack-view.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
