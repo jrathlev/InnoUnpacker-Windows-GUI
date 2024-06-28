@@ -1,0 +1,38 @@
+Instructions
+============
+
+Before compiling the project, the structure files of the different Inno Setup 
+versions must be prepared.
+
+1. Requirements:
+----------------
+- The unit "Struct.pas" of all versions to be supported each renamed to "Structvvvvu".  
+  Inside the unit the name of the unit must be adapted.
+- "StructTemplate.pas" as template for the structure interface units  
+- The list "StructList" of all supported versions
+- "CompressTemplate.pas" as template for the zlib compression versions 
+- The list "CompressList" of all supported zlib versions
+- Edit "VersionInfo.inc" to hold the correct version of innounp application
+
+2. Preparation:
+---------------
+- Generate the units "StructVervvvvu" as interfaces to the above mentioned
+  structure unit.
+- Generate the include file "StructList.inc"
+- Generate the units "CompressVervvvv"
+- Generate the include file "CompressList.inc"
+- Generate the resource script "version.rc" from "VersionInfo.inc"
+- Compile "version.rc" to resource file ""version.res"  
+
+To simplify the preparation, the batch script "prep.bat" can be used which will
+perform all these steps in one go.
+
+3. Compiling
+------------
+All sources are adapted to use Unicode strings (native string type since Delphi 2009).
+Compilation was tested with Delphi 10 Seattle  
+
+J. Rathlev, June 2024
+
+ 
+
