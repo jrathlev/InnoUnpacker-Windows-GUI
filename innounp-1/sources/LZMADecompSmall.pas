@@ -190,8 +190,12 @@ begin
     ProcessHeader;
   CallbackData.Callback.Read := ReadFunc;
   CallbackData.Instance := Self;
-  Code := LzmaDecode(FDecoderState, CallbackData.Callback, Buffer, Count,
-    OutProcessed);
+  try
+    Code := LzmaDecode(FDecoderState, CallbackData.Callback, Buffer, Count,
+      OutProcessed);
+  except
+    on Exception do Code:=LZMA_RESULT_DATA_ERROR;
+    end;
   case Code of
     LZMA_RESULT_OK: ;
     LZMA_RESULT_DATA_ERROR: LZMADataError(5);

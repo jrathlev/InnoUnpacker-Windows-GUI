@@ -1,16 +1,15 @@
 (* innounp, the Inno Setup Unpacker
-   Version 1.64
+   Version 1.70
 
    based on:
-     Version 0.49
+     Version 0.50
      Supports Inno Setup versions 2.0.7 through 6.1
      from
      https://sourceforge.net/projects/innounp/
 
    J. Rathlev (kontakt(a)rathlev-home.de) - December 2020
 
-   Version 1.63 - August 2022
-   changes required to compile innounp under Delphi 10:
+   changes required to compile innounp under Delphi 10 (Version 1.63 - August 2022):
    - Compiler conditional symbol UNICODE renamed to ISUNICODE
      reason: Delphi 10 uses a predefined global conditional symbol called UNICODE
      concerned: all "Struct*.pas" files
@@ -39,6 +38,7 @@
            1.66 - August 2023   : bug fixes
            1.67 - January 2024  : bug fix for encrypted setups
            1.70 - June 2024     : support for InnoSetup 6.3
+           1.71 - July 2024     : MayTypes, RebuildScrpt adapted to Inno Setup 6.3
 *)
 
 program innounp;
@@ -428,6 +428,7 @@ begin
         p:=AllocMem(SetupHeaderSize);
         SECompressedBlockRead(Reader, p^, SetupHeaderSize, SetupHeaderStrings, SetupHeaderAnsiStrings);
         VerObject.UnifySetupHeader(p^, SetupHeader);
+        SetUpMinVersion:=TSetupVersionData(SetupHeader.MinVersion);
         FreeMem(p);
         if Ver<4000 then begin // language options, wizard images and compressor dll are stored here in 3.x
           SECompressedBlockSkip(Reader, SetupLanguageEntrySize, SetupLanguageEntryStrings, SetupLanguageEntryAnsiStrings);
@@ -521,6 +522,7 @@ begin
           pFileEntry:=AllocMem(sizeof(TSetupFileEntry));
           VerObject.UnifyFileEntry(p^,pFileEntry^);
           Entries[seFile].Add(pFileEntry);
+//          Reader.Read(n,1);  // required for BCompareSetup.exe (Beyond Compare Vers. 5)
         end;
         FreeMem(p);
 
@@ -903,21 +905,21 @@ begin
   for i:=1 to ParamCount do begin
     if (ParamStr(i)[1]='-') and (length(ParamStr(i))>=2) then begin
       case UpCase(ParamStr(i)[2]) of
+        'A': ExtractAllCopies:=true;
+        'B': InteractiveMode:=false;    // changes: JR - August 2020
+        'C': BaseDirToStrip:=PathLowercase(AddBackslash(copy(ParamStr(i),3,length(ParamStr(i))-2)));
+        'D': OutDir:=copy(ParamStr(i),3,length(ParamStr(i))-2);
+        'E': begin CommandAction:=caExtractFiles; StripPaths:=true; end;
+        'F': PasswordFileName:=copy(ParamStr(i),3,length(ParamStr(i))-2);
+        'L': CommandAction:=caVersionList;
+        'M': ExtractEmbedded:=true;
+        'N': AttemptUnpackUnknown:=false;
+        'P': Password:=copy(ParamStr(i),3,length(ParamStr(i))-2);
+        'Q': QuietExtract:=true;
+        'T': begin CommandAction:=caExtractFiles; ExtractTestOnly:=true; AutoYes:=true; end;
+        'U': UseUtf8:=true;   // console output
         'V': CommandAction:=caVerboseList;
         'X': CommandAction:=caExtractFiles;
-        'E': begin CommandAction:=caExtractFiles; StripPaths:=true; end;
-        'T': begin CommandAction:=caExtractFiles; ExtractTestOnly:=true; AutoYes:=true; end;
-        'L': CommandAction:=caVersionList;
-        'B': InteractiveMode:=false;    // changes: JR - August 2020
-        'Q': QuietExtract:=true;
-        'M': ExtractEmbedded:=true;
-        'P': Password:=copy(ParamStr(i),3,length(ParamStr(i))-2);
-        'D': OutDir:=copy(ParamStr(i),3,length(ParamStr(i))-2);
-        'C': BaseDirToStrip:=PathLowercase(AddBackslash(copy(ParamStr(i),3,length(ParamStr(i))-2)));
-        'N': AttemptUnpackUnknown:=false;
-        'F': PasswordFileName:=copy(ParamStr(i),3,length(ParamStr(i))-2);
-        'A': ExtractAllCopies:=true;
-        'U': UseUtf8:=true;   // console output
         'Y': AutoYes:=true;
         else Exit;
         end;

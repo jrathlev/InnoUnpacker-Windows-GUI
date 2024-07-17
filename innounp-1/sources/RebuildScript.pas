@@ -322,12 +322,16 @@ end;
 
 procedure TScriptBuilder.PrintVersions(MinVersion, OnlyBelowVersion: TMySetupVersionData);
 begin
-  with MinVersion do
-    if (WinVersion>$04000000) or (NTVersion>$04000000) then
-      StrParam('MinVersion', VerToStr(WinVersion,0) + ',' + VerToStr(NTVersion,NTServicePack), False);
-  with OnlyBelowVersion do
-    if (WinVersion<>0) or (NTVersion<>0) then
-      StrParam('OnlyBelowVersion', VerToStr(WinVersion,0) + ',' + VerToStr(NTVersion,NTServicePack), False);
+  if (MinVersion.WinVersion<>SetUpMinVersion.WinVersion)
+      or (MinVersion.NTVersion<>SetUpMinVersion.NTVersion)
+      or (MinVersion.NTServicePack<>SetUpMinVersion.NTServicePack) then begin
+    with MinVersion do
+      if (WinVersion>$04000000) or (NTVersion>$04000000) then
+        StrParam('MinVersion', VerToStr(WinVersion,0) + ',' + VerToStr(NTVersion,NTServicePack), False);
+    with OnlyBelowVersion do
+      if (WinVersion<>0) or (NTVersion<>0) then
+        StrParam('OnlyBelowVersion', VerToStr(WinVersion,0) + ',' + VerToStr(NTVersion,NTServicePack), False);
+  end;
 end;
 
 function TScriptBuilder.RebuildScript: String;
@@ -491,8 +495,8 @@ begin
     StrConst('; PasswordHash', Hash2Str(sh.PasswordHash));
     StrConst('; PasswordSalt', SaltToStr(sh.PasswordSalt));
   end;  
-  StrConst('ArchitecturesAllowed', ProcArcsToStr(sh.ArchitecturesAllowed));
-  StrConst('ArchitecturesInstallIn64BitMode', ProcArcsToStr(sh.ArchitecturesInstallIn64BitMode));
+  StrConst('ArchitecturesAllowed', sh.ArchitecturesAllowed);
+  StrConst('ArchitecturesInstallIn64BitMode', sh.ArchitecturesInstallIn64BitMode);
   if (Ver<5310) and not(shUninstallable in sh.Options) then
     StrConst('Uninstallable', 'no')
   else if not SameText(sh.Uninstallable, 'yes') then
@@ -503,7 +507,7 @@ begin
     IntConst('ExtraDiskSpaceRequired', sh.ExtraDiskSpaceRequired);
   if (sh.DisableDirPage <> dpNo) then
     StrConst('DisableDirPage', DisPage2Str(sh.DisableDirPage));
-  if (sh.DisableProgramGroupPage <> dpNo) then
+  if (sh.DisableProgramGroupPage<> dpNo) then
     StrConst('DisableProgramGroupPage', DisPage2Str(sh.DisableProgramGroupPage));
   if (shChangesAssociations in sh.Options) then
     StrConst('ChangesAssociations', 'yes');
@@ -730,8 +734,17 @@ procedure TScriptBuilder.PrintFileEntry(const fe:TSetupFileEntry);
     else Result:='';
     end;
   end;
+  function SignStr(Sign: TSetupFileLocationSign):string;
+  begin
+    case Sign of
+      fsYes   : Result:='sign';
+      fsOnce  : Result:='signonce';
+      fsCheck : Result:='signcheck';
+    else Result:='';
+    end;
+  end;
 var
-  s,t:string;
+  s,t,ss:string;
   o:TSetupFileOption;
   Opts:TMySetupFileOptions;
 begin
@@ -745,7 +758,9 @@ begin
         else if FirstSlice<>CurSlice then
           PrintComment('the following file starts on ' + GetSliceName(FirstSlice));
         CurSlice:=LastSlice;
-      end;
+        ss:=SignStr(Sign);;
+      end
+    else ss:='';
     if (LocationEntry=-1) then Print('; ');
     StrParam('Source',SourceFilename);
     StrParam('DestDir',RemoveBackslashUnlessRoot(DestDir));
@@ -767,6 +782,7 @@ begin
       t:=OptStr(o);
       if t<>'' then s:=s+t+' ';
     end;
+    if ss<>'' then s:=s+ss+' ';
     PrintFlagsParam(s);
   end;
 end;

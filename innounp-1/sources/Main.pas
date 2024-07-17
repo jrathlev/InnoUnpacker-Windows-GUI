@@ -30,7 +30,7 @@ var
   Entries: array[TEntryType] of TList;
   SetupHeader: TSetupHeader;
   TimeStampsInUTC:boolean;
-
+  SetUpMinVersion : TSetupVersionData;
   Ver: integer = 0;
   VerIsUnicode: boolean = false;
   VerIsRT: boolean = false; // For ResTools custom versions

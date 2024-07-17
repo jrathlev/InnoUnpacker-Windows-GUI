@@ -91,7 +91,13 @@ const
     {$IF (DEFVER>=4200) AND (DEFVER<5507)}ord(structDEFVER_EXTSUF_.foTouch){$ELSE}255{$IFEND} ,
     {$IF DEFVER>=4202}ord(structDEFVER_EXTSUF_.foChunkEncrypted)           {$ELSE}255{$IFEND} ,
     {$IF DEFVER>=4205}ord(structDEFVER_EXTSUF_.foChunkCompressed)          {$ELSE}255{$IFEND} ,
-    {$IF DEFVER>=5113}ord(structDEFVER_EXTSUF_.foSolidBreak)               {$ELSE}255{$IFEND}
+    {$IF DEFVER>=5113}ord(structDEFVER_EXTSUF_.foSolidBreak)               {$ELSE}255{$IFEND} ,
+    {$IF DEFVER>=6300}
+      255,255 
+    {$ELSE}       
+      {$IF DEFVER>=5602}ord(structDEFVER_EXTSUF_.foSign)                     {$ELSE}255{$IFEND} ,
+      {$IF DEFVER>=5602}ord(structDEFVER_EXTSUF_.foSignOnce)                 {$ELSE}255{$IFEND}
+    {$ENDIF}
   );
 
   SetupRegistryOptionTable: array[0..MySetupRegistryOptionLast] of byte = (
@@ -130,7 +136,7 @@ const
     {$IF DEFVER<5310}ord(structDEFVER_EXTSUF_.shUninstallable)             {$ELSE}255{$IFEND},
     ord(structDEFVER_EXTSUF_.shCreateAppDir),
     ord(structDEFVER_EXTSUF_.shAllowNoIcons),
-    {$IF (DEFVER>=3003) AND (DEFVER < 3000)}ord(structDEFVER_EXTSUF_.shAlwaysRestart) {$ELSE}255{$IFEND},
+    {$IF (DEFVER>=3003) OR (DEFVER < 3000)}ord(structDEFVER_EXTSUF_.shAlwaysRestart) {$ELSE}255{$IFEND},
     ord(structDEFVER_EXTSUF_.shAlwaysUsePersonalGroup),
     ord(structDEFVER_EXTSUF_.shWindowVisible),
     ord(structDEFVER_EXTSUF_.shWindowShowCaption),
@@ -173,9 +179,14 @@ const
     {$IF DEFVER>=5201}ord(structDEFVER_EXTSUF_.shSignedUninstaller)        {$ELSE}255{$IFEND},
     {$IF DEFVER>=5308}ord(structDEFVER_EXTSUF_.shUsePreviousLanguage)      {$ELSE}255{$IFEND},
     {$IF DEFVER>=5309}ord(structDEFVER_EXTSUF_.shDisableWelcomePage)       {$ELSE}255{$IFEND},
-    {$IF DEFVER>=5500}ord(structDEFVER_EXTSUF_.shCloseApplications)       {$ELSE}255{$IFEND},
-    {$IF DEFVER>=5500}ord(structDEFVER_EXTSUF_.shRestartApplications)       {$ELSE}255{$IFEND},
-    {$IF DEFVER>=5500}ord(structDEFVER_EXTSUF_.shAllowNetworkDrive)       {$ELSE}255{$IFEND}
+    {$IF DEFVER>=5500}ord(structDEFVER_EXTSUF_.shCloseApplications)        {$ELSE}255{$IFEND},
+    {$IF DEFVER>=5500}ord(structDEFVER_EXTSUF_.shRestartApplications)      {$ELSE}255{$IFEND},
+    {$IF DEFVER>=5500}ord(structDEFVER_EXTSUF_.shAllowNetworkDrive)        {$ELSE}255{$IFEND},
+    {$IF DEFVER>=5507}ord(structDEFVER_EXTSUF_.shForceCloseApplications)   {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6000}ord(structDEFVER_EXTSUF_.shAppNameHasConsts)         {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6000}ord(structDEFVER_EXTSUF_.shUsePreviousPrivileges)    {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6000}ord(structDEFVER_EXTSUF_.shWizardResizable)          {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6300}ord(structDEFVER_EXTSUF_.shUninstallLogging)         {$ELSE}255{$IFEND}
   );
 
   SetupRunOptionTable: array[0..MySetupRunOptionLast] of byte = (
@@ -188,7 +199,9 @@ const
     {$IF DEFVER>=2008}ord(structDEFVER_EXTSUF_.roHideWizard)          {$ELSE}255{$IFEND},
     {$IF DEFVER>=5110}ord(structDEFVER_EXTSUF_.roRun32Bit)            {$ELSE}255{$IFEND},
     {$IF DEFVER>=5110}ord(structDEFVER_EXTSUF_.roRun64Bit)            {$ELSE}255{$IFEND},
-    {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.roRunAsOriginalUser)   {$ELSE}255{$IFEND}
+    {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.roRunAsOriginalUser)   {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6100}ord(structDEFVER_EXTSUF_.roDontLogParameters)   {$ELSE}255{$IFEND}, 
+    {$IF DEFVER>=6300}ord(structDEFVER_EXTSUF_.roLogOutput)           {$ELSE}255{$IFEND}
   );
 
 constructor TAnInnoVer.Create;
@@ -464,6 +477,11 @@ var
 begin
   with ot do begin
     ID                          :=oot.ID;
+    {$IF DEFVER>=5105}
+      Version                   :=oot.Version;
+    {$ELSE}
+      Version                   :=0;
+    {$IFEND}
     TotalSize                   :=oot.TotalSize;
     OffsetEXE                   :=oot.OffsetEXE;
 //    {$IF DEFVER<=4106} // since the main installer exe is not unpacked, there's no need for its size
@@ -550,6 +568,8 @@ begin
     MinVersion                  :=TMySetupVersionData(osh.MinVersion);
     OnlyBelowVersion            :=TMySetupVersionData(osh.OnlyBelowVersion);
     ExtraDiskSpaceRequired      :=Int64(osh.ExtraDiskSpaceRequired);
+    BackColor                   :=osh.BackColor;
+    BackColor2                  :=osh.BackColor2;
 {$IF DEFVER>=4000}
     SlicesPerDisk               :=osh.SlicesPerDisk;
 {$ELSE}
@@ -565,9 +585,9 @@ begin
       {$IFEND}
       cmBzip:                   CompressMethod:=MyTypes.cmBzip;
       cmLZMA:                   CompressMethod:=MyTypes.cmLZMA;
-	    {$IF DEFVER>=5309}
-	    cmLZMA2:                  CompressMethod:=MyTypes.cmLZMA2;
-	    {$IFEND}
+      {$IF DEFVER>=5309}
+      cmLZMA2:                  CompressMethod:=MyTypes.cmLZMA2;
+      {$IFEND}
     end;
 {$ELSEIF DEFVER >= 2017}
     if shBzipUsed in osh.Options then CompressMethod:=MyTypes.cmBzip
@@ -589,12 +609,29 @@ begin
     EncryptionUsed := False;
     FillChar(PasswordSalt, SizeOf(PasswordSalt), 0);
 {$IFEND}
-{$IF DEFVER>=5100}
-    Move(osh.ArchitecturesAllowed, ArchitecturesAllowed, sizeof(ArchitecturesAllowed));
-    Move(osh.ArchitecturesInstallIn64BitMode, ArchitecturesInstallIn64BitMode, sizeof(ArchitecturesInstallIn64BitMode));
+{$IF DEFVER>=6300}
+    ArchitecturesAllowed:=osh.ArchitecturesAllowed;
+    ArchitecturesInstallIn64BitMode:=osh.ArchitecturesInstallIn64BitMode;
+{$ELSEIF DEFVER>=5100}
+    ArchitecturesAllowed:='';
+    if (paX86 in osh.ArchitecturesAllowed) then ArchitecturesAllowed:='x86 '; 
+{$IF DEFVER>=5102}
+      if (paX64 in osh.ArchitecturesAllowed) then ArchitecturesAllowed:=ArchitecturesAllowed+'x64 '; 
 {$ELSE}
-    ArchitecturesAllowed:=[];
-    ArchitecturesInstallIn64BitMode:=[];
+      if (paAMD64 in osh.ArchitecturesAllowed) then ArchitecturesAllowed:=ArchitecturesAllowed+'x64 '; 
+{$IFEND}
+    if (paIA64 in osh.ArchitecturesAllowed) then ArchitecturesAllowed:=ArchitecturesAllowed+'ia64';
+    ArchitecturesInstallIn64BitMode:='';
+    if (paX86 in osh.ArchitecturesInstallIn64BitMode) then ArchitecturesInstallIn64BitMode:='x86 '; 
+{$IF DEFVER>=5102}
+    if (paX64 in osh.ArchitecturesInstallIn64BitMode) then ArchitecturesInstallIn64BitMode:=ArchitecturesInstallIn64BitMode+'x64 '; 
+{$ELSE}
+    if (paAMD64 in osh.ArchitecturesInstallIn64BitMode) then ArchitecturesInstallIn64BitMode:=ArchitecturesInstallIn64BitMode+'x64 '; 
+{$IFEND}
+    if (paIA64 in osh.ArchitecturesInstallIn64BitMode) then ArchitecturesInstallIn64BitMode:=ArchitecturesInstallIn64BitMode+'ia64';
+{$ELSE}
+    ArchitecturesAllowed:='';
+    ArchitecturesInstallIn64BitMode:='';
 {$IFEND}
 {$IF DEFVER>=3004}
     case osh.PrivilegesRequired of
@@ -621,6 +658,11 @@ begin
 {$ELSE}
     DefaultUserInfoName   := '';
     DefaultUserInfoOrg    := '';
+{$IFEND}
+{$IF DEFVER>=3008}
+    DefaultUserInfoSerial := osh.DefaultUserInfoSerial; 
+{$ELSE}
+    DefaultUserInfoSerial := ''; 
 {$IFEND}
 {$IF DEFVER>=4204}
     AppReadmeFile         := osh.AppReadmeFile;
@@ -809,11 +851,21 @@ begin
     FileVersionLS               :=ofl.FileVersionLS;
     Contents:='';
     PrimaryFileEntry:=-1;
+{$IF DEFVER>=6300}
+    Sign:=TMySetupFileLocationSign(ofl.Sign);
+{$ELSEIF DEFVER>=5602}
+    if foSign in ofl.Flags then Sign:=fsYes 
+    else if foSign in ofl.Flags then Sign:=fsOnce
+    else Sign:=fsNoSetting;
+{$ELSE}
+    Sign:=fsNoSetting;
+{$IFEND}
   end;
   TranslateSet(ofl.Flags, fl.Flags, PByteArray(@SetupFileLocationFlagTable)^, MySetupFileLocationFlagLast);
 {$IF DEFVER<4205}
   Include(fl.Flags, MyTypes.foChunkCompressed);
 {$IFEND}
+
 end;
 
 procedure TAnInnoVer.UnifyRegistryEntry(const p; var re:TMySetupRegistryEntry);
@@ -1219,3 +1271,4 @@ begin
   SetLength(VerList, Length(VerList)+1);
   VerList[High(VerList)] := TAnInnoVer.Create;
 end.
+

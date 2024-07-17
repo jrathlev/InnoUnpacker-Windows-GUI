@@ -40,6 +40,7 @@ type
   PSetupDeleteEntry = ^TMySetupDeleteEntry;
 
   TSetupFileOption = TMySetupFileOption;
+  TSetupFileLocationSign = TMySetupFileLocationSign;
   TSetupRegistryOption = TMySetupRegistryOption;
   TSetupDirOption = TMySetupDirOption;
   TSetupIniOption = TMySetupIniOption;

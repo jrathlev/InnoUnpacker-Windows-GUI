@@ -15,6 +15,7 @@ type
 
   TMySetupLdrOffsetTable = record // in-memory only
     ID: AnsiString; //array[1..12] of Char;
+    Version: LongWord;
     TotalSize,
     OffsetEXE, CompressedSizeEXE, UncompressedSizeEXE, CRCEXE,
     Offset0, Offset1: Longint;
@@ -27,6 +28,8 @@ type
   TMySetupProcessorArchitecture = (paUnknown, paX86, paAMD64, paIA64);
   TMySetupProcessorArchitectures = set of TMySetupProcessorArchitecture;
   TMySetupPrivileges = (prNone, prPowerUser, prAdmin, prLowest);
+  TMySetupPrivilegesRequiredOverride = (proCommandLine, proDialog);
+  TMySetupPrivilegesRequiredOverrides = set of TMySetupPrivilegesRequiredOverride;
   TMySetupDisablePage = (dpAuto, dpNo, dpYes);
   TMySetupLanguageDetectionMethod = (ldUILanguage, ldLocale, ldNone);
 
@@ -55,34 +58,41 @@ type
     shAppendDefaultGroupName, shEncryptionUsed, shChangesEnvironment,
     shShowUndisplayableLanguages,shSetupLogging,
     shSignedUninstaller, shUsePreviousLanguage, shDisableWelcomePage,
-    shCloseApplications, shRestartApplications, shAllowNetworkDrive);
+    shCloseApplications, shRestartApplications, shAllowNetworkDrive,
+    shForceCloseApplications, shAppNameHasConsts, shUsePreviousPrivileges,
+    shWizardResizable, shUninstallLogging);
   const MySetupHeaderOptionLast = ord(High(TMySetupHeaderOption));
   type TMySetupHeaderOptions = set of TMySetupHeaderOption;  
 
   TMySetupHeader = record // in-memory only
     AppName, AppVerName, AppId, AppCopyright, AppPublisher, AppPublisherURL,
       AppSupportPhone, AppSupportURL, AppUpdatesURL, AppVersion, DefaultDirName,
-      DefaultGroupName, BaseFileName, UninstallFilesDir, UninstallDisplayName,
+      DefaultGroupName, BaseFilename, UninstallFilesDir, UninstallDisplayName,
       UninstallDisplayIcon, AppMutex, DefaultUserInfoName, DefaultUserInfoOrg,
-      AppReadmeFile, AppContact, AppComments,
+      DefaultUserInfoSerial, AppReadmeFile, AppContact, AppComments,
       AppModifyPath, CreateUninstallRegKey, Uninstallable, CloseApplicationsFilter,
-      SetupMutex, ChangesEnvironment, ChangesAssociations: String;
+      SetupMutex, ChangesEnvironment, ChangesAssociations,
+      ArchitecturesAllowed, ArchitecturesInstallIn64BitMode: String;
     LicenseText, InfoBeforeText, InfoAfterText, CompiledCodeText: AnsiString;
-    NumLanguageEntries, NumCustomMessageEntries, NumPermissionEntries, NumTypeEntries,
-      NumComponentEntries, NumTaskEntries, NumDirEntries, NumFileEntries,
-      NumFileLocationEntries, NumIconEntries, NumIniEntries,
+    NumLanguageEntries, NumCustomMessageEntries, NumPermissionEntries,
+      NumTypeEntries, NumComponentEntries, NumTaskEntries, NumDirEntries,
+      NumFileEntries, NumFileLocationEntries, NumIconEntries, NumIniEntries,
       NumRegistryEntries, NumInstallDeleteEntries, NumUninstallDeleteEntries,
       NumRunEntries, NumUninstallRunEntries: Integer;
     MinVersion, OnlyBelowVersion: TMySetupVersionData;
+    BackColor, BackColor2: Longint;
     EncryptionUsed: Boolean;
     PasswordHash: TSetupHash;
     PasswordSalt: TSetupSalt;
-    ExtraDiskSpaceRequired: Int64;
+    ExtraDiskSpaceRequired: int64;
     SlicesPerDisk: Integer;
+    UninstallLogMode: (lmAppend, lmNew, lmOverwrite);
+    DirExistsWarning: (ddAuto, ddNo, ddYes);
     PrivilegesRequired: TMySetupPrivileges;
+    PrivilegesRequiredOverridesAllowed: TMySetupPrivilegesRequiredOverrides;
+    ShowLanguageDialog: (slYes, slNo, slAuto);
     LanguageDetectionMethod: TMySetupLanguageDetectionMethod;
     CompressMethod: TSetupCompressMethod;
-    ArchitecturesAllowed, ArchitecturesInstallIn64BitMode: TMySetupProcessorArchitectures;
     DisableDirPage, DisableProgramGroupPage: TMySetupDisablePage;
     UninstallDisplaySize: Int64;
     Options: TMySetupHeaderOptions;
@@ -111,15 +121,16 @@ type
     Attribs: Integer;
     ExternalSize: Int64;
     PermissionsEntry: Smallint;
-    FileType: (ftUserFile, ftUninstExe, ftRegSvrExe, ftFakeFile);
     Options: TMySetupFileOptions;
+    FileType: (ftUserFile, ftUninstExe, ftRegSvrExe, ftFakeFile);
     // Custom fields
     DestDir: String;
   end;
 
   TMySetupFileLocationFlag = (foVersionInfoValid, foVersionInfoNotValid, foTimeStampInUTC,
       foIsUninstExe, foCallInstructionOptimized, foTouch, foChunkEncrypted,
-      foChunkCompressed, foSolidBreak);
+      foChunkCompressed, foSolidBreak, foSign, foSignOnce);
+  TMySetupFileLocationSign = (fsNoSetting, fsYes, fsOnce, fsCheck);
   const MySetupFileLocationFlagLast = Ord(High(TMySetupFileLocationFlag));
   type TMySetupFileLocationFlags = set of TMySetupFileLocationFlag;
 
@@ -136,6 +147,7 @@ type
     TimeStamp: TFileTime;
     FileVersionMS, FileVersionLS: DWORD;
     Flags: TMySetupFileLocationFlags;
+    Sign : TMySetupFileLocationSign;
     Contents: String; // for fake files
     PrimaryFileEntry:integer; // for duplicate files
   end;
@@ -160,7 +172,8 @@ type
 
   TMySetupRunOption = (roShellExec, roSkipIfDoesntExist,
       roPostInstall, roUnchecked, roSkipIfSilent, roSkipIfNotSilent,
-      roHideWizard, roRun32Bit, roRun64Bit, roRunAsOriginalUser);
+      roHideWizard, roRun32Bit, roRun64Bit, roRunAsOriginalUser,
+      roDontLogParameters, roLogOutput);
   const MySetupRunOptionLast = ord(High(TMySetupRunOption));
   type TMySetupRunOptions = set of TMySetupRunOption;
 
