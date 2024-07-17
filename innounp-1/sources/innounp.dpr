@@ -38,7 +38,7 @@
            1.66 - August 2023   : bug fixes
            1.67 - January 2024  : bug fix for encrypted setups
            1.70 - June 2024     : support for InnoSetup 6.3
-           1.71 - July 2024     : MayTypes, RebuildScrpt adapted to Inno Setup 6.3
+           1.71 - July 2024     : MyTypes, RebuildScript adapted to Inno Setup 6.3
 *)
 
 program innounp;
