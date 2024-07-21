@@ -1,6 +1,6 @@
 ; Setup script for InnoUnpacker (32 bit)
 ; ======================================
-;  © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
+;  Â© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
 ;  The contents of this file may be used under the terms of the
 ;  Mozilla Public License ("MPL") or
@@ -57,13 +57,13 @@ de.FileAssoc=Dateizuordnungem:
 fr.FileAssoc=Associations de fichiers:
 it.FileAssoc=Associazione file:
 en.DescContext=Add "InnoUnpacker" to context menu of exe files
-de.DescContext=Füge "InnoUnpacker" zum Kontext-Menü für exe-Dateien hinzu
+de.DescContext=FÃ¼ge "InnoUnpacker" zum Kontext-MenÃ¼ fÃ¼r exe-Dateien hinzu
 fr.DescContext=Ajouter "InnoUnpacker" au menu contextuel des fichiers exe
 it.DescContext=Aggiungi "InnoUnpacker" al menu contestuale dei file exe
 en.InnoUnpack=Unpack &Inno Setup ..
 de.InnoUnpack=&Inno Setup entpacken ..
-fr.InnoUnpack=Déballer &Inno Setup ..
-it.InnoUnpack=Disimballare &Inno Setup ..
+fr.InnoUnpack=DÃ©baller &Inno Setup ..
+it.InnoUnpack=Decomprimi file creati con &Inno Setup ..
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
