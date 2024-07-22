@@ -1,6 +1,6 @@
-; Setup script for InnoUnpacker (32 bit)
+ï»¿; Setup script for InnoUnpacker (32 bit)
 ; ======================================
-;  © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
+;  Â© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
 ;  The contents of this file may be used under the terms of the
 ;  Mozilla Public License ("MPL") or
@@ -36,8 +36,8 @@ OutputDir=.
 OutputBaseFilename={#OutputFile}
 SetupIconFile=..\pack-view.ico
 UninstallDisplayIcon={app}\InnoUnpack.exe
-WizardImageFile=WizImage-JR.bmp
-WizardSmallImageFile=WizSmallImage-JR.bmp
+WizardImageFile=..\..\..\Common\WizImage-JR.bmp
+WizardSmallImageFile=..\..\..\Common\WizSmallImage-JR.bmp
 Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
@@ -46,10 +46,10 @@ DisableDirPage=auto
 DisableProgramGroupPage=auto
 
 [Languages]
-Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"license-en.rtf";
-Name: "de"; MessagesFile: compiler:Languages\German.isl;  LicenseFile:"license-de.rtf";
-Name: "fr"; MessagesFile: compiler:Languages\French.isl;  LicenseFile:"license-en.rtf";
-Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"license-it.rtf";
+Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"..\..\..\Common\license-en.rtf";
+Name: "de"; MessagesFile: compiler:Languages\German.isl;  LicenseFile:"..\..\..\Common\license-de.rtf";
+Name: "fr"; MessagesFile: compiler:Languages\French.isl;  LicenseFile:"..\..\..\Common\license-en.rtf";
+Name: "it"; MessagesFile: compiler:Languages\Italian.isl; LicenseFile:"..\..\..\Common\license-it.rtf";
 
 [CustomMessages]
 en.FileAssoc=File associations:
@@ -57,12 +57,12 @@ de.FileAssoc=Dateizuordnungem:
 fr.FileAssoc=Associations de fichiers:
 it.FileAssoc=Associazione file:
 en.DescContext=Add "InnoUnpacker" to context menu of exe files
-de.DescContext=Füge "InnoUnpacker" zum Kontext-Menü für exe-Dateien hinzu
+de.DescContext=FÃ¼ge "InnoUnpacker" zum Kontext-MenÃ¼ fÃ¼r exe-Dateien hinzu
 fr.DescContext=Ajouter "InnoUnpacker" au menu contextuel des fichiers exe
 it.DescContext=Aggiungi "InnoUnpacker" al menu contestuale dei file exe
 en.InnoUnpack=Unpack &Inno Setup ..
 de.InnoUnpack=&Inno Setup entpacken ..
-fr.InnoUnpack=Déballer &Inno Setup ..
+fr.InnoUnpack=DÃ©baller &Inno Setup ..
 it.InnoUnpack=Disimballare &Inno Setup ..
 
 [Tasks]
@@ -79,7 +79,7 @@ Source: "..\innounp-1\Release\innounp.exe"; DestDir: "{app}"; Flags: ignoreversi
 Source: "..\innounp-1\docs\innounp.htm"; DestDir: "{app}"; Flags: ignoreversion restartreplace
 Source: "..\Release\Win32\locale\*.mo"; DestDir: "{app}\locale"; Flags: recursesubdirs ignoreversion restartreplace
 Source: "..\Release\Win32\language.cfg"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion restartreplace
-Source: "license-*.rtf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\..\Common\license-*.rtf"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\InnoUnpack.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\pack-view.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
