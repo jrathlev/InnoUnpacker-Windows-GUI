@@ -63,7 +63,7 @@ it.DescContext=Aggiungi "InnoUnpacker" al menu contestuale dei file exe
 en.InnoUnpack=Unpack &Inno Setup ..
 de.InnoUnpack=&Inno Setup entpacken ..
 fr.InnoUnpack=Déballer &Inno Setup ..
-it.InnoUnpack==Decomprimi file creati con &Inno Setup ..
+it.InnoUnpack=Decomprimi file creati con &Inno Setup ..
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
