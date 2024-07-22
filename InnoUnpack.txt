@@ -1,26 +1,29 @@
-Überprüfen und Entpacken von InnoSetup-Archiven
+ï»¿ÃœberprÃ¼fen und Entpacken von InnoSetup-Archiven
 ===============================================
-Das Programm "InnoUnpack.exe" stellt eine Windows-Benutzeroberfläche für das
+Das Programm "InnoUnpack.exe" stellt eine Windows-BenutzeroberflÃ¤che fÃ¼r das
 Konsolenprogramm "innounp.exe" bereit.
 
-Das zu verarbeitende ausführbare Setup kann über einen Datei-Dialog, per Drag&Drop 
+Das zu verarbeitende ausfÃ¼hrbare Setup kann Ã¼ber einen Datei-Dialog, per Drag&Drop 
 oder durch Angabe in der Befehlszeile geladen werden. Danach werden sofort die grundlegenden 
 Datei-Informationen und eine Liste der enthaltenen Dateien angezeigt. Zum Extrahieren von Dateien 
-genügt ein Klick auf die entsprechende Schaltfläche und die Auswahl des Zielverzeichnisses.
+genÃ¼gt ein Klick auf die entsprechende SchaltflÃ¤che und die Auswahl des Zielverzeichnisses.
 Optional kann ein Filter angegeben werden, um nur die dazu passenden Dateien
 zu extrahieren.
 
 Befehlszeilenoptionen: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/o] [/l:xx]
   <name>   : Name der zu entpackenden Setup-Datei
-  <ddir>   : Zielverzeichnis für entpackte Dateien
+  <ddir>   : Zielverzeichnis fÃ¼r entpackte Dateien
   <filter> : Dateifilter
   /m       : interne eingebettete Dateien verarbeiten
   /s       : Dateien ohne Pfade entpacken
   /a       : alle Kopien von doppelten Dateien verarbeiten
-  /o       : Dateien überschreiben
-  /l:xx    : Sprache auswählen (xx = en, de, fr, it oder hu)
+  /o       : Dateien Ã¼berschreiben
+  /l:xx    : Sprache auswÃ¤hlen (xx = en, de, fr, it oder hu)
   
 https://www.rathlev-home.de/tools/progtools.html#unpack
+https://github.com/jrathlev/InnoUnpacker-Windows-GUI
+
+J. Rathlev, Juni 2024
 
   
 Inspect and unpack InnoSetup archives
@@ -44,5 +47,7 @@ Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/o] [/l
   /l:xx    : Language selection (xx = en, de, fr, it or hu)
   
 https://www.rathlev-home.de/home-e.html#unpack
+https://github.com/jrathlev/InnoUnpacker-Windows-GUI
   
-J. Rathlev, August 2022
+J. Rathlev, June 2024
+
