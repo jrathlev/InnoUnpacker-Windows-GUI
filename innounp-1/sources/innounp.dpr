@@ -1,9 +1,9 @@
 (* innounp, the Inno Setup Unpacker
-   Version 1.70
+   Version 1.71
+     Supports Inno Setup versions 2.0.7 through 6.3
 
    based on:
      Version 0.50
-     Supports Inno Setup versions 2.0.7 through 6.1
      from
      https://sourceforge.net/projects/innounp/
 
@@ -39,6 +39,7 @@
            1.67 - January 2024  : bug fix for encrypted setups
            1.70 - June 2024     : support for InnoSetup 6.3
            1.71 - July 2024     : MyTypes, RebuildScript adapted to Inno Setup 6.3
+                                  zlib4008 and zlib4017 fixed
 *)
 
 program innounp;
