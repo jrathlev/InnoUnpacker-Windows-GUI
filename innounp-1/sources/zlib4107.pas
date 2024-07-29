@@ -34,15 +34,15 @@ type
   TZFree = procedure(AppData, Block: Pointer);
 
   TZStreamRec = packed record
-    next_in: PChar;       { next input byte }
+    next_in: PAnsiChar;       { next input byte }
     avail_in: Cardinal;   { number of bytes available at next_in }
     total_in: Longint;    { total nb of input bytes read so far }
 
-    next_out: PChar;      { next output byte should be put here }
+    next_out: PAnsiChar;      { next output byte should be put here }
     avail_out: Cardinal;  { remaining free space at next_out }
     total_out: Longint;   { total nb of bytes output so far }
 
-    msg: PChar;           { last error message, NULL if no error }
+    msg: PAnsiChar;           { last error message, NULL if no error }
     internal: Pointer;    { not visible by applications }
 
     zalloc: TZAlloc;      { used to allocate the internal state }
