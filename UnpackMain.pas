@@ -18,7 +18,7 @@
    Vers. 1.7 (October 2021): console output uses UTF8
    Vers. 1.8 (June 2022): "embedded option" added
    Vers. 1.9 (August 2022): command line options added
-   last modified: August 2022
+   last modified: August 2024 - innounp updated to version 1.72
 
    Command line options: [<setupname>] [/d:<destdir>] [/f:<filter>] [/m] [/s] [/a] [/o]
      <setupname> : name of setup file to be unpacked
@@ -41,7 +41,7 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 1.9.2';
+  ProgVers = ' 1.9.3';
   CopRgt = '© 2014-2024 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -75,11 +75,14 @@ type
     cxEmbedded: TCheckBox;
     bbDown: TBitBtn;
     bbUp: TBitBtn;
-    InfoBtn: TBitBtn;
+    bbInfo: TBitBtn;
     cxEncrypted: TCheckBox;
     edPassword: TLabeledEdit;
+    pnBottom: TPanel;
+    pnTools: TPanel;
+    bbVersion: TBitBtn;
     procedure FormCreate(Sender: TObject);
-    procedure InfoBtnClick(Sender: TObject);
+    procedure bbInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure bbOptionsClick(Sender: TObject);
@@ -99,6 +102,7 @@ type
     procedure bbUpClick(Sender: TObject);
     procedure bbDownClick(Sender: TObject);
     procedure cxEncryptedClick(Sender: TObject);
+    procedure bbVersionClick(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -396,6 +400,11 @@ begin
   Execute(s,cbFile.Text,'','');
   end;
 
+procedure TMainForm.bbVersionClick(Sender: TObject);
+begin
+  Execute(MakeQuotedStr(UnpProg)+' -l','','','');
+  end;
+
 procedure TMainForm.bbOptionsClick(Sender: TObject);
 begin
   LoadUnpacker;
@@ -438,10 +447,12 @@ begin
   mmDos.Perform(WM_VSCROLL,SB_BOTTOM,0);
   end;
 
-procedure TMainForm.InfoBtnClick(Sender: TObject);
+procedure TMainForm.bbInfoClick(Sender: TObject);
 begin
-  InfoDialog (Caption+sLineBreak+VersInfo.CopyRight
-           +sLineBreak+'E-Mail: '+EmailAdr+sLineBreak+sLineBreak+rsInfo);
+  InfoDialog (ProgVersName+' - '+ProgVersDate
+    +sLineBreak+_('Inspect and unpack InnoSetup files')
+    +sLineBreak+VersInfo.CopyRight
+    +sLineBreak+'E-Mail: '+EmailAdr+sLineBreak+sLineBreak+rsInfo);
   end;
 
 { ------------------------------------------------------------------- }
@@ -479,28 +490,33 @@ var
 begin
   with mmDos,Lines do begin
     Clear;
-    Add(_('Filename: ')+FileName);
-    Add('');
+    if length(Filename)>0 then begin
+      Add(_('Filename: ')+FileName);
+      Add('');
+      end;
     end;
-  if not FileExists(FileName) then begin
+  if (length(Filename)>0) and not FileExists(FileName) then begin
     s:=SysErrorMessage(ERROR_FILE_NOT_FOUND);
     mmDos.Lines.Add(_('Error: ')+s);
     ErrorDialog(s);
     Exit;
     end;
-  s:=Command+' -u '+MakeQuotedStr(Erweiter(PrgPath,Filename,''));
-  if length(Filter)>0 then s:=s+Space+Filter;
-  with mmDos,Lines do begin
-    if GetFileVersion (Filename,vi) then begin
-      Add(_('Name: ')+vi.Description);
-      Add(_('Version: ')+vi.Version);
-      Add(_('Copyright: ')+Trim(vi.Copyright));
-      Add(_('Company: ')+vi.Company);
-      Add(_('Comment: ')+vi.Comments);
+  if length(Filename)>0 then begin
+    s:=Command+' -u '+MakeQuotedStr(Erweiter(PrgPath,Filename,''));
+    with mmDos,Lines do begin
+      if GetFileVersion (Filename,vi) then begin
+        Add(_('Name: ')+vi.Description);
+        Add(_('Version: ')+vi.Version);
+        Add(_('Copyright: ')+Trim(vi.Copyright));
+        Add(_('Company: ')+vi.Company);
+        Add(_('Comment: ')+vi.Comments);
+        end;
+      Add('');
+      if length(Comment)>0 then Add(Comment);
       end;
-    Add('');
-    if length(Comment)>0 then Add(Comment);
-    end;
+    end
+  else s:=Command+' -u ';
+  if length(Filter)>0 then s:=s+Space+Filter;
   Application.ProcessMessages;
   Screen.Cursor:=crHourglass;
 // Set the bInheritHandle flag so pipe handles are inherited.
