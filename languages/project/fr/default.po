@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-01-10 14:07+0100\n"
-"PO-Revision-Date: 2024-01-10 14:07+0100\n"
+"POT-Creation-Date: 2024-07-30 17:03+0200\n"
+"PO-Revision-Date: 2024-07-30 17:04+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. MainForm.Caption
-#: UnpackMain.dfm:4 UnpackMain.pas:187
+#: UnpackMain.dfm:4 UnpackMain.pas:193 UnpackMain.pas:453
 msgid "Inspect and unpack InnoSetup files"
 msgstr "Inspecter et décompresser les fichiers InnoSetup"
 
@@ -53,88 +53,94 @@ msgstr "Extraire les fichiers"
 msgid "Verify archive"
 msgstr "Vérifier l'archive"
 
-#. MainForm.pnTop.bbCopyResult.Hint
-#: UnpackMain.dfm:508
-msgid "Copy output to clipboard"
-msgstr "Copier dans le presse-papiers"
-
 #. MainForm.pnTop.cxEmbedded.Caption
-#: UnpackMain.dfm:661
+#: UnpackMain.dfm:570
 msgid "Process embedded files"
 msgstr "Traiter les fichiers encastrés"
 
-#. MainForm.pnTop.bbDown.Hint
-#: UnpackMain.dfm:670
-msgid "Scroll down"
-msgstr "Défilez vers le bas"
-
-#. MainForm.pnTop.bbUp.Hint
-#: UnpackMain.dfm:761
-msgid "Scroll up"
-msgstr "Haut de page"
-
-#. MainForm.pnTop.InfoBtn.Hint
-#: UnpackMain.dfm:852
+#. MainForm.pnTop.bbInfo.Hint
+#: UnpackMain.dfm:579
 msgid "About the program"
 msgstr "À propos du programme"
 
 #. MainForm.pnTop.cxEncrypted.Caption
-#: UnpackMain.dfm:943
+#: UnpackMain.dfm:670
 msgid "InnoSetup archive is encrypted"
 msgstr "L'archive InnoSetup est cryptée"
 
 #. MainForm.pnTop.edPassword.EditLabel.Caption
-#: UnpackMain.dfm:954
+#: UnpackMain.dfm:681
 msgid "Password:"
 msgstr "Mot de passe :"
 
+#. MainForm.pnTop.bbVersion.Hint
+#: UnpackMain.dfm:690
+msgid "Show list of all supported Inno Setup versions"
+msgstr ""
+"Afficher la liste de toutes les versions d'Inno Setup prises en charge"
+
 #. MainForm.pnExtract.Label1.Caption
-#: UnpackMain.dfm:993
+#: UnpackMain.dfm:793
 msgid "Extract to directory:"
 msgstr "Extraire dans le répertoire :"
 
 #. MainForm.pnExtract.Label3.Caption
-#: UnpackMain.dfm:1000 UnpackMain.pas:358
+#: UnpackMain.dfm:800 UnpackMain.pas:364
 msgid "File filter:"
 msgstr "Filtre du fichier:"
 
 #. MainForm.pnExtract.cbDir.Hint
-#: UnpackMain.dfm:1007
+#: UnpackMain.dfm:807
 msgid "Extract files to this directory"
 msgstr "Extraire les fichiers dans ce répertoire"
 
 #. MainForm.pnExtract.bbStart.Hint
-#: UnpackMain.dfm:1020
+#: UnpackMain.dfm:820
 msgid "Start extraction"
 msgstr "Commencer l'extraction"
 
 #. MainForm.pnExtract.bbStart.Caption
-#: UnpackMain.dfm:1022
+#: UnpackMain.dfm:822
 msgid "Extract"
 msgstr "Extrait"
 
 #. MainForm.pnExtract.cxDupl.Caption
-#: UnpackMain.dfm:1112
+#: UnpackMain.dfm:912
 msgid "Process duplicate files"
 msgstr "Traiter les fichiers en double"
 
 #. MainForm.pnExtract.cxOverwrite.Caption
-#: UnpackMain.dfm:1120
+#: UnpackMain.dfm:920
 msgid "Overwrite files"
 msgstr "Écraser les fichiers"
 
 #. MainForm.pnExtract.cxStrip.Caption
-#: UnpackMain.dfm:1128
+#: UnpackMain.dfm:928
 msgid "Without paths"
 msgstr "Sans chemins"
 
 #. MainForm.pnExtract.bbFilter.Hint
-#: UnpackMain.dfm:1146
+#: UnpackMain.dfm:946
 msgid "Edit file filter"
 msgstr "Dialogue de filtre de fichier"
 
+#. MainForm.pnBottom.pnTools.bbCopyResult.Hint
+#: UnpackMain.dfm:1141
+msgid "Copy output to clipboard"
+msgstr "Copier dans le presse-papiers"
+
+#. MainForm.pnBottom.pnTools.bbDown.Hint
+#: UnpackMain.dfm:1232
+msgid "Scroll down"
+msgstr "Défilez vers le bas"
+
+#. MainForm.pnBottom.pnTools.bbUp.Hint
+#: UnpackMain.dfm:1323
+msgid "Scroll up"
+msgstr "Haut de page"
+
 #. Programmer's name for it: rsInfo
-#: UnpackMain.pas:134
+#: UnpackMain.pas:139
 msgid ""
 "Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] "
 "[/o]\n"
@@ -156,27 +162,27 @@ msgstr ""
 "\t/a\t: traiter toutes les copies de fichiers dupliqués\n"
 "\t/o\t: écraser les fichiers"
 
-#: UnpackMain.pas:253
+#: UnpackMain.pas:259
 msgid "This application only allows dropping of exe files!"
 msgstr "Cette application ne permet que le dépôt de fichiers exe !"
 
-#: UnpackMain.pas:283 UnpackMain.pas:317
+#: UnpackMain.pas:289 UnpackMain.pas:323
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programmes|*.exe|Tous le fichiers|*.*"
 
-#: UnpackMain.pas:284
+#: UnpackMain.pas:290
 msgid "Select InnoSetup archive"
 msgstr "Choisissez l'archive InnoSetup"
 
-#: UnpackMain.pas:318
+#: UnpackMain.pas:324
 msgid "Search for \"innounp.exe\""
 msgstr "Recherche pour \"innounp.exe\""
 
-#: UnpackMain.pas:339
+#: UnpackMain.pas:345
 msgid "Select directory for extracted files"
 msgstr "Sélectionnez le répertoire pour l'extraction des fichiers"
 
-#: UnpackMain.pas:426
+#: UnpackMain.pas:437
 msgid ""
 "Extracting setup file ...\n"
 "Destination directory: %s"
@@ -184,31 +190,31 @@ msgstr ""
 "Extraction du fichier d'installation...\n"
 "Répertoire de destination: %s"
 
-#: UnpackMain.pas:480
+#: UnpackMain.pas:494
 msgid "Filename: "
 msgstr "Nom du fichier: "
 
 #. DOS-Ausgabe anzeigen
-#: UnpackMain.pas:485 UnpackMain.pas:558 UnpackMain.pas:560
+#: UnpackMain.pas:500 UnpackMain.pas:576 UnpackMain.pas:578
 msgid "Error: "
 msgstr "Erreur: "
 
-#: UnpackMain.pas:493
+#: UnpackMain.pas:508
 msgid "Name: "
 msgstr "Nom: "
 
-#: UnpackMain.pas:494
+#: UnpackMain.pas:509
 msgid "Version: "
 msgstr "Version: "
 
-#: UnpackMain.pas:495
+#: UnpackMain.pas:510
 msgid "Copyright: "
 msgstr "Copyright: "
 
-#: UnpackMain.pas:496
+#: UnpackMain.pas:511
 msgid "Company: "
 msgstr "Entreprise: "
 
-#: UnpackMain.pas:497
+#: UnpackMain.pas:512
 msgid "Comment: "
 msgstr "Commentaire: "

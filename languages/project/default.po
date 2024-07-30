@@ -7,17 +7,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-01-10 14:07+0100\n"
-"PO-Revision-Date: 2024-01-10 14:07+0100\n"
+"POT-Creation-Date: 2024-07-30 17:03+0200\n"
+"PO-Revision-Date: 2024-07-30 17:03+0200\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: GgtTranslate 3.1.0\n"
+"X-Generator: GgtTranslate 3.1.1\n"
 
 #. MainForm.Caption
 #: UnpackMain.dfm:4
-#: UnpackMain.pas:187
+#: UnpackMain.pas:193
+#: UnpackMain.pas:453
 msgid "Inspect and unpack InnoSetup files"
 msgstr ""
 
@@ -51,89 +52,95 @@ msgstr ""
 msgid "Verify archive"
 msgstr ""
 
-#. MainForm.pnTop.bbCopyResult.Hint
-#: UnpackMain.dfm:508
-msgid "Copy output to clipboard"
-msgstr ""
-
 #. MainForm.pnTop.cxEmbedded.Caption
-#: UnpackMain.dfm:661
+#: UnpackMain.dfm:570
 msgid "Process embedded files"
 msgstr ""
 
-#. MainForm.pnTop.bbDown.Hint
-#: UnpackMain.dfm:670
-msgid "Scroll down"
-msgstr ""
-
-#. MainForm.pnTop.bbUp.Hint
-#: UnpackMain.dfm:761
-msgid "Scroll up"
-msgstr ""
-
-#. MainForm.pnTop.InfoBtn.Hint
-#: UnpackMain.dfm:852
+#. MainForm.pnTop.bbInfo.Hint
+#: UnpackMain.dfm:579
 msgid "About the program"
 msgstr ""
 
 #. MainForm.pnTop.cxEncrypted.Caption
-#: UnpackMain.dfm:943
+#: UnpackMain.dfm:670
 msgid "InnoSetup archive is encrypted"
 msgstr ""
 
 #. MainForm.pnTop.edPassword.EditLabel.Caption
-#: UnpackMain.dfm:954
+#: UnpackMain.dfm:681
 msgid "Password:"
 msgstr ""
 
+#. MainForm.pnTop.bbVersion.Hint
+#: UnpackMain.dfm:690
+msgid "Show list of all supported Inno Setup "
+"versions"
+msgstr ""
+
 #. MainForm.pnExtract.Label1.Caption
-#: UnpackMain.dfm:993
+#: UnpackMain.dfm:793
 msgid "Extract to directory:"
 msgstr ""
 
 #. MainForm.pnExtract.Label3.Caption
-#: UnpackMain.dfm:1000
-#: UnpackMain.pas:358
+#: UnpackMain.dfm:800
+#: UnpackMain.pas:364
 msgid "File filter:"
 msgstr ""
 
 #. MainForm.pnExtract.cbDir.Hint
-#: UnpackMain.dfm:1007
+#: UnpackMain.dfm:807
 msgid "Extract files to this directory"
 msgstr ""
 
 #. MainForm.pnExtract.bbStart.Hint
-#: UnpackMain.dfm:1020
+#: UnpackMain.dfm:820
 msgid "Start extraction"
 msgstr ""
 
 #. MainForm.pnExtract.bbStart.Caption
-#: UnpackMain.dfm:1022
+#: UnpackMain.dfm:822
 msgid "Extract"
 msgstr ""
 
 #. MainForm.pnExtract.cxDupl.Caption
-#: UnpackMain.dfm:1112
+#: UnpackMain.dfm:912
 msgid "Process duplicate files"
 msgstr ""
 
 #. MainForm.pnExtract.cxOverwrite.Caption
-#: UnpackMain.dfm:1120
+#: UnpackMain.dfm:920
 msgid "Overwrite files"
 msgstr ""
 
 #. MainForm.pnExtract.cxStrip.Caption
-#: UnpackMain.dfm:1128
+#: UnpackMain.dfm:928
 msgid "Without paths"
 msgstr ""
 
 #. MainForm.pnExtract.bbFilter.Hint
-#: UnpackMain.dfm:1146
+#: UnpackMain.dfm:946
 msgid "Edit file filter"
 msgstr ""
 
+#. MainForm.pnBottom.pnTools.bbCopyResult.Hint
+#: UnpackMain.dfm:1141
+msgid "Copy output to clipboard"
+msgstr ""
+
+#. MainForm.pnBottom.pnTools.bbDown.Hint
+#: UnpackMain.dfm:1232
+msgid "Scroll down"
+msgstr ""
+
+#. MainForm.pnBottom.pnTools.bbUp.Hint
+#: UnpackMain.dfm:1323
+msgid "Scroll up"
+msgstr ""
+
 #. Programmer's name for it: rsInfo
-#: UnpackMain.pas:134
+#: UnpackMain.pas:139
 msgid "Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] "
 "[/a] [/o]\n"
 "\t<name>\t: name of setup file to be unpacked\n"
@@ -145,61 +152,61 @@ msgid "Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] "
 "\t/o\t: overwrite files"
 msgstr ""
 
-#: UnpackMain.pas:253
+#: UnpackMain.pas:259
 msgid "This application only allows dropping of exe "
 "files!"
 msgstr ""
 
-#: UnpackMain.pas:283
-#: UnpackMain.pas:317
+#: UnpackMain.pas:289
+#: UnpackMain.pas:323
 msgid "Programs|*.exe|All files|*.*"
 msgstr ""
 
-#: UnpackMain.pas:284
+#: UnpackMain.pas:290
 msgid "Select InnoSetup archive"
 msgstr ""
 
-#: UnpackMain.pas:318
+#: UnpackMain.pas:324
 msgid "Search for \"innounp.exe\""
 msgstr ""
 
-#: UnpackMain.pas:339
+#: UnpackMain.pas:345
 msgid "Select directory for extracted files"
 msgstr ""
 
-#: UnpackMain.pas:426
+#: UnpackMain.pas:437
 msgid "Extracting setup file ...\n"
 "Destination directory: %s"
 msgstr ""
 
-#: UnpackMain.pas:480
+#: UnpackMain.pas:494
 msgid "Filename: "
 msgstr ""
 
-#: UnpackMain.pas:485
+#: UnpackMain.pas:500
 #. DOS-Ausgabe anzeigen
-#: UnpackMain.pas:558
-#: UnpackMain.pas:560
+#: UnpackMain.pas:576
+#: UnpackMain.pas:578
 msgid "Error: "
 msgstr ""
 
-#: UnpackMain.pas:493
+#: UnpackMain.pas:508
 msgid "Name: "
 msgstr ""
 
-#: UnpackMain.pas:494
+#: UnpackMain.pas:509
 msgid "Version: "
 msgstr ""
 
-#: UnpackMain.pas:495
+#: UnpackMain.pas:510
 msgid "Copyright: "
 msgstr ""
 
-#: UnpackMain.pas:496
+#: UnpackMain.pas:511
 msgid "Company: "
 msgstr ""
 
-#: UnpackMain.pas:497
+#: UnpackMain.pas:512
 msgid "Comment: "
 msgstr ""
 

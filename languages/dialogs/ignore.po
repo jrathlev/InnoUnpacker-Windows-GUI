@@ -1,7 +1,7 @@
 #  Doesn't have any letters
-#. ShellDirDialog.PopupMenu.N1.Caption
-#: ShellDirDlg.dfm:2294
-#. ShellFileDialog.PopupMenu.N1.Caption
+#. ShellDirDialog..PopupMenu..N1..Caption
+#: ShellDirDlg.dfm:2287
+#. ShellFileDialog..PopupMenu..N1..Caption
 #: ShellFileDlg.dfm:2325
 msgid "-"
 msgstr ""
@@ -25,19 +25,19 @@ msgid "&800x800"
 msgstr ""
 
 #  Doesn't have any letters
-#. AccountDialog.pnCenter.edtRepPwd.PasswordChar
-#: AccountDlg.dfm:278
-#. AccountDialog.pnTop.edtPwd.PasswordChar
-#: AccountDlg.dfm:310
-#. FtpDialog.pnSettings.edtFtpPwd.PasswordChar
-#: FtpDlg.dfm:355
-#. LogonDialog.PwdEdit.PasswordChar
-#: LogonDlg.dfm:288
-#. NewPwdDialog.paPwd.edtPwd.PasswordChar
+#. AccountDialog..edtPwd..PasswordChar
+#: AccountDlg.dfm:263
+#. AccountDialog..edtRepPwd..PasswordChar
+#: AccountDlg.dfm:275
+#. FtpDialog..pnSettings..edtFtpPwd..PasswordChar
+#: FtpDlg.dfm:328
+#. LogonDialog..PwdEdit..PasswordChar
+#: LogonDlg.dfm:301
+#. NewPwdDialog..paPwd..edtPwd..PasswordChar
 #: NewPwdDlg.dfm:38
-#. NewPwdDialog.paConfirm.edtRepPwd.PasswordChar
+#. NewPwdDialog..paConfirm..edtRepPwd..PasswordChar
 #: NewPwdDlg.dfm:289
-#. PasswordDialog.pnInput.edtPwd.PasswordChar
+#. PasswordDialog..pnInput..edtPwd..PasswordChar
 #: PwdDlg.dfm:109
 msgid "*"
 msgstr ""
@@ -61,25 +61,11 @@ msgid "0°"
 msgstr ""
 
 #  Doesn't look like text
-#. HelpWindow.pnlTop.btnSize3.Caption
-#: HelpWin.dfm:321
-#. WebBrowserWin.paTop.paTopLeft.btnSize3.Caption
-#: WebBrowser.dfm:72
-#. frmWebView.paTop.cbSize.Items.Strings
-#: WebView.dfm:85
+#. HelpWindow..pnlTop..btnSize3..Caption
+#: HelpWin.dfm:276
+#. WebBrowserWin..paTop..paTopLeft..btnSize3..Caption
+#: WebBrowser.dfm:73
 msgid "1024x768"
-msgstr ""
-
-#  Doesn't have any letters
-#. frmWebView.WVBrowser.TargetCompatibleBrowserVersion
-#: WebView.dfm:593
-msgid "104.0.1293.44"
-msgstr ""
-
-#  Doesn't look like text
-#. frmWebView.paTop.cbSize.Items.Strings
-#: WebView.dfm:86
-msgid "1280x960"
 msgstr ""
 
 #  Doesn't look like text
@@ -101,22 +87,18 @@ msgid "-180°"
 msgstr ""
 
 #  Doesn't look like text
-#. HelpWindow.pnlTop.btnSize1.Caption
-#: HelpWin.dfm:301
-#. WebBrowserWin.paTop.paTopLeft.btnSize1.Caption
-#: WebBrowser.dfm:46
-#. frmWebView.paTop.cbSize.Items.Strings
-#: WebView.dfm:83
+#. HelpWindow..pnlTop..btnSize1..Caption
+#: HelpWin.dfm:256
+#. WebBrowserWin..paTop..paTopLeft..btnSize1..Caption
+#: WebBrowser.dfm:47
 msgid "640x480"
 msgstr ""
 
 #  Doesn't look like text
-#. HelpWindow.pnlTop.btnSize2.Caption
-#: HelpWin.dfm:311
-#. WebBrowserWin.paTop.paTopLeft.btnSize2.Caption
-#: WebBrowser.dfm:59
-#. frmWebView.paTop.cbSize.Items.Strings
-#: WebView.dfm:84
+#. HelpWindow..pnlTop..btnSize2..Caption
+#: HelpWin.dfm:266
+#. WebBrowserWin..paTop..paTopLeft..btnSize2..Caption
+#: WebBrowser.dfm:60
 msgid "800x600"
 msgstr ""
 
@@ -126,8 +108,8 @@ msgstr ""
 msgid "90°"
 msgstr ""
 
-#. WebBrowserWin.ActionList.ActionBack.Caption
-#: WebBrowser.dfm:182
+#. WebBrowserWin..ActionList..ActionBack..Caption
+#: WebBrowser.dfm:185
 msgid "ActionBack"
 msgstr ""
 
@@ -136,156 +118,154 @@ msgstr ""
 msgid "ActionExit"
 msgstr ""
 
-#. WebBrowserWin.ActionList.ActionFwd.Caption
-#: WebBrowser.dfm:189
+#. WebBrowserWin..ActionList..ActionFwd..Caption
+#: WebBrowser.dfm:192
 msgid "ActionFwd"
 msgstr ""
 
-#. WebBrowserWin.ActionList.ActionHome.Caption
-#: WebBrowser.dfm:175
+#. WebBrowserWin..ActionList..ActionHome..Caption
+#: WebBrowser.dfm:178
 msgid "ActionHome"
 msgstr ""
 
-#. ProgressWindow.ActionLabel.Caption
-#: ProgWind.dfm:33
-#. TransferStatus.Panel1.ActionLabel.Caption
+#. TransferStatus..Panel1..ActionLabel..Caption
 #: TransferStat.dfm:32
 msgid "ActionLabel"
 msgstr ""
 
-#. WebBrowserWin.ActionList.ActionRefresh.Caption
-#: WebBrowser.dfm:168
+#. WebBrowserWin..ActionList..ActionRefresh..Caption
+#: WebBrowser.dfm:171
 msgid "ActionRefresh"
 msgstr ""
 
-#. PrintPageDialog.EinzugEinheit.Caption
+#. PrintPageDialog..EinzugEinheit..Caption
 #: PrintPageDlg.dfm:35
-#. PrintPageDialog.GroupBox1.Label8.Caption
-#: PrintPageDlg.dfm:184
-#. PrintPageDialog.GroupBox1.Label3.Caption
-#: PrintPageDlg.dfm:198
-#. PrintPageDialog.GroupBox1.Label5.Caption
-#: PrintPageDlg.dfm:205
-#. PrintPageDialog.GroupBox1.Label7.Caption
-#: PrintPageDlg.dfm:212
-#. RandDialog.EinzugEinheit.Caption
+#. PrintPageDialog..GroupBox1..Label8..Caption
+#: PrintPageDlg.dfm:83
+#. PrintPageDialog..GroupBox1..Label3..Caption
+#: PrintPageDlg.dfm:97
+#. PrintPageDialog..GroupBox1..Label5..Caption
+#: PrintPageDlg.dfm:104
+#. PrintPageDialog..GroupBox1..Label7..Caption
+#: PrintPageDlg.dfm:111
+#. RandDialog..EinzugEinheit..Caption
 #: RandDlg.dfm:35
-#. RandDialog.GroupBox1.Label8.Caption
+#. RandDialog..GroupBox1..Label8..Caption
 #: RandDlg.dfm:184
-#. RandDialog.GroupBox1.Label3.Caption
+#. RandDialog..GroupBox1..Label3..Caption
 #: RandDlg.dfm:198
-#. RandDialog.GroupBox1.Label5.Caption
+#. RandDialog..GroupBox1..Label5..Caption
 #: RandDlg.dfm:205
-#. RandDialog.GroupBox1.Label7.Caption
+#. RandDialog..GroupBox1..Label7..Caption
 #: RandDlg.dfm:212
-#. SizeDialog.GroupBox.Label3.Caption
+#. SizeDialog..GroupBox..Label3..Caption
 #: Sizedlg.dfm:174
-#. SizeDialog.GroupBox.Label4.Caption
+#. SizeDialog..GroupBox..Label4..Caption
 #: Sizedlg.dfm:181
 msgid "cm"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:275
 msgid "ColorA=B8FFFF"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:276
 msgid "ColorB=0B8B8FF"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:277
 msgid "ColorC=98B8FF"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:278
 msgid "ColorD=68B8FF"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:279
 msgid "ColorE=B0FFB0"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:280
 msgid "ColorF=FFB890"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:281
 msgid "ColorG=FFB070"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:282
 msgid "ColorH=D09898"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:283
 msgid "ColorI=003080"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:284
 msgid "ColorJ=0050B0"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:285
 msgid "ColorK=006000"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:286
 msgid "ColorL=208000"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:287
 msgid "ColorM=804000"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:288
 msgid "ColorN=705000"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:289
 msgid "ColorO=780000"
 msgstr ""
 
 #  Doesn't look like text
-#. SelectColorDialog.ColorDialog.CustomColors.Strings
+#. SelectColorDialog..ColorDialog....CustomColors.Strings
 #: SelectColorDlg.dfm:290
 msgid "ColorP=580058"
 msgstr ""
 
 #  Seems like a Font.Name extract
-#. ShowTextDialog.Memo.Font.Name
-#: ShowMemo.dfm:1529
-#. ShowtextDialog.Memo.Font.Name
-#: ShowText.dfm:523
+#. ShowTextDialog..Memo..Font.Name
+#: ShowMemo.dfm:1296
+#. ShowtextDialog..Memo..Font.Name
+#: ShowText.dfm:550
 msgid "Courier New"
 msgstr ""
 
@@ -296,43 +276,41 @@ msgid "D3Image"
 msgstr ""
 
 #  Doesn't look like text
-#. InputDFloatDialog.Desc1Label.Caption
+#. InputDFloatDialog..Desc1Label..Caption
 #: InpDFloat.dfm:24
 msgid "Desc1Label"
 msgstr ""
 
 #  Doesn't look like text
-#. InputDFloatDialog.Desc2Label.Caption
+#. InputDFloatDialog..Desc2Label..Caption
 #: InpDFloat.dfm:37
 msgid "Desc2Label"
 msgstr ""
 
-#. InputFloatDialog.DescLabel.Caption
+#. InputFloatDialog..DescLabel..Caption
 #: InpFloat.dfm:24
 msgid "DescLabel"
 msgstr ""
 
-#. InputMaskedTextDialog.Descriptor.Caption
+#. InputMaskedTextDialog..Descriptor..Caption
 #: InpMaskedText.dfm:24
-#. InputMathExpDialog.Descriptor.Caption
+#. InputMathExpDialog..Descriptor..Caption
 #: InpMath.dfm:28
-#. InputNumberDialog.Descriptor.Caption
+#. InputNumberDialog..Descriptor..Caption
 #: InpNumber.dfm:27
-#. InputNumberDialog.Descriptor2.Caption
+#. InputNumberDialog..Descriptor2..Caption
 #: InpNumber.dfm:40
-#. InputTextDialog.Descriptor.Caption
+#. InputTextDialog..Descriptor..Caption
 #: InpText.dfm:229
-#. InputStringDialog.Descriptor.Caption
-#: InputString.dfm:214
-#. MemoDialog.paTop.Descriptor.Caption
-#: MemoDlg.dfm:185
-#. InputNumber.Descriptor1.Caption
+#. MemoDialog..paTop..Descriptor..Caption
+#: MemoDlg.dfm:184
+#. InputNumber..Descriptor1..Caption
 #: NumDlg.dfm:32
-#. InputNumber.Descriptor2.Caption
+#. InputNumber..Descriptor2..Caption
 #: NumDlg.dfm:39
-#. TextEingabe.Descriptor1.Caption
+#. TextEingabe..Descriptor1..Caption
 #: Textdlg.dfm:185
-#. TextEingabe.Descriptor2.Caption
+#. TextEingabe..Descriptor2..Caption
 #: Textdlg.dfm:194
 msgid "Descriptor"
 msgstr ""
@@ -345,124 +323,124 @@ msgstr ""
 msgid "Descriptor1"
 msgstr ""
 
-#. TransferStatus.Panel1.DestLabel.Caption
+#. TransferStatus..Panel1..DestLabel..Caption
 #: TransferStat.dfm:45
 msgid "DestLabel"
 msgstr ""
 
-#. AccountDialog.Caption
+#. AccountDialog..Caption
 #: AccountDlg.dfm:5
-#. WortListDialog.Caption
+#. WortListDialog..Caption
 #: DListDlg.dfm:6
-#. FileFilterDialog.Caption
+#. FileFilterDialog..Caption
 #: FileFilterDlg.dfm:6
-#. FileListDialog.Caption
-#: FileListDlg.dfm:4
-#. InputDFloatDialog.Caption
+#. FileListDialog..Caption
+#: FileListDlg.dfm:5
+#. InputDFloatDialog..Caption
 #: InpDFloat.dfm:5
-#. InputFloatDialog.Caption
+#. InputFloatDialog..Caption
 #: InpFloat.dfm:5
-#. InputMaskedTextDialog.Caption
+#. InputMaskedTextDialog..Caption
 #: InpMaskedText.dfm:5
-#. InputMathExpDialog.Caption
+#. InputMathExpDialog..Caption
 #: InpMath.dfm:5
-#. ListenDialog.Caption
+#. ListenDialog..Caption
 #: Listdlg.dfm:6
-#. MemoDialog.Caption
-#: MemoDlg.dfm:6
-#. NewPwdDialog.Caption
+#. MemoDialog..Caption
+#: MemoDlg.dfm:5
+#. NewPwdDialog..Caption
 #: NewPwdDlg.dfm:5
-#. InputNumber.Caption
+#. InputNumber..Caption
 #: NumDlg.dfm:5
-#. PasswordDialog.Caption
+#. PasswordDialog..Caption
 #: PwdDlg.dfm:5
-#. SelectDialog.Caption
+#. SelectDialog..Caption
 #: SelectDlg.dfm:5
-#. ShellFileDialog.Caption
+#. ShellFileDialog..Caption
 #: ShellFileDlg.dfm:4
-#. ShowFilesDialog.Caption
+#. ShowFilesDialog..Caption
 #: ShowFilesDlg.dfm:4
-#. ShowImageDialog.Caption
+#. ShowImageDialog..Caption
 #: ShowImage.dfm:4
-#. SizeDialog.Caption
+#. SizeDialog..Caption
 #: Sizedlg.dfm:6
-#. PageFormatDialog.Caption
+#. PageFormatDialog..Caption
 #: SynEdPageDlg.dfm:5
-#. TextEingabe.Caption
+#. TextEingabe..Caption
 #: Textdlg.dfm:6
 msgid "Dialog"
 msgstr ""
 
-#. TransferStatus.Panel1.DirLabel.Caption
+#. TransferStatus..Panel1..DirLabel..Caption
 #: TransferStat.dfm:58
 msgid "DirLabel"
 msgstr ""
 
 #  Doesn't look like text
-#. WortListDialog.Label1.Caption
+#. WortListDialog..Label1..Caption
 #: DListDlg.dfm:25
-#. FileFilterDialog.Label1.Caption
+#. FileFilterDialog..Label1..Caption
 #: FileFilterDlg.dfm:25
 msgid "Label1"
 msgstr ""
 
-#. InputLptPortDialog.LptSel.Items.Strings
+#. InputLptPortDialog..LptSel....Items.Strings
 #: LptSelect.dfm:151
 msgid "LPT1 ($378/7)"
 msgstr ""
 
-#. InputLptPortDialog.LptSel.Items.Strings
+#. InputLptPortDialog..LptSel....Items.Strings
 #: LptSelect.dfm:152
 msgid "LPT2 ($278/5)"
 msgstr ""
 
-#. InputLptPortDialog.LptSel.Items.Strings
+#. InputLptPortDialog..LptSel....Items.Strings
 #: LptSelect.dfm:153
 msgid "LPT3 ($3BC/3)"
 msgstr ""
 
-#. InputLptPortDialog.LptSel.Items.Strings
+#. InputLptPortDialog..LptSel....Items.Strings
 #: LptSelect.dfm:154
 msgid "LPT4 ($2BC/9)"
 msgstr ""
 
 #  Seems like a Font.Name extract
-#. frmShow.memShow.Font.Name
+#. frmShow..memShow..Font.Name
 #: Show.dfm:29
 msgid "Lucida Console"
 msgstr ""
 
 #  Seems like a Font.Name extract
-#. MailDialog.Font.Name
+#. MailDialog..Font.Name
 #: MailDlg.dfm:12
 msgid "Microsoft Sans Serif"
 msgstr ""
 
-#. EtikettenDialog.Label9.Caption
+#. EtikettenDialog..Label9..Caption
 #: EtikettDlg.dfm:24
-#. EtikettenDialog.GroupBox1.Label7.Caption
+#. EtikettenDialog..GroupBox1..Label7..Caption
 #: EtikettDlg.dfm:1291
-#. EtikettenDialog.GroupBox1.Label8.Caption
+#. EtikettenDialog..GroupBox1..Label8..Caption
 #: EtikettDlg.dfm:1298
-#. EtikettenDialog.GroupBox1.Label10.Caption
+#. EtikettenDialog..GroupBox1..Label10..Caption
 #: EtikettDlg.dfm:1305
-#. EtikettenDialog.GroupBox2.Label11.Caption
+#. EtikettenDialog..GroupBox2..Label11..Caption
 #: EtikettDlg.dfm:1424
-#. EtikettenDialog.GroupBox2.Label12.Caption
+#. EtikettenDialog..GroupBox2..Label12..Caption
 #: EtikettDlg.dfm:1431
-#. EtikettenDialog.GroupBox2.Label13.Caption
+#. EtikettenDialog..GroupBox2..Label13..Caption
 #: EtikettDlg.dfm:1438
-#. PageFormatDialog.GroupBox1.Label5.Caption
+#. PageFormatDialog..GroupBox1..Label5..Caption
 #: SynEdPageDlg.dfm:183
-#. PageFormatDialog.GroupBox1.Label6.Caption
+#. PageFormatDialog..GroupBox1..Label6..Caption
 #: SynEdPageDlg.dfm:190
-#. PageFormatDialog.GroupBox1.Label7.Caption
+#. PageFormatDialog..GroupBox1..Label7..Caption
 #: SynEdPageDlg.dfm:197
-#. PageFormatDialog.GroupBox1.Label8.Caption
+#. PageFormatDialog..GroupBox1..Label8..Caption
 #: SynEdPageDlg.dfm:204
-#. PageFormatDialog.GroupBox1.Label12.Caption
+#. PageFormatDialog..GroupBox1..Label12..Caption
 #: SynEdPageDlg.dfm:218
-#. PageFormatDialog.GroupBox2.PageControl.TabSheet1.pnlHeader.Label10.Caption
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet1..pnlHeader..Label10..Caption
 #: SynEdPageDlg.dfm:383
 msgid "mm"
 msgstr ""
@@ -525,280 +503,266 @@ msgstr ""
 msgid "MsgText"
 msgstr ""
 
-#. StatusWindow.ProgLabel.Caption
+#. StatusWindow..ProgLabel..Caption
 #: StatWind.dfm:42
 msgid "ProgLabel"
 msgstr ""
 
-#. PageFormatDialog.GroupBox2.PageControl.TabSheet2.Label16.Caption
-#: SynEdPageDlg.dfm:506
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet2..Label16..Caption
+#: SynEdPageDlg.dfm:502
 msgid "pt"
 msgstr ""
 
 #  Seems like a propertie Value
-#. ShellFileDialog.pnlTop.ShellComboBox.Root
+#. ShellFileDialog..pnlTop..ShellComboBox..Root
 #: ShellFileDlg.dfm:2106
-#. ShellFileDialog.ShellListView.Root
+#. ShellFileDialog..ShellListView..Root
 #: ShellFileDlg.dfm:2300
-#. ShowFilesDialog.lvFiles.Root
-#: ShowFilesDlg.dfm:176
+#. ShowFilesDialog..lvFiles..Root
+#: ShowFilesDlg.dfm:203
 msgid "rfDesktop"
 msgstr ""
 
-#. ShellDirDialog.PanelLeft.ShellTreeView.Root
+#. ShellDirDialog..PanelLeft..ShellTreeView..Root
 #: ShellDirDlg.dfm:48
-#. ShellDirDialog.PanelRight.ShellListView.Root
-#: ShellDirDlg.dfm:2271
+#. ShellDirDialog..PanelRight..ShellListView..Root
+#: ShellDirDlg.dfm:2264
 msgid "rfMyComputer"
 msgstr ""
 
-#. ShowTextDialog.Caption
+#. ShowTextDialog..Caption
 #: ShowMemo.dfm:4
 msgid "ShowTextDialog"
 msgstr ""
 
-#. ProgressWindow.StatusLabel.Caption
-#: ProgWind.dfm:26
-#. StatusWindow.StatusLabel.Caption
+#. StatusWindow..StatusLabel..Caption
 #: StatWind.dfm:29
-#. TransferStatus.Panel2.StatusLabel.Caption
+#. TransferStatus..Panel2..StatusLabel..Caption
 #: TransferStat.dfm:77
 msgid "StatusLabel"
 msgstr ""
 
-#. KeyboardDialog.stxCommand.Caption
-#: SynEdKeyDlg.dfm:224
+#. KeyboardDialog..stxCommand..Caption
+#: SynEdKeyDlg.dfm:225
 msgid "stxCommand"
 msgstr ""
 
 #  Doesn't look like text
-#. PageFormatDialog.GroupBox2.PageControl.TabSheet1.Caption
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet1..Caption
 #: SynEdPageDlg.dfm:326
 msgid "TabSheet1"
 msgstr ""
 
 #  Doesn't look like text
-#. PageFormatDialog.GroupBox2.PageControl.TabSheet2.Caption
+#. PageFormatDialog..GroupBox2..PageControl..TabSheet2..Caption
 #: SynEdPageDlg.dfm:413
 msgid "TabSheet2"
 msgstr ""
 
-#. AccountDialog.Font.Name
+#. AccountDialog..Font.Name
 #: AccountDlg.dfm:12
-#. AppListDialog.Font.Name
+#. AppListDialog..Font.Name
 #: AppListDlg.dfm:11
-#. CharTableDialog.Font.Name
+#. CharTableDialog..Font.Name
 #: CharTableDlg.dfm:11
-#. CharTableDialog.CharGrid.Font.Name
+#. CharTableDialog..CharGrid..Font.Name
 #: CharTableDlg.dfm:160
-#. CheckListDialog.Font.Name
+#. CheckListDialog..Font.Name
 #: CheckListDlg.dfm:11
-#. ColumnDialog.Font.Name
+#. ColumnDialog..Font.Name
 #: ColumnDlg.dfm:14
-#. ConfirmCheckDialog.Font.Name
+#. ConfirmCheckDialog..Font.Name
 #: ConfirmCheckDlg.dfm:12
-#. ConfirmReplDialog.Font.Name
+#. ConfirmReplDialog..Font.Name
 #: ConfirmReplDlg.dfm:12
-#. CsvImportDialog.Font.Name
-#: CsvImportDlg.dfm:12
-#. CsvImportDialog.CancelBtn.Font.Name
-#: CsvImportDlg.dfm:119
-#. DateFormatDialog.Font.Name
+#. CsvImportDialog..Font.Name
+#: CsvDialog.dfm:12
+#. CsvImportDialog..CancelBtn..Font.Name
+#: CsvDialog.dfm:119
+#. DateFormatDialog..Font.Name
 #: DateFormatDlg.dfm:12
-#. DetailInfoDialog.Font.Name
+#. DetailInfoDialog..Font.Name
 #: DetailInfoDlg.dfm:12
-#. WortListDialog.Font.Name
+#. WortListDialog..Font.Name
 #: DListDlg.dfm:13
-#. Download.Font.Name
+#. Download..Font.Name
 #: DownloadProgress.dfm:12
-#. DStringListDialog.Font.Name
+#. DStringListDialog..Font.Name
 #: DStringListDlg.dfm:12
-#. EditHistListDialog.Font.Name
+#. EditHistListDialog..Font.Name
 #: EditHistListDlg.dfm:13
-#. EditStringListDialog.Font.Name
+#. EditStringListDialog..Font.Name
 #: EditStringListDlg.dfm:12
-#. EtikettenDialog.Font.Name
+#. EtikettenDialog..Font.Name
 #: EtikettDlg.dfm:12
-#. ExportDialog.Font.Name
+#. ExportDialog..Font.Name
 #: ExportDlg.dfm:13
-#. FileFilterDialog.Font.Name
+#. FileFilterDialog..Font.Name
 #: FileFilterDlg.dfm:13
-#. FileListDialog.Font.Name
-#: FileListDlg.dfm:11
-#. FileListDialog.paTop.lblListfile.Font.Name
-#: FileListDlg.dfm:185
-#. FileListDialog.paCenter.lblPath.Font.Name
-#: FileListDlg.dfm:587
-#. FilterDialog.Font.Name
+#. FileListDialog..Font.Name
+#: FileListDlg.dfm:12
+#. FilterDialog..Font.Name
 #: FilterDlg.dfm:11
-#. FindReplDialog.Font.Name
+#. FindReplDialog..Font.Name
 #: FindReplDlg.dfm:13
-#. FtpDirDialog.Font.Name
+#. FtpDirDialog..Font.Name
 #: FtpDirDlg.dfm:12
-#. FtpDialog.Font.Name
+#. FtpDialog..Font.Name
 #: FtpDlg.dfm:12
-#. FtpProxyDialog.Font.Name
+#. FtpProxyDialog..Font.Name
 #: FtpProxyDlg.dfm:12
-#. GTCDialog.Font.Name
+#. GTCDialog..Font.Name
 #: GTCDlg.dfm:11
-#. HelpWindow.Font.Name
+#. HelpWindow..Font.Name
 #: HelpWin.dfm:11
-#. HttpProxyDialog.Font.Name
+#. HttpProxyDialog..Font.Name
 #: HttpProxyDlg.dfm:12
-#. InputDFloatDialog.Font.Name
+#. InputDFloatDialog..Font.Name
 #: InpDFloat.dfm:12
-#. InputFloatDialog.Font.Name
+#. InputFloatDialog..Font.Name
 #: InpFloat.dfm:12
-#. InputMaskedTextDialog.Font.Name
+#. InputMaskedTextDialog..Font.Name
 #: InpMaskedText.dfm:12
-#. InputMathExpDialog.Font.Name
+#. InputMathExpDialog..Font.Name
 #: InpMath.dfm:12
-#. InputNumberDialog.Font.Name
+#. InputNumberDialog..Font.Name
 #: InpNumber.dfm:12
-#. InputTextDialog.Font.Name
+#. InputTextDialog..Font.Name
 #: InpText.dfm:12
-#. InputStringDialog.Font.Name
-#: InputString.dfm:12
-#. KalenderDlg.Font.Name
+#. KalenderDlg..Font.Name
 #: Kalender.dfm:13
-#. LanguageDialog.Font.Name
+#. LanguageDialog..Font.Name
 #: LanguageDlg.dfm:12
-#. ListenDialog.Font.Name
+#. ListenDialog..Font.Name
 #: Listdlg.dfm:13
-#. ListSelectDialog.Font.Name
+#. ListSelectDialog..Font.Name
 #: ListSelectDlg.dfm:11
-#. LogonDialog.Font.Name
+#. LogonDialog..Font.Name
 #: LogonDlg.dfm:12
-#. LogonDialog.Label1.Font.Name
+#. LogonDialog..Label1..Font.Name
 #: LogonDlg.dfm:60
-#. LogonDialog.PwdEdit.EditLabel.Font.Name
-#: LogonDlg.dfm:285
-#. InputLptPortDialog.Font.Name
+#. LogonDialog..PwdEdit..EditLabel.Font.Name
+#: LogonDlg.dfm:298
+#. InputLptPortDialog..Font.Name
 #: LptSelect.dfm:12
-#. MemoDialog.Font.Name
-#: MemoDlg.dfm:13
-#. MoveListDialog.Font.Name
+#. MemoDialog..Font.Name
+#: MemoDlg.dfm:12
+#. MoveListDialog..Font.Name
 #: MoveListDlg.dfm:13
-#. NewPwdDialog.Font.Name
+#. NewPwdDialog..Font.Name
 #: NewPwdDlg.dfm:12
-#. InputNumber.Font.Name
+#. InputNumber..Font.Name
 #: NumDlg.dfm:12
-#. OpenFilesDialog.Font.Name
+#. OpenFilesDialog..Font.Name
 #: OpenFilesDlg.dfm:11
-#. PathDialog.Font.Name
+#. PathDialog..Font.Name
 #: PathDlg.dfm:11
-#. PrintPageDialog.Font.Name
+#. PrintPageDialog..Font.Name
 #: PrintPageDlg.dfm:13
-#. ProgressWindow.Font.Name
-#: ProgWind.dfm:13
-#. ProgressWindow.ActionLabel.Font.Name
-#: ProgWind.dfm:37
-#. PasswordDialog.Font.Name
+#. PasswordDialog..Font.Name
 #: PwdDlg.dfm:12
-#. PasswordDialog.pnTop.lblPrompt.Font.Name
+#. PasswordDialog..pnTop..lblPrompt..Font.Name
 #: PwdDlg.dfm:71
-#. PasswordDialog.pnInput.Label1.Font.Name
+#. PasswordDialog..pnInput..Label1..Font.Name
 #: PwdDlg.dfm:98
-#. RandDialog.Font.Name
+#. RandDialog..Font.Name
 #: RandDlg.dfm:13
-#. SearchPathDialog.Font.Name
+#. SearchPathDialog..Font.Name
 #: SearchPathDlg.dfm:11
-#. SearchPathDialog.Liste.Font.Name
+#. SearchPathDialog..Liste..Font.Name
 #: SearchPathDlg.dfm:411
-#. SelectColorDialog.Font.Name
+#. SelectColorDialog..Font.Name
 #: SelectColorDlg.dfm:12
-#. SelectDialog.Font.Name
+#. SelectDialog..Font.Name
 #: SelectDlg.dfm:12
-#. SelectFilesDialog.Font.Name
+#. SelectFilesDialog..Font.Name
 #: SelectFilesDlg.dfm:11
-#. SelectFontDialog.Font.Name
+#. SelectFontDialog..Font.Name
 #: SelectFontDlg.dfm:12
-#. SelectFontDialog.edPreview.Font.Name
+#. SelectFontDialog..edPreview..Font.Name
 #: SelectFontDlg.dfm:191
-#. SelectFromListDialog.Font.Name
+#. SelectFromListDialog..Font.Name
 #: SelectFromListDlg.dfm:12
-#. SelectListItemDialog.Font.Name
+#. SelectListItemDialog..Font.Name
 #: SelectListItemDlg.dfm:13
-#. SelectListItemsDialog.Font.Name
+#. SelectListItemsDialog..Font.Name
 #: SelectListItems.dfm:11
-#. ShellDirDialog.Font.Name
+#. ShellDirDialog..Font.Name
 #: ShellDirDlg.dfm:12
-#. ShellFileDialog.Font.Name
+#. ShellFileDialog..Font.Name
 #: ShellFileDlg.dfm:11
-#. ShellFileDialog.pnlBottom.Label1.Font.Name
+#. ShellFileDialog..pnlBottom..Label1..Font.Name
 #: ShellFileDlg.dfm:2137
-#. frmShow.Font.Name
+#. frmShow..Font.Name
 #: Show.dfm:12
-#. frmShow.panButtons.Font.Name
-#: Show.dfm:45
-#. ShowFilesDialog.Font.Name
+#. frmShow..panButtons..Font.Name
+#: Show.dfm:46
+#. ShowFilesDialog..Font.Name
 #: ShowFilesDlg.dfm:11
-#. ShowImageDialog.Font.Name
+#. ShowImageDialog..Font.Name
 #: ShowImage.dfm:11
-#. ShowTextDialog.Font.Name
+#. ShowTextDialog..Font.Name
 #: ShowMemo.dfm:12
-#. ShowTextDialog.FontDialog.Font.Name
-#: ShowMemo.dfm:1559
-#. ShowMsgDialog.Font.Name
+#. ShowTextDialog..FontDialog..Font.Name
+#: ShowMemo.dfm:1326
+#. ShowMsgDialog..Font.Name
 #: ShowMessageDlg.dfm:13
-#. ShowMsgDialog.stInfo.Font.Name
+#. ShowMsgDialog..stInfo..Font.Name
 #: ShowMessageDlg.dfm:211
-#. ShowMsgDialog.Font.Name
+#. ShowMsgDialog..Font.Name
 #: ShowMessageDlgST.dfm:14
-#. ShowMsgDialog.stInfo.Font.Name
+#. ShowMsgDialog..stInfo..Font.Name
 #: ShowMessageDlgST.dfm:213
-#. ShowStringListDialog.Font.Name
+#. ShowStringListDialog..Font.Name
 #: ShowStringList.dfm:11
-#. ShowtextDialog.Font.Name
+#. ShowtextDialog..Font.Name
 #: ShowText.dfm:10
-#. SizeDialog.Font.Name
+#. SizeDialog..Font.Name
 #: Sizedlg.dfm:13
-#. StatusWindow.Font.Name
+#. StatusWindow..Font.Name
 #: StatWind.dfm:12
-#. StatusWindow.StatusLabel.Font.Name
+#. StatusWindow..StatusLabel..Font.Name
 #: StatWind.dfm:33
-#. StatusWindow.btnCancel.Font.Name
+#. StatusWindow..btnCancel..Font.Name
 #: StatWind.dfm:54
-#. KeyboardDialog.Font.Name
+#. KeyboardDialog..Font.Name
 #: SynEdKeyDlg.dfm:13
-#. KeyboardDialog.Label1.Font.Name
+#. KeyboardDialog..Label1..Font.Name
 #: SynEdKeyDlg.dfm:33
-#. KeyboardDialog.Label2.Font.Name
+#. KeyboardDialog..Label2..Font.Name
 #: SynEdKeyDlg.dfm:46
-#. KeyboardDialog.OKBtn.Font.Name
+#. KeyboardDialog..OKBtn..Font.Name
 #: SynEdKeyDlg.dfm:61
-#. KeyboardDialog.CancelBtn.Font.Name
+#. KeyboardDialog..CancelBtn..Font.Name
 #: SynEdKeyDlg.dfm:130
-#. KeyboardDialog.KeyCmdList.Font.Name
+#. KeyboardDialog..KeyCmdList..Font.Name
 #: SynEdKeyDlg.dfm:207
-#. KeyboardDialog.stxCommand.Font.Name
-#: SynEdKeyDlg.dfm:228
-#. KeyboardDialog.BitBtn1.Font.Name
-#: SynEdKeyDlg.dfm:242
-#. KeyboardDialog.BitBtn2.Font.Name
-#: SynEdKeyDlg.dfm:309
-#. PageFormatDialog.Font.Name
+#. KeyboardDialog..stxCommand..Font.Name
+#: SynEdKeyDlg.dfm:229
+#. KeyboardDialog..BitBtn1..Font.Name
+#: SynEdKeyDlg.dfm:243
+#. KeyboardDialog..BitBtn2..Font.Name
+#: SynEdKeyDlg.dfm:310
+#. PageFormatDialog..Font.Name
 #: SynEdPageDlg.dfm:12
-#. PageFormatDialog.FontDialog.Font.Name
-#: SynEdPageDlg.dfm:552
-#. TextEingabe.Font.Name
+#. PageFormatDialog..FontDialog..Font.Name
+#: SynEdPageDlg.dfm:548
+#. TextEingabe..Font.Name
 #: Textdlg.dfm:13
-#. TimeCompareDialog.Font.Name
+#. TimeCompareDialog..Font.Name
 #: TimeCompDlg.dfm:12
-#. TransferStatus.Font.Name
+#. TransferStatus..Font.Name
 #: TransferStat.dfm:12
-#. TransferStatus.Panel1.ActionLabel.Font.Name
+#. TransferStatus..Panel1..ActionLabel..Font.Name
 #: TransferStat.dfm:36
-#. TransferStatus.Panel1.DestLabel.Font.Name
+#. TransferStatus..Panel1..DestLabel..Font.Name
 #: TransferStat.dfm:49
-#. WebBrowserWin.Font.Name
+#. WebBrowserWin..Font.Name
 #: WebBrowser.dfm:10
-#. Download.Font.Name
+#. Download..Font.Name
 #: WebDownloadDlg.dfm:12
-#. Download.Font.Name
+#. Download..Font.Name
 #: WebUpdateDlg.dfm:12
-#. frmWebView.Font.Name
-#: WebView.dfm:11
 msgid "Tahoma"
 msgstr ""
 
@@ -808,8 +772,8 @@ msgid "TextFeld"
 msgstr ""
 
 #  Doesn't look like text
-#. WebBrowserWin.paTop.paTopRight.tbButtons.ToolButton7.Caption
-#: WebBrowser.dfm:133
+#. WebBrowserWin..paTop..paTopRight..tbButtons..ToolButton7..Caption
+#: WebBrowser.dfm:136
 msgid "ToolButton7"
 msgstr ""
 
@@ -842,9 +806,9 @@ msgstr ""
 msgid "x"
 msgstr ""
 
-#. SelectDialog.stCaption.Caption
+#. SelectDialog..stCaption..Caption
 #: SelectDlg.dfm:172
-#. ShowMsgDialog.stInfo.Caption
+#. ShowMsgDialog..stInfo..Caption
 #: ShowMessageDlgST.dfm:209
 msgid "xxx"
 msgstr ""

@@ -6,19 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2024-01-10 14:07+0100\n"
-"PO-Revision-Date: 2024-01-10 14:08+0100\n"
+"POT-Creation-Date: 2024-07-30 17:03+0200\n"
+"PO-Revision-Date: 2024-07-30 17:04+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. MainForm.Caption
-#: UnpackMain.dfm:4 UnpackMain.pas:187
+#: UnpackMain.dfm:4 UnpackMain.pas:193 UnpackMain.pas:453
 msgid "Inspect and unpack InnoSetup files"
 msgstr "Vizsgál és kibont InnoSetup fájlokat"
 
@@ -52,88 +52,93 @@ msgstr "Fájlok kinyerése"
 msgid "Verify archive"
 msgstr "Archívum ellenőrzése"
 
-#. MainForm.pnTop.bbCopyResult.Hint
-#: UnpackMain.dfm:508
-msgid "Copy output to clipboard"
-msgstr "Másolás vágólapra"
-
 #. MainForm.pnTop.cxEmbedded.Caption
-#: UnpackMain.dfm:661
+#: UnpackMain.dfm:570
 msgid "Process embedded files"
 msgstr "Beágyazott fájlok feldolgozása"
 
-#. MainForm.pnTop.bbDown.Hint
-#: UnpackMain.dfm:670
-msgid "Scroll down"
-msgstr "Görgetés le"
-
-#. MainForm.pnTop.bbUp.Hint
-#: UnpackMain.dfm:761
-msgid "Scroll up"
-msgstr "Görgetés fel"
-
-#. MainForm.pnTop.InfoBtn.Hint
-#: UnpackMain.dfm:852
+#. MainForm.pnTop.bbInfo.Hint
+#: UnpackMain.dfm:579
 msgid "About the program"
 msgstr "A program névjegye"
 
 #. MainForm.pnTop.cxEncrypted.Caption
-#: UnpackMain.dfm:943
+#: UnpackMain.dfm:670
 msgid "InnoSetup archive is encrypted"
 msgstr "Az InnoSetup archívum titkosított"
 
 #. MainForm.pnTop.edPassword.EditLabel.Caption
-#: UnpackMain.dfm:954
+#: UnpackMain.dfm:681
 msgid "Password:"
 msgstr "Jelszó:"
 
+#. MainForm.pnTop.bbVersion.Hint
+#: UnpackMain.dfm:690
+msgid "Show list of all supported Inno Setup versions"
+msgstr "Az összes támogatott Inno Setup verzió listájának megjelenítése"
+
 #. MainForm.pnExtract.Label1.Caption
-#: UnpackMain.dfm:993
+#: UnpackMain.dfm:793
 msgid "Extract to directory:"
 msgstr "Kivonatolás a könyvtárba:"
 
 #. MainForm.pnExtract.Label3.Caption
-#: UnpackMain.dfm:1000 UnpackMain.pas:358
+#: UnpackMain.dfm:800 UnpackMain.pas:364
 msgid "File filter:"
 msgstr "Fájlszűrő:"
 
 #. MainForm.pnExtract.cbDir.Hint
-#: UnpackMain.dfm:1007
+#: UnpackMain.dfm:807
 msgid "Extract files to this directory"
 msgstr "Fájlok kinyerése ebbe a mappába"
 
 #. MainForm.pnExtract.bbStart.Hint
-#: UnpackMain.dfm:1020
+#: UnpackMain.dfm:820
 msgid "Start extraction"
 msgstr "Kinyerés indítása"
 
 #. MainForm.pnExtract.bbStart.Caption
-#: UnpackMain.dfm:1022
+#: UnpackMain.dfm:822
 msgid "Extract"
 msgstr "Kibontás"
 
 #. MainForm.pnExtract.cxDupl.Caption
-#: UnpackMain.dfm:1112
+#: UnpackMain.dfm:912
 msgid "Process duplicate files"
 msgstr "Dupla fájlok folyamata"
 
 #. MainForm.pnExtract.cxOverwrite.Caption
-#: UnpackMain.dfm:1120
+#: UnpackMain.dfm:920
 msgid "Overwrite files"
 msgstr "Fájlok felülírása"
 
 #. MainForm.pnExtract.cxStrip.Caption
-#: UnpackMain.dfm:1128
+#: UnpackMain.dfm:928
 msgid "Without paths"
 msgstr "Útvonalak nélkül"
 
 #. MainForm.pnExtract.bbFilter.Hint
-#: UnpackMain.dfm:1146
+#: UnpackMain.dfm:946
 msgid "Edit file filter"
 msgstr "Fájlszűrő szerkesztése"
 
+#. MainForm.pnBottom.pnTools.bbCopyResult.Hint
+#: UnpackMain.dfm:1141
+msgid "Copy output to clipboard"
+msgstr "Másolás vágólapra"
+
+#. MainForm.pnBottom.pnTools.bbDown.Hint
+#: UnpackMain.dfm:1232
+msgid "Scroll down"
+msgstr "Görgetés le"
+
+#. MainForm.pnBottom.pnTools.bbUp.Hint
+#: UnpackMain.dfm:1323
+msgid "Scroll up"
+msgstr "Görgetés fel"
+
 #. Programmer's name for it: rsInfo
-#: UnpackMain.pas:134
+#: UnpackMain.pas:139
 msgid ""
 "Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/"
 "o]\n"
@@ -155,27 +160,27 @@ msgstr ""
 "\t/a\t: a duplikált fájlok összes másolatának feldolgozása\n"
 "\t/o\t: fájlok felülírása"
 
-#: UnpackMain.pas:253
+#: UnpackMain.pas:259
 msgid "This application only allows dropping of exe files!"
 msgstr "Ez az alkalmazás csak lehetővé teszi csepegés exe fájlokat!"
 
-#: UnpackMain.pas:283 UnpackMain.pas:317
+#: UnpackMain.pas:289 UnpackMain.pas:323
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programok|*.exe|Minden fájl|*.*"
 
-#: UnpackMain.pas:284
+#: UnpackMain.pas:290
 msgid "Select InnoSetup archive"
 msgstr "Az InnoSetup archívum kiválasztása"
 
-#: UnpackMain.pas:318
+#: UnpackMain.pas:324
 msgid "Search for \"innounp.exe\""
 msgstr "Keresés \"innounp.exe\""
 
-#: UnpackMain.pas:339
+#: UnpackMain.pas:345
 msgid "Select directory for extracted files"
 msgstr "Kiválasztott könyvtár kinyert fájlig"
 
-#: UnpackMain.pas:426
+#: UnpackMain.pas:437
 msgid ""
 "Extracting setup file ...\n"
 "Destination directory: %s"
@@ -183,31 +188,31 @@ msgstr ""
 "A telepítőfájl kibontása ...\n"
 "Célkönyvtár: %s"
 
-#: UnpackMain.pas:480
+#: UnpackMain.pas:494
 msgid "Filename: "
 msgstr "Fájlnév: "
 
 #. DOS-Ausgabe anzeigen
-#: UnpackMain.pas:485 UnpackMain.pas:558 UnpackMain.pas:560
+#: UnpackMain.pas:500 UnpackMain.pas:576 UnpackMain.pas:578
 msgid "Error: "
 msgstr "Hiba: "
 
-#: UnpackMain.pas:493
+#: UnpackMain.pas:508
 msgid "Name: "
 msgstr "Név: "
 
-#: UnpackMain.pas:494
+#: UnpackMain.pas:509
 msgid "Version: "
 msgstr "Verzió: "
 
-#: UnpackMain.pas:495
+#: UnpackMain.pas:510
 msgid "Copyright: "
 msgstr "Szerző: "
 
-#: UnpackMain.pas:496
+#: UnpackMain.pas:511
 msgid "Company: "
 msgstr "Cég: "
 
-#: UnpackMain.pas:497
+#: UnpackMain.pas:512
 msgid "Comment: "
 msgstr "Megjegyzés: "

@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2024-01-10 14:07+0100\n"
-"PO-Revision-Date: 2024-07-22 13:09+0200\n"
+"POT-Creation-Date: 2024-07-30 17:03+0200\n"
+"PO-Revision-Date: 2024-07-30 17:04+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. MainForm.Caption
-#: UnpackMain.dfm:4 UnpackMain.pas:187
+#: UnpackMain.dfm:4 UnpackMain.pas:193 UnpackMain.pas:453
 msgid "Inspect and unpack InnoSetup files"
 msgstr "Analizza/decomprimi file Inno Setup"
 
@@ -49,91 +49,96 @@ msgstr "Estrai file"
 msgid "Verify archive"
 msgstr "Verifica archivio"
 
-#. MainForm.pnTop.bbCopyResult.Hint
-#: UnpackMain.dfm:508
-msgid "Copy output to clipboard"
-msgstr "Copia output negli Appunti"
-
 #. MainForm.pnTop.cxEmbedded.Caption
-#: UnpackMain.dfm:661
+#: UnpackMain.dfm:570
 msgid "Process embedded files"
 msgstr "Elabora file incorporati"
 
-#. MainForm.pnTop.bbDown.Hint
-#: UnpackMain.dfm:670
-msgid "Scroll down"
-msgstr "Scorri verso il basso"
-
-#. MainForm.pnTop.bbUp.Hint
-#: UnpackMain.dfm:761
-msgid "Scroll up"
-msgstr "Scorrere verso l'alto"
-
-#. MainForm.pnTop.InfoBtn.Hint
-#: UnpackMain.dfm:852
+#. MainForm.pnTop.bbInfo.Hint
+#: UnpackMain.dfm:579
 msgid "About the program"
 msgstr "Info sul programma"
 
 #. MainForm.pnTop.cxEncrypted.Caption
-#: UnpackMain.dfm:943
+#: UnpackMain.dfm:670
 msgid "InnoSetup archive is encrypted"
 msgstr "Archivio InnoSetup criptato"
 
 #. MainForm.pnTop.edPassword.EditLabel.Caption
-#: UnpackMain.dfm:954
+#: UnpackMain.dfm:681
 msgid "Password:"
 msgstr "Password:"
 
+#. MainForm.pnTop.bbVersion.Hint
+#: UnpackMain.dfm:690
+msgid "Show list of all supported Inno Setup versions"
+msgstr "Mostra l'elenco di tutte le versioni di Inno Setup supportate"
+
 #. MainForm.pnExtract.Label1.Caption
-#: UnpackMain.dfm:993
+#: UnpackMain.dfm:793
 msgid "Extract to directory:"
 msgstr "Estrai nella cartella:"
 
 #. MainForm.pnExtract.Label3.Caption
-#: UnpackMain.dfm:1000 UnpackMain.pas:358
+#: UnpackMain.dfm:800 UnpackMain.pas:364
 msgid "File filter:"
 msgstr "Filtro file:"
 
 #. MainForm.pnExtract.cbDir.Hint
-#: UnpackMain.dfm:1007
+#: UnpackMain.dfm:807
 msgid "Extract files to this directory"
 msgstr "Estrai file in questa cartella"
 
 #. MainForm.pnExtract.bbStart.Hint
-#: UnpackMain.dfm:1020
+#: UnpackMain.dfm:820
 msgid "Start extraction"
 msgstr "Avvia estrazione"
 
 #. MainForm.pnExtract.bbStart.Caption
-#: UnpackMain.dfm:1022
+#: UnpackMain.dfm:822
 msgid "Extract"
 msgstr "Estrai"
 
 #. MainForm.pnExtract.cxDupl.Caption
-#: UnpackMain.dfm:1112
+#: UnpackMain.dfm:912
 msgid "Process duplicate files"
 msgstr "Elabora file duplicati"
 
 #. MainForm.pnExtract.cxOverwrite.Caption
-#: UnpackMain.dfm:1120
+#: UnpackMain.dfm:920
 msgid "Overwrite files"
 msgstr "Sovrascrivi file"
 
 #. MainForm.pnExtract.cxStrip.Caption
-#: UnpackMain.dfm:1128
+#: UnpackMain.dfm:928
 msgid "Without paths"
 msgstr "Estrai senza percorsi"
 
 #. MainForm.pnExtract.bbFilter.Hint
-#: UnpackMain.dfm:1146
+#: UnpackMain.dfm:946
 msgid "Edit file filter"
 msgstr "Modifica il filtro del file"
 
+#. MainForm.pnBottom.pnTools.bbCopyResult.Hint
+#: UnpackMain.dfm:1141
+msgid "Copy output to clipboard"
+msgstr "Copia output negli Appunti"
+
+#. MainForm.pnBottom.pnTools.bbDown.Hint
+#: UnpackMain.dfm:1232
+msgid "Scroll down"
+msgstr "Scorri verso il basso"
+
+#. MainForm.pnBottom.pnTools.bbUp.Hint
+#: UnpackMain.dfm:1323
+msgid "Scroll up"
+msgstr "Scorrere verso l'alto"
+
 #. Programmer's name for it: rsInfo
-#: UnpackMain.pas:134
+#: UnpackMain.pas:139
 msgid ""
-"Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] "
-"[/o]\n"
+"Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/"
+"o]\n"
 "\t<name>\t: name of setup file to be unpacked\n"
 "\t<ddir>\t: destination directory for unpacked files\n"
 "\t<filter>\t: file filter\n"
@@ -142,8 +147,8 @@ msgid ""
 "\t/a\t: process all copies of duplicate files\n"
 "\t/o\t: overwrite files"
 msgstr ""
-"Opzioni riga comando: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] "
-"[/o]\n"
+"Opzioni riga comando: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/"
+"o]\n"
 "\t<name>\t: nome del file di setup da scompattare\n"
 "\t<ddir>\t: directory di destinazione per i file scompattati\n"
 "\t<filter>\t: filtro file\n"
@@ -152,27 +157,27 @@ msgstr ""
 "\t/a\t: elabora tutte le copie dei file duplicati\n"
 "\t/o\t: sovrascrivere i file"
 
-#: UnpackMain.pas:253
+#: UnpackMain.pas:259
 msgid "This application only allows dropping of exe files!"
 msgstr "Questa applicazione consente solo di rilasciare i file exe!"
 
-#: UnpackMain.pas:283 UnpackMain.pas:317
+#: UnpackMain.pas:289 UnpackMain.pas:323
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programmi|*.exe|Tutti i file|*.*"
 
-#: UnpackMain.pas:284
+#: UnpackMain.pas:290
 msgid "Select InnoSetup archive"
 msgstr "Seleziona archivio Inno Setup"
 
-#: UnpackMain.pas:318
+#: UnpackMain.pas:324
 msgid "Search for \"innounp.exe\""
 msgstr "Ricerca \"innounp.exe\""
 
-#: UnpackMain.pas:339
+#: UnpackMain.pas:345
 msgid "Select directory for extracted files"
 msgstr "Seleziona la cartella dove estrarre i file"
 
-#: UnpackMain.pas:426
+#: UnpackMain.pas:437
 msgid ""
 "Extracting setup file ...\n"
 "Destination directory: %s"
@@ -180,31 +185,31 @@ msgstr ""
 "Estrazione installer programma...\n"
 "Cartella destinazione: %s"
 
-#: UnpackMain.pas:480
+#: UnpackMain.pas:494
 msgid "Filename: "
 msgstr "Nome file: "
 
 #. DOS-Ausgabe anzeigen
-#: UnpackMain.pas:485 UnpackMain.pas:558 UnpackMain.pas:560
+#: UnpackMain.pas:500 UnpackMain.pas:576 UnpackMain.pas:578
 msgid "Error: "
 msgstr "Errore: "
 
-#: UnpackMain.pas:493
+#: UnpackMain.pas:508
 msgid "Name: "
 msgstr "Nome: "
 
-#: UnpackMain.pas:494
+#: UnpackMain.pas:509
 msgid "Version: "
 msgstr "Versione: "
 
-#: UnpackMain.pas:495
+#: UnpackMain.pas:510
 msgid "Copyright: "
 msgstr "Copyright: "
 
-#: UnpackMain.pas:496
+#: UnpackMain.pas:511
 msgid "Company: "
 msgstr "Società: "
 
-#: UnpackMain.pas:497
+#: UnpackMain.pas:512
 msgid "Comment: "
 msgstr "Commento: "
