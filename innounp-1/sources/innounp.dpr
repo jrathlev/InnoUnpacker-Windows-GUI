@@ -21,6 +21,7 @@
    - Unit SetupLdr: pointer to PSetupLdrOffsetTable redifined
    - Unit SetupEntity: string conversion in SECompressedBlockRead
    - Unit RebuildScript: TBigString replaced by standard string
+   - Units zlib40xx: PChar replaced by PAnsiChar
    - Encoding of fake file output
 
    further changes:
@@ -670,6 +671,7 @@ var
   DestFile, TempFile: String;
   DestF: TFile;
   CurFileDate: TFileTime;
+  se,
   s,PasswdStr: String;
   sr : RawByteString;
 begin
@@ -685,18 +687,17 @@ begin
     if (InteractiveMode) then begin          // changes: JR - August 2020
       if (OverwriteAction = oaSkip) and FileExists(DestFile) then begin
         Writeln(' - skipped'); Exit;
-        end
-      else Writeln('');
+        end;
       if (OverwriteAction = oaAsk) and FileExists(DestFile) then
         if not AskFileOverwrite(DestFile) then Exit;
       end
     else if (OverwriteAction <> oaOverwrite) and FileExists(DestFile) then begin
       Writeln(' - skipped'); Exit;
       end
-    else Writeln('');
     end;
   // Ask password if file is encrypted
-  if (InteractiveMode) and (foChunkEncrypted in CurFileLocation^.Flags) and (FileExtractor.CryptKey = '') then
+  if (InteractiveMode) and (foChunkEncrypted in CurFileLocation^.Flags) and (FileExtractor.CryptKey = '') then begin
+    Writeln('');
     repeat
       writeln('Type in a password (empty string to quit)');
       readln(PasswdStr);
@@ -708,8 +709,8 @@ begin
         break;
       end;
       writeln('Wrong password');
-    until false;
-
+      until false;
+    end;
   if (ExtractTestOnly) then
     DestF := TNullFile.Create()
   else begin
@@ -717,13 +718,17 @@ begin
     MakeDir(ExtractFilePath(TempFile));
     DestF := TFile.Create(TempFile, fdCreateAlways, faWrite, fsNone);
   end;
-
+  se:='';
   try
     try
       if CurFile^.FileType<>ftFakeFile then begin
         { Decompress a file }
         FileExtractor.SeekTo(CurFileLocation^);
-        FileExtractor.DecompressFile(CurFileLocation^, DestF, ExtractorProgressProc);
+        try
+          FileExtractor.DecompressFile(CurFileLocation^, DestF, ExtractorProgressProc);
+        except
+          on E:Exception do se:=E.Message;
+          end;
       end else begin
         s:=CurFileLocation^.Contents;
 //        len:=Length(s);
@@ -744,16 +749,18 @@ begin
       FreeAndNil(DestF);
     end;
 
-    if (not ExtractTestOnly) then
-    begin
+    if (not ExtractTestOnly) then begin
       DeleteFile(DestFile);
-
-      if (length(ExtractFileName(DestFile))>0) and not RenameFile(TempFile,DestFile) then
-        Win32ErrorMsg('MoveFile');
-    end;
+      if (length(ExtractFileName(DestFile))>0) and not RenameFile(TempFile,DestFile) then Win32ErrorMsg('MoveFile');
+      end;
   finally
     DeleteFile(TempFile);
   end;
+  if length(se)>0 then begin
+    writeln; writeln('  *** '+se);
+    end
+  else if ExtractTestOnly then Writeln(' - checked')
+  else Writeln(' - extracted');
 end;
 
 function ShouldProcessFileEntry(AFile: PSetupFileEntry):boolean;
@@ -801,7 +808,7 @@ begin
   else
     Result := TFileExtractor.Create(DecompClasses[SetupHeader.CompressMethod]);
 
-  Result.OnNotification := ExtractorNotification;
+//  Result.OnNotification := ExtractorNotification;
   Result.Interactive := InteractiveMode;
 
   Password := FixPasswordEncoding(Password);  // For proper Unicode/Ansi support
@@ -823,7 +830,6 @@ var
   CurFile: PSetupFileEntry;
   loc:PSetupFileLocationEntry;
   FileExtractor: TFileExtractor;
-  s:string;
 begin
   OverwriteAction := oaAsk;
   if (AutoYes) then OverwriteAction := oaOverwrite;
@@ -837,7 +843,7 @@ begin
       if not ExtractAllCopies and (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>CurFileNumber) then continue;
       with CurFile^ do begin
         if not QuietExtract then
-          write('#'+IntToStr(CurFileNumber)+' '+SourceFilename+s);
+          write('#'+IntToStr(CurFileNumber)+' '+SourceFilename);
         if LocationEntry <> -1 then ProcessFileEntry(FileExtractor, CurFile);
         end;
 
