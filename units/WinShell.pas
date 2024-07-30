@@ -155,6 +155,8 @@ function GetProgramFolder (pfType : TProgramFolder) : string;
 function GetPersonalFolder : string;
 function GetAppDataFolder : string;
 function GetLocalAppDataFolder : string;
+function GetPicturesFolder : string;
+function GetVideoFolder : string;
 function GetMusicFolder : string;
 
 procedure RefreshDesktop;
@@ -376,6 +378,16 @@ begin
 function GetLocalAppDataFolder : string;
 begin
   Result:=GetDesktopFolder(CSIDL_LOCAL_APPDATA);
+  end;
+
+function GetPicturesFolder : string;
+begin
+  Result:=GetDesktopFolder(CSIDL_MYPICTURES);
+  end;
+
+function GetVideoFolder : string;
+begin
+  Result:=GetDesktopFolder(CSIDL_MYVIDEO);
   end;
 
 function GetMusicFolder : string;

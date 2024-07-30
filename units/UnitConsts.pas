@@ -21,7 +21,6 @@ interface
 
 resourcestring
 
-
 { ------------------------------------------------------------------- }
 // Strings from ExtSysUtils
   rsFormatError  = 'Format error: ';
@@ -118,6 +117,14 @@ resourcestring
   rsBegSummer = 'Beginning of summer';
   rsBegAutumn = 'Beginning of autumn';
   rsBegWinter = 'Beginning of winter';
+
+{ ------------------------------------------------------------------- }
+// Strings from PasswordStrength
+  rsVeryWeak = 'very weak';
+  rsWeak = 'weak';
+  rsGood = 'good';
+  rsStrong = 'strong';
+  rsVeryStrong = 'very strong';
 
 { ------------------------------------------------------------------- }
 // Misc.

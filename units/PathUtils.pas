@@ -73,8 +73,7 @@ function RemoveNameSuffix (FName : string; CharCount : integer) : string;
 function HasPrefix(const Pref,FName : string) : boolean;
 
 // Strip a path to a maximum length of Len characters
-function StripPath (Name : String;
-                    Len  : integer) : String;
+function StripPath (const APath : string; Len  : integer) : string;
 
 // Extract parent path
 function ExtractParentPath (Dir : string) : string;
@@ -297,37 +296,36 @@ begin
 { ---------------------------------------------------------------- }
 // Strip a path to a maximum length of Len characters
 // similar to MinimizeName in FileCtrl but character related
-function StripPath (Name : String;
-                    Len  : integer) : String;
+function StripPath (const APath : string; Len  : integer) : string;
 const
   Punkte = '...';
 var
   i,j,nl : integer;
   ok     : boolean;
 begin
-  nl:=length(Name);
-  if nl>=Len then begin
+  Result:=APath;
+  nl:=length(Result);
+  if (Len>3) and (nl>=Len) then begin
     i:=nl; ok:=true;
-    if IsPathDelimiter(Name,i) then dec(i);
-    while not IsPathDelimiter(Name,i) and (i>0) do dec(i);
-    if i=0 then Name:=Punkte+copy(Name,nl-Len+3,nl)
+    if IsPathDelimiter(Result,i) then dec(i);
+    while not IsPathDelimiter(Result,i) and (i>0) do dec(i);
+    if i=0 then Result:=Punkte+copy(Result,nl-Len+3,nl)
     else begin
       dec(i); j:=i;
       repeat
-        while not IsPathDelimiter(Name,j) and (j>0) do dec(j);
+        while not IsPathDelimiter(Result,j) and (j>0) do dec(j);
         dec(j);
-        if j<0 then Name:=Punkte+copy(Name,nl-Len+3,nl)
+        if j<0 then Result:=Punkte+copy(Result,nl-Len+3,nl)
         else begin
           ok:=nl-i+j+4<=Len;
           end;
         until ok or (j<0);
       if ok then begin
         inc(j,2);
-        delete (Name,j,succ(i-j)); insert (Punkte,Name,j);
+        delete (Result,j,succ(i-j)); insert (Punkte,Result,j);
         end;
       end;
     end;
-  Result:=Name;
   end;
 
 { ------------------------------------------------------------------- }

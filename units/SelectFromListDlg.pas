@@ -28,7 +28,7 @@ uses Winapi.Windows, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Forms,
 type
   TCheckEntry = function (const AText : string) : boolean of object;
 
-  TSelectOption = (soPrompt,soEdit,soOrder,soMulti);
+  TSelectOption = (soPrompt,soEdit,soOrder,soMulti,soDelAll,soNoConfirm);
   TSelectOptions = set of TSelectOption;
 
   TSelectFromListDialog = class(TForm)
@@ -48,6 +48,7 @@ type
     DownBtn: TBitBtn;
     lbHint: TStaticText;
     lbDesc: TStaticText;
+    btnDelAll: TBitBtn;
     procedure btnInsertClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -58,10 +59,12 @@ type
     procedure btnDefaultClick(Sender: TObject);
     procedure btnPromptClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnDelAllClick(Sender: TObject);
   private
     { Private declarations }
     FEdit : boolean;
     dist  : integer;
+    FNoConfirm : boolean;
     FText,
     DefDelimitedText : string;
     FCheckEntry : TCheckEntry;
@@ -114,7 +117,7 @@ uses Vcl.Dialogs, GnuGetText, WinUtils, InputString,
 procedure TSelectFromListDialog.FormCreate(Sender: TObject);
 begin
   TranslateComponent (self,'dialogs');
-  FCheckEntry:=nil; dist:=10;
+  FCheckEntry:=nil; dist:=5;
   lbHint.Width:=gbxEdit.Width;
   end;
 
@@ -156,19 +159,25 @@ begin
     end;
   end;
 
+procedure TSelectFromListDialog.btnDelAllClick(Sender: TObject);
+begin
+  if FNoConfirm or ConfirmDialog(DialogPos(Sender),dgettext('dialogs','Clear whole list')+'?') then
+    lbxStringList.Clear;
+  end;
+
 procedure TSelectFromListDialog.btnDeleteClick(Sender: TObject);
 var
   s : string;
   n : integer;
 begin
   with lbxStringList do if Multiselect then begin
-    if ConfirmDialog (DialogPos(Sender),dgettext('dialogs','Remove all selected items?')) then begin
+    if FNoConfirm or ConfirmDialog (DialogPos(Sender),dgettext('dialogs','Remove all selected items?')) then begin
       for n:=Items.Count-1 downto 0 do if Selected[n] then Items.Delete(n);
       end
     end
   else if ItemIndex>=0 then begin
     s:=Items[ItemIndex];
-    if ConfirmDialog (DialogPos(Sender),SafeFormat(dgettext('dialogs','Remove item: "%s"?'),[s])) then begin
+    if FNoConfirm or ConfirmDialog (DialogPos(Sender),SafeFormat(dgettext('dialogs','Remove item: "%s"?'),[s])) then begin
       n:=ItemIndex;
       Items.Delete(ItemIndex);
       if n>Items.Count then ItemIndex:=Items.Count-1 else ItemIndex:=n;
@@ -193,7 +202,7 @@ begin
 
 procedure TSelectFromListDialog.btnDefaultClick(Sender: TObject);
 begin
-  if ConfirmDialog(DialogPos(Sender),dgettext('dialogs','Reset to default values')+'?') then with lbxStringList do begin
+  if FNoConfirm or ConfirmDialog(DialogPos(Sender),dgettext('dialogs','Reset to default values')+'?') then with lbxStringList do begin
     Clear;
     Items.DelimitedText:=DefDelimitedText;
     end;
@@ -224,9 +233,9 @@ procedure TSelectFromListDialog.UpBtnClick(Sender: TObject);
 var
   n : integer;
 begin
-  with lbxStringList,Items do if (Count>0) and (ItemIndex>0) then begin
+  with lbxStringList do if (Count>0) and (ItemIndex>0) then begin
     n:=ItemIndex;
-    Exchange(n,n-1);
+    Items.Exchange(n,n-1);
     ItemIndex:=n-1;
     end;
   end;
@@ -235,9 +244,9 @@ procedure TSelectFromListDialog.DownBtnClick(Sender: TObject);
 var
   n : integer;
 begin
-  with lbxStringList,Items do if (Count>0) and (ItemIndex<Count-1) then begin
+  with lbxStringList do if (Count>0) and (ItemIndex<Count-1) then begin
     n:=ItemIndex;
-    Exchange(n,n+1);
+    Items.Exchange(n,n+1);
     ItemIndex:=n+1;
     end;
   end;
@@ -249,7 +258,7 @@ function TSelectFromListDialog.Execute (APos : TPoint; Titel,Desc,Hint : string;
                     SList : TStrings; var AText : string;
                     ShowCancel : boolean = true; CheckEntry : TCheckEntry = nil) : TModalResult;
 var
-  i,h,d : integer;
+  i,h,hg,d : integer;
 begin
   AdjustFormPosition(Screen,self,APos);
   Caption:=Titel;
@@ -262,18 +271,31 @@ begin
     end;
   FEdit:=soEdit in Options;
   btnPrompt.Visible:=soPrompt in Options;
+  FNoConfirm:=soNoConfirm in Options;
   gbxEdit.Visible:=FEdit;
   gbxMove.Visible:=soOrder in Options;
   if length(Default)>0 then begin
     btnDefault.Show;
-    with btnDefault do gbxEdit.Height:=Top+Height+dist;
+    with btnDefault do hg:=Top+Height+dist;
     end
   else begin
     btnDefault.Hide;
-    with btnEdit do gbxEdit.Height:=Top+Height+dist;
-    with gbxEdit do gbxMove.Top:=Top+Height+dist;
+    with btnEdit do hg:=Top+Height+dist;
     end;
-  inc(h,gbxEdit.Height+dist);
+  if soDelAll in Options then begin
+    btnDelAll.Show;
+    with btnDelAll do begin
+      Top:=hg;
+      inc(hg,Height+2*dist);
+      end;
+    end
+  else btnDelAll.Hide;
+  inc(h,hg+2*dist);
+  with gbxEdit do begin
+    Height:=hg;
+    gbxMove.Top:=Top+Height+dist;
+    end;
+  dist:=2*dist;
   with gbxMove do if Visible then begin
     lbHint.Top:=Top+Height+dist;
     inc(h,gbxMove.Height+dist);

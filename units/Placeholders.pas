@@ -197,7 +197,7 @@ begin
     end;
   end;
 
-(* Unterverzeichnisse mit Platzhalter aus Verzeichnisnamen entfernen *)
+(* Unterverzeichnisse mit Platzhaltern aus Verzeichnisnamen entfernen *)
 function RemovePlaceHolderSubdirs(ADir : string) : string;
 var
   s,t : string;

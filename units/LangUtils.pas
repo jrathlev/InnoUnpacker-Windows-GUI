@@ -457,8 +457,11 @@ begin
   if LangFromCfg then begin
     with TMemIniFile.Create(CfgName) do begin
       WriteString(LangSekt,LangID,SelectedLanguage);
-      UpdateFile;
-      Free;
+      try
+        UpdateFile;
+      finally
+        Free;
+        end;
       end;
     end;
   end;
