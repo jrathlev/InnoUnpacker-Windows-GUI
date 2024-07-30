@@ -133,7 +133,7 @@ tt { font-size: 110%; }
 <a href="http://sourceforge.net/project/showfiles.php?group_id=102423">download page</a></small></div>-->
 
 <h3>innounp, the Inno Setup Unpacker</h3>
-<h4>Version 1.71 - Unicode </h4>
+<h4>Version 1.72 - Unicode </h4>
 <p><b>based on <a href="https://sourceforge.net/projects/innounp/" target="_blank"><i>innounp</i> version 0.50</a> by 
   <a href="https://sourceforge.net/u/ariman_ua/profile/" target="_blank">ariman</a></b><br>
   Supports Inno Setup versions 2.0.7 through 6.3.1</p>
@@ -204,7 +204,7 @@ Exit codes: 0 no errors
   <p>To extract all files from a specific directory, use <tt>dirname\*.*</tt>, not
   just <tt>dirname</tt>.</p>
   <p>By default all files are extracted to the current directory. Use <tt>-d</tt> to
-  override this behaviour. For example, <tt>-dUnpacked</tt> will create a directory named
+  override this behavior. For example, <tt>-dUnpacked</tt> will create a directory named
   <tt>Unpacked</tt> inside the current directory and put the extracted files there.</p>
   <p>The <tt>-c</tt> option is a little more tricky to explain. Suppose you opened an installation
   in a file manager and browsed to <tt>{app}\subdir\program.exe</tt>. Now if you copied
@@ -222,6 +222,11 @@ Exit codes: 0 no errors
   which is the code made by the RemObjects Pascal Script compiler.</p>
 
 <h2><a name="History"></a>What's new / History</h2>
+<p><b>1.72</b> <small>(2024-07-30)</small></p>
+<ul>
+  <li>Fixes issue on extracting zip compressed setups (2.0 - 4.1)</li>
+  <li>Enhanced output on <i>extract</i> and <i>test</i> command</li>
+</ul>
 <p><b>1.71</b> <small>(2024-06-23)</small></p>
 <ul>
   <li>Adaption of script building to IS 6.3</li>
