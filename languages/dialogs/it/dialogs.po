@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dialogs\n"
 "POT-Creation-Date: 2024-07-03 11:39+0200\n"
-"PO-Revision-Date: 2024-07-22 13:03+0200\n"
+"PO-Revision-Date: 2024-07-31 22:50+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -1800,7 +1800,7 @@ msgstr "Modifica elementi"
 #. SelectFromListDialog.paEdit.gbxEdit.btnDelete.Hint
 #: SelectFromListDlg.dfm:139
 msgid "Remove selected items"
-msgstr "Rimuovi elementi selezionati dalla lista?"
+msgstr "Rimuovi elementi selezionati"
 
 #. SelectFromListDialog.paEdit.gbxEdit.btnDefault.Hint
 #: SelectFromListDlg.dfm:325 SelectFromListDlg.pas:205
