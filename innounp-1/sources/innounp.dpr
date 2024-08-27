@@ -45,6 +45,12 @@
 
 program innounp;
 {$APPTYPE CONSOLE}
+
+{$IFDEF RELEASE}
+{$WEAKLINKRTTI ON}
+{$RTTI EXPLICIT METHODS([]) PROPERTIES([]) FIELDS([])}
+{$ENDIF}
+
 uses
 {$IFDEF EUREKALOG}
   ExceptionLog,
