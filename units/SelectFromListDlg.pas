@@ -62,8 +62,8 @@ type
     procedure btnDelAllClick(Sender: TObject);
   private
     { Private declarations }
-    FEdit : boolean;
-    dist  : integer;
+    FEdit   : boolean;
+    dist,hh : integer;
     FNoConfirm : boolean;
     FText,
     DefDelimitedText : string;
@@ -117,7 +117,7 @@ uses Vcl.Dialogs, GnuGetText, WinUtils, InputString,
 procedure TSelectFromListDialog.FormCreate(Sender: TObject);
 begin
   TranslateComponent (self,'dialogs');
-  FCheckEntry:=nil; dist:=5;
+  FCheckEntry:=nil; dist:=5; hh:=lbHint.Height;
   lbHint.Width:=gbxEdit.Width;
   end;
 
@@ -295,15 +295,15 @@ begin
     Height:=hg;
     gbxMove.Top:=Top+Height+dist;
     end;
-  dist:=2*dist;
+  d:=2*dist;
   with gbxMove do if Visible then begin
-    lbHint.Top:=Top+Height+dist;
-    inc(h,gbxMove.Height+dist);
+    lbHint.Top:=Top+Height+d;
+    inc(h,gbxMove.Height+d);
     end
   else lbHint.Top:=Top;
-  inc(h,lbHint.Height);
-  with btnPrompt do if Visible then inc(h,Height+dist);
-  ClientHeight:=h+2*OKBtn.Height+dist;
+  inc(h,hh);
+  with btnPrompt do if Visible then inc(h,Height+d);
+  ClientHeight:=h+2*OKBtn.Height+d;
   with lbHint do Anchors:=Anchors+[akBottom];
   DefDelimitedText:=Default;
   with lbxStringList do begin

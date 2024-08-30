@@ -230,41 +230,41 @@ function TaskBarSetFocus : boolean;
 // Shell file operations using IFileOperation
 function IShellCopyFiles (WinHandle         : HWnd;
                           const Source,Dest : string;
-                          Silent            : boolean = false) : HResult;
+                          Silent            : boolean = true) : HResult;
 
 function IShellMoveFiles (WinHandle         : HWnd;
                           const Source,Dest : string;
-                          Silent            : boolean = false) : HResult;
+                          Silent            : boolean = true) : HResult;
 
 function IShellDeleteFiles (WinHandle    : HWnd;
                             const Source : string;
-                            Recycle      : boolean;
-                            NoPrompt     : boolean = false) : HResult;
+                            Recycle      : boolean = true;
+                            Silent       : boolean = true) : HResult;
 
 function IShellDeleteDir (WinHandle    : HWnd;
                           const Source : string;
-                          Recycle      : boolean;
-                          NoPrompt     : boolean = false) : HResult;
+                          Recycle      : boolean = true;
+                          Silent       : boolean = true) : HResult;
 
 { ---------------------------------------------------------------- }
 // Shell file operations using SHFileOperation
 function ShellCopyFiles (WinHandle        : HWnd;
                          const Source,Dest,Hint : string;
-                         Silent           : boolean = false) : integer;
+                         Silent           : boolean = true) : integer;
 
 function ShellMoveFiles (WinHandle        : HWnd;
                          const Source,Dest,Hint : string;
-                         Silent           : boolean = false) : integer;
+                         Silent           : boolean = true) : integer;
 
 function ShellDeleteFiles (WinHandle   : HWnd;
                            const Source,Hint : string;
                            Recycle     : boolean = true;
-                           NoPrompt    : boolean = false) : integer;
+                           Silent      : boolean = true) : integer;
 
-function ShellDeleteAll (WinHandle   : HWnd;
+function ShellDeleteAll (WinHandle    : HWnd;
                          const Source,Hint : string;
-                         Recycle     : boolean = true;
-                         NoPrompt    : boolean = false) : integer;
+                         Recycle      : boolean = true;
+                         Silent       : boolean = true) : integer;
 
 { ---------------------------------------------------------------- }
 // Get Desktop system parameters
@@ -742,7 +742,6 @@ var
   siSrcFile: IShellItem;
   siDestFolder: IShellItem;
   destFileName : string;
-  ua           : BOOL;
 begin
   //init com
   Result:=CoInitializeEx(nil, COINIT_APARTMENTTHREADED or COINIT_DISABLE_OLE1DDE);
@@ -785,38 +784,34 @@ function IShellCopyFiles (WinHandle : HWnd; const Source,Dest : string; Silent :
 var
   f : integer;
 begin
-  if Silent then f:=FOF_SILENT else f:=0;
-  Result:=DoIFileOperation(WinHandle,Source,Dest,FO_COPY,
-    f+FOF_NOERRORUI+FOFX_EARLYFAILURE+FOF_FILESONLY+FOF_NOCONFIRMATION+FOF_NOCONFIRMMKDIR+FOF_NO_CONNECTED_ELEMENTS);
+  if Silent then f:=FOF_NO_UI or FOFX_EARLYFAILURE else f:=0;
+  Result:=DoIFileOperation(WinHandle,Source,Dest,FO_COPY,f or FOF_FILESONLY or FOF_NO_CONNECTED_ELEMENTS);
   end;
 
 function IShellMoveFiles (WinHandle : HWnd; const Source,Dest : string; Silent : boolean) : HResult;
 var
   f : integer;
 begin
-  if Silent then f:=FOF_SILENT else f:=0;
-  Result:=DoIFileOperation(WinHandle,Source,Dest,FO_MOVE,
-    f+FOF_NOERRORUI+FOFX_EARLYFAILURE+FOF_FILESONLY+FOF_NOCONFIRMATION+FOF_NOCONFIRMMKDIR+FOF_NO_CONNECTED_ELEMENTS);
+  if Silent then f:=FOF_NO_UI or FOFX_EARLYFAILURE else f:=0;
+  Result:=DoIFileOperation(WinHandle,Source,Dest,FO_MOVE,f or FOF_FILESONLY or FOF_NO_CONNECTED_ELEMENTS);
   end;
 
-function IShellDeleteFiles (WinHandle : HWnd; const Source : string; Recycle,NoPrompt : boolean) : HResult;
+function IShellDeleteFiles (WinHandle : HWnd; const Source : string; Recycle,Silent : boolean) : HResult;
 var
   f : integer;
 begin
   if Recycle then f:=FOF_ALLOWUNDO else f:=0;
-  if NoPrompt then f:=f+FOF_NOERRORUI+FOFX_EARLYFAILURE;
-  Result:=DoIFileOperation(WinHandle,Source,'',FO_DELETE,
-    f+FOF_FILESONLY+FOF_NOCONFIRMATION+FOF_NO_CONNECTED_ELEMENTS);
+  if Silent then f:=f or FOF_NO_UI or FOFX_EARLYFAILURE;
+  Result:=DoIFileOperation(WinHandle,Source,'',FO_DELETE,f or FOF_FILESONLY or FOF_NO_CONNECTED_ELEMENTS);
   end;
 
-function IShellDeleteDir (WinHandle : HWnd; const Source : string; Recycle,NoPrompt : boolean) : HResult;
+function IShellDeleteDir (WinHandle : HWnd; const Source : string; Recycle,Silent : boolean) : HResult;
 var
   f : integer;
 begin
   if Recycle then f:=FOF_ALLOWUNDO else f:=0;
-  if NoPrompt then f:=f+FOF_NOERRORUI+FOFX_EARLYFAILURE;
-  Result:=DoIFileOperation(WinHandle,IncludeTrailingPathDelimiter(Source),'',FO_DELETE,
-    f+FOF_NOCONFIRMATION+FOF_NO_CONNECTED_ELEMENTS);
+  if Silent then f:=f or FOF_NO_UI or FOFX_EARLYFAILURE;
+  Result:=DoIFileOperation(WinHandle,IncludeTrailingPathDelimiter(Source),'',FO_DELETE,f or FOF_NO_CONNECTED_ELEMENTS);
   end;
 
 { ---------------------------------------------------------------- }
@@ -833,7 +828,7 @@ begin
     else pTo:=nil;
     lpszProgressTitle:=pchar(Caption);
     fFlags:=Flags;
-    if length(Caption)>0 then fFlags:=fFlags+FOF_SIMPLEPROGRESS;
+    if length(Caption)>0 then fFlags:=fFlags or FOF_SIMPLEPROGRESS;
     end;
   Result:=SHFileOperation(FileOpStruct);
   end;
@@ -842,9 +837,9 @@ function ShellCopyFiles (WinHandle : HWnd; const Source,Dest,Hint : string; Sile
 var
   f : integer;
 begin
-  if Silent then f:=FOF_SILENT else f:=0;
+  if Silent then f:=FOF_NO_UI else f:=0;
   Result:=DoFileOperation(WinHandle,Source,Dest,Hint,FO_COPY,
-    f+FOF_NOERRORUI+FOF_FILESONLY+FOF_MULTIDESTFILES+FOF_NOCONFIRMATION+FOF_NOCONFIRMMKDIR+FOF_NO_CONNECTED_ELEMENTS);
+    f or FOF_FILESONLY or FOF_MULTIDESTFILES or FOF_NO_CONNECTED_ELEMENTS);
   end;
 
 function ShellMoveFiles (WinHandle        : HWnd;
@@ -853,35 +848,33 @@ function ShellMoveFiles (WinHandle        : HWnd;
 var
   f : integer;
 begin
-  if Silent then f:=FOF_SILENT else f:=0;
+  if Silent then f:=FOF_NO_UI else f:=0;
   Result:=DoFileOperation(WinHandle,Source,Dest,Hint,FO_MOVE,
-    f+FOF_NOERRORUI+FOF_FILESONLY+FOF_MULTIDESTFILES+FOF_NOCONFIRMATION+FOF_NOCONFIRMMKDIR+FOF_NO_CONNECTED_ELEMENTS);
+    f or FOF_FILESONLY or FOF_MULTIDESTFILES or FOF_NO_CONNECTED_ELEMENTS);
   end;
 
 function ShellDeleteFiles (WinHandle   : HWnd;
                            const Source,Hint : string;
-                           Recycle     : boolean;
-                           NoPrompt    : boolean) : integer;
+                           Recycle,Silent : boolean) : integer;
 var
   f : integer;
 begin
   if Recycle then f:=FOF_ALLOWUNDO else f:=0;
-  if NoPrompt then f:=f+FOF_NOERRORUI;
+  if Silent then f:=f or FOF_NO_UI;
   Result:=DoFileOperation(WinHandle,Source,'',Hint,FO_DELETE,
-    f+FOF_FILESONLY+FOF_MULTIDESTFILES+FOF_NOCONFIRMATION+FOF_NO_CONNECTED_ELEMENTS);
+    f or FOF_FILESONLY or FOF_MULTIDESTFILES or FOF_NO_CONNECTED_ELEMENTS);
   end;
 
 function ShellDeleteAll (WinHandle   : HWnd;
                          const Source,Hint : string;
-                         Recycle     : boolean;
-                         NoPrompt    : boolean) : integer;
+                         Recycle,Silent : boolean) : integer;
 var
   f : integer;
 begin
   if Recycle then f:=FOF_ALLOWUNDO else f:=0;
-  if NoPrompt then f:=f+FOF_NOERRORUI;
+  if Silent then f:=f or FOF_NO_UI;
   Result:=DoFileOperation(WinHandle,Source,'',Hint,FO_DELETE,
-    f+FOF_MULTIDESTFILES+FOF_NOCONFIRMATION+FOF_NO_CONNECTED_ELEMENTS);
+    f or FOF_MULTIDESTFILES or FOF_NOCONFIRMATION or FOF_NO_CONNECTED_ELEMENTS);
   end;
 
 { ---------------------------------------------------------------- }

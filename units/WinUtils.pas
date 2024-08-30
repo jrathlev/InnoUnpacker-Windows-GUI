@@ -14,7 +14,8 @@
 
    New compilation: April 2015
    language dependend strings in UnitConsts
-   last modified: July 2023
+
+   last modified: August 2024
    *)
 
 unit WinUtils;
@@ -150,6 +151,10 @@ procedure ScaleScreenFonts (OldDPI,NewDPI : integer);
 // Scale absolute pixel value
 function PixelScale (Value : integer; AForm : TForm) : integer; overload;
 function PixelScale (Value : integer; mo : TMonitor) : integer; overload;
+function PixelScale (Value : TPoint; AForm : TForm) : TPoint; overload;
+function PixelScale (Value : TPoint; mo : TMonitor) : TPoint; overload;
+function PixelScale (x,y : integer; AForm : TForm) : TPoint; overload;
+function PixelScale (x,y : integer; mo : TMonitor) : TPoint; overload;
 
 // adjust Itemheight of owner drawn comboboxes
 procedure AdjustComboBoxes(AControl : TWinControl; OldDPI,NewDPI : integer);
@@ -824,7 +829,31 @@ begin
   Result:=MulDiv(Value,mo.PixelsPerInch,PixelsPerInchOnDesign);
   end;
 
-{ --------------------------------------------------------------- }
+function PixelScale (Value : TPoint; AForm : TForm) : TPoint;
+begin
+  with Result do begin
+    x:=PixelScale(Value.x,AForm); y:=PixelScale(Value.y,AForm);
+    end;
+  end;
+
+function PixelScale (x,y : integer; AForm : TForm) : TPoint;
+begin
+  Result:=PixelScale(Point(x,y),AForm);
+  end;
+
+function PixelScale (Value : TPoint; mo : TMonitor) : TPoint;
+begin
+  with Result do begin
+    x:=PixelScale(Value.x,mo); y:=PixelScale(Value.y,mo);
+    end;
+ end;
+
+function PixelScale (x,y : integer; mo : TMonitor) : TPoint;
+begin
+  Result:=PixelScale(Point(x,y),mo);
+  end;
+
+{ ---------------------------------------------------------------- }
 // Dateifilter-Index ermitteln (siehe TOpenDialog)
 function GetFilterIndex(AFilter,AExtension : string) : integer;
 var

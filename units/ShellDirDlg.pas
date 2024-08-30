@@ -472,8 +472,8 @@ begin
       end
     else begin
       if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion>=6) then // IsVista or newer
-        err:=IShellDeleteDir (Application.Handle,SetDirName(s),true)<>NO_ERROR
-      else err:=ShellDeleteAll (Application.Handle,SetDirName(s),'',true)<>NO_ERROR;
+        err:=IShellDeleteDir (Application.Handle,SetDirName(s),true,false)<>NO_ERROR
+      else err:=ShellDeleteAll (Application.Handle,SetDirName(s),'',true,false)<>NO_ERROR;
       if not err then InfoDialog(SafeFormat(dgettext('dialogs','%s moved to Recycle Bin!'),[s]));
       end;
     if err then ErrorDialog(SafeFormat(dgettext('dialogs','Error deleting directory:'+sLineBreak+'%s!'),[s]));
