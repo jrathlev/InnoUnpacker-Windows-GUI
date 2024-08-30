@@ -14,11 +14,14 @@
    the specific language governing rights and limitations under the License.
 
    J. Rathlev, Jan. 2008
-   Vers. 1.6 (August 2020): added filter to extract single files
-   Vers. 1.7 (October 2021): console output uses UTF8
-   Vers. 1.8 (June 2022): "embedded option" added
-   Vers. 1.9 (August 2022): command line options added
-   last modified: August 2024 - innounp updated to version 1.72
+   Vers. 1.6 (August 2020):    added filter to extract single files
+   Vers. 1.7 (October 2021):   console output uses UTF8
+   Vers. 1.8 (June 2022):      "embedded option" added
+   Vers. 1.9.1 (August 2022):  command line options added
+   Vers. 1.9.4 (August 2024):  innounp updated to version 1.72
+                               timeout on calling innounp.exe with confirmation
+
+   last modified: August 2024
 
    Command line options: [<setupname>] [/d:<destdir>] [/f:<filter>] [/m] [/s] [/a] [/o]
      <setupname> : name of setup file to be unpacked
@@ -41,11 +44,12 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 1.9.3';
+  ProgVers = ' 1.9.4';
   CopRgt = '© 2014-2024 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
   defPipeSize = 64*1024;
+  defTimeOut  = 10000;  // 10 s
 
 type
   TMainForm = class(TForm)
@@ -470,6 +474,7 @@ var
   s           : string;
   sa          : RawByteString;
   vi          : TFileVersionInfo;
+  cancel      : boolean;
 
   function RawByteToUnicode(sa : RawByteString; CodePage : integer = 1252) : string;
   var
@@ -547,7 +552,10 @@ begin
                      nil,                   // Environment
                      nil,                   // Verzeichnis
                      si,pi) then begin
-      wc:=WaitForSingleObject(pi.hProcess,10000); //=WAIT_TIMEOUT; // wait 10 s
+      repeat
+        wc:=WaitForSingleObject(pi.hProcess,defTimeOut); // wait 10 s
+        if wc<>WAIT_OBJECT_0 then Cancel:=not ConfirmDialog(_('Timeout occured - continue anyway?'));
+        until (wc=WAIT_OBJECT_0) or Cancel;
       GetExitCodeProcess(pi.hProcess,ec); // exit code from called program
       CloseHandle(pi.hProcess);
 // Close the write end of the pipe before reading from the

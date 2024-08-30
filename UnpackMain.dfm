@@ -1099,10 +1099,6 @@ object MainForm: TMainForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = 350
-    ExplicitTop = 255
-    ExplicitWidth = 251
-    ExplicitHeight = 171
     object mmDos: TMemo
       Left = 0
       Top = 0
@@ -1117,9 +1113,6 @@ object MainForm: TMainForm
       ParentFont = False
       ScrollBars = ssVertical
       TabOrder = 0
-      ExplicitLeft = -85
-      ExplicitTop = -39
-      ExplicitWidth = 336
     end
     object pnTools: TPanel
       Left = 600
@@ -1129,7 +1122,6 @@ object MainForm: TMainForm
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitLeft = 605
       DesignSize = (
         31
         210)
