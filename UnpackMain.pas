@@ -20,6 +20,7 @@
    Vers. 1.9.1 (August 2022):  command line options added
    Vers. 1.9.4 (August 2024):  innounp updated to version 1.72
                                timeout on calling innounp.exe with confirmation
+   Vers. 1.9.6 (October 2024): using innounp up to version 0.50
 
    last modified: August 2024
 
@@ -40,7 +41,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, WinApiUtils;
 
 const
   ProgName = 'InnoUnpacker';
@@ -113,7 +114,9 @@ type
     IniName,ProgPath,
     ProgVersName,ProgVersDate,
     UnpProg               : string;
+    NewUnp                : boolean;
     function LoadUnpacker : boolean;
+    function CheckUnpackVersion : boolean;
     procedure Execute (const Command,FileName,Filter,Comment : string);
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
   public
@@ -128,7 +131,7 @@ implementation
 {$R *.dfm}
 
 uses System.IniFiles, System.StrUtils, Winapi.ShellApi, GnuGetText, WinUtils, MsgDialogs,
-  IniFileUtils, PathUtils, InitProg, StringUtils, WinApiUtils, ShellDirDlg,
+  IniFileUtils, PathUtils, ListUtils, InitProg, StringUtils, ShellDirDlg,
   SelectFromListDlg;
 
 { ------------------------------------------------------------------- }
@@ -193,7 +196,7 @@ begin
     end;
   LoadHistory(Ininame,DirSekt,iniFName,cbDir.Items,mList);
   with cbDir do if Items.Count>0 then ItemIndex:=0;
-  pnExtract.Visible:=false;
+  pnExtract.Visible:=false; NewUnp:=true;
   Caption:=ProgVersName+' - '+_('Inspect and unpack InnoSetup files');
   if ParamCount>0 then for i:=1 to ParamCount do begin
     s:=ParamStr(i);
@@ -227,12 +230,25 @@ begin
   SaveHistory(Ininame,DirSekt,iniFName,true,cbDir.Items,mList);
   end;
 
+function TMainForm.CheckUnpackVersion : boolean;
+var
+  UnpVers : TVersion;
+begin
+  Result:=GetFileVersionAsNumber(UnpProg,UnpVers);
+  if Result then with UnpVers do begin
+    Result:=(Major>=1) and (Minor>=70);
+    end;
+  end;
+
 procedure TMainForm.FormShow(Sender: TObject);
+var
+  s : string;
 begin
   if not FileExists(UnpProg) then UnpProg:=SetDirName(PrgPath)+InnoUnp;
   if not FileExists(UnpProg) then begin
     if not LoadUnpacker then Close;
     end;
+  NewUnp:=CheckUnpackVersion;
   if FileExists(cbFile.Text) then bbListClick(Sender)
   else bbFileClick(Sender);
   end;
@@ -310,7 +326,10 @@ begin
 
 procedure TMainForm.cbDirExit(Sender: TObject);
 begin
-  with cbDir do AddToHistory(Items,Text,mList);
+  with cbDir do begin
+    AddToHistory(Items,Text,mList);
+    ItemIndex:=0;
+    end;
   end;
 
 procedure TMainForm.cxEncryptedClick(Sender: TObject);
@@ -327,7 +346,10 @@ begin
     Filter:=_('Programs|*.exe|All files|*.*');
     Title:=_('Search for "innounp.exe"');
     Result:=Execute;
-    if Result then UnpProg:=Filename;
+    if Result then begin
+      UnpProg:=Filename;
+      NewUnp:=CheckUnpackVersion;
+      end;
     end;
   end;
 
@@ -506,8 +528,10 @@ begin
     ErrorDialog(s);
     Exit;
     end;
+  if NewUnp then s:=Command+' -u'
+  else s:=Command;
   if length(Filename)>0 then begin
-    s:=Command+' -u '+MakeQuotedStr(Erweiter(PrgPath,Filename,''));
+    s:=s+Space+MakeQuotedStr(Erweiter(PrgPath,Filename,''));
     with mmDos,Lines do begin
       if GetFileVersion (Filename,vi) then begin
         Add(_('Name: ')+vi.Description);
@@ -519,8 +543,7 @@ begin
       Add('');
       if length(Comment)>0 then Add(Comment);
       end;
-    end
-  else s:=Command+' -u ';
+    end;
   if length(Filter)>0 then s:=s+Space+Filter;
   Application.ProcessMessages;
   Screen.Cursor:=crHourglass;

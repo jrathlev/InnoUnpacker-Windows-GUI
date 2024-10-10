@@ -40,6 +40,7 @@ object MainForm: TMainForm
       Width = 586
       Height = 21
       Anchors = [akLeft, akTop, akRight]
+      DropDownCount = 20
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
@@ -806,6 +807,7 @@ object MainForm: TMainForm
       Height = 21
       Hint = 'Extract files to this directory'
       Anchors = [akLeft, akTop, akRight]
+      DropDownCount = 20
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
@@ -934,7 +936,7 @@ object MainForm: TMainForm
       Width = 401
       Height = 21
       Anchors = [akLeft, akTop, akRight]
-      DropDownCount = 12
+      DropDownCount = 20
       TabOrder = 6
       OnCloseUp = cbFilterCloseUp
     end
