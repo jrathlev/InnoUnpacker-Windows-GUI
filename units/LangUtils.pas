@@ -13,7 +13,9 @@
   the specific language governing rights and limitations under the License.
 
   Version 2.0 - Nov. 2011
-          last modified: Aug. 2023
+          2.1 - Sept. 2024: languages added
+
+          last modified: September 2024
 
   Hinweise zur Verwendung:
   ========================
@@ -166,7 +168,7 @@ implementation
 
 uses
   Winapi.Windows, Vcl.Forms, Winapi.ShlObj, System.IniFiles, System.StrUtils,
-  System.IOUtils, GnuGetText, UnitConsts, StringUtils, WinShell, InitProg, Placeholders;
+  System.IOUtils, GnuGetText, UnitConsts, StringUtils, InitProg;
 
 { ------------------------------------------------------------------- }
 (* Name enthält vollständigen Pfad *)
@@ -365,7 +367,10 @@ begin
 function LangIdToCode(id : integer) : TLangCodeString;
 begin
   case id and $3FF of
+  $01 : Result:='ar';
   $02 : Result:='bg';
+  $03 : Result:='ca';
+  $04 : Result:='zh';
   $05 : Result:='cs';
   $06 : Result:='da';
   $07 : Result:='de';
@@ -375,24 +380,76 @@ begin
   $0b : Result:='fi';
   $0c : Result:='fr';
   $0e : Result:='hu';
+  $0f : Result:='is';
   $10 : Result:='it';
+  $11 : Result:='ja';
+  $12 : Result:='ko';
   $13 : Result:='nl';
   $14 : Result:='no';
   $15 : Result:='pl';
   $16 : Result:='pt';
+  $17 : Result:='rm';
   $18 : Result:='ro';
   $19 : Result:='ru';
   $1a : Result:='hr';
   $1b : Result:='sk';
   $1c : Result:='sq';
   $1d : Result:='sv';
+  $1e : Result:='th';
   $1f : Result:='tr';
+  $20 : Result:='ur';
+  $21 : Result:='id';
   $22 : Result:='uk';
+  $23 : Result:='be';
   $24 : Result:='sl';
   $25 : Result:='et';
   $26 : Result:='lv';
   $27 : Result:='lt';
-  else Result:='';
+  $2a : Result:='vi';
+  $2b : Result:='hy';
+  $2f : Result:='mk';
+  $29 : Result:='fa';
+  $30 : Result:='st';
+  $33 : Result:='ve';
+  $34 : Result:='xh';
+  $35 : Result:='zu';
+  $36 : Result:='af';
+  $37 : Result:='ka';
+  $38 : Result:='fo';
+  $39 : Result:='hi';
+  $3a : Result:='mt';
+  $3b : Result:='se';
+  $3c : Result:='ga';
+  $3f : Result:='kk';
+  $40 : Result:='ky';
+  $41 : Result:='sw';
+  $42 : Result:='tk';
+  $43 : Result:='uz';
+  $44 : Result:='tt';
+  $46 : Result:='pa';
+  $48 : Result:='or';
+  $49 : Result:='ta';
+  $4f : Result:='sa';
+  $51 : Result:='bo';
+  $54 : Result:='lo';
+  $50 : Result:='mn';
+  $52 : Result:='cy';
+  $56 : Result:='gl';
+  $61 : Result:='ne';
+  $62 : Result:='fy';
+  $63 : Result:='ps';
+  $6a : Result:='yo';
+  $6e : Result:='lb';
+  $72 : Result:='om';
+  $77 : Result:='so';
+  $78 : Result:='ii';
+  $80 : Result:='ug';
+  $81 : Result:='mi';
+  $83 : Result:='co';
+  $88 : Result:='wo';
+  $91 : Result:='gd';
+  $92 : Result:='ku';
+  else Result:='en';
     end;
   end;
 
@@ -402,6 +459,29 @@ var
   s,si  : string;
   j     : integer;
   ok,po : boolean;
+
+  // replace environment variable
+  function ReplacePathPlaceHolder (const ps : string) : string;
+  var
+    n,k : integer;
+    se,sv : string;
+  begin
+    Result:=ps;
+    n:=1;
+    repeat
+      n:=PosEx('%',ps,n);
+      if n>0 then begin
+        k:=PosEx('%',ps,n+1);
+        if k>0 then begin
+          sv:=copy(ps,n+1,k-n-1);
+          se:=GetEnvironmentVariable(sv);
+          Result:=AnsiReplaceText(Result,'%'+sv+'%',se);
+          n:=k+1;
+          end;
+        end;
+      until n=0;
+    end;
+
 begin
   ok:=false; po:=false; si:=''; Result:='';
   for j:=1 to ParamCount do if not ok then begin   // prüfe Befehlszeile

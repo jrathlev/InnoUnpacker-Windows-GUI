@@ -15,7 +15,6 @@
 
    Vers. 1 - Sep. 2002
    Vers. 2 - Jan. 2009 : dyn. Einbindung von CreateProcessWithLogonW
-                         und GetxxxDefaultUILanguage
    Vers. 3 - Mar. 2010 : several constants from WinNT.h, WinBase.h, WinIoCtl.h
                          see: JclWin32.pas
    Vers. 4 - Jun. 2011 : SetThreadExecutionState, SetSuspendState
@@ -25,7 +24,7 @@
                          removed that are now handled in Winapi.Windows)
    Vers. 7.1 - July 2021 : LoadLibrary replaced by ExtLoadLibrary to handle FPU exceptions
 
-   last modified:  July 2021
+   last modified:  September 2024
    *)
 
 unit WinApiUtils;
@@ -386,6 +385,9 @@ type
     Dependencies : TDependencies;
     end;
 
+  TVersion = record
+    Major,Minor,Release,Build : integer;
+    end;
 
 //{$EXTERNALSYM GetTickCount64}
 //function GetTickCount64: ULONGLONG; stdcall;
@@ -480,6 +482,7 @@ function QueryShutDownReason (fHandle: hWnd; var Reason : string) : boolean;
 (*  Get Version Info from File *)
 function GetFileVersion (const Filename : string; var FileVersionInfo : TFileVersionInfo) : boolean;
 function GetFileVersionString (const Filename : string; var Version : string) : boolean;
+function GetFileVersionAsNumber (const Filename : string; var Version : TVersion) : boolean;
 function GetFileVersionName (const Filename,DefName,DefVers : string): string;
 function GetFileVersionRelease (const Filename,defVers : string) : string;
 function GetFileVersionCopyright (const Filename,defCopyright : string) : string;
@@ -549,7 +552,7 @@ function KillProcessByWinHandle(WinHandle : Hwnd) : boolean;
 
 { ---------------------------------------------------------------- }
 // Replacement for SysUtils.SafeLoadLibrary with FPU exception handling for x86 and x64
-function FpuSaveLoadLibrary(const FileName : string; ErrorMode : UINT = SEM_NOOPENFILEERRORBOX) : HMODULE;
+function FpuSafeLoadLibrary(const FileName : string; ErrorMode : UINT = SEM_NOOPENFILEERRORBOX) : HMODULE;
 
 implementation
 
@@ -670,7 +673,7 @@ var
   ws  : widestring;
 begin
   Result:=false;
-  dh:=FpuSaveLoadLibrary(user32);
+  dh:=FpuSafeLoadLibrary(user32);
   if dh<>0 then begin
     @sdc:=GetProcAddress(dh,'ShutdownBlockReasonCreate');
     if @sdc<>nil then begin
@@ -687,7 +690,7 @@ var
   sdd : TSDBlockReasonDestroy;
 begin
   Result:=false;
-  dh:=FpuSaveLoadLibrary(user32);
+  dh:=FpuSafeLoadLibrary(user32);
   if dh<>0 then begin
     @sdd:=GetProcAddress(dh,'ShutdownBlockReasonDestroy');
     if @sdd<>nil then Result:=sdd(fHandle);
@@ -703,7 +706,7 @@ var
   sBuf : PWideChar;
 begin
   Result:=false;
-  dh:=FpuSaveLoadLibrary(user32);
+  dh:=FpuSafeLoadLibrary(user32);
   if dh<>0 then begin
     @sdq:=GetProcAddress(dh,'ShutdownBlockReasonQuery');
     if @sdq<>nil then begin
@@ -798,7 +801,7 @@ var
   GetUserNameEx : TGetUserNameEx;
 begin
   Result:=false;
-  Secur32Handle:=FpuSaveLoadLibrary(secur32);
+  Secur32Handle:=FpuSafeLoadLibrary(secur32);
   try
     if Secur32Handle<>0 then begin
       GetUserNameEx:=GetProcAddress(Secur32Handle,'GetUserNameExW');
@@ -1018,6 +1021,41 @@ begin
       Result:=true;
       end;
     end;
+  end;
+
+function GetFileVersionAsNumber (const Filename : string; var Version : TVersion) : boolean;
+var
+  s : string;
+  val : integer;
+
+  function ReadNxtInt (var s : String;
+                       var n : integer) : boolean;
+  var
+    i : integer;
+  begin
+    i:=pos ('.',s);
+    if i=0 then i:=succ(length(s));
+    Result:=TryStrToInt(copy(s,1,pred(i)),n);
+    delete(s,1,i);
+    end;
+
+begin
+  with Version do begin
+    Major:=0; Minor:=0; Release:=0; Build:=0; ;
+    end;
+  Result:=GetFileVersionString(Filename,s);
+  if Result then with Version do begin
+    if ReadNxtInt(s,val) then begin
+      Major:=val;
+      if ReadNxtInt(s,val) then begin
+        Minor:=val;
+        if ReadNxtInt(s,val) then begin
+          Release:=val;
+          if ReadNxtInt(s,val) then Build:=val;
+          end;
+        end;
+      end;
+    end
   end;
 
 function GetFileVersionName (const Filename,DefName,DefVers : string) : string;
@@ -1347,7 +1385,7 @@ var
 begin
   result:=false;
   try
-    Secur32Handle:=FpuSaveLoadLibrary(secur32);
+    Secur32Handle:=FpuSafeLoadLibrary(secur32);
     if Secur32Handle=0 then Exit;
     FLsaEnumerateLogonSessions:=GetProcAddress(Secur32Handle,'LsaEnumerateLogonSessions');
     if not assigned(FLsaEnumerateLogonSessions) then Exit;
@@ -1355,7 +1393,7 @@ begin
     if not assigned(FLsaGetLogonSessionData) then Exit;
     FLsaFreeReturnBuffer:=GetProcAddress(Secur32Handle,'LsaFreeReturnBuffer');
     if not assigned(FLsaFreeReturnBuffer) then Exit;
-    Wtsapi32Handle:=FpuSaveLoadLibrary(wtsapi32);
+    Wtsapi32Handle:=FpuSafeLoadLibrary(wtsapi32);
     if Wtsapi32Handle=0 then Exit;
     FWTSQuerySessionInformation:=GetProcAddress(Wtsapi32Handle,'WTSQuerySessionInformationW');
     if not assigned(FWTSQuerySessionInformation) then Exit;
@@ -1464,7 +1502,7 @@ var
 begin
   Result:=seltError;
   try
-    Secur32Handle:=FpuSaveLoadLibrary(secur32);
+    Secur32Handle:=FpuSafeLoadLibrary(secur32);
     if Secur32Handle=0 then Exit;
     FLsaEnumerateLogonSessions:=GetProcAddress(Secur32Handle,'LsaEnumerateLogonSessions');
     if not assigned(FLsaEnumerateLogonSessions) then Exit;
@@ -1639,7 +1677,7 @@ var
 begin
   Result:=false;
   try
-    Secur32Handle:=FpuSaveLoadLibrary(secur32);
+    Secur32Handle:=FpuSafeLoadLibrary(secur32);
     if Secur32Handle=0 then Exit;
     FLsaEnumerateLogonSessions:=GetProcAddress(Secur32Handle,'LsaEnumerateLogonSessions');
     if not assigned(FLsaEnumerateLogonSessions) then Exit;
@@ -1803,7 +1841,7 @@ begin
 
 { ---------------------------------------------------------------- }
 // Replacement for SysUtils.SafeLoadLibrary with FPU exception handling for x86 and x64
-function FpuSaveLoadLibrary(const Filename : string; ErrorMode : UINT) : HMODULE;
+function FpuSafeLoadLibrary(const Filename : string; ErrorMode : UINT) : HMODULE;
 var
   OldMode : UINT;
   em : TArithmeticExceptionMask;
@@ -1823,7 +1861,7 @@ initialization
     @FCreateProcessWithLogonW:=GetProcAddress(DllHandle,'CreateProcessWithLogonW')
   else FCreateProcessWithLogonW:=nil;
 
-  DllHandle:=FpuSaveLoadLibrary(powrprof);
+  DllHandle:=FpuSafeLoadLibrary(powrprof);
   if DllHandle<>0 then begin
     @FSetSuspendState:=GetProcAddress(DllHandle,'SetSuspendState');
     end

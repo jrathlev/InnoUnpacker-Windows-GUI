@@ -13,7 +13,7 @@
   the specific language governing rights and limitations under the License.
 
   Version 1.0 - Nov. 2011
-  last modified: Jan. 2020
+  last modified: October 2024
   *)
   
 unit InitProg;
@@ -41,7 +41,7 @@ procedure InitVersion (const ProgName,Vers,CopRgt : string; VersLevel,ShowLevel 
                        var ProgVersName,ProgVers,ProgVersDate : string); overload;
 
 function GetVersion (const VersionString : string; ShowLevel : integer) : string; overload;
-function GetVersion (ShowLevel : integer) : string; overload;
+function GetVersion (ShowLevel : integer; DefVers : string = '0.0.0.0') : string; overload;
 function GetCopyRight (const Year : string) : string;
 function GetLongCopyRight (const Year : string) : string;
 
@@ -112,13 +112,17 @@ var
 begin
   Result:=VersionString;
   // Versionsnr. anpassen
-  for i:=3 downto ShowLevel do Result:=ChangeFileExt(Result,'');
+  for i:=VersionString.CountChar('.') downto ShowLevel do Result:=ChangeFileExt(Result,'');
   Result:=rsVersion+' '+Result;
   end;
 
-function GetVersion (ShowLevel : integer) : string;
+function GetVersion (ShowLevel : integer; DefVers : string) : string;
+var
+  s : string;
 begin
-  Result:=GetVersion(VersInfo.Version,ShowLevel);
+  s:=VersInfo.Version;
+  if s.IsEmpty then s:=GetFileVersionRelease(Application.ExeName,DefVers);
+  Result:=GetVersion(s,ShowLevel);
   end;
 
 procedure InitVersion (const ProgName,Vers,CopRgt : string; VersLevel,ShowLevel : integer;
