@@ -86,6 +86,7 @@ type
     pnBottom: TPanel;
     pnTools: TPanel;
     bbVersion: TBitBtn;
+    bbCopyPath: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure bbInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -108,6 +109,8 @@ type
     procedure bbDownClick(Sender: TObject);
     procedure cxEncryptedClick(Sender: TObject);
     procedure bbVersionClick(Sender: TObject);
+    procedure bbCopyPathClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -117,6 +120,7 @@ type
     NewUnp                : boolean;
     function LoadUnpacker : boolean;
     function CheckUnpackVersion : boolean;
+    procedure SetScrollbars;
     procedure Execute (const Command,FileName,Filter,Comment : string);
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
   public
@@ -215,6 +219,11 @@ begin
     end
   end;
 
+procedure TMainForm.FormResize(Sender: TObject);
+begin
+  SetScrollbars;
+  end;
+
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   with TUnicodeIniFile.CreateForWrite(IniName) do begin
@@ -283,6 +292,16 @@ begin
 end;
 
 { ------------------------------------------------------------------- }
+procedure TMainForm.SetScrollbars;
+var
+  w : integer;
+begin
+  with mmDos do begin
+    w:=GetMaxTextWidth(Lines,Font);
+    if w>ClientWidth then Scrollbars:=ssBoth else Scrollbars:=ssVertical;
+    end;
+  end;
+
 procedure TMainForm.cbFileCloseUp(Sender: TObject);
 begin
   with cbFile do begin
@@ -353,6 +372,11 @@ begin
     end;
   end;
 
+procedure TMainForm.bbCopyPathClick(Sender: TObject);
+begin
+  AddToHistory(cbDir,DelExt(cbFile.Text));
+  end;
+
 procedure TMainForm.bbCopyResultClick(Sender: TObject);
 begin
   with mmDos do begin
@@ -387,7 +411,7 @@ begin
     DelimitedText:=cbFilter.Text;
     end;
   if SelectFromListDialog.Execute(BottomRightPos(bbFilter,5,5),
-              Caption,_('File filter:'),'',
+              ProgVersName,_('Extract files matching:'),'',
               [soEdit,soOrder],0,tcLower,'*.*',ml,s)=mrOK then begin
     with cbFilter do begin
       Text:=ml.DelimitedText; AddItem(Text,nil);
@@ -596,7 +620,10 @@ begin
         s:=UTF8ToString(sa);
         s:=ReplaceStr(s,CrLf,Lf); // Convert Unix style output
         s:=ReplaceStr(s,Lf,CrLf);
-        mmDos.SetSelTextBuf(PChar(s));
+        with mmDos do begin
+          SetSelTextBuf(PChar(s));
+          SetScrollbars;
+          end;
         end;
       CloseHandle(hChildStdoutRd);
       // DOS-Ausgabe anzeigen
