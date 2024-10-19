@@ -5,16 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Delphi units\n"
-"POT-Creation-Date: 2021-02-06 15:55\n"
-"PO-Revision-Date: 2022-06-11 15:51+0200\n"
+"Project-Id-Version: Delphi units (18.10.2024)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-19 09:39+0200\n"
+"PO-Revision-Date: 2024-10-19 09:45+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Strings from ComPort
@@ -139,295 +140,308 @@ msgstr "File non trovato: \"%s\""
 msgid "System error: %s"
 msgstr "Errore di sistema: %s"
 
-#. Programmer's name for it: rsError
+#. Programmer's name for it: rsNoError
 #: FileConsts.pas:41
+msgid "No errors"
+msgstr "Nessun errore"
+
+#. Programmer's name for it: rsError
+#: FileConsts.pas:42
 msgid "Error - "
 msgstr "Errore - "
 
 #. Programmer's name for it: rsError2
-#: FileConsts.pas:42
+#: FileConsts.pas:43
 msgid "Error(2) - "
 msgstr "Errore(2) - "
 
 #. Programmer's name for it: rsWarning
-#: FileConsts.pas:43
+#: FileConsts.pas:44
 msgid "Warning - "
 msgstr "Attenzione - "
 
 #. Programmer's name for it: rsInfo
-#: FileConsts.pas:44
+#: FileConsts.pas:45
 msgid "Info - "
 msgstr "Info - "
 
 #. Programmer's name for it: rsFileCreate
-#: FileConsts.pas:45
+#: FileConsts.pas:46
 msgid "Could not create file"
 msgstr "Impossibile creare il file"
 
 #. Programmer's name for it: rsFileOpen
-#: FileConsts.pas:46
+#: FileConsts.pas:47
 msgid "Could not open file"
 msgstr "Impossibile aprire il file"
 
 #. Programmer's name for it: rsFileClose
-#: FileConsts.pas:47
+#: FileConsts.pas:48
 msgid "Could not close file"
 msgstr "Impossibile chiudere il file"
 
 #. Programmer's name for it: rsFileRead
-#: FileConsts.pas:48
+#: FileConsts.pas:49
 msgid "Could not read from file"
 msgstr "Impossibile leggere dal file"
 
 #. Programmer's name for it: rsFileWrite
-#: FileConsts.pas:49
+#: FileConsts.pas:50
 msgid "Could not write to file"
 msgstr "Impossibile scrivere nel file"
 
 #. Programmer's name for it: rsFileAttr
-#: FileConsts.pas:50
+#: FileConsts.pas:51
 msgid "Attributes could not be set"
 msgstr "Non possono essere impostati gli attributi del file"
 
 #. Programmer's name for it: rsFileFull
-#: FileConsts.pas:51
+#: FileConsts.pas:52
 msgid "Low disk space"
 msgstr "Spazio disco insufficiente"
 
 #. Programmer's name for it: rsFileGZip
-#: FileConsts.pas:52
+#: FileConsts.pas:53
 msgid "Illegal file header"
 msgstr "Intestazione file non valida"
 
 #. Programmer's name for it: rsFileCheck
-#: FileConsts.pas:53
+#: FileConsts.pas:54
 msgid "Corrupt file"
 msgstr "File corrotto"
 
 #. Programmer's name for it: rsFileECrypt
-#: FileConsts.pas:54
+#: FileConsts.pas:55
 msgid "Encryption failed"
 msgstr "Crittografia fallita"
 
 #. Programmer's name for it: rsFileDCrypt
-#: FileConsts.pas:55
+#: FileConsts.pas:56
 msgid "Decryption failed"
 msgstr "Decifratura fallita"
 
 #. Programmer's name for it: rsFileVerify
-#: FileConsts.pas:56
+#: FileConsts.pas:57
 msgid "Verification failed"
 msgstr "Verifica fallita"
 
 #. Programmer's name for it: rsLongPath
-#: FileConsts.pas:57
+#: FileConsts.pas:58
 msgid "Path too long"
 msgstr "Percorso troppo lungo"
 
 #. Programmer's name for it: rsNotFound
-#: FileConsts.pas:58
+#: FileConsts.pas:59
 msgid "File not found"
 msgstr "File non trovato"
 
 #. Programmer's name for it: rsFileTS
-#: FileConsts.pas:59
+#: FileConsts.pas:60
 msgid "Timestamp could not be set"
 msgstr "Impossibile impostare data/ora"
 
 #. Programmer's name for it: rsStorage
-#: FileConsts.pas:60
+#: FileConsts.pas:61
 msgid "Error copying document summary"
 msgstr "Errore durante la copia del riepilogo documento"
 
 #. Programmer's name for it: rsTimeout
-#: FileConsts.pas:61
+#: FileConsts.pas:62
 msgid "Timeout error on copying file"
 msgstr "Errore di timeout durante la copia del file"
 
 #. Programmer's name for it: rsStream
-#: FileConsts.pas:62
+#: FileConsts.pas:63
 msgid "Undefined stream"
 msgstr "Stream non definito"
 
 #. Programmer's name for it: rsAcl
-#: FileConsts.pas:63
+#: FileConsts.pas:64
 msgid "Permissions could not be copied"
 msgstr "I permessi del file non possono essere copiati"
 
 #. Programmer's name for it: rsFileExists
-#: FileConsts.pas:64
+#: FileConsts.pas:65
 msgid "File already exists"
 msgstr "File già esistente"
 
 #. Programmer's name for it: rsSzMismatch
-#: FileConsts.pas:65
+#: FileConsts.pas:66
 msgid "Size mismatch"
 msgstr "Dimensioni non corrispondente"
 
 #. Programmer's name for it: rsVerOpen
-#: FileConsts.pas:66
+#: FileConsts.pas:67
 msgid "Could not open destination file for verification"
 msgstr "Impossibile aprire il file destinazione per la verifica"
 
 #. Programmer's name for it: rsDirCreate
-#: FileConsts.pas:67
+#: FileConsts.pas:68
 msgid "Could not create directory"
 msgstr "Impossibile creare la cartella"
 
 #. Programmer's name for it: rsFtpRead
-#: FileConsts.pas:68
+#: FileConsts.pas:69
 msgid "Could not read from FTP"
 msgstr "Impossibile leggere dall'FTP"
 
 #. Programmer's name for it: rsFtpWrite
-#: FileConsts.pas:69
+#: FileConsts.pas:70
 msgid "Could not write to FTP"
 msgstr "Impossibile scrivere nell'FTP"
 
 #. Programmer's name for it: rsFtpConnect
-#: FileConsts.pas:70
+#: FileConsts.pas:71
 msgid "Could not connect to FTP server"
 msgstr "Impossibile connettersi con il server FTP"
 
 #. Programmer's name for it: rsFtpBroken
-#: FileConsts.pas:71
+#: FileConsts.pas:72
 msgid "FTP connection was closed by server"
 msgstr "Connessione FTP chiusa dal server"
 
 #. Programmer's name for it: rsFtpDatConn
-#: FileConsts.pas:72
+#: FileConsts.pas:73
 msgid "Could not open FTP data connection"
 msgstr "Impossibile aprire una connessione FTP"
 
 #. Programmer's name for it: rsFtpTimeout
-#: FileConsts.pas:73
+#: FileConsts.pas:74
 msgid "Timeout error on copying file via FTP"
 msgstr "Errore timeout durante la copia del file via FTP"
 
 #. Programmer's name for it: rsCompare
-#: FileConsts.pas:74
+#: FileConsts.pas:75
 msgid "Different content"
 msgstr "Contenuto differente"
 
 #. Programmer's name for it: rsZipCrSeg
-#: FileConsts.pas:75
+#: FileConsts.pas:76
 msgid "Error creating new zip segment"
 msgstr "Errore durante la creazione di un nuovo segmento zip"
 
 #. Programmer's name for it: rsSignature
-#: FileConsts.pas:76
+#: FileConsts.pas:77
 msgid "Illegal zip signature"
 msgstr "Firma zip errata"
 
 #. Programmer's name for it: rsExtract
-#: FileConsts.pas:77
+#: FileConsts.pas:78
 msgid "Could not extract file"
 msgstr "Impossibile estrarre il file"
 
 #. Programmer's name for it: rsFormat
-#: FileConsts.pas:78
+#: FileConsts.pas:79
 msgid "Unsupported file format"
 msgstr "Formato del file non supportato"
 
 #. Programmer's name for it: rsTmpFile
-#: FileConsts.pas:79
+#: FileConsts.pas:80
 msgid "Could not rename temporary file"
 msgstr "Impossibile rinominare file temporaneo"
 
 #. Programmer's name for it: rsZipRdSeg
-#: FileConsts.pas:80
+#: FileConsts.pas:81
 msgid "Error reading next zip segment"
 msgstr "Errore durante la lettura del segmento zip successivo"
 
 #. Programmer's name for it: rsAltStreams
-#: FileConsts.pas:81
+#: FileConsts.pas:82
 msgid "Error copying alternate data streams"
 msgstr "Errore durante la copia flussi dati alternativi"
 
 #. Programmer's name for it: rsFileDel
-#: FileConsts.pas:82
+#: FileConsts.pas:83
 msgid "Error deleting file"
 msgstr "Errore durante l'eliminazione del file"
 
 #. Programmer's name for it: rsFileRen
-#: FileConsts.pas:83
+#: FileConsts.pas:84
 msgid "Error renaming file"
 msgstr "Errore durante la ridenominazione del file"
 
 #. Programmer's name for it: rsUserBreak
-#: FileConsts.pas:85
+#: FileConsts.pas:86
 msgid "Terminated by user"
 msgstr "Terminato dall'utente"
 
 #. Programmer's name for it: rsUnknownErrCode
-#: FileConsts.pas:86
+#: FileConsts.pas:87
 msgid "Unknown error code ($%.8x)"
 msgstr "Codice di errore sconosciuto ($%.8x)"
 
 #. Programmer's name for it: rsCopy
-#: FileConsts.pas:87
+#: FileConsts.pas:88
 msgid " (Copy)"
 msgstr " (Copia)"
 
 #. Programmer's name for it: rsGZip
-#: FileConsts.pas:88
+#: FileConsts.pas:89
 msgid " (gzip)"
 msgstr " (gzip)"
 
 #. Programmer's name for it: rsGUnzip
-#: FileConsts.pas:89
+#: FileConsts.pas:90
 msgid " (gunzip)"
 msgstr " (gunzip)"
 
 #. Programmer's name for it: rsZip
-#: FileConsts.pas:90
+#: FileConsts.pas:91
 msgid " (Zip)"
 msgstr " (Zip)"
 
 #. Programmer's name for it: rsUnzip
-#: FileConsts.pas:91
+#: FileConsts.pas:92
 msgid " (Unzip)"
 msgstr " (Unzip)"
 
 #. Programmer's name for it: rsEnCrypt
-#: FileConsts.pas:92
+#: FileConsts.pas:93
 msgid " (Encrypt)"
 msgstr " (Crittografa)"
 
 #. Programmer's name for it: rsDeCrypt
-#: FileConsts.pas:93
+#: FileConsts.pas:94
 msgid " (Decrypt)"
 msgstr " (Decripta)"
 
 #. Programmer's name for it: rsNoFileInfo
-#: FileConsts.pas:95
+#: FileConsts.pas:96
 msgid "File information not available"
 msgstr "Informazioni sul file non disponibili"
 
 #. Programmer's name for it: rsDescription
-#: FileConsts.pas:96
+#: FileConsts.pas:97
 msgid "Description: "
 msgstr "Descrizione: "
 
 #. Programmer's name for it: rsCompany
-#: FileConsts.pas:97
+#: FileConsts.pas:98
 msgid "Company: "
 msgstr "Società: "
 
 #. Programmer's name for it: rsCopyright
-#: FileConsts.pas:98
+#: FileConsts.pas:99
 msgid "Copyright: "
 msgstr "Copyright: "
 
 #. Programmer's name for it: rsVersion
-#: FileConsts.pas:99
+#: FileConsts.pas:100
 msgid "File version: "
 msgstr "Versione file: "
 
 #. Programmer's name for it: rsFileDate
-#: FileConsts.pas:100
+#: FileConsts.pas:101
 msgid "Last modified: "
 msgstr "Ultima modifica: "
+
+#. Programmer's name for it: rsStrFormatError
+#. Strings from ExtSysUtils
+#. Programmer's name for it: rsFormatError
+#. Programmer's name for it: rsFormatError
+#: FileConsts.pas:103 UnitConsts.pas:27 WinTaskConsts.pas:22
+msgid "Format error: "
+msgstr "Formato errore: "
 
 #. Programmer's name for it: rsGlobalInfo
 #: FilePropConsts.pas:23
@@ -720,15 +734,15 @@ msgstr ""
 "per l'utente: %s\n"
 "richiede la password!"
 
-#. Programmer's name for it: rsReconnect
-#: FtpConsts.pas:30
-msgid "FTP connection broken - try to reconnect"
-msgstr "Persa connessione FTP - tentativo riconnessione"
-
 #. Programmer's name for it: rsNoConnect
-#: FtpConsts.pas:31
+#: FtpConsts.pas:30
 msgid "FTP connection lost!"
 msgstr "Persa connessione FTP!"
+
+#. Programmer's name for it: rsTryReconnect
+#: FtpConsts.pas:31
+msgid "Trying to reconnect"
+msgstr "Tentativo ri-connessione"
 
 #. Programmer's name for it: rsFtpWelcome
 #: FtpConsts.pas:32
@@ -890,13 +904,6 @@ msgstr "Memoria insufficiente (\"string overflow\")"
 msgid "Unknown error"
 msgstr "Errore sconosciuto"
 
-#. Strings from ExtSysUtils
-#. Programmer's name for it: rsFormatError
-#. Programmer's name for it: rsFormatError
-#: UnitConsts.pas:27 WinTaskConsts.pas:22
-msgid "Format error: "
-msgstr "Formato errore: "
-
 #. '%s ist kein gültiger Hexwert';
 #. Programmer's name for it: rsHexError
 #: UnitConsts.pas:31
@@ -999,34 +1006,49 @@ msgstr "Errore in SHFileOperation"
 msgid "ShellExecute error"
 msgstr "Errore in ShellExecute"
 
+#. Programmer's name for it: rsVersion10LongStr
+#: UnitConsts.pas:75
+msgid "%s%s (Version %s, Build %d, %s)"
+msgstr "%s%s (versione %s, build %d, %s)"
+
+#. Programmer's name for it: rsVersion10ShortStr
+#: UnitConsts.pas:78
+msgid "%s (Version %s, %s)"
+msgstr "%s (versione %s, %s)"
+
+#. Programmer's name for it: rsWindows11
+#: UnitConsts.pas:80
+msgid "Windows 11"
+msgstr "Windows 11"
+
 #. Programmer's name for it: rsProfessionalMC
-#: UnitConsts.pas:82
+#: UnitConsts.pas:83
 msgid "Professional with Media Center"
 msgstr "Professional con Media Center"
 
 #. Programmer's name for it: rsEnterpriseServerIT
-#: UnitConsts.pas:90
+#: UnitConsts.pas:91
 msgid "Server Enterprise for Itanium-based Systems"
 msgstr "Server Enterprise per sistemi Itanium"
 
 #. Programmer's name for it: rsEssServerV
-#: UnitConsts.pas:100
+#: UnitConsts.pas:101
 msgid "Essential Server without Hyper-V"
 msgstr "Essential Server senza Hyper-V"
 
 #. Programmer's name for it: rsUnlicensed
-#: UnitConsts.pas:114
+#: UnitConsts.pas:115
 msgid "Unlicensed product"
 msgstr "Prodotto senza licenza"
 
 #. Misc.
 #. Programmer's name for it: rsVersion
-#: UnitConsts.pas:118
+#: UnitConsts.pas:119
 msgid "Version"
 msgstr "Versione"
 
 #. Programmer's name for it: rsLongCopyRight
-#: UnitConsts.pas:119
+#: UnitConsts.pas:120
 msgid ""
 "%s Dr. J. Rathlev\n"
 " 24222 Schwentinental, Germany"
@@ -1035,29 +1057,31 @@ msgstr ""
 " 24222 Schwentinental, Germany"
 
 #. Programmer's name for it: rsCopyRight
-#: UnitConsts.pas:120
+#: UnitConsts.pas:121
 msgid "%s Dr. J. Rathlev"
 msgstr "%s Dr. J. Rathlev"
 
 #. Programmer's name for it: rsNotAvail
-#: UnitConsts.pas:121
+#: UnitConsts.pas:122
 msgid "not available"
 msgstr "non disponibile"
 
 #. Programmer's name for it: rsConnectTo
-#: UnitConsts.pas:122
+#: UnitConsts.pas:123
 msgid "Connect to .."
 msgstr "Connessione a.."
 
 #. Programmer's name for it: rsUnknown
-#: UnitConsts.pas:123
+#: UnitConsts.pas:124
 msgid "<Unknown>"
 msgstr "<Sconosciuto>"
 
 #. Programmer's name for it: rsVssNotAvail
 #: VssConsts.pas:24
 msgid "Volume Shadow Copy could not be initialized on this system!"
-msgstr "In questo sistema non possono essere inizializzate le copie shadow del volume!"
+msgstr ""
+"In questo sistema non possono essere inizializzate le copie shadow del "
+"volume!"
 
 #. Programmer's name for it: rsInitBackupComps
 #: VssConsts.pas:25
@@ -1445,7 +1469,8 @@ msgstr "Alle %0:s del giorno %1:s di %2:s, a partire dal giorno %3:s"
 #. Programmer's name for it: rsTrgDMonthly
 #: WinTaskConsts.pas:77
 msgid "Runs on the %0:s %1:s, each %2:s starting %3:s"
-msgstr "Viene eseguita la %0:s settimana di %1:s di %2:s, a partire dal giorno %3:s"
+msgstr ""
+"Viene eseguita la %0:s settimana di %1:s di %2:s, a partire dal giorno %3:s"
 
 #. Programmer's name for it: rsTrgAnyLogon
 #: WinTaskConsts.pas:78
@@ -1511,157 +1536,3 @@ msgstr "Windows 7"
 #: WinTaskConsts.pas:93
 msgid "Windows 10"
 msgstr "Windows 10"
-
-#~ msgid "No hash file found"
-#~ msgstr "Nessun file hash trovato"
-
-#~ msgid "Server Enterprise (core)"
-#~ msgstr "Server Enterprise (core)"
-
-#~ msgid "Home Basic"
-#~ msgstr "Home Basic"
-
-#~ msgid "MD5 verification failed"
-#~ msgstr "Verifica MD5 non riuscito"
-
-#~ msgid "Home Premium"
-#~ msgstr "Home Premium"
-
-#~ msgid "Home Premium Server"
-#~ msgstr "Home Premium Server"
-
-#~ msgid "Home Server"
-#~ msgstr "Home Server"
-
-#~ msgid "Hyper-V Server"
-#~ msgstr "Hyper-V Server"
-
-#~ msgid "Essential Business Management Server"
-#~ msgstr "Essential Business Management Server"
-
-#~ msgid "Essential Business Security Server"
-#~ msgstr "Essential Business Security Server"
-
-#~ msgid "Essential Business Messaging Server"
-#~ msgstr "Essential Business Messaging Server"
-
-#~ msgid "Could not open reference file"
-#~ msgstr "Impossibile aprire il file di riferimento"
-
-#~ msgid "Essential Server"
-#~ msgstr "Essential Server"
-
-#~ msgid "Server Foundation"
-#~ msgstr "Server Foundation"
-
-#~ msgid "Small Business Server"
-#~ msgstr "Small Business Server"
-
-#~ msgid "SHA256 verification failed"
-#~ msgstr "Verifica SHA256 non riuscito"
-
-#~ msgid "Small Business Server Premium"
-#~ msgstr "Small Business Server Premium"
-
-#~ msgid "Server Standard Edition (full)"
-#~ msgstr "Server Standard Edition (full)"
-
-#~ msgid "Server Standard Edition (core)"
-#~ msgstr "Server Standard Edition (core)"
-
-#~ msgid "Starter Edition"
-#~ msgstr "Starter Edition"
-
-#~ msgid "Storage Server Enterprise"
-#~ msgstr "Storage Server Enterprise"
-
-#~ msgid "Storage Server Express"
-#~ msgstr "Storage Server Express"
-
-#~ msgid "Professional"
-#~ msgstr "Professional"
-
-#~ msgid "Storage Server Standard"
-#~ msgstr "Storage Server Standard"
-
-#~ msgid "Storage Server Workgroup"
-#~ msgstr "Storage Server Workgroup"
-
-#~ msgid "Ultimate Edition"
-#~ msgstr "Ultimate Edition"
-
-#~ msgid "Web Server Edition"
-#~ msgstr "Web Server Edition"
-
-#~ msgid "File details could not be copied"
-#~ msgstr "Dettagli del file non può essere copiato"
-
-#~ msgid "Web Server Edition (core)"
-#~ msgstr "Web Server Edition (core)"
-
-#, fuzzy
-#~ msgid "%s%s (Version %d, Build %d, %s)"
-#~ msgstr "%s%s (Version %d.%d, Build %d, %6:s)"
-
-#, fuzzy
-#~ msgid "%s (Version %d, %s)"
-#~ msgstr "%s%s (Version %d.%d, Build %d, %6:s)"
-
-#, fuzzy
-#~ msgid "%s (Version %d, Build %d, %s)"
-#~ msgstr "%s%s (Version %d.%d, Build %d, %6:s)"
-
-#~ msgid "J. Rathlev (IEAP, Kiel University)"
-#~ msgstr "A.Rubini"
-
-#~ msgid "Business"
-#~ msgstr "Business"
-
-#~ msgid "%s%s - Service Pack %5:d (Version %2:d.%3:d, Build %4:d, %6:s)"
-#~ msgstr "%s%s - Service Pack %5:d (Version %2:d.%3:d, Build %4:d, %6:s)"
-
-#~ msgid "%s (%2:s)"
-#~ msgstr "%s (%2:s)"
-
-#~ msgid "%s - Service Pack %1:d (%2:s)"
-#~ msgstr "%s - Service Pack %1:d (%2:s)"
-
-#, fuzzy
-#~ msgid "Contents mismatch"
-#~ msgstr "Contenuto creato"
-
-#~ msgid "Verify failed - size mismatch"
-#~ msgstr "Verifica fallita - dimensione non corrispondente"
-
-#~ msgid "B"
-#~ msgstr "B"
-
-#~ msgid "Verify failed - could not open destination file"
-#~ msgstr "Verifica fallita - impossibile aprire il file"
-
-#~ msgid "kB"
-#~ msgstr "kB"
-
-#~ msgid "MB"
-#~ msgstr "MB"
-
-#~ msgid "GB"
-#~ msgstr "GB"
-
-#~ msgid "Cluster Server"
-#~ msgstr "Cluster Server"
-
-#~ msgid "kMGT"
-#~ msgstr "kMGT"
-
-#~ msgid "Server Datacenter (full)"
-#~ msgstr "Server Datacenter (full)"
-
-#~ msgid "Server Datacenter (core)"
-#~ msgstr "Server Datacenter (core)"
-
-#~ msgid "Enterprise"
-#~ msgstr "Enterprise"
-
-#~ msgid "Server Enterprise (full)"
-#~ msgstr "Server Enterprise (full)"
