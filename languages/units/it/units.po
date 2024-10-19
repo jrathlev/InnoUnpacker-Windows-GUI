@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Delphi units (18.10.2024)\n"
+"Project-Id-Version: Delphi units (19.10.2024)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-19 09:39+0200\n"
-"PO-Revision-Date: 2024-10-19 09:45+0200\n"
+"POT-Creation-Date: 2024-10-19 20:24+0200\n"
+"PO-Revision-Date: 2024-10-19 20:30+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -372,38 +372,38 @@ msgstr "Codice di errore sconosciuto ($%.8x)"
 
 #. Programmer's name for it: rsCopy
 #: FileConsts.pas:88
-msgid " (Copy)"
-msgstr " (Copia)"
+msgid "Copy"
+msgstr "Copia"
 
 #. Programmer's name for it: rsGZip
 #: FileConsts.pas:89
-msgid " (gzip)"
-msgstr " (gzip)"
+msgid "gzip"
+msgstr "gzip"
 
 #. Programmer's name for it: rsGUnzip
 #: FileConsts.pas:90
-msgid " (gunzip)"
-msgstr " (gunzip)"
+msgid "gunzip"
+msgstr "gunzip"
 
 #. Programmer's name for it: rsZip
 #: FileConsts.pas:91
-msgid " (Zip)"
-msgstr " (Zip)"
+msgid "Zip"
+msgstr "Zip"
 
 #. Programmer's name for it: rsUnzip
 #: FileConsts.pas:92
-msgid " (Unzip)"
-msgstr " (Unzip)"
+msgid "Unzip"
+msgstr "Unzip"
 
 #. Programmer's name for it: rsEnCrypt
 #: FileConsts.pas:93
-msgid " (Encrypt)"
-msgstr " (Crittografa)"
+msgid "Encrypt"
+msgstr "Cripta"
 
 #. Programmer's name for it: rsDeCrypt
 #: FileConsts.pas:94
-msgid " (Decrypt)"
-msgstr " (Decripta)"
+msgid "Decrypt"
+msgstr "Decripta"
 
 #. Programmer's name for it: rsNoFileInfo
 #: FileConsts.pas:96
@@ -794,6 +794,39 @@ msgstr "Cartella radice FTP: \"%s\""
 msgid "Current FTP directory: \"%s\""
 msgstr "Cartella utente FTP: \"%s\""
 
+#. Certicate info
+#. Programmer's name for it: rsCertVersion
+#. Misc.
+#. Programmer's name for it: rsVersion
+#: FtpConsts.pas:44 UnitConsts.pas:127
+msgid "Version"
+msgstr "Versione"
+
+#. Programmer's name for it: rsSerialNr
+#: FtpConsts.pas:45
+msgid "Serial number"
+msgstr "Numero di serie"
+
+#. Programmer's name for it: rsIssuer
+#: FtpConsts.pas:46
+msgid "Issuer"
+msgstr "Emittente"
+
+#. Programmer's name for it: rsValidUntil
+#: FtpConsts.pas:47
+msgid "Valid until"
+msgstr "Valido fino al"
+
+#. Programmer's name for it: rsFingerprint
+#: FtpConsts.pas:48
+msgid "Fingerprint"
+msgstr "Impronta digitale"
+
+#. Programmer's name for it: rsVerCertError
+#: FtpConsts.pas:49
+msgid "Error verifying server certificate"
+msgstr "Errore durante la verifica del certificato del server"
+
 #. 'Fehler (öffnende/schließende Klammern)'
 #. Programmer's name for it: rsMathErrPar
 #: MathExpConsts.pas:22
@@ -922,7 +955,7 @@ msgstr "&s non è un valore ottale valido"
 msgid "%s is not a valid binary value"
 msgstr "&s non è un valore binario valido"
 
-#. Strings from LangUtils
+#. "&" is required so that this entry is always the first when sorting
 #. Programmer's name for it: rsSystemDefault
 #: UnitConsts.pas:37
 msgid "&System default"
@@ -971,84 +1004,104 @@ msgstr "Chiusura processo fallita"
 msgid "Unknown system error code"
 msgstr "Errore di sistema sconosciuto"
 
-#. Programmer's name for it: rsWindowsError
+#. Programmer's name for it: rsErrorCode
 #: UnitConsts.pas:63
+msgid "Error code"
+msgstr "Codice errore"
+
+#. Programmer's name for it: rsWindowsError
+#: UnitConsts.pas:64
 msgid "Windows error"
 msgstr "Errore Windows"
 
 #. Programmer's name for it: rsStorageError
-#: UnitConsts.pas:64
+#: UnitConsts.pas:65
 msgid "Storage error"
 msgstr "Errore archivio"
 
 #. Programmer's name for it: rsRpcError
-#: UnitConsts.pas:65
+#: UnitConsts.pas:66
 msgid "Remote procedure call error"
 msgstr "Errore Remote Procedure Call"
 
 #. Programmer's name for it: rsInterfaceError
-#: UnitConsts.pas:66
+#: UnitConsts.pas:67
 msgid "Interface error"
 msgstr "Errore interfaccia"
 
 #. Programmer's name for it: rsDispatchError
-#: UnitConsts.pas:67
+#: UnitConsts.pas:68
 msgid "Dispatch error"
 msgstr "Errore Dispatch"
 
 #. Programmer's name for it: rsPreWin32Error
-#: UnitConsts.pas:68
+#: UnitConsts.pas:69
 msgid "Error in SHFileOperation"
 msgstr "Errore in SHFileOperation"
 
 #. Programmer's name for it: rsShellExec
-#: UnitConsts.pas:69
+#: UnitConsts.pas:70
 msgid "ShellExecute error"
 msgstr "Errore in ShellExecute"
 
 #. Programmer's name for it: rsVersion10LongStr
-#: UnitConsts.pas:75
+#: UnitConsts.pas:76
 msgid "%s%s (Version %s, Build %d, %s)"
 msgstr "%s%s (versione %s, build %d, %s)"
 
 #. Programmer's name for it: rsVersion10ShortStr
-#: UnitConsts.pas:78
+#: UnitConsts.pas:79
 msgid "%s (Version %s, %s)"
 msgstr "%s (versione %s, %s)"
 
 #. Programmer's name for it: rsWindows11
-#: UnitConsts.pas:80
+#: UnitConsts.pas:81
 msgid "Windows 11"
 msgstr "Windows 11"
 
 #. Programmer's name for it: rsProfessionalMC
-#: UnitConsts.pas:83
+#: UnitConsts.pas:84
 msgid "Professional with Media Center"
 msgstr "Professional con Media Center"
 
 #. Programmer's name for it: rsEnterpriseServerIT
-#: UnitConsts.pas:91
+#: UnitConsts.pas:92
 msgid "Server Enterprise for Itanium-based Systems"
 msgstr "Server Enterprise per sistemi Itanium"
 
 #. Programmer's name for it: rsEssServerV
-#: UnitConsts.pas:101
+#: UnitConsts.pas:102
 msgid "Essential Server without Hyper-V"
 msgstr "Essential Server senza Hyper-V"
 
 #. Programmer's name for it: rsUnlicensed
-#: UnitConsts.pas:115
+#: UnitConsts.pas:116
 msgid "Unlicensed product"
 msgstr "Prodotto senza licenza"
 
-#. Misc.
-#. Programmer's name for it: rsVersion
-#: UnitConsts.pas:119
-msgid "Version"
-msgstr "Versione"
+#. Strings from DateUtilEx
+#. Programmer's name for it: rsBegSpring
+#: UnitConsts.pas:120
+msgid "Beginning of spring"
+msgstr "Inizio primavera"
+
+#. Programmer's name for it: rsBegSummer
+#: UnitConsts.pas:121
+msgid "Beginning of summer"
+msgstr "Inizio estate"
+
+#. Programmer's name for it: rsBegAutumn
+#: UnitConsts.pas:122
+msgid "Beginning of autumn"
+msgstr "Inizio autunno"
+
+#. Programmer's name for it: rsBegWinter
+#: UnitConsts.pas:123
+msgid "Beginning of winter"
+msgstr "Inizio inverno"
 
 #. Programmer's name for it: rsLongCopyRight
-#: UnitConsts.pas:120
+#: UnitConsts.pas:128
 msgid ""
 "%s Dr. J. Rathlev\n"
 " 24222 Schwentinental, Germany"
@@ -1057,24 +1110,34 @@ msgstr ""
 " 24222 Schwentinental, Germany"
 
 #. Programmer's name for it: rsCopyRight
-#: UnitConsts.pas:121
+#: UnitConsts.pas:129
 msgid "%s Dr. J. Rathlev"
 msgstr "%s Dr. J. Rathlev"
 
 #. Programmer's name for it: rsNotAvail
-#: UnitConsts.pas:122
+#: UnitConsts.pas:130
 msgid "not available"
 msgstr "non disponibile"
 
+#. Programmer's name for it: rsNoName
+#: UnitConsts.pas:131
+msgid "unlabeled"
+msgstr "senza etichetta"
+
 #. Programmer's name for it: rsConnectTo
-#: UnitConsts.pas:123
+#: UnitConsts.pas:132
 msgid "Connect to .."
 msgstr "Connessione a.."
 
 #. Programmer's name for it: rsUnknown
-#: UnitConsts.pas:124
+#: UnitConsts.pas:133
 msgid "<Unknown>"
 msgstr "<Sconosciuto>"
+
+#. Programmer's name for it: rsAnyKey
+#: UnitConsts.pas:134
+msgid "Strike any key to continue ..."
+msgstr "Premi un tasto qualsiasi per continuare..."
 
 #. Programmer's name for it: rsVssNotAvail
 #: VssConsts.pas:24
