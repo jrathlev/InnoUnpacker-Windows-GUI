@@ -6,15 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Delphi units\n"
-"POT-Creation-Date: 2022-02-10 17:26\n"
-"PO-Revision-Date: 2022-02-10 17:24+0100\n"
+"POT-Creation-Date: 2024-02-03 23:16+0100\n"
+"PO-Revision-Date: 2024-02-03 23:17+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: Xavier Lasserre <xavierlasserre@orange.fr>\n"
-"Language: fr_FR\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 
 #. Strings from ComPort
@@ -371,38 +371,38 @@ msgstr "Code d'erreur inconnu ($%.8x)"
 
 #. Programmer's name for it: rsCopy
 #: FileConsts.pas:88
-msgid " (Copy)"
-msgstr " (Copie)"
+msgid "Copy"
+msgstr "Copie"
 
 #. Programmer's name for it: rsGZip
 #: FileConsts.pas:89
-msgid " (gzip)"
-msgstr " (gzip)"
+msgid "gzip"
+msgstr "gzip"
 
 #. Programmer's name for it: rsGUnzip
 #: FileConsts.pas:90
-msgid " (gunzip)"
-msgstr " (gunzip)"
+msgid "gunzip"
+msgstr "gunzip"
 
 #. Programmer's name for it: rsZip
 #: FileConsts.pas:91
-msgid " (Zip)"
-msgstr " (Zip)"
+msgid "Zip"
+msgstr "Zip"
 
 #. Programmer's name for it: rsUnzip
 #: FileConsts.pas:92
-msgid " (Unzip)"
-msgstr " (Unzip)"
+msgid "Unzip"
+msgstr "Unzip"
 
 #. Programmer's name for it: rsEnCrypt
 #: FileConsts.pas:93
-msgid " (Encrypt)"
-msgstr " (Chiffrer)"
+msgid "Encrypt"
+msgstr "Chiffrer"
 
 #. Programmer's name for it: rsDeCrypt
 #: FileConsts.pas:94
-msgid " (Decrypt)"
-msgstr " (Déchiffrer)"
+msgid "Decrypt"
+msgstr "Déchiffrer"
 
 #. Programmer's name for it: rsNoFileInfo
 #: FileConsts.pas:96
@@ -793,6 +793,39 @@ msgstr "Répertoire racine FTP : \"%s\""
 msgid "Current FTP directory: \"%s\""
 msgstr "Répertoire actif FTP : \"%s\""
 
+#. Certicate info
+#. Programmer's name for it: rsCertVersion
+#. Misc.
+#. Programmer's name for it: rsVersion
+#: FtpConsts.pas:44 UnitConsts.pas:127
+msgid "Version"
+msgstr "Version"
+
+#. Programmer's name for it: rsSerialNr
+#: FtpConsts.pas:45
+msgid "Serial number"
+msgstr "N° de série"
+
+#. Programmer's name for it: rsIssuer
+#: FtpConsts.pas:46
+msgid "Issuer"
+msgstr "Émetteur"
+
+#. Programmer's name for it: rsValidUntil
+#: FtpConsts.pas:47
+msgid "Valid until"
+msgstr "Valide jusqu'au"
+
+#. Programmer's name for it: rsFingerprint
+#: FtpConsts.pas:48
+msgid "Fingerprint"
+msgstr "Empreinte digitale"
+
+#. Programmer's name for it: rsVerCertError
+#: FtpConsts.pas:49
+msgid "Error verifying server certificate"
+msgstr "Erreur de vérification du certificat du serveur"
+
 #. 'Fehler (öffnende/schließende Klammern)'
 #. Programmer's name for it: rsMathErrPar
 #: MathExpConsts.pas:22
@@ -921,7 +954,7 @@ msgstr "%s n'est pas une valeur octale valide"
 msgid "%s is not a valid binary value"
 msgstr "%s n'est pas une valeur binaire valide"
 
-#. Strings from LangUtils
+#. "&" is required so that this entry is always the first when sorting
 #. Programmer's name for it: rsSystemDefault
 #: UnitConsts.pas:37
 msgid "&System default"
@@ -970,84 +1003,104 @@ msgstr "Erreur à la fermeture du handle"
 msgid "Unknown system error code"
 msgstr "Code Erreur système inconnu"
 
-#. Programmer's name for it: rsWindowsError
+#. Programmer's name for it: rsErrorCode
 #: UnitConsts.pas:63
+msgid "Error code"
+msgstr "Code d’erreur"
+
+#. Programmer's name for it: rsWindowsError
+#: UnitConsts.pas:64
 msgid "Windows error"
 msgstr "Windows - Erreur"
 
 #. Programmer's name for it: rsStorageError
-#: UnitConsts.pas:64
+#: UnitConsts.pas:65
 msgid "Storage error"
 msgstr "Erreur de stockage"
 
 #. Programmer's name for it: rsRpcError
-#: UnitConsts.pas:65
+#: UnitConsts.pas:66
 msgid "Remote procedure call error"
 msgstr "Erreur d'appel de procédure distante"
 
 #. Programmer's name for it: rsInterfaceError
-#: UnitConsts.pas:66
+#: UnitConsts.pas:67
 msgid "Interface error"
 msgstr "Erreur de l'interface"
 
 #. Programmer's name for it: rsDispatchError
-#: UnitConsts.pas:67
+#: UnitConsts.pas:68
 msgid "Dispatch error"
 msgstr "Erreur d'expédition"
 
 #. Programmer's name for it: rsPreWin32Error
-#: UnitConsts.pas:68
+#: UnitConsts.pas:69
 msgid "Error in SHFileOperation"
 msgstr "Erreur en SHFileOperation"
 
 #. Programmer's name for it: rsShellExec
-#: UnitConsts.pas:69
+#: UnitConsts.pas:70
 msgid "ShellExecute error"
 msgstr "Erreur de ShellExecute"
 
 #. Programmer's name for it: rsVersion10LongStr
-#: UnitConsts.pas:75
+#: UnitConsts.pas:76
 msgid "%s%s (Version %s, Build %d, %s)"
 msgstr "%s%s (Version %s, Build %d, %s)"
 
 #. Programmer's name for it: rsVersion10ShortStr
-#: UnitConsts.pas:78
+#: UnitConsts.pas:79
 msgid "%s (Version %s, %s)"
 msgstr "%s (Version %s, %s)"
 
 #. Programmer's name for it: rsWindows11
-#: UnitConsts.pas:80
+#: UnitConsts.pas:81
 msgid "Windows 11"
 msgstr "Windows 11"
 
 #. Programmer's name for it: rsProfessionalMC
-#: UnitConsts.pas:83
+#: UnitConsts.pas:84
 msgid "Professional with Media Center"
 msgstr "Avec Media Center Professionnel"
 
 #. Programmer's name for it: rsEnterpriseServerIT
-#: UnitConsts.pas:91
+#: UnitConsts.pas:92
 msgid "Server Enterprise for Itanium-based Systems"
 msgstr "Serveur Enterprise pour Système basé Itanium"
 
 #. Programmer's name for it: rsEssServerV
-#: UnitConsts.pas:101
+#: UnitConsts.pas:102
 msgid "Essential Server without Hyper-V"
 msgstr "Essential Server sans Hyper-V"
 
 #. Programmer's name for it: rsUnlicensed
-#: UnitConsts.pas:115
+#: UnitConsts.pas:116
 msgid "Unlicensed product"
 msgstr "Produit sans licence"
 
-#. Misc.
-#. Programmer's name for it: rsVersion
-#: UnitConsts.pas:119
-msgid "Version"
-msgstr "Version"
+#. Strings from DateUtilEx
+#. Programmer's name for it: rsBegSpring
+#: UnitConsts.pas:120
+msgid "Beginning of spring"
+msgstr "Début du printemps"
+
+#. Programmer's name for it: rsBegSummer
+#: UnitConsts.pas:121
+msgid "Beginning of summer"
+msgstr "Début de l'été"
+
+#. Programmer's name for it: rsBegAutumn
+#: UnitConsts.pas:122
+msgid "Beginning of autumn"
+msgstr "Début de l'automne"
+
+#. Programmer's name for it: rsBegWinter
+#: UnitConsts.pas:123
+msgid "Beginning of winter"
+msgstr "Début de l'hiver"
 
 #. Programmer's name for it: rsLongCopyRight
-#: UnitConsts.pas:120
+#: UnitConsts.pas:128
 msgid ""
 "%s Dr. J. Rathlev\n"
 " 24222 Schwentinental, Germany"
@@ -1056,39 +1109,49 @@ msgstr ""
 " 24222 Schwentinental, Germany"
 
 #. Programmer's name for it: rsCopyRight
-#: UnitConsts.pas:121
+#: UnitConsts.pas:129
 msgid "%s Dr. J. Rathlev"
 msgstr "%s Dr. J. Rathlev"
 
 #. Programmer's name for it: rsNotAvail
-#: UnitConsts.pas:122
+#: UnitConsts.pas:130
 msgid "not available"
 msgstr "non valable"
 
+#. Programmer's name for it: rsNoName
+#: UnitConsts.pas:131
+msgid "unlabeled"
+msgstr "innommé"
+
 #. Programmer's name for it: rsConnectTo
-#: UnitConsts.pas:123
+#: UnitConsts.pas:132
 msgid "Connect to .."
 msgstr "Connecter à .."
 
 #. Programmer's name for it: rsUnknown
-#: UnitConsts.pas:124
+#: UnitConsts.pas:133
 msgid "<Unknown>"
 msgstr "<Inconnu>"
+
+#. Programmer's name for it: rsAnyKey
+#: UnitConsts.pas:134
+msgid "Strike any key to continue ..."
+msgstr "Appuyez sur n'importe quelle touche pour continuer ..."
 
 #. Programmer's name for it: rsVssNotAvail
 #: VssConsts.pas:24
 msgid "Volume Shadow Copy could not be initialized on this system!"
-msgstr ""
+msgstr "Volume Shadow Copy n'a pas pu être initialisé sur ce système !"
 
 #. Programmer's name for it: rsInitBackupComps
 #: VssConsts.pas:25
 msgid "Initializing IVssBackupComponents Interface ..."
-msgstr ""
+msgstr "Initialisation de l'interface IVssBackupComponents ..."
 
 #. Programmer's name for it: rsInitMetaData
 #: VssConsts.pas:26
 msgid "Initialize writer metadata ..."
-msgstr ""
+msgstr "Initialiser les métadonnées du rédacteur ..."
 
 #. Programmer's name for it: rsGatherMetaData
 #: VssConsts.pas:27
@@ -1128,12 +1191,12 @@ msgstr "Découvrez les composants explicitement inclus ..."
 #. Programmer's name for it: rsSelExpInclComps
 #: VssConsts.pas:34
 msgid "Select explicitly included components ..."
-msgstr ""
+msgstr "Sélectionnez les composants explicitement inclus ..."
 
 #. Programmer's name for it: rsSaveBackCompsDoc
 #: VssConsts.pas:35
 msgid "Saving the backup components document ..."
-msgstr ""
+msgstr "Sauvegarde du document des composants de sauvegarde ..."
 
 #. Programmer's name for it: rsAddVolSnapSet
 #: VssConsts.pas:36
@@ -1143,7 +1206,7 @@ msgstr "Ajouter des volumes à Snapshot set ..."
 #. Programmer's name for it: rsPrepBackup
 #: VssConsts.pas:37
 msgid "Preparing for backup ..."
-msgstr ""
+msgstr "Préparation à la sauvegarde ..."
 
 #. Programmer's name for it: rsCreateShadowCopy
 #: VssConsts.pas:38
@@ -1153,17 +1216,18 @@ msgstr "Création du cliché instantané ..."
 #. Programmer's name for it: rsCreateCopySuccess
 #: VssConsts.pas:39
 msgid "Shadow copy set successfully created"
-msgstr ""
+msgstr "Création réussie d'un jeu de copies d'ombre"
 
 #. Programmer's name for it: rsQueryShadowCopies
 #: VssConsts.pas:40
 msgid "Querying all shadow copies in the system ..."
-msgstr ""
+msgstr "Interroger toutes les copies fantômes du système ..."
 
 #. Programmer's name for it: rsQuerySnapshotSetID
 #: VssConsts.pas:41
 msgid "Querying all shadow copies with the SnapshotSetID %s ..."
 msgstr ""
+"Interrogation de toutes les copies fantômes avec le SnapshotSetID %s ..."
 
 #. Programmer's name for it: rsCreateShadowSet
 #: VssConsts.pas:42
@@ -1533,187 +1597,3 @@ msgstr "Windows 7"
 #: WinTaskConsts.pas:93
 msgid "Windows 10"
 msgstr "Windows 10"
-
-#~ msgid "%s%s - Service Pack %5:d (Version %2:s.%3:d, Build %4:d, %6:s)"
-#~ msgstr "%s%s - Service Pack %5:d (Version %2:s.%3:d, Build %4:d, %6:s)"
-
-#~ msgid "FTP connection broken - try to reconnect"
-#~ msgstr "Connexion FTP rompue - essayez de vous reconnecter"
-
-#~ msgid "No hash file found"
-#~ msgstr "Aucun fichier hachage trouvé"
-
-#~ msgid "kMGT"
-#~ msgstr "kMGT"
-
-#~ msgid "Could not open reference file"
-#~ msgstr "Pouvait pas ouvrir le fichier de référence"
-
-#~ msgid "Professional"
-#~ msgstr "Professional"
-
-#~ msgid "Business"
-#~ msgstr "Business"
-
-#~ msgid "Cluster Server"
-#~ msgstr "Cluster Server"
-
-#~ msgid "Server Datacenter (full)"
-#~ msgstr "Server Datacenter (full)"
-
-#~ msgid "Server Datacenter (core)"
-#~ msgstr "Server Datacenter (core)"
-
-#~ msgid "Enterprise"
-#~ msgstr "Enterprise"
-
-#~ msgid "Server Enterprise (full)"
-#~ msgstr "Server Enterprise (full)"
-
-#~ msgid "Server Enterprise (core)"
-#~ msgstr "Server Enterprise (core)"
-
-#~ msgid "MD5 verification failed"
-#~ msgstr "Vérification MD5 a échoué"
-
-#~ msgid "Home Basic"
-#~ msgstr "Home Basic"
-
-#~ msgid "Home Premium"
-#~ msgstr "Home Premium"
-
-#~ msgid "Home Premium Server"
-#~ msgstr "Home Premium Server"
-
-#~ msgid "Home Server"
-#~ msgstr "Home Server"
-
-#~ msgid "Hyper-V Server"
-#~ msgstr "Hyper-V Server"
-
-#~ msgid "Essential Business Management Server"
-#~ msgstr "Essential Business Management Server"
-
-#~ msgid "Essential Business Security Server"
-#~ msgstr "Essential Business Security Server"
-
-#~ msgid "Essential Business Messaging Server"
-#~ msgstr "Essential Business Messaging Server"
-
-#~ msgid "Essential Server"
-#~ msgstr "Essential Server"
-
-#~ msgid "Server Foundation"
-#~ msgstr "Server Foundation"
-
-#~ msgid "SHA256 verification failed"
-#~ msgstr "Vérification SHA256 a échoué"
-
-#~ msgid "Small Business Server"
-#~ msgstr "Small Business Server"
-
-#~ msgid "Small Business Server Premium"
-#~ msgstr "Small Business Server Premium"
-
-#~ msgid "Server Standard Edition (full)"
-#~ msgstr "Server Standard Edition (full)"
-
-#~ msgid "Server Standard Edition (core)"
-#~ msgstr "Server Standard Edition (core)"
-
-#~ msgid "Starter Edition"
-#~ msgstr "Starter Edition"
-
-#~ msgid "Storage Server Enterprise"
-#~ msgstr "Storage Server Enterprise"
-
-#~ msgid "Storage Server Express"
-#~ msgstr "Storage Server Express"
-
-#~ msgid "Storage Server Standard"
-#~ msgstr "Storage Server Standard"
-
-#~ msgid "Storage Server Workgroup"
-#~ msgstr "Storage Server Workgroup"
-
-#~ msgid "Ultimate Edition"
-#~ msgstr "Ultimate Edition"
-
-#~ msgid "File details could not be copied"
-#~ msgstr "Détails de fichier n'a pas pu être copié"
-
-#~ msgid "Web Server Edition"
-#~ msgstr "Web Server Edition"
-
-#~ msgid "Web Server Edition (core)"
-#~ msgstr "Web Server Edition (core)"
-
-#, fuzzy
-#~ msgid "%s (Version %d, Build %d, %s)"
-#~ msgstr "%s%s (Version %d.%d, Build %d, %6:s)"
-
-#~ msgid "%s (%2:s)"
-#~ msgstr "%s (%2:s)"
-
-#~ msgid "%s - Service Pack %1:d (%2:s)"
-#~ msgstr "%s - Service Pack %1:d (%2:s)"
-
-#~ msgid "Verify failed - size mismatch"
-#~ msgstr "Echec de le verfication - incohérence de taille"
-
-#~ msgid "Verify failed - could not open destination file"
-#~ msgstr "Echec de le verfication - impossible d'ouvrir le fichie"
-
-#~ msgid "On event"
-#~ msgstr "Sur événement"
-
-#~ msgid "Create file failed"
-#~ msgstr "Impossible de créer le fichier %s"
-
-#~ msgid "Open file failed"
-#~ msgstr "Impossible d'ouvrir le fichier"
-
-#~ msgid "Close file failed"
-#~ msgstr "Impossible de fermer le fichier"
-
-#~ msgid "Read file failed"
-#~ msgstr "Impossible de lire le fichier"
-
-#~ msgid "Write file failed"
-#~ msgstr "Impossible d'écrire le fichier"
-
-#~ msgid "Set file attr. failed"
-#~ msgstr "Impossible de lire le attributs"
-
-#~ msgid "Setting of file timestamp failed"
-#~ msgstr "Impossible d'écrire date et heure du fichier"
-
-#~ msgid "FTP read failed"
-#~ msgstr "Echec de la lecture FTP"
-
-#~ msgid "FTP write failed"
-#~ msgstr "Echec du courrier FTP"
-
-#~ msgid "FTP connection failed"
-#~ msgstr "Erreur a la connexion FTP"
-
-#~ msgid "B"
-#~ msgstr "B"
-
-#~ msgid " (GZip)"
-#~ msgstr "(GZip)"
-
-#~ msgid "German"
-#~ msgstr "Allemagne"
-
-#~ msgid "English"
-#~ msgstr "Anglais"
-
-#~ msgid "kB"
-#~ msgstr "kB"
-
-#~ msgid "MB"
-#~ msgstr "MB"
-
-#~ msgid "GB"
-#~ msgstr "GB"

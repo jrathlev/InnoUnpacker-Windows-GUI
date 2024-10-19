@@ -1,10 +1,10 @@
 #. Programmer's name for it: rsSPVersionShortStr
-#: UnitConsts.pas:77
+#: UnitConsts.pas:78
 msgid "%s - Service Pack %1:d (%2:s)"
 msgstr ""
 
 #. Programmer's name for it: rsVersionShortStr
-#: UnitConsts.pas:76
+#: UnitConsts.pas:77
 msgid "%s (%2:s)"
 msgstr ""
 
@@ -14,12 +14,12 @@ msgid "%s (Version %d, %s)"
 msgstr ""
 
 #. Programmer's name for it: rsVersion10Str
-#: UnitConsts.pas:79
+#: UnitConsts.pas:80
 msgid "%s (Version %d, Build %d, %s)"
 msgstr ""
 
 #. Programmer's name for it: rsSPVersionLongStr
-#: UnitConsts.pas:74
+#: UnitConsts.pas:75
 msgid "%s%s - Service Pack %5:d (Version %2:d.%3:d, Build %4:d, "
 "%6:s)"
 msgstr ""
@@ -31,67 +31,67 @@ msgstr ""
 
 #. Strings from SystemInfo
 #. Programmer's name for it: rsVersionLongStr
-#: UnitConsts.pas:73
+#: UnitConsts.pas:74
 msgid "%s%s (Version %d.%d, Build %d, %6:s)"
 msgstr ""
 
 #. Programmer's name for it: rsBusiness
-#: UnitConsts.pas:84
+#: UnitConsts.pas:85
 msgid "Business"
 msgstr ""
 
 #. Programmer's name for it: rsClusterServer
-#: UnitConsts.pas:85
+#: UnitConsts.pas:86
 msgid "Cluster Server"
 msgstr ""
 
 #. Programmer's name for it: rsEnterprise
-#: UnitConsts.pas:88
+#: UnitConsts.pas:89
 msgid "Enterprise"
 msgstr ""
 
 #. Programmer's name for it: rsEssBusinessMan
-#: UnitConsts.pas:97
+#: UnitConsts.pas:98
 msgid "Essential Business Management Server"
 msgstr ""
 
 #. Programmer's name for it: rsEssBusinessMess
-#: UnitConsts.pas:99
+#: UnitConsts.pas:100
 msgid "Essential Business Messaging Server"
 msgstr ""
 
 #. Programmer's name for it: rsEssBusinessSec
-#: UnitConsts.pas:98
+#: UnitConsts.pas:99
 msgid "Essential Business Security Server"
 msgstr ""
 
 #. Programmer's name for it: rsEssServer
-#: UnitConsts.pas:100
+#: UnitConsts.pas:101
 msgid "Essential Server"
 msgstr ""
 
 #. Programmer's name for it: rsHomeBasic
-#: UnitConsts.pas:92
+#: UnitConsts.pas:93
 msgid "Home Basic"
 msgstr ""
 
 #. Programmer's name for it: rsHomePremium
-#: UnitConsts.pas:93
+#: UnitConsts.pas:94
 msgid "Home Premium"
 msgstr ""
 
 #. Programmer's name for it: rsHomePremiumS
-#: UnitConsts.pas:94
+#: UnitConsts.pas:95
 msgid "Home Premium Server"
 msgstr ""
 
 #. Programmer's name for it: rsHomeServer
-#: UnitConsts.pas:95
+#: UnitConsts.pas:96
 msgid "Home Server"
 msgstr ""
 
 #. Programmer's name for it: rsHyperV
-#: UnitConsts.pas:96
+#: UnitConsts.pas:97
 msgid "Hyper-V Server"
 msgstr ""
 
@@ -101,92 +101,92 @@ msgid "preWin32-Error"
 msgstr ""
 
 #. Programmer's name for it: rsProfessionalN
-#: UnitConsts.pas:82
+#: UnitConsts.pas:83
 msgid "Professional"
 msgstr ""
 
 #. Programmer's name for it: rsDataCenterCode
-#: UnitConsts.pas:87
+#: UnitConsts.pas:88
 msgid "Server Datacenter (core)"
 msgstr ""
 
 #. Programmer's name for it: rsDataCenterFull
-#: UnitConsts.pas:86
+#: UnitConsts.pas:87
 msgid "Server Datacenter (full)"
 msgstr ""
 
 #. Programmer's name for it: rsEnterpriseServerC
-#: UnitConsts.pas:90
+#: UnitConsts.pas:91
 msgid "Server Enterprise (core)"
 msgstr ""
 
 #. Programmer's name for it: rsEnterpriseServerF
-#: UnitConsts.pas:89
+#: UnitConsts.pas:90
 msgid "Server Enterprise (full)"
 msgstr ""
 
 #. Programmer's name for it: rsServerFound
-#: UnitConsts.pas:102
+#: UnitConsts.pas:103
 msgid "Server Foundation"
 msgstr ""
 
 #. Programmer's name for it: rsStandardServerC
-#: UnitConsts.pas:106
+#: UnitConsts.pas:107
 msgid "Server Standard Edition (core)"
 msgstr ""
 
 #. Programmer's name for it: rsStandardServer
-#: UnitConsts.pas:105
+#: UnitConsts.pas:106
 msgid "Server Standard Edition (full)"
 msgstr ""
 
 #. Programmer's name for it: rsSmallBusiness
-#: UnitConsts.pas:103
+#: UnitConsts.pas:104
 msgid "Small Business Server"
 msgstr ""
 
 #. Programmer's name for it: rsSmallBusinessP
-#: UnitConsts.pas:104
+#: UnitConsts.pas:105
 msgid "Small Business Server Premium"
 msgstr ""
 
 #. Programmer's name for it: rsStarter
-#: UnitConsts.pas:107
+#: UnitConsts.pas:108
 msgid "Starter Edition"
 msgstr ""
 
 #. Programmer's name for it: rsStgEnterprise
-#: UnitConsts.pas:108
+#: UnitConsts.pas:109
 msgid "Storage Server Enterprise"
 msgstr ""
 
 #. Programmer's name for it: rsStgExpress
-#: UnitConsts.pas:109
+#: UnitConsts.pas:110
 msgid "Storage Server Express"
 msgstr ""
 
 #. Programmer's name for it: rsStgStandard
-#: UnitConsts.pas:110
+#: UnitConsts.pas:111
 msgid "Storage Server Standard"
 msgstr ""
 
 #. Programmer's name for it: rsStgWorkgroup
-#: UnitConsts.pas:111
+#: UnitConsts.pas:112
 msgid "Storage Server Workgroup"
 msgstr ""
 
 #. Programmer's name for it: rsUltimate
-#: UnitConsts.pas:112
+#: UnitConsts.pas:113
 msgid "Ultimate Edition"
 msgstr ""
 
 #. Programmer's name for it: rsWebServer
-#: UnitConsts.pas:113
+#: UnitConsts.pas:114
 msgid "Web Server Edition"
 msgstr ""
 
 #. Programmer's name for it: rsWebServerC
-#: UnitConsts.pas:114
+#: UnitConsts.pas:115
 msgid "Web Server Edition (core)"
 msgstr ""
 
