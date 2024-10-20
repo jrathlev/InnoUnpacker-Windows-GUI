@@ -7,48 +7,48 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-02-03 23:16+0100\n"
-"PO-Revision-Date: 2024-02-03 23:16+0100\n"
+"POT-Creation-Date: 2024-10-20 12:58+0200\n"
+"PO-Revision-Date: 2024-10-20 12:58+0200\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: GgtTranslate 3.1.0\n"
+"X-Generator: GgtTranslate 3.3.1\n"
 
 #. Strings from ComPort
 #. Programmer's name for it: rsComNoError
 #: CommPortConsts.pas:25
 #. Strings from CpDrv
 #. Programmer's name for it: rsComNoError
-#: UnitConsts.pas:54
+#: UnitConsts.pas:62
 msgid "No errors on COM connection"
 msgstr ""
 
 #. Programmer's name for it: rsComOpenError
 #: CommPortConsts.pas:26
 #. Programmer's name for it: rsComOpenError
-#: UnitConsts.pas:55
+#: UnitConsts.pas:63
 msgid "Error opening COM port"
 msgstr ""
 
 #. Programmer's name for it: rsComStateError
 #: CommPortConsts.pas:27
 #. Programmer's name for it: rsComStateError
-#: UnitConsts.pas:56
+#: UnitConsts.pas:64
 msgid "Error setting COM port state"
 msgstr ""
 
 #. Programmer's name for it: rsComFlushError
 #: CommPortConsts.pas:28
 #. Programmer's name for it: rsComFlushError
-#: UnitConsts.pas:57
+#: UnitConsts.pas:65
 msgid "Error flushing COM buffers"
 msgstr ""
 
 #. Programmer's name for it: rsComSetupError
 #: CommPortConsts.pas:29
 #. Programmer's name for it: rsComSetupError
-#: UnitConsts.pas:58
+#: UnitConsts.pas:66
 msgid "Error initializing COM port"
 msgstr ""
 
@@ -442,7 +442,7 @@ msgstr ""
 #: FileConsts.pas:103
 #. Strings from ExtSysUtils
 #. Programmer's name for it: rsFormatError
-#: UnitConsts.pas:27
+#: UnitConsts.pas:26
 #. Programmer's name for it: rsFormatError
 #: WinTaskConsts.pas:22
 msgid "Format error: "
@@ -796,7 +796,7 @@ msgstr ""
 #: FtpConsts.pas:44
 #. Misc.
 #. Programmer's name for it: rsVersion
-#: UnitConsts.pas:127
+#: UnitConsts.pas:131
 msgid "Version"
 msgstr ""
 
@@ -936,204 +936,229 @@ msgstr ""
 msgid "Unknown error"
 msgstr ""
 
+#. Programmer's name for it: rsUnknownError
+#: UnitConsts.pas:27
+msgid "Unknown system error code"
+msgstr ""
+
+#. Programmer's name for it: rsErrorCode
+#: UnitConsts.pas:28
+msgid "Error code"
+msgstr ""
+
+#. Programmer's name for it: rsWindowsError
+#: UnitConsts.pas:29
+msgid "Windows error"
+msgstr ""
+
+#. Programmer's name for it: rsStorageError
+#: UnitConsts.pas:30
+msgid "Storage error"
+msgstr ""
+
+#. Programmer's name for it: rsRpcError
+#: UnitConsts.pas:31
+msgid "Remote procedure call error"
+msgstr ""
+
+#. Programmer's name for it: rsInterfaceError
+#: UnitConsts.pas:32
+msgid "Interface error"
+msgstr ""
+
+#. Programmer's name for it: rsDispatchError
+#: UnitConsts.pas:33
+msgid "Dispatch error"
+msgstr ""
+
+#. Programmer's name for it: rsPreWin32Error
+#: UnitConsts.pas:34
+msgid "Error in SHFileOperation"
+msgstr ""
+
+#. Programmer's name for it: rsShellExec
+#: UnitConsts.pas:35
+msgid "ShellExecute error"
+msgstr ""
+
 #. '%s ist kein gültiger Hexwert';
 #. Programmer's name for it: rsHexError
-#: UnitConsts.pas:31
+#: UnitConsts.pas:39
 msgid "%s is not a valid hex value"
 msgstr ""
 
 #. '%s ist kein gültiger Oktalwert';
 #. Programmer's name for it: rsOctError
-#: UnitConsts.pas:32
+#: UnitConsts.pas:40
 msgid "%s is not a valid octal value"
 msgstr ""
 
 #. '%s ist kein gültiger Binärwert';
 #. Programmer's name for it: rsBinError
-#: UnitConsts.pas:33
+#: UnitConsts.pas:41
 msgid "%s is not a valid binary value"
 msgstr ""
 
 #. "&" is required so that this entry is always the first when sorting
 #. Programmer's name for it: rsSystemDefault
-#: UnitConsts.pas:37
+#: UnitConsts.pas:45
 msgid "&System default"
 msgstr ""
 
 #. Programmer's name for it: rsLangRestart
-#: UnitConsts.pas:38
+#: UnitConsts.pas:46
 msgid "Changing language requires the program to be "
 "restarted!"
 msgstr ""
 
 #. Strings from TextFilter
 #. Programmer's name for it: rsIllRegExp
-#: UnitConsts.pas:42
+#: UnitConsts.pas:50
 msgid "Illegal regular expression!"
 msgstr ""
 
 #. Programmer's name for it: rsIllmask
-#: UnitConsts.pas:43
+#: UnitConsts.pas:51
 msgid "Illegal mask!"
 msgstr ""
 
 #. Strings from WinExecute
 #. Programmer's name for it: rsExecuteError
-#: UnitConsts.pas:47
+#: UnitConsts.pas:55
 msgid "Error executing process"
 msgstr ""
 
 #. Programmer's name for it: rsCreatePipeError
-#: UnitConsts.pas:48
+#: UnitConsts.pas:56
 msgid "Stdout pipe creation failed"
 msgstr ""
 
 #. Programmer's name for it: rsDupHandleError
-#: UnitConsts.pas:49
+#: UnitConsts.pas:57
 msgid "DuplicateHandle failed"
 msgstr ""
 
 #. Programmer's name for it: rsCloseHandleError
-#: UnitConsts.pas:50
+#: UnitConsts.pas:58
 msgid "Closing handle failed"
 msgstr ""
 
-#. Strings from WinUtils
-#. Programmer's name for it: rsUnknownError
-#: UnitConsts.pas:62
-msgid "Unknown system error code"
-msgstr ""
-
-#. Programmer's name for it: rsErrorCode
-#: UnitConsts.pas:63
-msgid "Error code"
-msgstr ""
-
-#. Programmer's name for it: rsWindowsError
-#: UnitConsts.pas:64
-msgid "Windows error"
-msgstr ""
-
-#. Programmer's name for it: rsStorageError
-#: UnitConsts.pas:65
-msgid "Storage error"
-msgstr ""
-
-#. Programmer's name for it: rsRpcError
-#: UnitConsts.pas:66
-msgid "Remote procedure call error"
-msgstr ""
-
-#. Programmer's name for it: rsInterfaceError
-#: UnitConsts.pas:67
-msgid "Interface error"
-msgstr ""
-
-#. Programmer's name for it: rsDispatchError
-#: UnitConsts.pas:68
-msgid "Dispatch error"
-msgstr ""
-
-#. Programmer's name for it: rsPreWin32Error
-#: UnitConsts.pas:69
-msgid "Error in SHFileOperation"
-msgstr ""
-
-#. Programmer's name for it: rsShellExec
-#: UnitConsts.pas:70
-msgid "ShellExecute error"
-msgstr ""
-
 #. Programmer's name for it: rsVersion10LongStr
-#: UnitConsts.pas:76
+#: UnitConsts.pas:72
 msgid "%s%s (Version %s, Build %d, %s)"
 msgstr ""
 
 #. Programmer's name for it: rsVersion10ShortStr
-#: UnitConsts.pas:79
+#: UnitConsts.pas:75
 msgid "%s (Version %s, %s)"
 msgstr ""
 
 #. Programmer's name for it: rsWindows11
-#: UnitConsts.pas:81
+#: UnitConsts.pas:77
 msgid "Windows 11"
 msgstr ""
 
 #. Programmer's name for it: rsProfessionalMC
-#: UnitConsts.pas:84
+#: UnitConsts.pas:80
 msgid "Professional with Media Center"
 msgstr ""
 
 #. Programmer's name for it: rsEnterpriseServerIT
-#: UnitConsts.pas:92
+#: UnitConsts.pas:88
 msgid "Server Enterprise for Itanium-based "
 "Systems"
 msgstr ""
 
 #. Programmer's name for it: rsEssServerV
-#: UnitConsts.pas:102
+#: UnitConsts.pas:98
 msgid "Essential Server without Hyper-V"
 msgstr ""
 
 #. Programmer's name for it: rsUnlicensed
-#: UnitConsts.pas:116
+#: UnitConsts.pas:112
 msgid "Unlicensed product"
 msgstr ""
 
 #. Strings from DateUtilEx
 #. Programmer's name for it: rsBegSpring
-#: UnitConsts.pas:120
+#: UnitConsts.pas:116
 msgid "Beginning of spring"
 msgstr ""
 
 #. Programmer's name for it: rsBegSummer
-#: UnitConsts.pas:121
+#: UnitConsts.pas:117
 msgid "Beginning of summer"
 msgstr ""
 
 #. Programmer's name for it: rsBegAutumn
-#: UnitConsts.pas:122
+#: UnitConsts.pas:118
 msgid "Beginning of autumn"
 msgstr ""
 
 #. Programmer's name for it: rsBegWinter
-#: UnitConsts.pas:123
+#: UnitConsts.pas:119
 msgid "Beginning of winter"
 msgstr ""
 
+#. Strings from PasswordStrength
+#. Programmer's name for it: rsVeryWeak
+#: UnitConsts.pas:123
+msgid "very weak"
+msgstr ""
+
+#. Programmer's name for it: rsWeak
+#: UnitConsts.pas:124
+msgid "weak"
+msgstr ""
+
+#. Programmer's name for it: rsGood
+#: UnitConsts.pas:125
+msgid "good"
+msgstr ""
+
+#. Programmer's name for it: rsStrong
+#: UnitConsts.pas:126
+msgid "strong"
+msgstr ""
+
+#. Programmer's name for it: rsVeryStrong
+#: UnitConsts.pas:127
+msgid "very strong"
+msgstr ""
+
 #. Programmer's name for it: rsLongCopyRight
-#: UnitConsts.pas:128
+#: UnitConsts.pas:132
 msgid "%s Dr. J. Rathlev\n"
 " 24222 Schwentinental, Germany"
 msgstr ""
 
 #. Programmer's name for it: rsCopyRight
-#: UnitConsts.pas:129
+#: UnitConsts.pas:133
 msgid "%s Dr. J. Rathlev"
 msgstr ""
 
 #. Programmer's name for it: rsNotAvail
-#: UnitConsts.pas:130
+#: UnitConsts.pas:134
 msgid "not available"
 msgstr ""
 
 #. Programmer's name for it: rsNoName
-#: UnitConsts.pas:131
+#: UnitConsts.pas:135
 msgid "unlabeled"
 msgstr ""
 
 #. Programmer's name for it: rsConnectTo
-#: UnitConsts.pas:132
+#: UnitConsts.pas:136
 msgid "Connect to .."
 msgstr ""
 
 #. Programmer's name for it: rsUnknown
-#: UnitConsts.pas:133
+#: UnitConsts.pas:137
 msgid "<Unknown>"
 msgstr ""
 
 #. Programmer's name for it: rsAnyKey
-#: UnitConsts.pas:134
+#: UnitConsts.pas:138
 msgid "Strike any key to continue ..."
 msgstr ""
 

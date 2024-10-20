@@ -1,6 +1,6 @@
 #  Doesn't have any letters
 #. ShellDirDialog.PopupMenu.N1.Caption
-#: ShellDirDlg.dfm:2294
+#: ShellDirDlg.dfm:2295
 #. ShellFileDialog.PopupMenu.N1.Caption
 #: ShellFileDlg.dfm:2325
 msgid "-"
@@ -34,11 +34,11 @@ msgstr ""
 #. LogonDialog.PwdEdit.PasswordChar
 #: LogonDlg.dfm:288
 #. NewPwdDialog.paPwd.edtPwd.PasswordChar
-#: NewPwdDlg.dfm:38
+#: NewPwdDlg.dfm:107
 #. NewPwdDialog.paConfirm.edtRepPwd.PasswordChar
 #: NewPwdDlg.dfm:289
 #. PasswordDialog.pnInput.edtPwd.PasswordChar
-#: PwdDlg.dfm:109
+#: PwdDlg.dfm:112
 msgid "*"
 msgstr ""
 
@@ -66,19 +66,19 @@ msgstr ""
 #. WebBrowserWin.paTop.paTopLeft.btnSize3.Caption
 #: WebBrowser.dfm:72
 #. frmWebView.paTop.cbSize.Items.Strings
-#: WebView.dfm:85
+#: WebView.dfm:87
 msgid "1024x768"
 msgstr ""
 
 #  Doesn't have any letters
 #. frmWebView.WVBrowser.TargetCompatibleBrowserVersion
-#: WebView.dfm:593
+#: WebView.dfm:595
 msgid "104.0.1293.44"
 msgstr ""
 
 #  Doesn't look like text
 #. frmWebView.paTop.cbSize.Items.Strings
-#: WebView.dfm:86
+#: WebView.dfm:88
 msgid "1280x960"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 #. WebBrowserWin.paTop.paTopLeft.btnSize1.Caption
 #: WebBrowser.dfm:46
 #. frmWebView.paTop.cbSize.Items.Strings
-#: WebView.dfm:83
+#: WebView.dfm:85
 msgid "640x480"
 msgstr ""
 
@@ -116,7 +116,7 @@ msgstr ""
 #. WebBrowserWin.paTop.paTopLeft.btnSize2.Caption
 #: WebBrowser.dfm:59
 #. frmWebView.paTop.cbSize.Items.Strings
-#: WebView.dfm:84
+#: WebView.dfm:86
 msgid "800x600"
 msgstr ""
 
@@ -428,7 +428,7 @@ msgstr ""
 
 #  Seems like a Font.Name extract
 #. frmShow.memShow.Font.Name
-#: Show.dfm:29
+#: Show.dfm:28
 msgid "Lucida Console"
 msgstr ""
 
@@ -541,14 +541,14 @@ msgstr ""
 #. ShellFileDialog.ShellListView.Root
 #: ShellFileDlg.dfm:2300
 #. ShowFilesDialog.lvFiles.Root
-#: ShowFilesDlg.dfm:176
+#: ShowFilesDlg.dfm:175
 msgid "rfDesktop"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.ShellTreeView.Root
-#: ShellDirDlg.dfm:48
+#: ShellDirDlg.dfm:49
 #. ShellDirDialog.PanelRight.ShellListView.Root
-#: ShellDirDlg.dfm:2271
+#: ShellDirDlg.dfm:2272
 msgid "rfMyComputer"
 msgstr ""
 
@@ -696,9 +696,9 @@ msgstr ""
 #. PasswordDialog.Font.Name
 #: PwdDlg.dfm:12
 #. PasswordDialog.pnTop.lblPrompt.Font.Name
-#: PwdDlg.dfm:71
+#: PwdDlg.dfm:73
 #. PasswordDialog.pnInput.Label1.Font.Name
-#: PwdDlg.dfm:98
+#: PwdDlg.dfm:101
 #. RandDialog.Font.Name
 #: RandDlg.dfm:13
 #. SearchPathDialog.Font.Name
@@ -728,11 +728,17 @@ msgstr ""
 #. ShellFileDialog.pnlBottom.Label1.Font.Name
 #: ShellFileDlg.dfm:2137
 #. frmShow.Font.Name
-#: Show.dfm:12
+#: Show.dfm:11
 #. frmShow.panButtons.Font.Name
-#: Show.dfm:45
+#: Show.dfm:44
 #. ShowFilesDialog.Font.Name
 #: ShowFilesDlg.dfm:11
+#. frmShowHint.Font.Name
+#: ShowHint.dfm:11
+#. frmShowHint.btClose.Font.Name
+#: ShowHint.dfm:174
+#. frmShowHint.stInfo.Font.Name
+#: ShowHint.dfm:243
 #. ShowImageDialog.Font.Name
 #: ShowImage.dfm:11
 #. ShowTextDialog.Font.Name
@@ -798,7 +804,7 @@ msgstr ""
 #. Download.Font.Name
 #: WebUpdateDlg.dfm:12
 #. frmWebView.Font.Name
-#: WebView.dfm:11
+#: WebView.dfm:12
 msgid "Tahoma"
 msgstr ""
 
@@ -842,10 +848,19 @@ msgstr ""
 msgid "x"
 msgstr ""
 
+#. EditHistListDialog.lbDesc.Caption
+#: EditHistListDlg.dfm:537
 #. SelectDialog.stCaption.Caption
 #: SelectDlg.dfm:172
 #. ShowMsgDialog.stInfo.Caption
 #: ShowMessageDlgST.dfm:209
+#. ShowStringListDialog.paBottom.laStatus.Caption
+#: ShowStringList.dfm:46
 msgid "xxx"
+msgstr ""
+
+#. frmWebView.Caption
+#: WebView.dfm:4
+msgid "WebView"
 msgstr ""
 

@@ -6,19 +6,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2024-10-18 12:19+0200\n"
-"PO-Revision-Date: 2024-10-18 12:20+0200\n"
+"POT-Creation-Date: 2024-10-20 12:56+0200\n"
+"PO-Revision-Date: 2024-10-20 12:56+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: GgtTranslate 3.3.1\n"
+"X-Poedit-SourceCharset: ISO-8859-1\n"
 
 #. MainForm.Caption
-#: UnpackMain.dfm:4 UnpackMain.pas:204 UnpackMain.pas:503
+#: UnpackMain.dfm:4
+#: UnpackMain.pas:204
+#: UnpackMain.pas:503
 msgid "Inspect and unpack InnoSetup files"
 msgstr "Überprüfen und Entpacken von InnoSetup-Dateien"
 
@@ -74,8 +76,10 @@ msgstr "Kennwort:"
 
 #. MainForm.pnTop.bbVersion.Hint
 #: UnpackMain.dfm:692
-msgid "Show list of all supported Inno Setup versions"
-msgstr "Liste aller unterstützten Inno Setup-Versionen anzeigen"
+msgid "Show list of all supported Inno Setup "
+"versions"
+msgstr "Liste aller unterstützten Inno Setup-Versionen "
+"anzeigen"
 
 #. MainForm.pnExtract.Label1.Caption
 #: UnpackMain.dfm:795
@@ -90,7 +94,8 @@ msgstr "Datei-Filter:"
 #. MainForm.pnExtract.cbDir.Hint
 #: UnpackMain.dfm:809
 msgid "Extract files to this directory"
-msgstr "Dateien werden in dieses Verzeichnis extrahiert"
+msgstr "Dateien werden in dieses Verzeichnis "
+"extrahiert"
 
 #. MainForm.pnExtract.bbStart.Hint
 #: UnpackMain.dfm:823
@@ -123,7 +128,8 @@ msgid "Edit file filter"
 msgstr "Datei-Filter bearbeiten"
 
 #. MainForm.pnExtract.bbDir.Hint
-#: UnpackMain.dfm:1040 UnpackMain.pas:395
+#: UnpackMain.dfm:1040
+#: UnpackMain.pas:395
 msgid "Select directory for extracted files"
 msgstr "Verzeichnis für zu extrahierende Dateien"
 
@@ -149,9 +155,8 @@ msgstr "Nach oben rollen"
 
 #. Programmer's name for it: rsInfo
 #: UnpackMain.pas:150
-msgid ""
-"Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/"
-"o]\n"
+msgid "Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] "
+"[/a] [/o]\n"
 "\t<name>\t: name of setup file to be unpacked\n"
 "\t<ddir>\t: destination directory for unpacked files\n"
 "\t<filter>\t: file filter\n"
@@ -159,9 +164,8 @@ msgid ""
 "\t/s\t: extract files without paths\n"
 "\t/a\t: process all copies of duplicate files\n"
 "\t/o\t: overwrite files"
-msgstr ""
-"Befehlszeilenoptionen: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/"
-"o]\n"
+msgstr "Befehlszeilenoptionen: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] "
+"[/a] [/o]\n"
 "\t<name>\t: Name der zu entpackenden Setup-Datei\n"
 "\t<ddir>\t: Zielverzeichnis für entpackte Dateien\n"
 "\t<filter>\t: Dateifilter\n"
@@ -171,10 +175,12 @@ msgstr ""
 "\t/o\t: Dateien überschreiben"
 
 #: UnpackMain.pas:288
-msgid "This application only allows dropping of exe files!"
+msgid "This application only allows dropping of exe "
+"files!"
 msgstr "Diese Anwendung akzeptiert nur Exe-Dateien!"
 
-#: UnpackMain.pas:328 UnpackMain.pas:365
+#: UnpackMain.pas:328
+#: UnpackMain.pas:365
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programme|*.exe|alle Dateien|*.*"
 
@@ -191,19 +197,19 @@ msgid "Extract files matching:"
 msgstr "Dateien extrahieren passend zu:"
 
 #: UnpackMain.pas:487
-msgid ""
-"Extracting setup file ...\n"
+msgid "Extracting setup file ...\n"
 "Destination directory: %s"
-msgstr ""
-"Setup-Datei wird extrahiert …\n"
+msgstr "Setup-Datei wird extrahiert …\n"
 "Ziel-Verzeichnis: %s"
 
 #: UnpackMain.pas:545
 msgid "Filename: "
 msgstr "Dateiname: "
 
+#: UnpackMain.pas:551
 #. DOS-Ausgabe anzeigen
-#: UnpackMain.pas:551 UnpackMain.pas:634 UnpackMain.pas:636
+#: UnpackMain.pas:634
+#: UnpackMain.pas:636
 msgid "Error: "
 msgstr "Fehler: "
 
@@ -231,3 +237,4 @@ msgstr "Kommentar: "
 #: UnpackMain.pas:604
 msgid "Timeout occured - continue anyway?"
 msgstr "Timeout aufgetreten - trotzdem weitermachen?"
+

@@ -7,13 +7,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-04-27 16:31+0200\n"
-"PO-Revision-Date: 2024-04-27 16:31+0200\n"
+"POT-Creation-Date: 2024-10-20 13:41+0200\n"
+"PO-Revision-Date: 2024-10-20 13:41+0200\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: GgtTranslate 3.1.1\n"
+"X-Generator: GgtTranslate 3.3.1\n"
 
 #. AccountDialog.pnBottom.btnShow.Hint
 #: AccountDlg.dfm:41
@@ -25,8 +25,8 @@ msgstr ""
 #: HttpProxyDlg.dfm:52
 #. MailDialog.Panel3.cbShowPwd.Caption
 #: MailDlg.dfm:641
-#. NewPwdDialog.paBottom.btnShow.Hint
-#: NewPwdDlg.dfm:59
+#. NewPwdDialog.paPwd.btnShow.Hint
+#: NewPwdDlg.dfm:38
 msgid "Show password"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 #. MoveListDialog.CancelBtn.Caption
 #: MoveListDlg.dfm:93
 #. NewPwdDialog.paBottom.CancelBtn.Caption
-#: NewPwdDlg.dfm:153
+#: NewPwdDlg.dfm:148
 #. InputNumber.CancelBtn.Caption
 #: NumDlg.dfm:111
 #. OpenFilesDialog.CancelBtn.Caption
@@ -117,7 +117,7 @@ msgstr ""
 #. ProgressWindow.Button.Caption
 #: ProgWind.dfm:53
 #. PasswordDialog.pnBottom.CancelBtn.Caption
-#: PwdDlg.dfm:284
+#: PwdDlg.dfm:291
 #. RandDialog.CancelBtn.Caption
 #: RandDlg.dfm:108
 #. SearchPathDialog.CancelBtn.Caption
@@ -129,15 +129,15 @@ msgstr ""
 #. SelectFontDialog.CancelBtn.Caption
 #: SelectFontDlg.dfm:93
 #. SelectFromListDialog.paEdit.CancelBtn.Caption
-#: SelectFromListDlg.dfm:753
+#: SelectFromListDlg.dfm:854
 #. SelectListItemDialog.CancelBtn.Caption
-#: SelectListItemDlg.dfm:93
+#: SelectListItemDlg.dfm:98
 #. SelectListItemsDialog.CancelBtn.Caption
 #: SelectListItems.dfm:103
 #. ShellDirDialog.PanelLeft.Panel1.btbCancel.Caption
-#: ShellDirDlg.dfm:2118
+#: ShellDirDlg.dfm:2119
 #. ShellDirDialog.PopupMenu.cancel1.Caption
-#: ShellDirDlg.dfm:2301
+#: ShellDirDlg.dfm:2302
 #. ShellFileDialog.pnlBottom.btbCancel.Caption
 #: ShellFileDlg.dfm:2227
 #. ShellFileDialog.PopupMenu.cancel1.Caption
@@ -234,7 +234,7 @@ msgstr ""
 #. MoveListDialog.OKBtn.Caption
 #: MoveListDlg.dfm:30
 #. NewPwdDialog.paBottom.OKBtn.Caption
-#: NewPwdDlg.dfm:215
+#: NewPwdDlg.dfm:210
 #. InputNumber.OKBtn.Caption
 #: NumDlg.dfm:46
 #. OpenFilesDialog.OKBtn.Caption
@@ -244,7 +244,7 @@ msgstr ""
 #. PrintPageDialog.OKBtn.Caption
 #: PrintPageDlg.dfm:43
 #. PasswordDialog.pnBottom.OKBtn.Caption
-#: PwdDlg.dfm:346
+#: PwdDlg.dfm:354
 #. RandDialog.OKBtn.Caption
 #: RandDlg.dfm:43
 #. SearchPathDialog.OKBtn.Caption
@@ -256,19 +256,19 @@ msgstr ""
 #. SelectFontDialog.OKBtn.Caption
 #: SelectFontDlg.dfm:29
 #. SelectFromListDialog.paEdit.OKBtn.Caption
-#: SelectFromListDlg.dfm:600
+#: SelectFromListDlg.dfm:701
 #. SelectListItemDialog.OKBtn.Caption
-#: SelectListItemDlg.dfm:30
+#: SelectListItemDlg.dfm:34
 #. SelectListItemsDialog.OKBtn.Caption
 #: SelectListItems.dfm:39
 #. ShellDirDialog.PanelLeft.Panel1.btbOK.Caption
-#: ShellDirDlg.dfm:2180
+#: ShellDirDlg.dfm:2181
 #. ShellFileDialog.pnlBottom.btbOK.Caption
 #: ShellFileDlg.dfm:2155
-#. frmShow.panButtons.Panel2.btnOK.Caption
-#: Show.dfm:63
+#. frmShow.panButtons.btnOK.Caption
+#: Show.dfm:58
 #. ShowFilesDialog.pnBottom.OKBtn.Caption
-#: ShowFilesDlg.dfm:48
+#: ShowFilesDlg.dfm:47
 #. ShowImageDialog.Panel1.Panel2.btnOK.Caption
 #: ShowImage.dfm:52
 #. SizeDialog.OKBtn.Caption
@@ -337,7 +337,7 @@ msgstr ""
 #. MailDialog.Panel3.Label6.Caption
 #: MailDlg.dfm:494
 #. PasswordDialog.pnInput.Label1.Caption
-#: PwdDlg.dfm:94
+#: PwdDlg.dfm:97
 msgid "Password:"
 msgstr ""
 
@@ -346,11 +346,11 @@ msgstr ""
 #. FtpProxyDialog.edProxyPwd.TextHint
 #: FtpProxyDlg.dfm:207
 #. NewPwdDialog.paPwd.edtPwd.TextHint
-#: NewPwdDlg.dfm:40
+#: NewPwdDlg.dfm:109
 #. PasswordDialog.pnInput.edtPwd.Hint
-#: PwdDlg.dfm:107
+#: PwdDlg.dfm:110
 #. PasswordDialog.pnInput.edtPwd.TextHint
-#: PwdDlg.dfm:111
+#: PwdDlg.dfm:114
 msgid "Password"
 msgstr ""
 
@@ -386,7 +386,7 @@ msgstr ""
 #. EditStringListDialog.btnDelete.Caption
 #: EditStringListDlg.dfm:356
 #. SelectFromListDialog.paEdit.gbxEdit.btnDelete.Caption
-#: SelectFromListDlg.dfm:139
+#: SelectFromListDlg.dfm:141
 msgid "Remove"
 msgstr ""
 
@@ -395,7 +395,7 @@ msgstr ""
 #. ColumnDialog.btnEdit.Caption
 #: ColumnDlg.dfm:579
 #. SelectFromListDialog.paEdit.gbxEdit.btnEdit.Caption
-#: SelectFromListDlg.dfm:230
+#: SelectFromListDlg.dfm:234
 msgid "Change"
 msgstr ""
 
@@ -424,7 +424,7 @@ msgstr ""
 #. SearchPathDialog.UpBtn.Hint
 #: SearchPathDlg.dfm:26
 #. SelectFromListDialog.paEdit.gbxMove.UpBtn.Hint
-#: SelectFromListDlg.dfm:418
+#: SelectFromListDlg.dfm:519
 msgid "Move item up"
 msgstr ""
 
@@ -443,7 +443,7 @@ msgstr ""
 #. SearchPathDialog.DownBtn.Hint
 #: SearchPathDlg.dfm:89
 #. SelectFromListDialog.paEdit.gbxMove.DownBtn.Hint
-#: SelectFromListDlg.dfm:508
+#: SelectFromListDlg.dfm:609
 msgid "Move item down"
 msgstr ""
 
@@ -813,8 +813,6 @@ msgstr ""
 #: EditHistListDlg.dfm:166
 #. ListenDialog.DeleteBtn.Hint
 #: Listdlg.dfm:210
-#. SelectFromListDialog.paEdit.gbxEdit.btnDelete.Hint
-#: SelectFromListDlg.dfm:137
 msgid "Remove item"
 msgstr ""
 
@@ -826,11 +824,11 @@ msgstr ""
 #. EditHistListDialog.btnEdit.Hint
 #: EditHistListDlg.dfm:446
 #. SelectFromListDialog.paEdit.gbxEdit.btnEdit.Hint
-#: SelectFromListDlg.dfm:228
+#: SelectFromListDlg.dfm:232
 #: EditHistListDlg.pas:135
 #: EditStringListDlg.pas:120
-#: SelectFromListDlg.pas:186
-#: SelectFromListDlg.pas:209
+#: SelectFromListDlg.pas:195
+#: SelectFromListDlg.pas:218
 msgid "Edit item"
 msgstr ""
 
@@ -844,7 +842,7 @@ msgstr ""
 #. MoveListDialog.gbxMove.Caption
 #: MoveListDlg.dfm:162
 #. SelectFromListDialog.paEdit.gbxMove.Caption
-#: SelectFromListDlg.dfm:411
+#: SelectFromListDlg.dfm:512
 msgid "Move item"
 msgstr ""
 
@@ -944,9 +942,9 @@ msgstr ""
 
 #. FileFilterDialog.Label2.Caption
 #: FileFilterDlg.dfm:32
-#: AppListDlg.pas:316
-#: AppListDlg.pas:350
+#: AppListDlg.pas:336
 #: AppListDlg.pas:370
+#: AppListDlg.pas:390
 msgid "Description:"
 msgstr ""
 
@@ -1145,6 +1143,8 @@ msgstr ""
 
 #. FindReplDialog.pnlControls.CancelBtn.Caption
 #: FindReplDlg.dfm:128
+#. frmShowHint.btClose.Caption
+#: ShowHint.dfm:169
 #. ShowTextDialog.pnTop.EndeBtn.Caption
 #: ShowMemo.dfm:1265
 #. ShowMsgDialog.btClose.Caption
@@ -1152,13 +1152,11 @@ msgstr ""
 #. ShowMsgDialog.btClose.Caption
 #: ShowMessageDlgST.dfm:174
 #. ShowStringListDialog.paBottom.CancelBtn.Caption
-#: ShowStringList.dfm:45
+#: ShowStringList.dfm:56
 #. ShowtextDialog.Panel2.EndeBtn.Caption
 #: ShowText.dfm:37
 #. WebBrowserWin.ActionList.ActionCancel.Hint
 #: WebBrowser.dfm:197
-#. frmWebView.paTop.bbClose.Hint
-#: WebView.dfm:275
 msgid "Close"
 msgstr ""
 
@@ -1212,7 +1210,7 @@ msgstr ""
 #. FtpDirDialog.btnDirUp.Hint
 #: FtpDirDlg.dfm:176
 #. ShowFilesDialog.pnBottom.btnDirUp.Hint
-#: ShowFilesDlg.dfm:110
+#: ShowFilesDlg.dfm:109
 msgid "One directory up"
 msgstr ""
 
@@ -1450,7 +1448,7 @@ msgstr ""
 #. WebBrowserWin.ActionList.ActionHome.Hint
 #: WebBrowser.dfm:176
 #. frmWebView.paTop.bbHome.Hint
-#: WebView.dfm:93
+#: WebView.dfm:95
 msgid "Home"
 msgstr ""
 
@@ -1610,7 +1608,7 @@ msgstr ""
 #. SelectFromListDialog.paEdit.gbxEdit.btnInsert.Hint
 #: SelectFromListDlg.dfm:46
 #: EditStringListDlg.pas:96
-#: SelectFromListDlg.pas:152
+#: SelectFromListDlg.pas:155
 msgid "Add item"
 msgstr ""
 
@@ -1726,14 +1724,17 @@ msgstr ""
 
 #. MoveListDialog.Caption
 #: MoveListDlg.dfm:6
-#. SelectListItemDialog.Caption
-#: SelectListItemDlg.dfm:6
 msgid "Change order of list items"
 msgstr ""
 
 #. NewPwdDialog.paPwd.edtPwd.EditLabel.Caption
-#: NewPwdDlg.dfm:37
+#: NewPwdDlg.dfm:106
 msgid "Enter password:"
+msgstr ""
+
+#. NewPwdDialog.paBottom.Label1.Caption
+#: NewPwdDlg.dfm:139
+msgid "Quality:"
 msgstr ""
 
 #. OpenFilesDialog.Caption
@@ -1746,7 +1747,7 @@ msgstr ""
 #. OpenFilesDialog.lePath.EditLabel.Caption
 #: OpenFilesDlg.dfm:163
 #. ShellDirDialog.PanelLeft.Panel1.Label1.Caption
-#: ShellDirDlg.dfm:1967
+#: ShellDirDlg.dfm:1968
 #. ShellFileDialog.pnlTop.Label2.Caption
 #: ShellFileDlg.dfm:2034
 #: ShowFilesDlg.pas:116
@@ -1855,27 +1856,28 @@ msgid "AES encryption depth:"
 msgstr ""
 
 #. PasswordDialog.gbEncrypt.rbEnc128.Caption
-#: PwdDlg.dfm:34
+#: PwdDlg.dfm:35
 msgid "128 bit"
 msgstr ""
 
 #. PasswordDialog.gbEncrypt.rbEnc256.Caption
-#: PwdDlg.dfm:42
+#: PwdDlg.dfm:43
 msgid "256 bit"
 msgstr ""
 
 #. PasswordDialog.gbEncrypt.rbEncAuto.Caption
-#: PwdDlg.dfm:50
+#: PwdDlg.dfm:51
+#: ShowMemo.pas:917
 msgid "Automatic"
 msgstr ""
 
 #. PasswordDialog.pnInput.bbPaste.Hint
-#: PwdDlg.dfm:118
+#: PwdDlg.dfm:122
 msgid "Paste from clipboard"
 msgstr ""
 
 #. PasswordDialog.pnBottom.btnSkip.Caption
-#: PwdDlg.dfm:221
+#: PwdDlg.dfm:227
 msgid "Skip"
 msgstr ""
 
@@ -1901,6 +1903,8 @@ msgstr ""
 
 #. SearchPathDialog.sbClearAll.Hint
 #: SearchPathDlg.dfm:216
+#. SelectFromListDialog.paEdit.gbxEdit.btnDelAll.Caption
+#: SelectFromListDlg.dfm:420
 msgid "Remove all"
 msgstr ""
 
@@ -2009,6 +2013,8 @@ msgstr ""
 
 #. SelectFromListDialog.Caption
 #: SelectFromListDlg.dfm:5
+#. SelectListItemDialog.Caption
+#: SelectListItemDlg.dfm:6
 msgid "Select item from list"
 msgstr ""
 
@@ -2017,19 +2023,29 @@ msgstr ""
 msgid "Edit items"
 msgstr ""
 
+#. SelectFromListDialog.paEdit.gbxEdit.btnDelete.Hint
+#: SelectFromListDlg.dfm:139
+msgid "Remove selected items"
+msgstr ""
+
 #. SelectFromListDialog.paEdit.gbxEdit.btnDefault.Hint
-#: SelectFromListDlg.dfm:319
-#: SelectFromListDlg.pas:196
+#: SelectFromListDlg.dfm:325
+#: SelectFromListDlg.pas:205
 msgid "Reset to default values"
 msgstr ""
 
 #. SelectFromListDialog.paEdit.gbxEdit.btnDefault.Caption
-#: SelectFromListDlg.dfm:321
+#: SelectFromListDlg.dfm:327
 msgid "Default"
 msgstr ""
 
+#. SelectFromListDialog.paEdit.gbxEdit.btnDelAll.Hint
+#: SelectFromListDlg.dfm:418
+msgid "Remove all items"
+msgstr ""
+
 #. SelectFromListDialog.paEdit.btnPrompt.Caption
-#: SelectFromListDlg.dfm:663
+#: SelectFromListDlg.dfm:764
 msgid "Prompt"
 msgstr ""
 
@@ -2044,81 +2060,79 @@ msgid "Select directory"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.panRoot.spbNetwork.Caption
-#: ShellDirDlg.dfm:87
+#: ShellDirDlg.dfm:88
 #. ShellFileDialog.pnlLeft.spbNetwork.Caption
 #: ShellFileDlg.dfm:1380
 msgid "Network"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.panRoot.spbComputer.Caption
-#: ShellDirDlg.dfm:539
+#: ShellDirDlg.dfm:540
 #. ShellFileDialog.pnlLeft.spbComputer.Caption
 #: ShellFileDlg.dfm:36
 msgid "Computer"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.panRoot.spbDesktop.Caption
-#: ShellDirDlg.dfm:990
+#: ShellDirDlg.dfm:991
 #. ShellFileDialog.pnlLeft.spbDesktop.Caption
 #: ShellFileDlg.dfm:484
 msgid "Desktop"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.panRoot.spbMyFiles.Caption
-#: ShellDirDlg.dfm:1441
+#: ShellDirDlg.dfm:1442
 msgid "Documents"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.Panel1.spbHome.Hint
-#: ShellDirDlg.dfm:1902
+#: ShellDirDlg.dfm:1903
 #. ShellFileDialog.pnlTop.spbHome.Hint
 #: ShellFileDlg.dfm:1839
 msgid "Go to default folder"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.Panel1.spbUp.Hint
-#: ShellDirDlg.dfm:1975
+#: ShellDirDlg.dfm:1976
 #. ShellFileDialog.pnlTop.spbUp.Hint
 #: ShellFileDlg.dfm:1904
-#. ShowFilesDialog.pnBottom.Hint
-#: ShowFilesDlg.dfm:35
 msgid "One folder up"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.Panel1.spbNew.Hint
-#: ShellDirDlg.dfm:2041
+#: ShellDirDlg.dfm:2042
 #. ShellFileDialog.pnlTop.spbNew.Hint
 #: ShellFileDlg.dfm:1969
 msgid "Create new folder"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.Panel1.cbxFiles.Caption
-#: ShellDirDlg.dfm:2107
+#: ShellDirDlg.dfm:2108
 #: ShowFilesDlg.pas:131
 msgid "Show files"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.Panel1.cbxSelectedDir.Hint
-#: ShellDirDlg.dfm:2243
+#: ShellDirDlg.dfm:2244
 msgid "Directory"
 msgstr ""
 
 #. ShellDirDialog.PopupMenu.itmCreate.Caption
-#: ShellDirDlg.dfm:2286
+#: ShellDirDlg.dfm:2287
 #. ShellFileDialog.PopupMenu.itmCreate.Caption
 #: ShellFileDlg.dfm:2317
 msgid "Create folder"
 msgstr ""
 
 #. ShellDirDialog.PopupMenu.itmDelete.Caption
-#: ShellDirDlg.dfm:2290
+#: ShellDirDlg.dfm:2291
 #. ShellFileDialog.PopupMenu.itmDelete.Caption
 #: ShellFileDlg.dfm:2321
 msgid "Delete folder"
 msgstr ""
 
 #. ShellDirDialog.PopupMenu.itmUpdate.Caption
-#: ShellDirDlg.dfm:2297
+#: ShellDirDlg.dfm:2298
 #. ShellFileDialog.PopupMenu.itmUpdate.Caption
 #: ShellFileDlg.dfm:2328
 #. ShowTextDialog.pnTop.UpdateBtn.Hint
@@ -2154,7 +2168,9 @@ msgid "All files (*.*)|*.*"
 msgstr ""
 
 #. frmShow.Caption
-#: Show.dfm:5
+#: Show.dfm:4
+#. frmShowHint.Caption
+#: ShowHint.dfm:4
 msgid "Show text"
 msgstr ""
 
@@ -2378,26 +2394,28 @@ msgstr ""
 #. WebBrowserWin.ActionList.ActionRefresh.Hint
 #: WebBrowser.dfm:169
 #. frmWebView.paTop.bbRefresh.Hint
-#: WebView.dfm:458
+#: WebView.dfm:460
 msgid "Reload"
 msgstr ""
 
 #. WebBrowserWin.ActionList.ActionBack.Hint
 #: WebBrowser.dfm:183
 #. frmWebView.paTop.bbBack.Hint
-#: WebView.dfm:367
+#: WebView.dfm:369
 msgid "Previous page"
 msgstr ""
 
 #. WebBrowserWin.ActionList.ActionFwd.Hint
 #: WebBrowser.dfm:190
 #. frmWebView.paTop.bbFwd.Hint
-#: WebView.dfm:184
+#: WebView.dfm:186
 msgid "Next page"
 msgstr ""
 
 #. WebBrowserWin.ActionList.ActionExit.Caption
 #: WebBrowser.dfm:203
+#. frmWebView.paTop.bbExit.Hint
+#: WebView.dfm:277
 msgid "Exit"
 msgstr ""
 
@@ -2412,27 +2430,27 @@ msgid "Save as:"
 msgstr ""
 
 #. frmWebView.paTop.bbGo.Hint
-#: WebView.dfm:522
+#: WebView.dfm:524
 msgid "Open site"
 msgstr ""
 
 #: AccountDlg.pas:107
-#: NewPwdDlg.pas:139
+#: NewPwdDlg.pas:146
 msgid "Minimum length of password is %u characters"
 msgstr ""
 
 #: AccountDlg.pas:111
-#: NewPwdDlg.pas:143
+#: NewPwdDlg.pas:150
 msgid "Passwords do not match!"
 msgstr ""
 
-#: AppListDlg.pas:315
-#: AppListDlg.pas:349
+#: AppListDlg.pas:335
 #: AppListDlg.pas:369
+#: AppListDlg.pas:389
 msgid "Application (%s)"
 msgstr ""
 
-#: AppListDlg.pas:331
+#: AppListDlg.pas:351
 msgid "Remove application: \"%s\"?"
 msgstr ""
 
@@ -2604,73 +2622,77 @@ msgstr ""
 msgid "Select font color"
 msgstr ""
 
-#: SelectFromListDlg.pas:155
-#: SelectFromListDlg.pas:189
+#: SelectFromListDlg.pas:158
+#: SelectFromListDlg.pas:198
 msgid "Invalid entry: \"%s\""
 msgstr ""
 
-#: SelectFromListDlg.pas:165
+#: SelectFromListDlg.pas:164
+msgid "Clear whole list"
+msgstr ""
+
+#: SelectFromListDlg.pas:174
 msgid "Remove all selected items?"
 msgstr ""
 
-#: SelectFromListDlg.pas:171
+#: SelectFromListDlg.pas:180
 msgid "Remove item: \"%s\"?"
 msgstr ""
 
-#: ShellDirDlg.pas:180
+#: ShellDirDlg.pas:185
 msgid "Default: "
 msgstr ""
 
-#: ShellDirDlg.pas:373
+#: ShellDirDlg.pas:382
 #: ShellFileDlg.pas:284
 #: ShowFilesDlg.pas:141
 msgid "Directory not found:\n"
 "%s!"
 msgstr ""
 
-#: ShellDirDlg.pas:394
+#: ShellDirDlg.pas:403
 #: ShellFileDlg.pas:355
 msgid "New subdirectory:"
 msgstr ""
 
-#: ShellDirDlg.pas:397
+#: ShellDirDlg.pas:406
 #: ShellFileDlg.pas:358
 msgid "Could not create directory:\n"
 "%s!"
 msgstr ""
 
-#: ShellDirDlg.pas:462
+#: ShellDirDlg.pas:471
 msgid "Delete directory"
 msgstr ""
 
-#: ShellDirDlg.pas:463
+#: ShellDirDlg.pas:472
 msgid "Delete \"%s\""
 msgstr ""
 
-#: ShellDirDlg.pas:464
+#: ShellDirDlg.pas:473
 msgid "Definitely"
 msgstr ""
 
-#: ShellDirDlg.pas:464
+#: ShellDirDlg.pas:473
 msgid "To recycle bin"
 msgstr ""
 
-#: ShellDirDlg.pas:471
+#: ShellDirDlg.pas:480
 msgid "%u directories with %u files deleted!"
 msgstr ""
 
 #. IsVista or newer
-#: ShellDirDlg.pas:477
+#: ShellDirDlg.pas:486
 msgid "%s moved to Recycle Bin!"
 msgstr ""
 
-#: ShellDirDlg.pas:479
+#: ShellDirDlg.pas:488
 #: ShellFileDlg.pas:372
 msgid "Error deleting directory:\n"
 "%s!"
 msgstr ""
 
-#: ShellDirDlg.pas:591
+#: ShellDirDlg.pas:600
 msgid " free of "
 msgstr ""
 
@@ -2678,63 +2700,64 @@ msgstr ""
 msgid "Directory is not empty, delete anyway?"
 msgstr ""
 
-#: ShowMemo.pas:360
+#: ShowMemo.pas:363
 #. if LineNr=Lines.Count then SelLength:=0 else SelLength:=Perform(EM_LINEINDEX,LineNr+1,0)-SelStart;
-#: ShowMemo.pas:380
+#: ShowMemo.pas:383
 #: ShowText.pas:222
 #: ShowText.pas:241
 msgid " Line: %u of %u"
 msgstr ""
 
-#: ShowMemo.pas:386
+#: ShowMemo.pas:389
 msgid "Error loading file: \"%s\""
 msgstr ""
 
-#: ShowMemo.pas:408
-#: ShowMemo.pas:591
+#. if (Shift=[]) and (Key=VK_F3) then FindDialogFind(Sender);
+#: ShowMemo.pas:411
+#: ShowMemo.pas:594
 msgid "Delete selected text?"
 msgstr ""
 
 #. Kopfzeile erzeugen
-#: ShowMemo.pas:457
+#: ShowMemo.pas:460
 msgid "Page: %u"
 msgstr ""
 
 #. textout(PrinterSettings.Margins.Left,y,StripPath(Caption,72));
-#: ShowMemo.pas:462
-#: ShowMemo.pas:913
+#: ShowMemo.pas:465
+#: ShowMemo.pas:925
 msgid "File: "
 msgstr ""
 
-#: ShowMemo.pas:568
+#: ShowMemo.pas:571
 #: ShowText.pas:304
 msgid "Print selected lines?"
 msgstr ""
 
-#: ShowMemo.pas:601
+#: ShowMemo.pas:604
 #: ShowText.pas:373
 msgid "Delete file \"%s\"?"
 msgstr ""
 
-#: ShowMemo.pas:619
-#: ShowMemo.pas:913
+#: ShowMemo.pas:627
+#: ShowMemo.pas:925
 #: ShowText.pas:389
 msgid "\"%s\" not found!"
 msgstr ""
 
-#: ShowMemo.pas:652
-#: ShowMemo.pas:668
+#: ShowMemo.pas:664
+#: ShowMemo.pas:680
 msgid "No further sections!"
 msgstr ""
 
 #. remove zero bytes
-#: ShowMemo.pas:707
+#: ShowMemo.pas:719
 msgid "Invalid code page - Windows default is "
 "used!"
 msgstr ""
 
-#: ShowMemo.pas:748
-#: ShowMemo.pas:763
+#: ShowMemo.pas:760
+#: ShowMemo.pas:775
 msgid "No further errors!"
 msgstr ""
 
@@ -2836,11 +2859,11 @@ msgstr ""
 msgid "%s hash file not found!"
 msgstr ""
 
-#: WebView.pas:169
+#: WebView.pas:172
 msgid "Classic Browser"
 msgstr ""
 
-#: WebView.pas:170
+#: WebView.pas:173
 msgid "Edge Browser"
 msgstr ""
 

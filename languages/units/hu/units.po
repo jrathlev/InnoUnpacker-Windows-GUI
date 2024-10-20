@@ -1,713 +1,407 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Delphi-Units\n"
-"POT-Creation-Date: 2024-02-03 23:16+0100\n"
-"PO-Revision-Date: 2024-03-25 10:28+0100\n"
+"POT-Creation-Date: 2024-10-20 12:58+0200\n"
+"PO-Revision-Date: 2024-10-20 13:35+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: Robert Kovacs <info@korosoft.hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 
-#. Strings from ComPort
-#. Programmer's name for it: rsComNoError
-#. Strings from CpDrv
-#. Programmer's name for it: rsComNoError
-#: CommPortConsts.pas:25 UnitConsts.pas:54
 msgid "No errors on COM connection"
 msgstr "COM port kapcsolódási hiba"
 
-#. Programmer's name for it: rsComOpenError
-#. Programmer's name for it: rsComOpenError
-#: CommPortConsts.pas:26 UnitConsts.pas:55
 msgid "Error opening COM port"
 msgstr "COM port megnyitási hiba"
 
-#. Programmer's name for it: rsComStateError
-#. Programmer's name for it: rsComStateError
-#: CommPortConsts.pas:27 UnitConsts.pas:56
 msgid "Error setting COM port state"
 msgstr "COM port állapot hiba"
 
-#. Programmer's name for it: rsComFlushError
-#. Programmer's name for it: rsComFlushError
-#: CommPortConsts.pas:28 UnitConsts.pas:57
 msgid "Error flushing COM buffers"
 msgstr "COM pufferelési hiba"
 
-#. Programmer's name for it: rsComSetupError
-#. Programmer's name for it: rsComSetupError
-#: CommPortConsts.pas:29 UnitConsts.pas:58
 msgid "Error initializing COM port"
 msgstr "COM port felismerési hiba"
 
-#. Programmer's name for it: rsErrOpening
-#: FileConsts.pas:22
 msgid "Error opening \"%s\""
 msgstr "Indítási hiba \"%s\""
 
-#. Programmer's name for it: rsErrCreating
-#: FileConsts.pas:23
 msgid "Error creating \"%s\""
 msgstr "Létrehozott hiba \"%s\""
 
-#. Programmer's name for it: rsErrReading
-#: FileConsts.pas:24
 msgid "Error reading from \"%s\""
 msgstr "Olvasott hiba \"%s\""
 
-#. Programmer's name for it: rsExtractErr
-#: FileConsts.pas:25
 msgid "Error extracting from \"%s\""
 msgstr "Olvasott hiba \"%s\""
 
-#. Programmer's name for it: rsErrWriting
-#: FileConsts.pas:26
 msgid "Error writing to \"%s\""
 msgstr "Megírt hiba \"%s\""
 
-#. Programmer's name for it: rsErrVerify
-#: FileConsts.pas:27
 msgid "Error verifying \"%s\""
 msgstr "Hiba igazolva \"%s\""
 
-#. Programmer's name for it: rsErrClosing
-#: FileConsts.pas:28
 msgid "Error closing \"%s\""
 msgstr "Zárási hiba \"%s\""
 
-#. Programmer's name for it: rsErrSetAttr
-#: FileConsts.pas:29
 msgid "Error setting attributes of \"%s\""
 msgstr "Attributum hiba \"%s\""
 
-#. Programmer's name for it: rsErrTimeStamp
-#: FileConsts.pas:30
 msgid "Error setting timestamps of \"%s\""
 msgstr "Időbélyeg beállíztási hiba \"%s\""
 
-#. Programmer's name for it: rsErrAcl
-#: FileConsts.pas:31
 msgid "Error setting permissions of \"%s\""
 msgstr "Jogosultsági hiba \"%s\""
 
-#. Programmer's name for it: rsErrDirEntry
-#: FileConsts.pas:32
 msgid "Error writing directory entry: \"%s\""
 msgstr "Hiba felirva könyvtárba: \"%s\""
 
-#. Programmer's name for it: rsErrAddDir
-#: FileConsts.pas:33
 msgid "Error adding directory to \"%s\""
 msgstr "Hiba felirva könyvtárba: \"%s\""
 
-#. Programmer's name for it: rsErrAddFile
-#: FileConsts.pas:34
 msgid "Error adding file to \"%s\""
 msgstr "Olvasott hiba \"%s\""
 
-#. Programmer's name for it: rsErrAddStream
-#: FileConsts.pas:35
 msgid "Error adding stream to \"%s\""
 msgstr "Olvasott hiba \"%s\""
 
-#. Programmer's name for it: rsErrCompFile
-#: FileConsts.pas:36
 msgid "Error comparing file from \"%s\" to \"%s\""
 msgstr "Hiba a fájl áthelyezése közben \"%s\"-ból \"%s\"-be"
 
-#. Programmer's name for it: rsErrEndRecord
-#: FileConsts.pas:37
 msgid "Error writing end record"
 msgstr "Feljegyzési hiba"
 
-#. Programmer's name for it: rsErrNotFound
-#: FileConsts.pas:38
 msgid "File not found: \"%s\""
 msgstr "Fájl nem található: \"%s\""
 
-#. Programmer's name for it: rsErrSystem
-#: FileConsts.pas:39
 msgid "System error: %s"
 msgstr "Rendszerhiba: %s"
 
-#. Programmer's name for it: rsNoError
-#: FileConsts.pas:41
 msgid "No errors"
 msgstr "Nincsenek hibák"
 
-#. Programmer's name for it: rsError
-#: FileConsts.pas:42
 msgid "Error - "
 msgstr "Hiba - "
 
-#. Programmer's name for it: rsError2
-#: FileConsts.pas:43
 msgid "Error(2) - "
 msgstr "Hiba(2) - "
 
-#. Programmer's name for it: rsWarning
-#: FileConsts.pas:44
 msgid "Warning - "
 msgstr "Figyelem - "
 
-#. Programmer's name for it: rsInfo
-#: FileConsts.pas:45
 msgid "Info - "
 msgstr "Infó - "
 
-#. Programmer's name for it: rsFileCreate
-#: FileConsts.pas:46
 msgid "Could not create file"
 msgstr "Nem lehet létrehozni a fájlt"
 
-#. Programmer's name for it: rsFileOpen
-#: FileConsts.pas:47
 msgid "Could not open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
-#. Programmer's name for it: rsFileClose
-#: FileConsts.pas:48
 msgid "Could not close file"
 msgstr "Nem lehet bezárni a fájlt"
 
-#. Programmer's name for it: rsFileRead
-#: FileConsts.pas:49
 msgid "Could not read from file"
 msgstr "Nem olvasható a forrás fájl"
 
-#. Programmer's name for it: rsFileWrite
-#: FileConsts.pas:50
 msgid "Could not write to file"
 msgstr "Nem írható fájlba"
 
-#. Programmer's name for it: rsFileAttr
-#: FileConsts.pas:51
 msgid "Attributes could not be set"
 msgstr "Nem lehetett minden jellemzőt beolvasni"
 
-#. Programmer's name for it: rsFileFull
-#: FileConsts.pas:52
 msgid "Low disk space"
 msgstr "Kevés a lemez terület"
 
-#. Programmer's name for it: rsFileGZip
-#: FileConsts.pas:53
 msgid "Illegal file header"
 msgstr "Jogtalan  kiterjesztés"
 
-#. Programmer's name for it: rsFileCheck
-#: FileConsts.pas:54
 msgid "Corrupt file"
 msgstr "Rossz fájl"
 
-#. Programmer's name for it: rsFileECrypt
-#: FileConsts.pas:55
 msgid "Encryption failed"
 msgstr "Titkosítás sikertelen"
 
-#. Programmer's name for it: rsFileDCrypt
-#: FileConsts.pas:56
 msgid "Decryption failed"
 msgstr "Feloldás sikertelen"
 
-#. Programmer's name for it: rsFileVerify
-#: FileConsts.pas:57
 msgid "Verification failed"
 msgstr "Ellenőrzés sikertelen"
 
-#. Programmer's name for it: rsLongPath
-#: FileConsts.pas:58
 msgid "Path too long"
 msgstr "Túl hosszú elérési útvonal"
 
-#. Programmer's name for it: rsNotFound
-#: FileConsts.pas:59
 msgid "File not found"
 msgstr "Fájl nem található"
 
-#. Programmer's name for it: rsFileTS
-#: FileConsts.pas:60
 msgid "Timestamp could not be set"
 msgstr "Nem állíthat be időt"
 
-#. Programmer's name for it: rsStorage
-#: FileConsts.pas:61
 msgid "Error copying document summary"
 msgstr "Hiba történt a dokumentum összefoglaló másolásakor"
 
-#. Programmer's name for it: rsTimeout
-#: FileConsts.pas:62
 msgid "Timeout error on copying file"
 msgstr "Idő kimeneti hiba a fájl másolásakor"
 
-#. Programmer's name for it: rsStream
-#: FileConsts.pas:63
 msgid "Undefined stream"
 msgstr "Megállapíthatalan folyamat"
 
-#. Programmer's name for it: rsAcl
-#: FileConsts.pas:64
 msgid "Permissions could not be copied"
 msgstr "Nem másolhat engedélyt"
 
-#. Programmer's name for it: rsFileExists
-#: FileConsts.pas:65
 msgid "File already exists"
 msgstr "A fájl már létezik"
 
-#. Programmer's name for it: rsSzMismatch
-#: FileConsts.pas:66
 msgid "Size mismatch"
 msgstr "Méret-eltérés"
 
-#. Programmer's name for it: rsVerOpen
-#: FileConsts.pas:67
 msgid "Could not open destination file for verification"
 msgstr "Nem sikerült megnyitni a fájlt, hitelesítésre"
 
-#. Programmer's name for it: rsDirCreate
-#: FileConsts.pas:68
 msgid "Could not create directory"
 msgstr "Nem sikerült létrehozni a könyvtárat"
 
-#. Programmer's name for it: rsFtpRead
-#: FileConsts.pas:69
 msgid "Could not read from FTP"
 msgstr "FTP olvasási hiba"
 
-#. Programmer's name for it: rsFtpWrite
-#: FileConsts.pas:70
 msgid "Could not write to FTP"
 msgstr "FTP irási hiba"
 
-#. Programmer's name for it: rsFtpConnect
-#: FileConsts.pas:71
 msgid "Could not connect to FTP server"
 msgstr "Nem FTP szerverhez kapcsolódik"
 
-#. Programmer's name for it: rsFtpBroken
-#: FileConsts.pas:72
 msgid "FTP connection was closed by server"
 msgstr "Bezárták az FTP kapcsolatot a szervernél"
 
-#. Programmer's name for it: rsFtpDatConn
-#: FileConsts.pas:73
 msgid "Could not open FTP data connection"
 msgstr "Nem lehet FTP kacsolatot létrehozni"
 
-#. Programmer's name for it: rsFtpTimeout
-#: FileConsts.pas:74
 msgid "Timeout error on copying file via FTP"
 msgstr "FTP fájl másolási hiba"
 
-#. Programmer's name for it: rsCompare
-#: FileConsts.pas:75
 msgid "Different content"
 msgstr "Különböző tartalom"
 
-#. Programmer's name for it: rsZipCrSeg
-#: FileConsts.pas:76
 msgid "Error creating new zip segment"
 msgstr "Új zip fájl létrehozási hiba"
 
-#. Programmer's name for it: rsSignature
-#: FileConsts.pas:77
 msgid "Illegal zip signature"
 msgstr "Jogtalan zip tömörítési aláirás"
 
-#. Programmer's name for it: rsExtract
-#: FileConsts.pas:78
 msgid "Could not extract file"
 msgstr "Nem lehet fájlt kinyerni"
 
-#. Programmer's name for it: rsFormat
-#: FileConsts.pas:79
 msgid "Unsupported file format"
 msgstr "Nem támogatott fájl formátum"
 
-#. Programmer's name for it: rsTmpFile
-#: FileConsts.pas:80
 msgid "Could not rename temporary file"
 msgstr "Nem lehet átnevezni a fájl átmenetileg"
 
-#. Programmer's name for it: rsZipRdSeg
-#: FileConsts.pas:81
 msgid "Error reading next zip segment"
 msgstr "Hiba a zip fájl olvasása közben"
 
-#. Programmer's name for it: rsAltStreams
-#: FileConsts.pas:82
 msgid "Error copying alternate data streams"
 msgstr "Hiba történt az adatfolyam másolásánál"
 
-#. Programmer's name for it: rsFileDel
-#: FileConsts.pas:83
 msgid "Error deleting file"
 msgstr "Hiba történt a fájl törlése közben"
 
-#. Programmer's name for it: rsFileRen
-#: FileConsts.pas:84
 msgid "Error renaming file"
 msgstr "Hiba a fájl átnevezésében"
 
-#. Programmer's name for it: rsUserBreak
-#: FileConsts.pas:86
 msgid "Terminated by user"
 msgstr "Felhasználónál bejelentkezve"
 
-#. Programmer's name for it: rsUnknownErrCode
-#: FileConsts.pas:87
 msgid "Unknown error code ($%.8x)"
 msgstr "Ismeretlen hiba kód ($%.8x)"
 
-#. Programmer's name for it: rsCopy
-#: FileConsts.pas:88
 msgid "Copy"
 msgstr "Másol"
 
-#. Programmer's name for it: rsGZip
-#: FileConsts.pas:89
 msgid "gzip"
 msgstr "gzip"
 
-#. Programmer's name for it: rsGUnzip
-#: FileConsts.pas:90
 msgid "gunzip"
 msgstr "gunzip"
 
-#. Programmer's name for it: rsZip
-#: FileConsts.pas:91
 msgid "Zip"
 msgstr "Zip"
 
-#. Programmer's name for it: rsUnzip
-#: FileConsts.pas:92
 msgid "Unzip"
 msgstr "Unzip"
 
-#. Programmer's name for it: rsEnCrypt
-#: FileConsts.pas:93
 msgid "Encrypt"
 msgstr "Kódolás"
 
-#. Programmer's name for it: rsDeCrypt
-#: FileConsts.pas:94
 msgid "Decrypt"
 msgstr "Felodás"
 
-#. Programmer's name for it: rsNoFileInfo
-#: FileConsts.pas:96
 msgid "File information not available"
 msgstr "Nincs erre vonatkozó információ"
 
-#. Programmer's name for it: rsDescription
-#: FileConsts.pas:97
 msgid "Description: "
 msgstr "Leírás: "
 
-#. Programmer's name for it: rsCompany
-#: FileConsts.pas:98
 msgid "Company: "
 msgstr "Vállalat: "
 
-#. Programmer's name for it: rsCopyright
-#: FileConsts.pas:99
 msgid "Copyright: "
 msgstr "Szerzői jog: "
 
-#. Programmer's name for it: rsVersion
-#: FileConsts.pas:100
 msgid "File version: "
 msgstr "Fájlverzió: "
 
-#. Programmer's name for it: rsFileDate
-#: FileConsts.pas:101
 msgid "Last modified: "
 msgstr "Utolsó módosítás: "
 
-#. Programmer's name for it: rsStrFormatError
-#. Strings from ExtSysUtils
-#. Programmer's name for it: rsFormatError
-#. Programmer's name for it: rsFormatError
-#: FileConsts.pas:103 UnitConsts.pas:27 WinTaskConsts.pas:22
 msgid "Format error: "
 msgstr "Formátum hiba: "
 
-#. Programmer's name for it: rsGlobalInfo
-#: FilePropConsts.pas:23
 msgid "Global info"
 msgstr "Teljes infó"
 
-#. Programmer's name for it: rsDocInfo
-#: FilePropConsts.pas:24
 msgid "Document info"
 msgstr "Dokumentum infó"
 
-#. Programmer's name for it: rsUserInfo
-#: FilePropConsts.pas:25
 msgid "User info"
 msgstr "Felh. infó"
 
-#. Programmer's name for it: rsAudioInfo
-#: FilePropConsts.pas:26
 msgid "Audio info"
 msgstr "Audió infó"
 
-#. Programmer's name for it: rsVideoInfo
-#: FilePropConsts.pas:27
 msgid "Video info"
 msgstr "Videó infó"
 
-#. Programmer's name for it: rsImageInfo
-#: FilePropConsts.pas:28
 msgid "Image info"
 msgstr "Kép infó"
 
-#. Programmer's name for it: rsmediaInfo
-#: FilePropConsts.pas:29
 msgid "Media info"
 msgstr "Media infó"
 
-#. Titel
-#. Programmer's name for it: rsTitel
-#: FilePropConsts.pas:31
 msgid "Title"
 msgstr "Cím"
 
-#. Thema
-#. Programmer's name for it: rsSubject
-#: FilePropConsts.pas:32
 msgid "Subject"
 msgstr "Tárgy"
 
-#. Autor
-#. Programmer's name for it: rsAuthor
-#: FilePropConsts.pas:33
 msgid "Author"
 msgstr "Készítő"
 
-#. Stichwörter
-#. Programmer's name for it: rsKeywords
-#: FilePropConsts.pas:34
 msgid "Keywords"
 msgstr "Kulcsszavak"
 
-#. Kommentare
-#. Programmer's name for it: rsComments
-#: FilePropConsts.pas:35
 msgid "Comments"
 msgstr "Megjegyzés"
 
-#. Vorlage
-#. Programmer's name for it: rsTemplate
-#: FilePropConsts.pas:36
 msgid "Template"
 msgstr "Sablon"
 
-#. Zuletzt gespeichert von
-#. Programmer's name for it: rsLastSaved
-#: FilePropConsts.pas:37
 msgid "Last saved by"
 msgstr "Utolsó mentés"
 
-#. Version
-#. Programmer's name for it: rsRevNumber
-#: FilePropConsts.pas:38
 msgid "Revision Number"
 msgstr "Szám módosítás"
 
-#. Gesamte Bearbeitungszeit
-#. Programmer's name for it: rsTotalTime
-#: FilePropConsts.pas:39
 msgid "Total editing time"
 msgstr "Szerkesztési idő"
 
-#. Zuletzt gedruckt
-#. Programmer's name for it: rsLastPrinted
-#: FilePropConsts.pas:40
 msgid "Last printed"
 msgstr "Utolsó nyomtatás"
 
-#. Erstellt am
-#. Programmer's name for it: rsContentCreate
-#: FilePropConsts.pas:41
 msgid "Content created"
 msgstr "Létrehozott tartalom"
 
-#. Zuletzt gespeichert
-#. Programmer's name for it: rsDateLastSaved
-#: FilePropConsts.pas:42
 msgid "Date last saved"
 msgstr "Utolsó mentett dátum"
 
-#. Seiten
-#. Programmer's name for it: rsPages
-#: FilePropConsts.pas:43
 msgid "Pages"
 msgstr "Oldalak"
 
-#. Wortanzahl
-#. Programmer's name for it: rsWordCount
-#: FilePropConsts.pas:44
 msgid "Word count"
 msgstr "Szöveg szám"
 
-#. Zeichenanzahl
-#. Programmer's name for it: rsCharCount
-#: FilePropConsts.pas:45
 msgid "Character count"
 msgstr "Karakter szám"
 
-#. Miniaturbild
-#. Programmer's name for it: rsThumbnail
-#: FilePropConsts.pas:46
 msgid "Thumbnail"
 msgstr "Bélyegkép"
 
-#. Anwendungsname
-#. Programmer's name for it: rsProgName
-#: FilePropConsts.pas:47
 msgid "Program name"
 msgstr "Program neve"
 
-#. Sicherheit
-#. Programmer's name for it: rsSecurity
-#: FilePropConsts.pas:48
 msgid "Security"
 msgstr "Biztonság"
 
-#. Kategorie
-#. Programmer's name for it: rsCategory
-#: FilePropConsts.pas:50
 msgid "Category"
 msgstr "Kategória"
 
-#. Präsentationsformat
-#. Programmer's name for it: rsPresentation
-#: FilePropConsts.pas:51
 msgid "Presentation format"
 msgstr "Bemutatot formátum"
 
-#. Byzeanzahl
-#. Programmer's name for it: rsByteCount
-#: FilePropConsts.pas:52
 msgid "Byte count"
 msgstr "Bájt szám"
 
-#. Zeilenanzahl
-#. Programmer's name for it: rsLineCount
-#: FilePropConsts.pas:53
 msgid "Line count"
 msgstr "Vonal szám"
 
-#. Absatzanzahl
-#. Programmer's name for it: rsParCount
-#: FilePropConsts.pas:54
 msgid "Paragraph count"
 msgstr "Bekezdési szám"
 
-#. Folien
-#. Programmer's name for it: rsSlides
-#: FilePropConsts.pas:55
 msgid "Slides"
 msgstr "Tolódik"
 
-#. Hinweise
-#. Programmer's name for it: rsNotes
-#: FilePropConsts.pas:56
 msgid "Notes"
 msgstr "Megjegyzés"
 
-#. Anzahl ausgeblendeter Elemente
-#. Programmer's name for it: rsHidden
-#: FilePropConsts.pas:57
 msgid "Hidden elements"
 msgstr "Rejtett elem"
 
-#. Multimediaclips
-#. Programmer's name for it: rsClips
-#: FilePropConsts.pas:58
 msgid "Clips"
 msgstr "Kivág"
 
-#. Skalierung
-#. Programmer's name for it: esScale
-#: FilePropConsts.pas:59
 msgid "Scale"
 msgstr "Lépték"
 
-#. Überschriftenpaare
-#. Programmer's name for it: rsHeadPairs
-#: FilePropConsts.pas:60
 msgid "Heading pairs"
 msgstr "Fejléc párosítás"
 
-#. Dokumententeile
-#. Programmer's name for it: rsDocParts
-#: FilePropConsts.pas:61
 msgid "Document parts"
 msgstr "Dokumentumrészek"
 
-#. Manager
-#. Programmer's name for it: rsManager
-#: FilePropConsts.pas:62
 msgid "Manager"
 msgstr "Vezető"
 
-#. Firma
-#. Programmer's name for it: rsCompany
-#: FilePropConsts.pas:63
 msgid "Company"
 msgstr "Vállalat"
 
-#. Zu aktualisierende Verknüpfungen
-#. Programmer's name for it: rsLinkUpdate
-#: FilePropConsts.pas:64
 msgid "Links to update"
 msgstr "Frissítési hivatkozás"
 
-#. Programmer's name for it: rsYes
-#: FilePropConsts.pas:66
 msgid "Yes"
 msgstr "Igen"
 
-#. Programmer's name for it: rsNo
-#: FilePropConsts.pas:67
 msgid "No"
 msgstr "Nem"
 
-#. Strings for FTP connections
-#. Programmer's name for it: rsFtpConn
-#: FtpConsts.pas:23
 msgid "FTP connection"
 msgstr "FTP kapcsolat"
 
-#. Programmer's name for it: rsTryConnect
-#: FtpConsts.pas:24
 msgid "Trying to connect to FTP server"
 msgstr "Próba kapcsolódás az FTP szerverhez"
 
-#. Programmer's name for it: rsConnected
-#: FtpConsts.pas:25
 msgid "Connection to FTP server established"
 msgstr "Kapcsolódás az FTP szerverhez megállapítva"
 
-#. Programmer's name for it: rsConnectErr
-#: FtpConsts.pas:26
 msgid "Connection to FTP server failed"
 msgstr "Kapcsolódás az FTP szerverhez sikertelen"
 
-#. Programmer's name for it: rsConnectTo
-#: FtpConsts.pas:27
 msgid "Connection to FTP server: %s:%u"
 msgstr "Kapcsolat FTP szerverhez: %s:%u"
 
-#. Programmer's name for it: rsFtpHint
-#: FtpConsts.pas:28
 msgid ""
 "Connection to FTP server: %s:%u\n"
 "for user: %s\n"
@@ -717,8 +411,6 @@ msgstr ""
 "használatra: %s\n"
 "megkövetel jelszavat!"
 
-#. Programmer's name for it: rsProxyHint
-#: FtpConsts.pas:29
 msgid ""
 "Connection to FTP proxy server: %s:%u\n"
 "for user: %s\n"
@@ -728,374 +420,233 @@ msgstr ""
 "használatra: %s\n"
 "megkövetel jelszavat!"
 
-#. Programmer's name for it: rsNoConnect
-#: FtpConsts.pas:30
 msgid "FTP connection lost!"
 msgstr "FTP kapcsolat elvesztett!"
 
-#. Programmer's name for it: rsTryReconnect
-#: FtpConsts.pas:31
 msgid "Trying to reconnect"
 msgstr "Próbálok újra kapcsolódni"
 
-#. Programmer's name for it: rsFtpWelcome
-#: FtpConsts.pas:32
 msgid "FTP welcome message:"
 msgstr "FTP üdvözlő üzenet:"
 
-#. Programmer's name for it: rsFtpStatus
-#: FtpConsts.pas:33
 msgid "FTP status query:"
 msgstr "FTP státus lekérdezés:"
 
-#. Programmer's name for it: rsFtpFeat
-#: FtpConsts.pas:34
 msgid "Supported features: "
 msgstr "Támogatott funkciók: "
 
-#. Programmer's name for it: rsFtpRespCode
-#: FtpConsts.pas:35
 msgid "Response code: "
 msgstr "Válaszkód: "
 
-#. Programmer's name for it: rsFtpResponse
-#: FtpConsts.pas:36
 msgid "Last FTP response: "
 msgstr "Legutóbbi FTP válaszkód: "
 
-#. Programmer's name for it: rsIndyError
-#: FtpConsts.pas:37
 msgid "Reported error: "
 msgstr "Jelentett hiba: "
 
-#. Programmer's name for it: rsUnexpected
-#: FtpConsts.pas:38
 msgid "Unexpected response to command: "
 msgstr "Nem várt parancsválasz: "
 
-#. Programmer's name for it: rsFtpTimeOut
-#: FtpConsts.pas:39
 msgid "Timeout on command: "
 msgstr "Időtúllépés: "
 
-#. Programmer's name for it: rsFtpBase
-#: FtpConsts.pas:40
 msgid "FTP root directory: \"%s\""
 msgstr "FTP főkönyvtár: \"%s\""
 
-#. Programmer's name for it: rsFtpDir
-#: FtpConsts.pas:41
 msgid "Current FTP directory: \"%s\""
 msgstr "Aktuális FTP könyvtár: \"%s\""
 
-#. Certicate info
-#. Programmer's name for it: rsCertVersion
-#. Misc.
-#. Programmer's name for it: rsVersion
-#: FtpConsts.pas:44 UnitConsts.pas:127
 msgid "Version"
 msgstr "Verzió"
 
-#. Programmer's name for it: rsSerialNr
-#: FtpConsts.pas:45
 msgid "Serial number"
 msgstr "Sorszám"
 
-#. Programmer's name for it: rsIssuer
-#: FtpConsts.pas:46
 msgid "Issuer"
 msgstr "Kibocsátó"
 
-#. Programmer's name for it: rsValidUntil
-#: FtpConsts.pas:47
 msgid "Valid until"
 msgstr "Érvényes hacsak"
 
-#. Programmer's name for it: rsFingerprint
-#: FtpConsts.pas:48
 msgid "Fingerprint"
 msgstr "Ujjlenyomat"
 
-#. Programmer's name for it: rsVerCertError
-#: FtpConsts.pas:49
 msgid "Error verifying server certificate"
 msgstr "Hiba a kiszolgáló tanúsítványának ellenőrzése"
 
-#. 'Fehler (öffnende/schließende Klammern)'
-#. Programmer's name for it: rsMathErrPar
-#: MathExpConsts.pas:22
 msgid "Error (left/right parenthesis)"
 msgstr "Hiba (bal/jobb zárójel)"
 
-#. Eingabefehler (öffnende Klammer fehlt)';
-#. Programmer's name for it: rsMathErrLeftPar
-#: MathExpConsts.pas:23
 msgid "Input error (missing left parenthesis)"
 msgstr "Beviteli hiba (kimaradt bal zárójel)"
 
-#. 'Eingabefehler (kein Klammerinhalt)';
-#. Programmer's name for it: rsMathErrEmptyPar
-#: MathExpConsts.pas:24
 msgid "Input error (empty parentheses)"
 msgstr "Beviteli hiba(ürítse ki a zárójelet)"
 
-#. 'Division durch Null';
-#. Programmer's name for it: rsMathErrDivZero
-#: MathExpConsts.pas:25
 msgid "Division by zero"
 msgstr "Nullával való osztás"
 
-#. 'Unzulässiges Argument';
-#. Programmer's name for it: rsMathErrInvalidArg
-#: MathExpConsts.pas:26
 msgid "Invalid argument"
 msgstr "Nem valós argumentum"
 
-#. 'Operation führt zu Überlauf';
-#. Programmer's name for it: rsMathErrOverflow
-#: MathExpConsts.pas:27
 msgid "Overflow on operation"
 msgstr "Müködési túlterhelés"
 
-#. 'Unidentifizierbarer Ausdruck';
-#. Programmer's name for it: rsMathErrInvalidExp
-#. 'Unvollständiger Ausdruck';
-#. Programmer's name for it: rsMathErrIncompExp
-#: MathExpConsts.pas:28 MathExpConsts.pas:30
 msgid "Invalid expression"
 msgstr "Érvénytelen kifejezés"
 
-#. 'Unerwartetes Operationssymbol';
-#. Programmer's name for it: rsMathErrUnexpOper
-#: MathExpConsts.pas:29
 msgid "Unexpected operator"
 msgstr "Váratlan műveleti jel"
 
-#. 'Operationssymbol fehlt';
-#. Programmer's name for it: rsMathErrMissOper
-#: MathExpConsts.pas:31
 msgid "Missing operator"
 msgstr "Hiányos műveleti jel"
 
-#. 'Potenz mit unzulässiger (negativer) Basis';
-#. Programmer's name for it: rsMathErrNegPower
-#: MathExpConsts.pas:32
 msgid "Power with invalid (negative) base"
 msgstr "Kapcsolás nemvalós (negativ) bázis"
 
-#. '"Null hoch Null"';
-#. Programmer's name for it: rsMathErrZeroPower
-#: MathExpConsts.pas:33
 msgid "Zero to power of zero"
 msgstr "Kapcsolj nullát nullával"
 
-#. '"Null durch Null"';
-#. Programmer's name for it: rsMathErrZeroZero
-#: MathExpConsts.pas:34
 msgid "Divide zero by zero"
 msgstr "Osztás nullával"
 
-#. 'Unzulässige Kombination von Operanden';
-#. Programmer's name for it: rsMathErrInvalidOps
-#: MathExpConsts.pas:35
 msgid "Invalid combination of operands"
 msgstr "Nem valós összetétel"
 
-#. 'Unerlaubtes Zeichen';
-#. Programmer's name for it: rsMathErrInvalidChar
-#: MathExpConsts.pas:36
 msgid "Invalid character"
 msgstr "Nem valós karakter"
 
-#. 'Unzulässiges Argument (Überlaufgefahr)';
-#. Programmer's name for it: rsMathErrInvalidOvfl
-#: MathExpConsts.pas:37
 msgid "Invalid argument (potential overflow)"
 msgstr "Hibás argumentum(potencialis túlcsordulás)"
 
-#. 'Speicherplatz fehlt ("stack overflow")';
-#. Programmer's name for it: rsMathErrStackOvfl
-#: MathExpConsts.pas:38
 msgid "Low memory (\"stack overflow\")"
 msgstr "Kevés memória(\"verem túlcsordulás\")"
 
-#. 'Speicherplatz fehlt ("string overflow")';
-#. Programmer's name for it: rsMathErrMemOvfl
-#: MathExpConsts.pas:39
 msgid "Low memory (\"string overflow\")"
 msgstr "Kevés memória(\"sort túlcsordulás\")"
 
-#. 'Unbekannter Fehler';
-#. Programmer's name for it: rsMathErrUnknown
-#: MathExpConsts.pas:40
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
 
-#. '%s ist kein gültiger Hexwert';
-#. Programmer's name for it: rsHexError
-#: UnitConsts.pas:31
-msgid "%s is not a valid hex value"
-msgstr "%s nincs hex alapú érték"
-
-#. '%s ist kein gültiger Oktalwert';
-#. Programmer's name for it: rsOctError
-#: UnitConsts.pas:32
-msgid "%s is not a valid octal value"
-msgstr "&s nincs nyolcas alapú érték"
-
-#. '%s ist kein gültiger Binärwert';
-#. Programmer's name for it: rsBinError
-#: UnitConsts.pas:33
-msgid "%s is not a valid binary value"
-msgstr "&s nincs érvényes bináris érték"
-
-#. "&" is required so that this entry is always the first when sorting
-#. Programmer's name for it: rsSystemDefault
-#: UnitConsts.pas:37
-msgid "&System default"
-msgstr "&Alapértelmezett"
-
-#. Programmer's name for it: rsLangRestart
-#: UnitConsts.pas:38
-msgid "Changing language requires the program to be restarted!"
-msgstr "Nyelv módosítása előírja, hogy a programot újra kell indítani!"
-
-#. Strings from TextFilter
-#. Programmer's name for it: rsIllRegExp
-#: UnitConsts.pas:42
-msgid "Illegal regular expression!"
-msgstr "Jogtalan reguláris kifejezés!"
-
-#. Programmer's name for it: rsIllmask
-#: UnitConsts.pas:43
-msgid "Illegal mask!"
-msgstr "Jogtalan maszk!"
-
-#. Strings from WinExecute
-#. Programmer's name for it: rsExecuteError
-#: UnitConsts.pas:47
-msgid "Error executing process"
-msgstr "Végrehajtási hiba"
-
-#. Programmer's name for it: rsCreatePipeError
-#: UnitConsts.pas:48
-msgid "Stdout pipe creation failed"
-msgstr "Csatorna létehozás sikertelen"
-
-#. Programmer's name for it: rsDupHandleError
-#: UnitConsts.pas:49
-msgid "DuplicateHandle failed"
-msgstr "Kettős hiba"
-
-#. Programmer's name for it: rsCloseHandleError
-#: UnitConsts.pas:50
-msgid "Closing handle failed"
-msgstr "Bezárás sikertelen"
-
-#. Strings from WinUtils
-#. Programmer's name for it: rsUnknownError
-#: UnitConsts.pas:62
 msgid "Unknown system error code"
 msgstr "Ismeretlen fájl hiba"
 
-#. Programmer's name for it: rsErrorCode
-#: UnitConsts.pas:63
 msgid "Error code"
 msgstr "Hibakód"
 
-#. Programmer's name for it: rsWindowsError
-#: UnitConsts.pas:64
 msgid "Windows error"
 msgstr "Windows hiba"
 
-#. Programmer's name for it: rsStorageError
-#: UnitConsts.pas:65
 msgid "Storage error"
 msgstr "Tárhelyhiba"
 
-#. Programmer's name for it: rsRpcError
-#: UnitConsts.pas:66
 msgid "Remote procedure call error"
 msgstr "Távoli eljárás hívási hiba"
 
-#. Programmer's name for it: rsInterfaceError
-#: UnitConsts.pas:67
 msgid "Interface error"
 msgstr "Interfészhiba"
 
-#. Programmer's name for it: rsDispatchError
-#: UnitConsts.pas:68
 msgid "Dispatch error"
 msgstr "Feladási hiba"
 
-#. Programmer's name for it: rsPreWin32Error
-#: UnitConsts.pas:69
 msgid "Error in SHFileOperation"
 msgstr "Hiba a SHFileOperation"
 
-#. Programmer's name for it: rsShellExec
-#: UnitConsts.pas:70
 msgid "ShellExecute error"
 msgstr "Végrehajtási hiba"
 
-#. Programmer's name for it: rsVersion10LongStr
-#: UnitConsts.pas:76
+msgid "%s is not a valid hex value"
+msgstr "%s nincs hex alapú érték"
+
+msgid "%s is not a valid octal value"
+msgstr "&s nincs nyolcas alapú érték"
+
+msgid "%s is not a valid binary value"
+msgstr "&s nincs érvényes bináris érték"
+
+msgid "&System default"
+msgstr "&Alapértelmezett"
+
+msgid "Changing language requires the program to be restarted!"
+msgstr "Nyelv módosítása előírja, hogy a programot újra kell indítani!"
+
+msgid "Illegal regular expression!"
+msgstr "Jogtalan reguláris kifejezés!"
+
+msgid "Illegal mask!"
+msgstr "Jogtalan maszk!"
+
+msgid "Error executing process"
+msgstr "Végrehajtási hiba"
+
+msgid "Stdout pipe creation failed"
+msgstr "Csatorna létehozás sikertelen"
+
+msgid "DuplicateHandle failed"
+msgstr "Kettős hiba"
+
+msgid "Closing handle failed"
+msgstr "Bezárás sikertelen"
+
 msgid "%s%s (Version %s, Build %d, %s)"
 msgstr "%s%s (Version %s, Build %d, %s)"
 
-#. Programmer's name for it: rsVersion10ShortStr
-#: UnitConsts.pas:79
 msgid "%s (Version %s, %s)"
 msgstr "%s (Version %s, %s)"
 
-#. Programmer's name for it: rsWindows11
-#: UnitConsts.pas:81
 msgid "Windows 11"
 msgstr "Windows 11"
 
-#. Programmer's name for it: rsProfessionalMC
-#: UnitConsts.pas:84
 msgid "Professional with Media Center"
 msgstr "Professional with Media Center"
 
-#. Programmer's name for it: rsEnterpriseServerIT
-#: UnitConsts.pas:92
 msgid "Server Enterprise for Itanium-based Systems"
 msgstr "Server Enterprise for Itanium-based Systems"
 
-#. Programmer's name for it: rsEssServerV
-#: UnitConsts.pas:102
 msgid "Essential Server without Hyper-V"
 msgstr "Essential Server without Hyper-V"
 
-#. Programmer's name for it: rsUnlicensed
-#: UnitConsts.pas:116
 msgid "Unlicensed product"
 msgstr "Unlicensed product"
 
-#. Strings from DateUtilEx
-#. Programmer's name for it: rsBegSpring
-#: UnitConsts.pas:120
 msgid "Beginning of spring"
 msgstr "A tavasz kezdete"
 
-#. Programmer's name for it: rsBegSummer
-#: UnitConsts.pas:121
 msgid "Beginning of summer"
 msgstr "Nyár eleje"
 
-#. Programmer's name for it: rsBegAutumn
-#: UnitConsts.pas:122
 msgid "Beginning of autumn"
 msgstr "Ősz eleje"
 
-#. Programmer's name for it: rsBegWinter
-#: UnitConsts.pas:123
 msgid "Beginning of winter"
 msgstr "A tél kezdete"
 
-#. Programmer's name for it: rsLongCopyRight
-#: UnitConsts.pas:128
+#. Strings from PasswordStrength
+#. Programmer's name for it: rsVeryWeak
+#: UnitConsts.pas:123
+msgid "very weak"
+msgstr "nagyon gyenge"
+
+#. Programmer's name for it: rsWeak
+#: UnitConsts.pas:124
+msgid "weak"
+msgstr "gyenge"
+
+#. Programmer's name for it: rsGood
+#: UnitConsts.pas:125
+msgid "good"
+msgstr "jó"
+
+#. Programmer's name for it: rsStrong
+#: UnitConsts.pas:126
+msgid "strong"
+msgstr "erős"
+
+#. Programmer's name for it: rsVeryStrong
+#: UnitConsts.pas:127
+msgid "very strong"
+msgstr "nagyon erős"
+
 msgid ""
 "%s Dr. J. Rathlev\n"
 " 24222 Schwentinental, Germany"
@@ -1103,492 +654,265 @@ msgstr ""
 "%s Dr. J. Rathlev\n"
 " 24222 Schwentinental, Germany"
 
-#. Programmer's name for it: rsCopyRight
-#: UnitConsts.pas:129
 msgid "%s Dr. J. Rathlev"
 msgstr "%s Dr. J. Rathlev"
 
-#. Programmer's name for it: rsNotAvail
-#: UnitConsts.pas:130
 msgid "not available"
 msgstr "nem elérhető"
 
-#. Programmer's name for it: rsNoName
-#: UnitConsts.pas:131
 msgid "unlabeled"
 msgstr "nem jelölt"
 
-#. Programmer's name for it: rsConnectTo
-#: UnitConsts.pas:132
 msgid "Connect to .."
 msgstr "Kapcsolódás ..."
 
-#. Programmer's name for it: rsUnknown
-#: UnitConsts.pas:133
 msgid "<Unknown>"
 msgstr "<Ismeretlen hiba>"
 
-#. Programmer's name for it: rsAnyKey
-#: UnitConsts.pas:134
 msgid "Strike any key to continue ..."
 msgstr "Bármelyik billentyű lenyomása a folytatáshoz ..."
 
-#. Programmer's name for it: rsVssNotAvail
-#: VssConsts.pas:24
 msgid "Volume Shadow Copy could not be initialized on this system!"
 msgstr "Kötet árnyékmásolata nem inicializálható ezen a rendszeren!"
 
-#. Programmer's name for it: rsInitBackupComps
-#: VssConsts.pas:25
 msgid "Initializing IVssBackupComponents Interface ..."
 msgstr "IVssBackupComponents felület indítása..."
 
-#. Programmer's name for it: rsInitMetaData
-#: VssConsts.pas:26
 msgid "Initialize writer metadata ..."
 msgstr "Metaadatok író inicializálása..."
 
-#. Programmer's name for it: rsGatherMetaData
-#: VssConsts.pas:27
 msgid "Gathering writer metadata ..."
 msgstr "Összejövetel író metaadat..."
 
-#. Programmer's name for it: rsGatherWriterStatus
-#: VssConsts.pas:28
 msgid "Gathering writer status ..."
 msgstr "Összejövetel író állapot..."
 
-#. Programmer's name for it: rsDscvDirExclComps
-#: VssConsts.pas:29
 msgid "Discover directly excluded components ..."
 msgstr "Fedezze fel közvetlenül a kizárt komponenseket ..."
 
-#. Programmer's name for it: rsDscvNsExclComps
-#: VssConsts.pas:30
 msgid "Discover components that reside outside the shadow set ..."
 msgstr ""
 "Fedezze fel az összetevőket, amelyek az árnyékmásolat-készletben "
 "vannak ..."
 
-#. Programmer's name for it: rsDscvAllExclComps
-#: VssConsts.pas:31
 msgid "Discover all excluded components ..."
 msgstr "Kizárt komponensek megjelenítése..."
 
-#. Programmer's name for it: rsDscvExclWriters
-#: VssConsts.pas:32
 msgid "Discover excluded writers ..."
 msgstr "Kizárt fájlok megjelenítése..."
 
-#. Programmer's name for it: rsDscvExpInclComps
-#: VssConsts.pas:33
 msgid "Discover explicitly included components ..."
 msgstr "Figyelmeztetés a beágyazott összetevők elavulásakor..."
 
-#. Programmer's name for it: rsSelExpInclComps
-#: VssConsts.pas:34
 msgid "Select explicitly included components ..."
 msgstr "Kifejezetten beágyazott összetevők kijelölése..."
 
-#. Programmer's name for it: rsSaveBackCompsDoc
-#: VssConsts.pas:35
 msgid "Saving the backup components document ..."
 msgstr "A biztonságimásolat-komponens dokumentum mentése..."
 
-#. Programmer's name for it: rsAddVolSnapSet
-#: VssConsts.pas:36
 msgid "Add volumes to snapshot set ..."
 msgstr "Add köteteket Snapshot beállításához ..."
 
-#. Programmer's name for it: rsPrepBackup
-#: VssConsts.pas:37
 msgid "Preparing for backup ..."
 msgstr "A biztonsági másolat elkészítése..."
 
-#. Programmer's name for it: rsCreateShadowCopy
-#: VssConsts.pas:38
 msgid "Creating the shadow copy ..."
 msgstr "Az árnyékmásolat létrehozása..."
 
-#. Programmer's name for it: rsCreateCopySuccess
-#: VssConsts.pas:39
 msgid "Shadow copy set successfully created"
 msgstr "Árnyékmásolat-készletet sikeresen létrehozva"
 
-#. Programmer's name for it: rsQueryShadowCopies
-#: VssConsts.pas:40
 msgid "Querying all shadow copies in the system ..."
 msgstr "Lekérdezése minden árnyékmásolatnak a rendszerben ..."
 
-#. Programmer's name for it: rsQuerySnapshotSetID
-#: VssConsts.pas:41
 msgid "Querying all shadow copies with the SnapshotSetID %s ..."
 msgstr "Lekérdezése minden árnyék másolatok és a SnapshotSetID (% s)..."
 
-#. Programmer's name for it: rsCreateShadowSet
-#: VssConsts.pas:42
 msgid "Creating shadow set {%s} ..."
 msgstr "Árnyékmásolat létrehozásának beállítása {%s}..."
 
-#. Programmer's name for it: rsCompleteBackup
-#: VssConsts.pas:43
 msgid "Completing the backup ..."
 msgstr "A biztonsági mentés befejezése..."
 
-#. Unbekannt
-#. Programmer's name for it: rsTrgUnknown
-#: WinTaskConsts.pas:24
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#. Bereit
-#. Programmer's name for it: rsTrgReady
-#: WinTaskConsts.pas:25
 msgid "Ready"
 msgstr "Kész"
 
-#. In Warteschlange
-#. Programmer's name for it: rsTrgQueued
-#: WinTaskConsts.pas:26
 msgid "Queued"
 msgstr "Várakozik"
 
-#. Wird ausgeführt
-#. Programmer's name for it: rsTrgRunning
-#: WinTaskConsts.pas:27
 msgid "Running"
 msgstr "Fut"
 
-#. Deaktiviert
-#. Programmer's name for it: rsTrgDisabled
-#: WinTaskConsts.pas:28
 msgid "Disabled"
 msgstr "Tiltott"
 
-#. Programm starten
-#. Programmer's name for it: rsTrgActionExec
-#: WinTaskConsts.pas:30
 msgid "Start a program"
 msgstr "Program indítása"
 
-#. Programmer's name for it: rsTragActionCom
-#: WinTaskConsts.pas:31
 msgid "File handler"
 msgstr "Fájlkezelő szerkesztése"
 
-#. E-Mail senden
-#. Programmer's name for it: rsTragActionMail
-#: WinTaskConsts.pas:32
 msgid "Send an email"
 msgstr "E-mail küldése"
 
-#. Meldung anzeigen
-#. Programmer's name for it: rsTragActionMsg
-#: WinTaskConsts.pas:33
 msgid "Display a message"
 msgstr "Üzenet megjelenítése"
 
-#. Bei einem Ereignis
-#. Programmer's name for it: rsTrgTypeEvent
-#. Bei einem Ereignis
-#. Programmer's name for it: rsTrgEvent
-#: WinTaskConsts.pas:35 WinTaskConsts.pas:82
 msgid "On an event"
 msgstr "Eseménynél"
 
-#. Einmal
-#. Programmer's name for it: rsTrgTypeTime
-#: WinTaskConsts.pas:36
 msgid "One time"
 msgstr "Egyszer"
 
-#. Täglich
-#. Programmer's name for it: rsTrgTypeDaily
-#: WinTaskConsts.pas:37
 msgid "Daily"
 msgstr "Naponta"
 
-#. Wöchentlich
-#. Programmer's name for it: rsTrgTypeWeekly
-#: WinTaskConsts.pas:38
 msgid "Weekly"
 msgstr "Hetente"
 
-#. Monatlich
-#. Programmer's name for it: rsTrgTypeMonthly
-#: WinTaskConsts.pas:39
 msgid "Monthly"
 msgstr "Havonta"
 
-#. Im Leerlauf
-#. Programmer's name for it: rsTrgTypeIdle
-#: WinTaskConsts.pas:40
 msgid "On idle"
 msgstr "Üresjáratban"
 
-#. Bei Aufgabenerstellung/-änderung
-#. Programmer's name for it: rsTrgTypeRegister
-#: WinTaskConsts.pas:41
 msgid "On task creation/modification"
 msgstr "Ütemezés létrehozásakor/módosításakor"
 
-#. Beim Start
-#. Programmer's name for it: rsTrgTypeStartup
-#: WinTaskConsts.pas:42
 msgid "At startup"
 msgstr "Indításkor"
 
-#. Bei Anmeldung
-#. Programmer's name for it: rsTrgTypeLogon
-#: WinTaskConsts.pas:43
 msgid "At log on"
 msgstr "Bejelentkezéskor"
 
-#. Programmer's name for it: rsTrgTypeStateChg
-#: WinTaskConsts.pas:44
 msgid "On session state change"
 msgstr "Munkamenet állapotváltozása"
 
-#. Programmer's name for it: rsTrgTypeCustom
-#: WinTaskConsts.pas:45
 msgid "Custom trigger"
 msgstr "Egyéni eseményindító"
 
-#. Ersten
-#. Programmer's name for it: rsTrgFirst
-#: WinTaskConsts.pas:47
 msgid "First"
 msgstr "Első"
 
-#. Zweiten
-#. Programmer's name for it: rsTrgSecond
-#: WinTaskConsts.pas:48
 msgid "Second"
 msgstr "Második"
 
-#. Dritten
-#. Programmer's name for it: rsTrgThird
-#: WinTaskConsts.pas:49
 msgid "Third"
 msgstr "Harmadik"
 
-#. Vierten
-#. Programmer's name for it: rsTrgFourth
-#: WinTaskConsts.pas:50
 msgid "Fourth"
 msgstr "Negyedik"
 
-#. Fünften
-#. Programmer's name for it: rsTrgFifth
-#: WinTaskConsts.pas:51
 msgid "Fifth"
 msgstr "Ötödik"
 
-#. Letzten
-#. Programmer's name for it: rsTrgLast
-#: WinTaskConsts.pas:52
 msgid "Last"
 msgstr "Utolsó"
 
-#. Sekunde
-#. Programmer's name for it: rsTrgSec
-#: WinTaskConsts.pas:54
 msgid "second"
 msgstr "másodperc"
 
-#. Sekunden
-#. Programmer's name for it: rsTrgSecs
-#: WinTaskConsts.pas:55
 msgid "seconds"
 msgstr "másodperc"
 
-#. jede Sekunde
-#. Programmer's name for it: rsTrgEverySec
-#: WinTaskConsts.pas:56
 msgid "every second"
 msgstr "másodpercenként"
 
-#. alle %u Sekunden
-#. Programmer's name for it: rsTrgEverySecs
-#: WinTaskConsts.pas:57
 msgid "every %u seconds"
 msgstr "minden%u másodpercben"
 
-#. Minute
-#. Programmer's name for it: rsTrgMin
-#: WinTaskConsts.pas:58
 msgid "minute"
 msgstr "perc"
 
-#. Minuten
-#. Programmer's name for it: rsTrgMins
-#: WinTaskConsts.pas:59
 msgid "minutes"
 msgstr "percek"
 
-#. jede Minute
-#. Programmer's name for it: rsTrgEveryMin
-#: WinTaskConsts.pas:60
 msgid "every minute"
 msgstr "percenként"
 
-#. alle %u Minuten
-#. Programmer's name for it: rsTrgEveryMins
-#: WinTaskConsts.pas:61
 msgid "every %u minutes"
 msgstr "minden %u percben"
 
-#. Stunde
-#. Programmer's name for it: rsTrgHour
-#: WinTaskConsts.pas:62
 msgid "hour"
 msgstr "óra"
 
-#. Stunden
-#. Programmer's name for it: rsTrgHours
-#: WinTaskConsts.pas:63
 msgid "hours"
 msgstr "órák"
 
-#. jede Stunde
-#. Programmer's name for it: rsTrgEveryHour
-#: WinTaskConsts.pas:64
 msgid "every hour"
 msgstr "minden órában"
 
-#. alle %u Stunden
-#. Programmer's name for it: rsTrgEveryHours
-#: WinTaskConsts.pas:65
 msgid "every %u hours"
 msgstr "minden %u órában"
 
-#. Tag
-#. Programmer's name for it: rsTrgDay
-#: WinTaskConsts.pas:66
 msgid "day"
 msgstr "nap"
 
-#. Tage
-#. Programmer's name for it: rsTrgDays
-#: WinTaskConsts.pas:67
 msgid "%u days"
 msgstr "%u napoktól"
 
-#. jeden Tag
-#. Programmer's name for it: rsTrgEveryDay
-#: WinTaskConsts.pas:68
 msgid "every day"
 msgstr "mindennap"
 
-#. alle %u Tage
-#. Programmer's name for it: rsTrgEveryDays
-#: WinTaskConsts.pas:69
 msgid "every %u days"
 msgstr "minden %u nap"
 
-#. Um %0:s am %1:s
-#. Programmer's name for it: rsTrgOnce
-#: WinTaskConsts.pas:70
 msgid "At %0:s on %1:s"
 msgstr "%0:s nál  %1:s ba"
 
-#. Jeden Tag um %s
-#. Programmer's name for it: rsTrgDailyAt
-#: WinTaskConsts.pas:72
 msgid "At %s every day"
 msgstr "%s nál minden nap"
 
-#. Um %0:s alle %1:u Tage
-#. Programmer's name for it: rsTrgRDailyAt
-#: WinTaskConsts.pas:73
 msgid "At %0:s every %1:u days"
 msgstr "%0:s nál  minden%1:u nap"
 
-#. Wöchentlich um %0:s jeden %1:s, beginnend mit dem %2:s
-#. Programmer's name for it: rsTrgWeekly
-#: WinTaskConsts.pas:74
 msgid "At %0:s every %1:s of every week, starting %2:s"
 msgstr "%0:s nál %1:s minden héten %2:s kezdés"
 
-#. Um %0:s jeden %1:s alle %2:u Wochen, beginnend mit dem %3:s
-#. Programmer's name for it: rsTrgRWeekly
-#: WinTaskConsts.pas:75
 msgid "At %0:s every %1:s of every %2:u weeks, starting %3:s"
 msgstr "%0:s nál %1:s minden %2:u héten %3:s kezdés"
 
-#. Um %0:s am %1:s %2:s, beginnend mit dem %3:s
-#. Programmer's name for it: rsTrgMonthly
-#: WinTaskConsts.pas:76
 msgid "At %0:s on %1:s of %2:s, starting %3:s"
 msgstr "%0:s nál %1:s  %2:s nak %3:s kezdés"
 
-#. Wird am %0:s %1:s jeden %2:s beginnend mit dem %3:s ausgeführt
-#. Programmer's name for it: rsTrgDMonthly
-#: WinTaskConsts.pas:77
 msgid "Runs on the %0:s %1:s, each %2:s starting %3:s"
 msgstr "Futáskor %0:s %1:s, mindegyik %2:s kezdése%3:s"
 
-#. Programmer's name for it: rsTrgAnyLogon
-#: WinTaskConsts.pas:78
 msgid "At logon of any user"
 msgstr "Felhasználói bejelentkezéskor"
 
-#. Bei Anmeldung eines Benutzers
-#. Programmer's name for it: rsTrgLogon
-#: WinTaskConsts.pas:79
 msgid "At logon of %s"
 msgstr "%s bejelentkezéskor"
 
-#. Beim Systemstart
-#. Programmer's name for it: rsTrgStartup
-#: WinTaskConsts.pas:80
 msgid "At system startup"
 msgstr "Rendszerindításkor"
 
-#. Wenn der Computer inaktiv ist
-#. Programmer's name for it: rsTrgIdle
-#: WinTaskConsts.pas:81
 msgid "When computer is idle"
 msgstr "Amikor a számítógép tétlen"
 
-#. Programmer's name for it: rsTrgEventTime
-#: WinTaskConsts.pas:83
 msgid ", starting at %0:s on %1:s"
 msgstr ", kezdve a %0:s töl %1:s"
 
-#. Bei Aufgabenerstellung oder -änderung
-#. Programmer's name for it: rsTrgRegistration
-#: WinTaskConsts.pas:85
 msgid "When task is created or modified"
 msgstr "Ütemezés létrehozásakor vagy módosításakor"
 
-#. Nach Auslösung alle %0:s für die Dauer von %1:s wiederholen
-#. Programmer's name for it: rsTrgRepeat
-#: WinTaskConsts.pas:87
 msgid " - After triggered, repeat every %0:s for a duration of %1:s"
 msgstr " - Az aktiválás után ismételje meg a %0:s et %1:s"
 
-#. Programmer's name for it: rsCompAT
-#: WinTaskConsts.pas:89
 msgid "deprecated"
 msgstr "elavult"
 
-#. Programmer's name for it: rsXP
-#: WinTaskConsts.pas:90
 msgid "Windows XP"
 msgstr "Windows XP"
 
-#. Programmer's name for it: rsVista
-#: WinTaskConsts.pas:91
 msgid "Windows Vista"
 msgstr "Windows Vista"
 
-#. Programmer's name for it: rsWin7
-#: WinTaskConsts.pas:92
 msgid "Windows 7"
 msgstr "Windows 7"
 
-#. Programmer's name for it: rsWin10
-#: WinTaskConsts.pas:93
 msgid "Windows 10"
 msgstr "Windows 10"
