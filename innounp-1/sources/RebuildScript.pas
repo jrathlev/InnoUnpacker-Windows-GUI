@@ -88,7 +88,7 @@ begin
   end;
 end;
 
-function DoubleQuotes(s:string):string;
+function DoubleQuotes(s:string) : string;
 var i:integer;
 begin
   for i:=length(s) downto 1 do
@@ -96,7 +96,7 @@ begin
   Result:=s;
 end;
 
-function MakeUtf8(s:string):AnsiString;
+function MakeUtf8(s : string) : AnsiString;
 var
   sr  : RawByteString;
   len : integer;
@@ -276,9 +276,9 @@ begin
   if Value<>'' then
   begin
     if UseQuotes then
-      Print(DisplayName + ': "' + DoubleQuotes(Value) + '"; ')
+      Print(DisplayName + ': "' + DoubleQuotes(MakeUtf8(Value)) + '"; ')
     else
-      Print(DisplayName + ': ' + Value + '; ');  
+      Print(DisplayName + ': ' + MakeUtf8(Value) + '; ');
   end;
 end;
 
@@ -341,8 +341,8 @@ begin
 //  Res.Init;
   Res:='';
 
-  // Add UTF-8 BOM to script start for Unicode versions.
-//  if (VerIsUnicode) then Print(#$EF#$BB#$BF);
+// Add UTF-8 BOM to script start for Unicode versions.
+  if (VerIsUnicode) then Print(#$EF#$BB#$BF);
 
   PrintSetupHeader(SetupHeader);
 
