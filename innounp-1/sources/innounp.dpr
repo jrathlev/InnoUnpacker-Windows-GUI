@@ -42,7 +42,8 @@
            1.71 - June 2024     : MyTypes, RebuildScript adapted to Inno Setup 6.3
                                   zlib4008 and zlib4017 fixed
            1.72 - July 2024     : Fixes issue on extracting zip compressed setups (2.0 - 4.1)
-           1.73 - October 2024  : UTF-8 encoding of install_script.iss fixed
+           1.73 - October 2024  : UTF-8 encoding of install_script.iss fixed [files]
+           1.74 - October 2024  : UTF-8 encoding of install_script.iss fixed [setup]
 *)
 
 program innounp;

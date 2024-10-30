@@ -289,7 +289,7 @@ end;
 
 procedure TScriptBuilder.StrConst(const DisplayName,Value:string; ShowAlways:boolean=false);
 begin
-  if ShowAlways or (Value<>'') then PrintLn(DisplayName+'='+Value);
+  if ShowAlways or (Value<>'') then PrintLn(DisplayName+'='+MakeUtf8(Value));
 end;
 
 procedure TScriptBuilder.IntConst(const DisplayName:string; Value:Int64);
@@ -551,7 +551,7 @@ var
 begin
   with re do begin
     StrParam('Root', RegRootToStr(re), false);
-    StrParam('Subkey', MakeUtf8(Subkey));
+    StrParam('Subkey', Subkey);
     StrParam('ValueName', ValueName);
     t:='';
     if Typ<>rtNone then begin
@@ -819,7 +819,7 @@ begin
     if (LangIndex >= 0) then
       s:=PSetupLanguageEntry(Entries[seLanguage][LangIndex])^.Name+'.'+s;
     v := StringReplace(Value, #13#10, '%n', [rfReplaceAll]);
-    StrConst(s,MakeUtf8(v));
+    StrConst(s,v);
   end;
 end;
 
@@ -927,7 +927,7 @@ end;
 procedure TScriptBuilder.PrintLangOptions(const le:TSetupLanguageEntry);
 begin
   with le do begin
-    StrConst('LanguageName', MakeUtf8(LanguageName));
+    StrConst('LanguageName', LanguageName);
     StrConst('LanguageID', '$'+IntToHex(LanguageID,4));
     IntConst('LanguageCodePage', LanguageCodePage);
     StrConst('DialogFontName', DialogFontName);

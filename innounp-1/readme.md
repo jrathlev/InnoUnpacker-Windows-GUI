@@ -2,7 +2,7 @@
 
 #### Unpacker for installations made by Inno Setup
 
-#### Supports Inno Setup versions 2.0.7 to 6.3.1
+#### Supports Inno Setup versions 2.0.7 to 6.3.3
 
 ##### Branch of the project on [SourceForge](http://sourceforge.net/projects/innounp)
 
