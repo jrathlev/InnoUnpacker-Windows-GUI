@@ -96,10 +96,11 @@ type
     procedure cbxSelectedDirCloseUp(Sender: TObject);
     procedure cbxSelectedDirChange(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     FDefaultDir,FIniName,FIniSection : string;
-    DirList : TStringList;
+    DirList   : TStringList;
     procedure SaveToIni;
     function GetDiskInfo (const APath : string) : string;
     procedure ShowFiles (AShow : boolean);
@@ -134,7 +135,11 @@ implementation
 
 uses System.IniFiles, Vcl.Dialogs, System.StrUtils, Winapi.ShlObj, Winapi.Shellapi,
   Winapi.ActiveX, WinShell, WinUtils, {$IFDEF ACCESSIBLE} ShowMessageDlg {$ELSE} MsgDialogs {$ENDIF},
-  PathUtils, NumberUtils, GnuGetText, SelectDlg;
+  PathUtils, NumberUtils, GnuGetText, SelectDlg
+{$IFDEF Trace}
+  , FileUtils
+{$EndIf}
+  ;
 
 const
   FMaxLen = 15;
@@ -210,10 +215,14 @@ begin
   Top:=50; Left:=50;
   end;
 
-(* save posiition and history list *)
+(* save position and history list *)
+procedure TShellDirDialog.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  try SaveToIni; except end;
+  end;
+
 procedure TShellDirDialog.FormDestroy(Sender: TObject);
 begin
-  SaveToIni;
   DirList.Free;
   end;
 

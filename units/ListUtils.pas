@@ -109,6 +109,7 @@ function GetSelectedItem (ListBox : TListBox) : string;
 function GetIndexOfName (AList : TStrings; const AName : string) : integer;
 function GetName (AList : TStrings; AIndex : integer) : string;
 function GetValue (AList : TStrings; AIndex : integer) : string;
+procedure TrimEndOfList (AList : TStrings);
 
 { ---------------------------------------------------------------- }
 // Listview-Index aus Caption ermitteln (wie IndexOf bei TListBox)
@@ -542,6 +543,15 @@ begin
     else Result:='';
     end
   else Result:='';
+  end;
+
+procedure TrimEndOfList (AList : TStrings);
+var
+  i : integer;
+begin
+  with AList do for i:=Count-1 downto 0 do begin
+    if AList[i].IsEmpty then Delete(i) else Break;
+    end;
   end;
 
 //-----------------------------------------------------------------------------

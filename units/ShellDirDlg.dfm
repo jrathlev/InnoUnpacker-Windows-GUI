@@ -14,6 +14,7 @@ object ShellDirDialog: TShellDirDialog
   KeyPreview = True
   OldCreateOrder = False
   OnActivate = FormActivate
+  OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown

@@ -20,7 +20,7 @@
    Vers. 1.9.1 (August 2022):  command line options added
    Vers. 1.9.4 (August 2024):  innounp updated to version 1.72
                                timeout on calling innounp.exe with confirmation
-   Vers. 1.9.6 (October 2024): using innounp up to version 0.50
+   Vers. 1.9.6 (October 2024): using innounp up to version 0.50 and 1.75
 
    last modified: August 2024
 
@@ -45,7 +45,7 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 1.9.4';
+  ProgVers = ' 1.10.0';
   CopRgt = '© 2014-2024 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -87,6 +87,8 @@ type
     pnTools: TPanel;
     bbVersion: TBitBtn;
     bbCopyPath: TBitBtn;
+    bbLang: TBitBtn;
+    bbScript: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure bbInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -111,6 +113,8 @@ type
     procedure bbVersionClick(Sender: TObject);
     procedure bbCopyPathClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure bbLangClick(Sender: TObject);
+    procedure bbScriptClick(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -450,14 +454,24 @@ begin
   Execute(s,cbFile.Text,'','');
   end;
 
+procedure TMainForm.bbLangClick(Sender: TObject);
+begin
+  Execute(MakeQuotedStr(UnpProg)+' -l',cbFile.Text,'','');
+  end;
+
 procedure TMainForm.bbVersionClick(Sender: TObject);
 begin
-  Execute(MakeQuotedStr(UnpProg)+' -l','','','');
+  Execute(MakeQuotedStr(UnpProg)+' -i','','','');
   end;
 
 procedure TMainForm.bbOptionsClick(Sender: TObject);
 begin
   LoadUnpacker;
+  end;
+
+procedure TMainForm.bbScriptClick(Sender: TObject);
+begin
+  cbFilter.Text:='install_script.iss';
   end;
 
 procedure TMainForm.bbStartClick(Sender: TObject);

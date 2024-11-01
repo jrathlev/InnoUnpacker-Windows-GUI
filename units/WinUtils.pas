@@ -120,7 +120,8 @@ function FitToMonitor (Mon : TMonitor; BoundsRect : TRect) : TPoint;
 
 { ---------------------------------------------------------------- }
 // Calculate the maximum text width for multiline text
-function MaxTextWidth(const Text : string; Canvas : TCanvas) : integer;
+function MaxTextWidth(const Text : string; Canvas : TCanvas) : integer; overload;
+function MaxTextWidth(sl : TStrings; Canvas : TCanvas) : integer; overload;
 
 // calculate text width for given font
 function GetTextWidth(const Text : string; AFont : TFont) : integer;
@@ -470,6 +471,15 @@ begin
     Result:=Max(Result,Canvas.TextWidth(s));
     n:=k+length(sLineBreak);
     until (k=0) or (n>=length(Text));
+  end;
+
+function MaxTextWidth(sl : TStrings; Canvas : TCanvas) : integer;
+var
+  i : integer;
+begin
+  Result:=0;
+  with sl do for i:=0 to Count-1 do
+    Result:=Max(Result,Canvas.TextWidth(Strings[i]));
   end;
 
 // calculate text width and height for given font
