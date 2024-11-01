@@ -44,6 +44,7 @@
            1.72 - July 2024     : Fixes issue on extracting zip compressed setups (2.0 - 4.1)
            1.73 - October 2024  : UTF-8 encoding of install_script.iss fixed [files]
            1.74 - October 2024  : UTF-8 encoding of install_script.iss fixed [setup]
+           1.75 - November      : new command line option to list languages
 *)
 
 program innounp;
@@ -769,7 +770,7 @@ begin
     writeln; writeln('  *** '+se);
     end
   else if ExtractTestOnly then Writeln(' - checked')
-  else Writeln(' - extracted');
+  else if not QuietExtract then  Writeln(' - extracted');
 end;
 
 function ShouldProcessFileEntry(AFile: PSetupFileEntry):boolean;
@@ -927,7 +928,8 @@ begin
         'D': OutDir:=copy(ParamStr(i),3,length(ParamStr(i))-2);
         'E': begin CommandAction:=caExtractFiles; StripPaths:=true; end;
         'F': PasswordFileName:=copy(ParamStr(i),3,length(ParamStr(i))-2);
-        'L': CommandAction:=caVersionList;
+        'I': CommandAction:=caVersionList;
+        'L': CommandAction:=caLanguageList;
         'M': ExtractEmbedded:=true;
         'N': AttemptUnpackUnknown:=false;
         'P': Password:=copy(ParamStr(i),3,length(ParamStr(i))-2);
@@ -1043,6 +1045,12 @@ begin
           end;
 
         case CommandAction of
+        caLanguageList: begin
+          writeln('Supported languages');
+          for i:=0 to Entries[seLanguage].Count-1 do with PSetupLanguageEntry(Entries[seLanguage][i])^ do begin
+            writeln('  '+Name+': '+LanguageName);
+            end;
+          end;
         caInstallInfo: begin
             writeln('Compression used: '+GetCompressMethodName(SetupHeader.CompressMethod));
             TotalFileSize:=0; TotalFiles:=0; TotalEncryptedFiles:=0; MaxSlice:=0;
@@ -1084,7 +1092,9 @@ begin
               end;
             writeln('--------------------------------------');
           end;
-        caExtractFiles: CopyFiles;
+        caExtractFiles: begin
+            QuietExtract:=false; CopyFiles;
+            end;
         end;
       except
         on E: EAbort do

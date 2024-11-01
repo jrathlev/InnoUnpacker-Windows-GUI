@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 <title>innounp, the Inno Setup Unpacker</title>
 <style>
@@ -133,7 +133,7 @@ tt { font-size: 110%; }
 <a href="http://sourceforge.net/project/showfiles.php?group_id=102423">download page</a></small></div>-->
 
 <h3>innounp, the Inno Setup Unpacker</h3>
-<h4>Version 1.74 - Unicode </h4>
+<h4>Version 1.75 - Unicode </h4>
 <p><b>based on <a href="https://sourceforge.net/projects/innounp/" target="_blank"><i>innounp</i> version 0.50</a> by 
   <a href="https://sourceforge.net/u/ariman_ua/profile/" target="_blank">ariman</a></b><br>
   Supports Inno Setup versions 2.0.7 through 6.3.3</p>
@@ -151,7 +151,7 @@ tt { font-size: 110%; }
 </ul>
 
 <h4 style="margin-bottom:-10px;">Information about the program:</h4>
-<p>The source codes is adapted to the current Delphi versions (Unicode strings are 
+<p>The source code is adapted to the current Delphi versions (Unicode strings are 
 the native type since Delphi 2009).</p>
 <dl class="nav">
 <dt>On this page:</dt>
@@ -180,7 +180,8 @@ Commands:
   -x     extract the files from the installation (to the current directory, also see -d)
   -e     extract files without paths
   -t     test files for integrity
-  -l     display list of all supported Inno Setup versions      
+  -l     show list of languages supported by the installation
+  -i     display list of all supported Inno Setup versions      
 Options:
   -b     batch (non-interactive) mode - will not prompt for password or disk changes
          will not assume Yes on queries (see below) 
@@ -222,45 +223,50 @@ Exit codes: 0 no errors
   which is the code made by the RemObjects Pascal Script compiler.</p>
 
 <h2><a name="History"></a>What's new / History</h2>
-<p><b>1.74</b> <small>(2024-10-30)</small></p>
+<p style="margin-bottom:-15px;"><b>1.75</b> <small>(2024-11-01)</small></p>
 <ul>
-  <li>UTF-8 encoding in section [setup] of install_script.iss fixed</li>
+  <li>New command line option <i>-l</i> to list all languages supported by the installation</li>
+  <li>Changed command line option <i>-i</i> to list all supported Inno Setup versions (formerly <i>-l</i>)</li>
 </ul>
-<p><b>1.73</b> <small>(2024-10-09)</small></p>
+<p style="margin-bottom:-15px;"><b>1.74</b> <small>(2024-10-30)</small></p>
 <ul>
-  <li>UTF-8 encoding in section [files] of install_script.iss fixed</li>
+  <li>UTF-8 encoding in section [<tt>setup]</tt> of install_script.iss fixed</li>
 </ul>
-<p><b>1.72</b> <small>(2024-07-30)</small></p>
+<p style="margin-bottom:-15px;"><b>1.73</b> <small>(2024-10-09)</small></p>
+<ul>
+  <li>UTF-8 encoding in section <tt>[files]</tt> of install_script.iss fixed</li>
+</ul>
+<p style="margin-bottom:-15px;"><b>1.72</b> <small>(2024-07-30)</small></p>
 <ul>
   <li>Fixes issue on extracting zip compressed setups (2.0 - 4.1)</li>
   <li>Enhanced output on <i>extract</i> and <i>test</i> command</li>
 </ul>
-<p><b>1.71</b> <small>(2024-06-23)</small></p>
+<p style="margin-bottom:-15px;"><b>1.71</b> <small>(2024-06-23)</small></p>
 <ul>
   <li>Adaption of script building to IS 6.3</li>
 </ul>
-<p><b>1.70</b> <small>(2024-06-23)</small></p>
+<p style="margin-bottom:-15px;"><b>1.70</b> <small>(2024-06-23)</small></p>
 <ul>
   <li>Added support for IS 6.3</li>
 </ul>
-<p><b>1.67</b> <small>(2024-01-10)</small></p>
+<p style="margin-bottom:-15px;"><b>1.67</b> <small>(2024-01-10)</small></p>
 <ul>
   <li>Fixes issue on encrypted setups</li>
 </ul>
-<p><b>1.66</b> <small>(2023-08-11)</small></p>
+<p style="margin-bottom:-15px;"><b>1.66</b> <small>(2023-08-11)</small></p>
 <ul>
   <li>Fixes issue on building the small image list in the script</li>
 </ul>
-<p><b>1.64</b> <small>(2022-11-29)</small></p>
+<p style="margin-bottom:-15px;"><b>1.64</b> <small>(2022-11-29)</small></p>
 <ul>
   <li>Supports UTF8 coded filelists</li>
 </ul>
-<p><b>1.63</b> <small>(2022-06-14)</small></p>
+<p style="margin-bottom:-15px;"><b>1.63</b> <small>(2022-06-14)</small></p>
 <ul>
   <li>Fixes several issues on extracting embedded files</li>
   <li>Fixes an issue on reading custom setups (Inno Setup version 5.4 and 5.5)</li>
 </ul>
-<p><b>1.61</b> <small>(2021-10-15)</small></p>
+<p style="margin-bottom:-15px;"><b>1.61</b> <small>(2021-10-15)</small></p>
 <ul>
   <li>Source code revised to use Unicode strings (native string type since Delphi 2009)</li>
   <li>Fixed issue with option oaSkip</li>
@@ -270,178 +276,179 @@ Exit codes: 0 no errors
   <li>Compiled with <i>Delphi 10 Seattle</i></li>
   <li>Modifications by J. Rathlev (kontakt(a)rathlev-home.de)</li>
 </ul>
-<p><b>0.50</b> <small>(2020-12-18)</small></p>
+<p style="margin-bottom:-15px;"><b>0.50</b> <small>(2020-12-18)</small></p>
 <ul>
   <li>Added support for IS 6.1.</li>
   <li>Fixed broken paths that originally were in UNC format.</li>
 </ul>
-<p><b>0.49</b> <small>(2019-05-09)</small></p>
+<p style="margin-bottom:-15px;"><b>0.49</b> <small>(2019-05-09)</small></p>
 <ul>
   <li>Added support for IS 6.0.</li>
 </ul>
-<p><b>0.48</b> <small>(2019-01-25)</small></p>
+<p style="margin-bottom:-15px;"><b>0.48</b> <small>(2019-01-25)</small></p>
 <ul>
   <li>Added support for IS 5.6.2.</li>
   <li>Fixed regression bug introduced by 5.6.0 support.</li>
 </ul>
-<p><b>0.47</b> <small>(2018-07-02)</small></p>
+<p style="margin-bottom:-15px;"><b>0.47</b> <small>(2018-07-02)</small></p>
 <ul>
   <li>Added support for IS 5.6.0 and 5.6.1.</li>
   <li>Added AppId field to the script.</li>
 </ul>
-<p><b>0.46</b> <small>(2016-04-11)</small></p>
+<p style="margin-bottom:-15px;"><b>0.46</b> <small>(2016-04-11)</small></p>
 <ul>
   <li>Increased max. LZMA dictionary size to 1Gb (implemented in IS 5.5.9).</li>
 </ul>
-<p><b>0.45</b> <small>(2015-12-31)</small></p>
+<p style="margin-bottom:-15px;"><b>0.45</b> <small>(2015-12-31)</small></p>
 <ul>
   <li>Added support for IS 5.5.7.</li>
 </ul>
-<p><b>0.44</b> <small>(2015-11-24)</small></p>
+<p style="margin-bottom:-15px;"><b>0.44</b> <small>(2015-11-24)</small></p>
 <ul>
   <li>Fixed infinite loop issue on some unsupported versions.</li>
   <li>Now -m flag does not affect reconstructed script content. It always contains all info.</li>
   <li>Minor changes.</li>
 </ul>
-<p><b>0.43</b> <small>(2015-07-18)</small></p>
+<p style="margin-bottom:-15px;"><b>0.43</b> <small>(2015-07-18)</small></p>
 <ul>
   <li>Added support for IS 5.5.6.</li>
 </ul>
-<p><b>0.42</b> <small>(2015-05-27)</small></p>
+<p style="margin-bottom:-15px;"><b>0.42</b> <small>(2015-05-27)</small></p>
 <ul>
   <li>Added support for IS 1.3.21 and 1.3.25.</li>
   <li>Experimental support for some custom IS versions.</li>
   <li>Fixed encoding of several entries in reconstructed script.</li>
 </ul>
-<p><b>0.41</b> <small>(2015-03-18)</small></p>
+<p style="margin-bottom:-15px;"><b>0.41</b> <small>(2015-03-18)</small></p>
 <ul>
   <li>All slashes in file paths are converted to Windows style for consistency.</li>
   <li>Improved some error messages.</li>
   <li>Fixed several parameter names in [INI] section of the script.</li>
 </ul>
-<p><b>0.40</b> <small>(2013-12-20)</small></p>
+<p style="margin-bottom:-15px;"><b>0.40</b> <small>(2013-12-20)</small></p>
 <ul>
   <li>Synchronized Description fields encoding in reconstructed script.</li>
   <li>Minor changes.</li>
 </ul>
-<p><b>0.39</b> <small>(2013-07-12)</small></p>
+<p style="margin-bottom:-15px;"><b>0.39</b> <small>(2013-07-12)</small></p>
 <ul>
   <li>Fixed CRC32 calculation during unpacking (regression bug).</li>
 </ul>
-<p><b>0.38</b> <small>(2013-02-01)</small></p>
+<p style="margin-bottom:-15px;"><b>0.38</b> <small>(2013-02-01)</small></p>
 <ul>
   <li>Added InstallDelete and UninstallDelete sections to reconstructed script.</li>
   <li>Added some more values to Setup section of reconstructed script.</li>
   <li>Several minor reconstructed script improvements.</li>
 </ul>
-<p><b>0.37</b> <small>(2012-06-02)</small></p>
+<p style="margin-bottom:-15px;"><b>0.37</b> <small>(2012-06-02)</small></p>
 <ul>
   <li>Added support for IS 5.5.0.</li>
   <li>Fixed problem with reading of large files.</li>
   <li>Added some more values to reconstructed script.</li>
   <li>Improved FAR MultiArc settings.</li>
 </ul>
-<p><b>0.36</b> <small>(2011-06-01)</small></p>
+<p style="margin-bottom:-15px;"><b>0.36</b> <small>(2011-06-01)</small></p>
 <ul>
   <li>Fixed support for IS 5.4.2.</li>
   <li>Fixed issue with '{' symbol in file names.</li>
 </ul>
-<p><b>0.35</b> <small>(2010-10-01)</small></p>
+<p style="margin-bottom:-15px;"><b>0.35</b> <small>(2010-10-01)</small></p>
 <ul>
   <li>Added support for IS 5.2.5 (wasn't released, but such installers can be found).</li>
   <li>Added command to test files for integrity.</li>
 </ul>
-<p><b>0.34</b> <small>(2010-09-16)</small></p>
+<p style="margin-bottom:-15px;"><b>0.34</b> <small>(2010-09-16)</small></p>
 <ul>
   <li>Less technical text in some error messages.</li>
   <li>Added dump of password hash to reconstructed script.</li>
   <li>Added some more values to reconstructed script.</li>
 </ul>
-<p><b>0.33</b> <small>(2010-07-05)</small></p>
+<p style="margin-bottom:-15px;"><b>0.33</b> <small>(2010-07-05)</small></p>
 <ul>
   <li>Fixed encoding for custom messages in reconstructed script.</li>
   <li>Fixed several parameters in [LangOptions] section.</li>
   <li>Fixed language names in *.isl files for Unicode-based installers.</li>
   <li>Added support for legacy IS versions 2.0.8 - 2.0.10.</li>
 </ul>
-<p><b>0.32</b> <small>(2010-06-14)</small></p>
+<p style="margin-bottom:-15px;"><b>0.32</b> <small>(2010-06-14)</small></p>
 <ul>
   <li>Added support for IS versions 5.3.10 (both ANSI and Unicode).</li>
   <li>Added support for INI section in reconstructed script.</li>
 </ul>
-<p><b>0.31</b> <small>(2010-04-19)</small></p>
+<p style="margin-bottom:-15px;"><b>0.31</b> <small>(2010-04-19)</small></p>
 <ul>
   <li>Fixed issue with endless decompression loop on incompatible files.</li>
 </ul>
-<p><b>0.30</b> <small>(2010-04-12)</small></p>
+<p style="margin-bottom:-15px;"><b>0.30</b> <small>(2010-04-12)</small></p>
 <ul>
   <li>Fixed issue with password processing for Unicode versions.</li>
   <li>Added support for IS versions 5.3.9 (both ANSI and Unicode).</li>
   <li>Added support for LZMA2 compression, introduced in 5.3.9.</li>
-</ul><p><b>0.29</b> <small>(2010-02-19)</small></p>
+</ul>
+<p style="margin-bottom:-15px;"><b>0.29</b> <small>(2010-02-19)</small></p>
 <ul>
   <li>Added support for IS versions 5.3.8 (both ANSI and Unicode).</li>
 </ul>
-<p><b>0.28</b> <small>(2010-01-14)</small></p>
+<p style="margin-bottom:-15px;"><b>0.28</b> <small>(2010-01-14)</small></p>
 <ul>
   <li>Added support for IS versions 5.3.7 (both ANSI and Unicode).</li>
   <li>Added support for legacy IS versions 2.0.11 - 2.0.17.</li>
   <li>Fixed renaming of duplicate files. If we do not use -a then don't append numbers to names<br>
   (this switch does not affect different files with same name, only duplicates with same content).</li>
 </ul>
-<p><b>0.27</b> <small>(2009-12-04)</small></p>
+<p style="margin-bottom:-15px;"><b>0.27</b> <small>(2009-12-04)</small></p>
 <ul>
   <li>Yet another tuning for file mask processing.</li>
   <li>Added overwrite prompt for files extraction (and option for auto-overwrite).</li>
   <li>Several tweaks to reconstructed script.</li>
 </ul>
-<p><b>0.26</b> <small>(2009-11-30)</small></p>
+<p style="margin-bottom:-15px;"><b>0.26</b> <small>(2009-11-30)</small></p>
 <ul>
   <li>Added manifest resource to resolve Vista/Win7 UAC issue.</li>
   <li>Added restored %n formatter to custom messages.</li>
   <li>Added default OutputBaseFilename value if one from header is empty.</li>
 </ul>
-<p><b>0.25</b> <small>(2009-11-26)</small></p>
+<p style="margin-bottom:-15px;"><b>0.25</b> <small>(2009-11-26)</small></p>
 <ul>
   <li>Added support fro [Dirs] section in reconstructed script.</li>
   <li>Moved version parameter in script to comment (since it is not original IS parameter).</li>
   <li>Fixed ArchitecturesInstallIn64BitMode and ArchitecturesAllowed flags in script.</li>
   <li>Fixed file mask processing in some cases.</li>
 </ul>
-<p><b>0.24</b> <small>(2009-11-20)</small></p>
+<p style="margin-bottom:-15px;"><b>0.24</b> <small>(2009-11-20)</small></p>
 <ul>
   <li>Added support for IS versions 5.3.6 (both ANSI and Unicode).</li>
   <li>Added version information resource.</li>
   <li>Fixed extraction of multiple files with same name.</li>
 </ul>
-<p><b>0.23</b> <small>(2009-09-25)</small></p>
+<p style="margin-bottom:-15px;"><b>0.23</b> <small>(2009-09-25)</small></p>
 <ul>
   <li>Added support for IS versions 5.3.5 (both ANSI and Unicode).</li>
   <li>Added Inno Setup version info to reconstructed install script.</li>
 </ul>
-<p><b>0.22</b> <small>(2009-08-24)</small></p>
+<p style="margin-bottom:-15px;"><b>0.22</b> <small>(2009-08-24)</small></p>
 <ul>
   <li>Added support for Unicode versions.</li>
   <li>Added support for IS versions 5.3.0 - 5.3.4 (both ANSI and Unicode).</li>
   <li>Fixed rare issue with double backslashes in file path.</li>
 </ul>
-<p><b>0.21</b> <small>(2009-04-24)</small></p>
+<p style="margin-bottom:-15px;"><b>0.21</b> <small>(2009-04-24)</small></p>
 <ul>
   <li>Supports legacy IS versions 2.0.18 - 2.0.19</li>
 </ul>
-<p><b>0.20</b> <small>(2008-05-23)</small></p>
+<p style="margin-bottom:-15px;"><b>0.20</b> <small>(2008-05-23)</small></p>
 <ul>
   <li>Supports IS up to version 5.2.3</li>
   <li>Several bugs fixed.</li>
 </ul>
-<p><b>0.19</b> <small>(2007-02-23)</small></p>
+<p style="margin-bottom:-15px;"><b>0.19</b> <small>(2007-02-23)</small></p>
 <ul>
   <li>Supports IS up to version 5.1.10</li>
   <li>Fixed wrong representation of Unicode characters in LanguageName.</li>
   <li>Another fix to the handling of duplicate file names.</li>
   <li>New option <tt>-a</tt> to extract all copies of duplicate files.</li>
 </ul>
-<p><b>0.18</b> <small>(2006-11-23)</small></p>
+<p style="margin-bottom:-15px;"><b>0.18</b> <small>(2006-11-23)</small></p>
 <ul>
   <li>The reconstructed script now includes the [Types], [CustomMessages], and [Languages] sections.</li>
   <li>ROPS disassembler updated to support the latest build of ROPS.</li>
@@ -451,27 +458,27 @@ Exit codes: 0 no errors
   <li>Updated the decompression libraries: zlib to version 1.2.3, bzip2 to version 1.03, and LZMA to version 4.43
   (optimized for speed).</li>
 </ul>
-<p><b>0.17</b> <small>(2005-08-31)</small></p>
+<p style="margin-bottom:-15px;"><b>0.17</b> <small>(2005-08-31)</small></p>
 <ul>
   <li>Supports IS up to version 5.1.5.</li>
   <li>Supports Martijn Laan's My Inno Setup Extensions 3.0.6.1 (by request).</li>
   <li>The <tt>Types</tt> parameter is now space-separated, as required by the IS script specification.</li>
 </ul>
-<p><b>0.16</b> <small>(2005-04-30)</small></p>
+<p style="margin-bottom:-15px;"><b>0.16</b> <small>(2005-04-30)</small></p>
 <ul>
   <li>Supports IS up to 5.1.2-beta.</li>
   <li>Innounp will try to unpack new versions of IS to handle the cases when the
   binary format is compatible with one of the previous versions. Use <tt>-n</tt>
   to disable this attempt.</li>
 </ul>
-<p><b>0.15</b> <small>(2005-03-08)</small></p>
+<p style="margin-bottom:-15px;"><b>0.15</b> <small>(2005-03-08)</small></p>
 <ul>
   <li>Supports IS up to 5.1.0-beta.</li>
   <li>The old bug that prevented innounp from working properly with {reg:...} constants and
   the like has got another fix.</li>
   <li>Preliminary support for the 64-bit extensions that appeared in IS 5.1.0.</li>
 </ul>
-<p><b>0.14</b> <small>(2004-10-14)</small></p>
+<p style="margin-bottom:-15px;"><b>0.14</b> <small>(2004-10-14)</small></p>
 <ul>
   <li>Supports IS up to 5.0.4-beta.</li>
   <li>It is now possible to specify the destination directory to extract files into using
@@ -482,12 +489,12 @@ Exit codes: 0 no errors
   <li>The old <tt>-c</tt> command is removed. To get the compiled Pascal script, use
   <tt>-m</tt> and extract it like a normal file.</li>
 </ul>
-<p><b>0.13</b> <small>(2004-08-26)</small></p>
+<p style="margin-bottom:-15px;"><b>0.13</b> <small>(2004-08-26)</small></p>
 <ul>
   <li>Supports IS up to 5.0.3-beta.</li>
   <li>Supports the Components and Tasks sections.</li>
 </ul>
-<p><b>0.12</b> <small>(2004-07-28)</small></p>
+<p style="margin-bottom:-15px;"><b>0.12</b> <small>(2004-07-28)</small></p>
 <ul>
   <li>Supports IS up to 5.0.0-beta.</li>
   <li>Improved processing of big installations with many files.</li>
@@ -498,23 +505,23 @@ Exit codes: 0 no errors
   installation. The old <tt>-i</tt> command is removed. To get the setup script, extract it
   like a normal file.</li>
 </ul>
-<p><b>0.11</b> <small>(2004-05-04)</small></p>
+<p style="margin-bottom:-15px;"><b>0.11</b> <small>(2004-05-04)</small></p>
 <ul>
   <li>Supports IS 4.2.2.</li>
   <li>Supports ArcFour encryption. Use the <tt>-p</tt> switch to specify a password
   if files are encrypted</li>
 </ul>
-<p><b>0.10</b> <small>(2004-04-26)</small></p>
+<p style="margin-bottom:-15px;"><b>0.10</b> <small>(2004-04-26)</small></p>
 <ul>
   <li>Fixed (again): filenames containing invalid characters could not be specified
   on the command line or in a list file.</li>
 </ul>
-<p><b>0.09</b> <small>(2004-04-22)</small></p>
+<p style="margin-bottom:-15px;"><b>0.09</b> <small>(2004-04-22)</small></p>
 <ul>
   <li>Fixed (again): invalid characters in filenames (such as ':' and '|') made innounp crash.</li>
   <li>Updated TC MultiArc settings.</li>
 </ul>
-<p><b>0.08</b> <small>(2004-04-14)</small></p>
+<p style="margin-bottom:-15px;"><b>0.08</b> <small>(2004-04-14)</small></p>
 <ul>
   <li>Added support for IS versions up to 4.2.1.</li>
   <li>Added MultiArc settings for Total Commander (thanks to Gnozal).</li>
@@ -523,7 +530,7 @@ Exit codes: 0 no errors
   <li>The reconstructed setup script (<tt>.iss</tt>) is now included together with the 'normal' files.
   Using <tt>-m</tt> option it's possible to view/extract other internal files in the same way.</li>
 </ul>
-<p><b>0.07</b> <small>(2004-03-16)</small></p>
+<p style="margin-bottom:-15px;"><b>0.07</b> <small>(2004-03-16)</small></p>
 <ul>
   <li>Multiple files with the same name are not overwritten now, instead they are appended
   with numbers.</li>
@@ -532,7 +539,7 @@ Exit codes: 0 no errors
   <li>The output of <tt>-i</tt> command now looks more like <tt>.iss</tt> script.
   More data is included.</li>
 </ul>
-<p><b>0.06</b> <small>(2004-03-11)</small></p>
+<p style="margin-bottom:-15px;"><b>0.06</b> <small>(2004-03-11)</small></p>
 <ul>
   <li>Added support for IS versions 3.0.0 - 4.0.0.</li>
   <li>Supports installations that were not packaged into a single exe using SetupLdr (these
@@ -544,13 +551,13 @@ Exit codes: 0 no errors
   code page must be set in Windows for this function to work properly.</li>
   <li>[fix] File dates and times were not set during extraction.</li>
 </ul>
-<p><b>0.05</b> <small>(2004-03-09)</small></p>
+<p style="margin-bottom:-15px;"><b>0.05</b> <small>(2004-03-09)</small></p>
 <ul>
   <li>Improved batch processing. Now it's possible to browse and extract IS installations
   in FAR using the supplied settings for the standard MultiArc plug-in.</li>
   <li>Removed <tt>isbunzip.dll</tt>. Bzip2 library is linked statically.</li>
 </ul>
-<p><b>0.04</b> <small>(2004-02-27)</small></p>
+<p style="margin-bottom:-15px;"><b>0.04</b> <small>(2004-02-27)</small></p>
 <ul>
   <li>Initial release. Supports IS versions 4.0.1 - 4.1.8.</li>
 </ul>

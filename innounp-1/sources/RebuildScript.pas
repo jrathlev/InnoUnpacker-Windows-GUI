@@ -102,7 +102,7 @@ var
   len : integer;
 begin
   len:=Length(s);
-  SetLength(sr,len*SizeOf(Char)+1);
+  SetLength(sr,3*len);    // max. length of UTF8 string
   len:=UnicodeToUtf8(PAnsiChar(sr),Length(sr),PWideChar(s),len);
   SetLength(sr,len-1);
   Result:=sr;

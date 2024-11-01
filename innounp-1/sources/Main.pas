@@ -10,7 +10,7 @@ type
     seUninstallDelete, seRun, seUninstallRun, seCustomMessage);
 
   TCommandAction=(caInstallInfo, {caListFiles,} caVerboseList, caExtractFiles,
-                  caWriteCode, caVersionList);
+                  caWriteCode, caVersionList, caLanguageList);
 
   EMessage = class(Exception); // Exception raised by our code, The Message field (string)
                                // holds all necessary information, No need to display
