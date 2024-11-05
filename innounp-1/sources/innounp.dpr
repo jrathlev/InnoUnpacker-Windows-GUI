@@ -1,5 +1,5 @@
 (* innounp, the Inno Setup Unpacker
-   Version 1.71
+   Version 1.76
      Supports Inno Setup versions 2.0.7 through 6.3
 
    based on:
@@ -28,7 +28,7 @@
    - Command line option "-b" does no longer assume "-y" (overwrite) by default
      Use "-y" as additional switch if you want to overwrite
    - Fixed: Option oaSkip was not handled
-   - new command "-l" to show a list of all supported Inno Setup versions
+   - new command "-i" to show a list of all supported Inno Setup versions
    - new option "-u" for UTF-8 output to console
    - Exit codes: 0 no errors
                  1 version not supported
@@ -44,7 +44,8 @@
            1.72 - July 2024     : Fixes issue on extracting zip compressed setups (2.0 - 4.1)
            1.73 - October 2024  : UTF-8 encoding of install_script.iss fixed [files]
            1.74 - October 2024  : UTF-8 encoding of install_script.iss fixed [setup]
-           1.75 - November      : new command line option to list languages
+           1.75 - November 2024 : new command line option to list languages (-l)
+           1.76 - November 2024 : colored console output, optional suppressing header
 *)
 
 program innounp;
@@ -59,7 +60,7 @@ uses
 {$IFDEF EUREKALOG}
   ExceptionLog,
 {$ENDIF}
-  Winapi.Windows, System.SysUtils, System.Classes, System.StrUtils,
+  Winapi.Windows, System.SysUtils, System.Classes, System.StrUtils, System.Math,
   MyTypes in 'MyTypes.pas',
   Struct in 'Struct.pas',
   StructJoin in 'StructJoin.pas',  
@@ -115,6 +116,7 @@ var
   ExtractTestOnly: Boolean = false;
   QuietExtract: Boolean = false;
   ExtractEmbedded: Boolean = false;
+  NoHeader: Boolean = false;
   InteractiveMode: Boolean = true;
   ExitCode : integer;
 
@@ -226,6 +228,7 @@ var
   IsCompatible: boolean;
   TestID: TSetupID;
   VerObject: TInnoVer;
+  s : string;
 begin
   SetupLdrOriginalFilename:=SetupFileName;
   try
@@ -252,12 +255,12 @@ begin
         writeln('=> Signature detected: '+TestID+'. This is not a supported version.');
         raise EFatalError.Create('1');
       end else if IsVersionSuspicious(Ver) then
-        writeln('=>  Version specified: '+IntToStr(Ver))
+        WriteNormalLine(ExtSp('Inno Setup Version specified:',TextAlign),VersionToString(Ver))
       else begin
-        write('=> Version detected: '+IntToStr(Ver));
-        if (VerIsUnicode) then write(' (Unicode)');
-        if (VerIsRT) then write(' (Custom)');
-        writeln('');
+        s:=VersionToString(Ver);
+        if (VerIsUnicode) then s:=s+' (Unicode)';
+        if (VerIsRT) then s:=s+' (Custom)';
+        WriteNormalLine(ExtSp('Inno Setup version detected: ',TextAlign),s);
       end;
       if WarnOnMod then writeln('=> Signature: '+TestID);
 
@@ -696,13 +699,13 @@ begin
     // Check if file already exists and ask if necessary
     if (InteractiveMode) then begin          // changes: JR - August 2020
       if (OverwriteAction = oaSkip) and FileExists(DestFile) then begin
-        Writeln(' - skipped'); Exit;
+        WriteBlueLine(' - skipped'); Exit;
         end;
       if (OverwriteAction = oaAsk) and FileExists(DestFile) then
         if not AskFileOverwrite(DestFile) then Exit;
       end
     else if (OverwriteAction <> oaOverwrite) and FileExists(DestFile) then begin
-      Writeln(' - skipped'); Exit;
+      WriteBlueLine(' - skipped'); Exit;
       end
     end;
   // Ask password if file is encrypted
@@ -718,7 +721,7 @@ begin
         FileExtractor.CryptKey := PasswdStr;
         break;
       end;
-      writeln('Wrong password');
+      WriteErrorLine('Wrong password');
       until false;
     end;
   if (ExtractTestOnly) then
@@ -767,11 +770,11 @@ begin
     DeleteFile(TempFile);
   end;
   if length(se)>0 then begin
-    writeln; writeln('  *** '+se);
+    writeln; WriteErrorLine('  *** '+se);
     end
-  else if ExtractTestOnly then Writeln(' - checked')
-  else if not QuietExtract then  Writeln(' - extracted');
-end;
+  else if ExtractTestOnly then WriteHighLightLine(' - checked')
+  else if not QuietExtract then  WriteHighLightLine(' - extracted');
+  end;
 
 function ShouldProcessFileEntry(AFile: PSetupFileEntry):boolean;
 var
@@ -808,7 +811,7 @@ begin
     writeln(MessageText);
 end;
 
-function CreateFileExtractor() : TFileExtractor;
+function CreateFileExtractor : TFileExtractor;
 const
   DecompClasses: array[TSetupCompressMethod] of TCustomDecompressorClass =
     (TStoredDecompressor, TZDecompressor, TBZDecompressor, TLZMA1Decompressor, TLZMA2Decompressor);
@@ -827,7 +830,7 @@ begin
     if TestPassword(Password) then
       Result.CryptKey := Password
     else if (InteractiveMode) then
-      writeln('Warning: ' + SetupMessages[msgIncorrectPassword])
+      WriteErrorLine('Warning: ',SetupMessages[msgIncorrectPassword])
     else
       AbortInit(msgIncorrectPassword);
   end;
@@ -853,7 +856,7 @@ begin
       if not ExtractAllCopies and (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>CurFileNumber) then continue;
       with CurFile^ do begin
         if not QuietExtract then
-          write('#'+IntToStr(CurFileNumber)+' '+SourceFilename);
+          WriteNormalText('#'+IntToStr(CurFileNumber)+' '+SourceFilename);
         if LocationEntry <> -1 then ProcessFileEntry(FileExtractor, CurFile);
         end;
 
@@ -869,12 +872,13 @@ begin
 {$IFDEF EUREKALOG}writeln('Debug release');{$ENDIF}
   writeln('Usage: innounp [command] [options] <setup.exe or setup.0> [@filelist] [filemask ...]');
   writeln('Commands:');
-  writeln('  (no)   display general installation info');
+  writeln('  (no)   display general information about the installation archive');
   writeln('  -v     verbosely list the files (with sizes and timestamps)');
   writeln('  -x     extract the files from the installation (to the current directory, also see -d)');
   writeln('  -e     extract files without paths');
   writeln('  -t     test files for integrity');
-  writeln('  -l     display list of all supported Inno Setup versions');
+  writeln('  -l     show list of languages supported by the installation');
+  writeln('  -i     show list of all supported Inno Setup versions');
   writeln('Options:');
   writeln('  -b     batch (non-interactive) mode - will not prompt for password or disk changes');
   writeln('  -q     do not indicate progress while extracting');
@@ -886,6 +890,8 @@ begin
   writeln('  -fFILE same as -p but reads the password from FILE');
   writeln('  -a     extract all copies of duplicate files');
   writeln('  -y     assume Yes on all queries (e.g. overwrite files)');
+  writeln('  -o     no colored console output');
+  writeln('  -h     do not display headline with program info');
   writeln('  -u     use UTF-8 for console output');
 end;
 
@@ -928,12 +934,15 @@ begin
         'D': OutDir:=copy(ParamStr(i),3,length(ParamStr(i))-2);
         'E': begin CommandAction:=caExtractFiles; StripPaths:=true; end;
         'F': PasswordFileName:=copy(ParamStr(i),3,length(ParamStr(i))-2);
+        'H': NoHeader:=true;
         'I': CommandAction:=caVersionList;
         'L': CommandAction:=caLanguageList;
         'M': ExtractEmbedded:=true;
         'N': AttemptUnpackUnknown:=false;
         'P': Password:=copy(ParamStr(i),3,length(ParamStr(i))-2);
+        'O': ColorMode:=0;
         'Q': QuietExtract:=true;
+        'R': ColorMode:=2;    // used for InnoUnpacker GUI
         'T': begin CommandAction:=caExtractFiles; ExtractTestOnly:=true; AutoYes:=true; end;
         'U': UseUtf8:=true;   // console output
         'V': CommandAction:=caVerboseList;
@@ -1000,12 +1009,13 @@ begin
   for i:=0 to High(FileMasks) do
     if (FileMasks[i,1]='"') and (FileMasks[i,length(FileMasks[i])]='"') then
       FileMasks[i]:=copy(FileMasks[i],2,length(FileMasks[i])-2);
+  if (length(SetupFileName)=0) and (CommandAction<>caVersionList) then Result:=-1;
   end;
 
 // ----------------------------------------------------------------------------
 // main program
 var
-  i,n : integer;
+  i,n,ml : integer;
   systime   : TSystemTime;
   TimeStamp : TFileTime;
   loc       : PSetupFileLocationEntry;
@@ -1013,11 +1023,27 @@ var
   s         : string;
   TotalFileSize : Int64;
   TotalFiles,TotalEncryptedFiles,MaxSlice : Integer;
+  cbi : TConsoleScreenBufferInfo;
+  attr,cp  : word;
 begin
   StdOutputHandle:=GetStdHandle(STD_OUTPUT_HANDLE);
-  writeln(Format('*innounp*, the Inno Setup Unpacker. Version %d.%d', [IUV_MAJOR, IUV_MINOR]));
+  if GetConsoleScreenBufferInfo(StdOutputHandle,cbi) then with cbi do begin
+     ConsoleBg:=wAttributes and $f0; ConsoleFg:=wAttributes and $F;
+     attr:=wAttributes;
+    end
+  else attr:=ConsoleBg or ConsoleFg;
+  cp:=GetConsoleOutputCP;
   CreateEntryLists;
   n:=ParseCommandLine;
+
+  if not NoHeader or (n<0) then begin
+    writeln;
+    if ColorMode>0 then s:='innounp' else s:='*innounp*';
+    WriteColorText(s,Format(' - the Inno Setup Unpacker, Version %d.%d (%s)',
+      [IUV_MAJOR, IUV_MINOR,DateToStr(FileDateToDateTime(FileAge(ParamStr(0))))]),clRed,clWhite);
+    end;
+  if UseUtf8 then SetConsoleOutputCP(65001) else SetConsoleOutputCP(850);
+  writeln;
   if n=0 then begin
     if CommandAction=caVersionList then begin
       writeln('Supported Inno Setup Versions');
@@ -1030,7 +1056,7 @@ begin
         end;
       end
     else begin
-      writeln('Inno Setup archive: '+SetupFileName);
+      WriteNormalLine(ExtSp('Inno Setup archive:',TextAlign),ExtractFilename(SetupFileName));
       try
         if OutDir<>'' then begin MakeDir(OutDir); SetCurrentDir(OutDir) end;
         SetupLdr;
@@ -1044,15 +1070,23 @@ begin
           AddFakeFile('install_script.iss', ReconstructedScript, true);
           end;
 
+        WriteLn;
         case CommandAction of
         caLanguageList: begin
-          writeln('Supported languages');
+          WriteNormalLine('Supported languages');
+          WriteLn; ml:=0;
+          for i:=0 to Entries[seLanguage].Count-1 do with PSetupLanguageEntry(Entries[seLanguage][i])^ do
+            ml:=Max(ml,length(Name));
           for i:=0 to Entries[seLanguage].Count-1 do with PSetupLanguageEntry(Entries[seLanguage][i])^ do begin
-            writeln('  '+Name+': '+LanguageName);
+            WriteColorText('  '+ExtSp(Name+':',ml+2),LanguageName,clGreen,clWhite);
             end;
           end;
         caInstallInfo: begin
-            writeln('Compression used: '+GetCompressMethodName(SetupHeader.CompressMethod));
+            with SetupHeader do begin
+              WriteNormalLine(ExtSp('Application name:',TextAlign),AppName);
+              WriteNormalLine(ExtSp('Application version:',TextAlign),AppVersion);
+              end;
+            WriteNormalLine(ExtSp('Compression used:',TextAlign),GetCompressMethodName(SetupHeader.CompressMethod));
             TotalFileSize:=0; TotalFiles:=0; TotalEncryptedFiles:=0; MaxSlice:=0;
             for i:=0 to Entries[seFile].Count-1 do
               with PSetupFileEntry(Entries[seFile][i])^ do begin
@@ -1065,16 +1099,18 @@ begin
                 end;
                 Inc(TotalFiles);
               end;
-            write('Files: '+IntToStr(TotalFiles)+' ; Bytes: '+IntToStr(TotalFileSize));
-            if MaxSlice>0 then writeln(' ; Disk slices: '+IntToStr(MaxSlice+1))
-            else writeln('');
-            if TotalEncryptedFiles>0 then writeln(IntToStr(TotalEncryptedFiles)+' file(s) are encrypted');
+            WriteNormalLine(ExtSp('Files:',TextAlign),IntToStr(TotalFiles));
+            WriteNormalLine(ExtSp('Bytes:',TextAlign),IntToStr(TotalFileSize));
+            if MaxSlice>0 then WriteNormalLine(ExtSp('Disk slices: ',TextAlign),IntToStr(MaxSlice+1));
+            if TotalEncryptedFiles>0 then
+
+              WriteNormalLine(ExtSp('Encryted files:',TextAlign),IntToStr(TotalEncryptedFiles));
             if length(SetupHeader.CompiledCodeText)>0 then
-              writeln('Compiled Pascal script: '+IntToStr(length(SetupHeader.CompiledCodeText))+' byte(s)');
+              WriteNormalLine(ExtSp('Compiled Pascal script: ',TextAlign),IntToStr(length(SetupHeader.CompiledCodeText))+' byte(s)');
           end;
         caVerboseList: begin
-            writeln('Size        Time              Filename');
-            writeln('--------------------------------------');
+            WriteNormalLine('Size        Time              Filename');
+            WriteNormalLine('--------------------------------------');
             for i:=0 to Entries[seFile].Count-1 do
               with PSetupFileEntry(Entries[seFile][i])^ do begin
     //            if not (FileType in [ftUserFile,ftFakeFile]) and not ExtractEmbedded then continue;
@@ -1123,8 +1159,11 @@ begin
     end
   else if n<0 then Usage;
   ReleaseEntryList;
+  SetConsoleTextAttribute(StdOutputHandle,attr);  // restore console settings
+  SetConsoleOutputCP(cp);
 {$ifdef DEBUG}
-  write('Strike enter key to continue ...');
+  WriteLn;
+  WriteNormalLine('Strike enter key to continue ...');
   readln;
 {$endif}
   Halt(ExitCode);

@@ -2,7 +2,7 @@ unit Main;
 
 interface
 
-uses System.Classes, System.SysUtils, Struct;
+uses System.Classes, System.SysUtils, System.UITypes, Struct;
 
 type
   TEntryType = (seLanguage, sePermission, seType, seComponent, seTask, seDir,
@@ -21,7 +21,19 @@ type
                                   // not by local handlers. Typically raised when an error
                                   // has been caught and processed but the execution can not
                                   // continue.
-                                 
+
+const
+  TextAlign = 30;
+
+  clWhite = TColors.White;
+  clRed = TColors.Red;
+  clGreen = TColors.Green;
+  clBlue = TColors.Blue;
+  clMaroon = TColors.Maroon;
+  clPurple = TColors.Purple;
+  clAqua = TColors.Aqua;
+
+
 var
   SetupLdrOffset0: integer;
   SetupLdrOffset1: integer;
@@ -37,11 +49,14 @@ var
   VerIsISX: Boolean = false;
 
   StdOutputHandle: THandle;
+  ConsoleFg : word = 7;
+  ConsoleBg : word = 0;
 
   WizardImages, WizardSmallImages: TStringList;
   DecompDll:Ansistring;
 
   UseUtf8 : boolean=false;
+  ColorMode : integer = 1;
 
 procedure InternalError(const Id: String);
 function TestPassword(const Password: AnsiString): Boolean;
@@ -52,6 +67,16 @@ function StrToOem(const s:string):AnsiString;
 function OemToStr(const s:AnsiString):string;
 procedure write(s:string);
 procedure writeln(const s:string = '');
+procedure WriteColorText (const Text1,Text2 : string; Color1,Color2 : TColor; NewLine : boolean = true);
+procedure WriteNormalText (const Text1 : string = ''; const Text2 : string = '');
+procedure WriteNormalLine (const Text1 : string = ''; const Text2 : string = '');
+procedure WriteHighLightLine (const Text2 : string);
+procedure WriteBlueLine (const Text2 : string);
+procedure WriteErrorLine (const Text1 : string; const Text2 : string); overload;
+procedure WriteErrorLine (const Text2 : string); overload;
+
+function ExtSp (const S : string; len : integer) : string;
+function VersionToString (ver : integer) : string;
 
 function AddFakeFile(const FileName,FileContents : String;
                      RenameNow:boolean=false):integer;
@@ -126,13 +151,13 @@ begin
     Result := Format('%s-%d%s.bin', [Prefix, Major, Chr(Ord('a') + Minor)]);
 end;
 
-function StrToOem(const s:string):AnsiString;
+function StrToOem(const s:string) : AnsiString;
 begin
-  Result:=s; UniqueString(Result);
-  CharToOemBuff(PChar(Result),PAnsiChar(Result),length(Result));
+  SetLength(Result,length(s));
+  CharToOem(PChar(s),PAnsiChar(Result));
 end;
 
-function OemToStr(const s:AnsiString):string;
+function OemToStr(const s : AnsiString) : string;
 begin
   Result:=s; UniqueString(Result);
   OemToCharBuff(PAnsiChar(Result),PChar(Result),length(Result));
@@ -167,8 +192,103 @@ end;
 
 procedure writeln(const s:string);
 begin
-  write(s+#13#10);
+  write(s+sLineBreak);
 end;
+
+function SetConsoleColor(AColor:TColor) : string;
+var
+  attr : word;
+begin
+  Result:='';
+  if ColorMode=1 then begin
+    case AColor of
+      clRed:    attr:=FOREGROUND_RED or FOREGROUND_INTENSITY;
+      clGreen:  begin
+                if ConsoleBg=0 then attr:=FOREGROUND_GREEN or FOREGROUND_INTENSITY
+                else attr:=FOREGROUND_GREEN;
+                end;
+      clBlue:   begin
+                if ConsoleBg=0 then attr:=FOREGROUND_GREEN or FOREGROUND_BLUE or FOREGROUND_INTENSITY
+                else attr:=FOREGROUND_BLUE or FOREGROUND_INTENSITY;
+                end;
+      clMaroon: attr:=FOREGROUND_GREEN or FOREGROUND_RED or FOREGROUND_INTENSITY;
+      clPurple: attr:=FOREGROUND_RED or FOREGROUND_BLUE or FOREGROUND_INTENSITY;
+      else attr:=ConsoleFg;
+      end;
+    SetConsoleTextAttribute(StdOutputHandle,ConsoleBg or attr);
+    end
+  else if ColorMode=2 then begin
+    case AColor of
+      clRed:    attr:=1;
+      clGreen:  attr:=2;
+      clBlue:   attr:=3;
+      clMaroon: attr:=4;
+      clPurple: attr:=5;
+      else attr:=0;
+      end;
+    Result:='/'+IntToStr(attr)+'/';
+    end;
+  end;
+
+procedure WriteColorText (const Text1,Text2 : string; Color1,Color2 : TColor; NewLine : boolean);
+var
+  pf : string;
+begin
+  pf:=SetConsoleColor(Color1);
+  if length(Text2)>0 then begin
+    if length(Text1)>0 then write(pf+Text1);
+    pf:=SetConsoleColor(Color2);
+    write(pf+Text2);
+    if Newline then writeln;
+    end
+  else if length(Text1)>0 then begin
+    write(pf+Text1);
+    if Newline then writeln;
+    end;
+  end;
+
+procedure WriteNormalText (const Text1,Text2 : string);
+begin
+  WriteColorText(Text1,Text2,clWhite,clGreen,false);
+  end;
+
+procedure WriteNormalLine (const Text1,Text2 : string);
+begin
+  WriteColorText(Text1,Text2,clWhite,clGreen);
+  end;
+
+procedure WriteHighLightLine (const Text2 : string);
+begin
+  WriteColorText('',Text2,clWhite,clGreen);
+  end;
+
+procedure WriteBlueLine (const Text2 : string);
+begin
+  WriteColorText('',Text2,clWhite,clBlue);
+  end;
+
+procedure WriteErrorLine (const Text1,Text2 : string);
+begin
+  WriteColorText(Text1,Text2,clWhite,clRed);
+  end;
+
+procedure WriteErrorLine (const Text2 : string);
+begin
+  WriteErrorLine ('',Text2);
+  end;
+
+function ExtSp (const S : string; len : integer) : string;
+var
+  i  : integer;
+begin
+  Result:=s;
+  for i:=succ(length(Result)) to len do Result:=Result+' ';
+  end;
+
+function VersionToString (ver : integer) : string;
+begin
+  Result:=IntToStr(ver div 1000)+'.'+IntToStr(ver mod 1000 div 100)+'.'+IntToStr(ver mod 100);
+  end;
 
 function AddFakeFile(const FileName,FileContents : String;
                      RenameNow : boolean = false):integer;
