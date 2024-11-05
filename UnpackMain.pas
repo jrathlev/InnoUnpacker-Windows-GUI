@@ -21,6 +21,7 @@
    Vers. 1.9.4 (August 2024):  innounp updated to version 1.72
                                timeout on calling innounp.exe with confirmation
    Vers. 1.9.6 (October 2024): using innounp up to version 0.50 and 1.75
+   Vers. 1.10 (November 2024): new layout
 
    last modified: August 2024
 
@@ -41,7 +42,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, WinApiUtils;
+  Vcl.ExtCtrls, WinApiUtils, Vcl.ComCtrls;
 
 const
   ProgName = 'InnoUnpacker';
@@ -59,7 +60,6 @@ type
     cbFile: TComboBox;
     bbOptions: TBitBtn;
     bbExit: TBitBtn;
-    mmDos: TMemo;
     bbList: TBitBtn;
     OpenDialog: TOpenDialog;
     bbExtract: TBitBtn;
@@ -89,6 +89,8 @@ type
     bbCopyPath: TBitBtn;
     bbLang: TBitBtn;
     bbScript: TBitBtn;
+    bbSetupInfo: TBitBtn;
+    mmDos: TMemo;
     procedure FormCreate(Sender: TObject);
     procedure bbInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -115,6 +117,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure bbLangClick(Sender: TObject);
     procedure bbScriptClick(Sender: TObject);
+    procedure bbSetupInfoClick(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -124,6 +127,7 @@ type
     NewUnp                : boolean;
     function LoadUnpacker : boolean;
     function CheckUnpackVersion : boolean;
+//    procedure AddText(const AText : string);
     procedure SetScrollbars;
     procedure Execute (const Command,FileName,Filter,Comment : string);
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
@@ -138,9 +142,9 @@ implementation
 
 {$R *.dfm}
 
-uses System.IniFiles, System.StrUtils, Winapi.ShellApi, GnuGetText, WinUtils, MsgDialogs,
-  IniFileUtils, PathUtils, ListUtils, InitProg, StringUtils, ShellDirDlg,
-  SelectFromListDlg;
+uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes,
+  GnuGetText, WinUtils, MsgDialogs,IniFileUtils, PathUtils, ListUtils, InitProg,
+  StringUtils, ShellDirDlg, SelectFromListDlg;
 
 { ------------------------------------------------------------------- }
 resourcestring
@@ -262,7 +266,7 @@ begin
     if not LoadUnpacker then Close;
     end;
   NewUnp:=CheckUnpackVersion;
-  if FileExists(cbFile.Text) then bbListClick(Sender)
+  if FileExists(cbFile.Text) then bbSetupInfoClick(Sender)
   else bbFileClick(Sender);
   end;
 
@@ -287,7 +291,7 @@ begin
       AddToHistory(cbFile.Items,Filename,mList);
       cbFile.Text:=Filename;
       Application.BringToFront;
-      bbListClick(self);
+      bbSetupInfoClick(self);
       end
     else ErrorDialog(_('This application only allows dropping of exe files!'));
     StrDispose(Filename);
@@ -296,6 +300,43 @@ begin
 end;
 
 { ------------------------------------------------------------------- }
+// TRichEdit does not support alle Unicode characters, e.g. nepali and some chinese
+//procedure TMainForm.AddText (const AText : string);
+//var
+//  sl : TStringList;
+//  i,n0,n1,n2,k : integer;
+//  s,t : string;
+//const
+//  ColArray : array[0..5] of TColor = (clBlack,clRed,TColors.DarkGreen,clBlue,clMaroon,clPurple);
+//begin
+//  sl:=TStringList.Create;
+//  with sl do begin
+//    Text:=AText;
+//    for i:=0 to Count-1 do begin
+//      s:=sl[i];
+//      n0:=1;
+//      repeat
+//        n1:=PosEx('/',s,n0);
+//        if n1>0 then begin
+//          mmDos.SetSelText(copy(s,n0,n1-n0));
+//          n2:=PosEx('/',s,n1+1);
+//          if (n2=n1+2) and TryStrToInt(copy(s,n1+1,1),k) and (k<=5) then begin
+//            mmDos.SelAttributes.Color:=ColArray[k];
+//            n0:=n2+1;
+//            end
+//          else begin
+//            if n2=0 then n2:=n1;
+//            mmDos.SetSelText(copy(s,n0,n2-n1+1));
+//            n0:=n2
+//            end;
+//          end;
+//        until n1=0;
+//      mmDos.SetSelText(copy(s,n0,length(s)-n0+1)+sLineBreak);
+//      end;
+//    Free;
+//    end;
+//  end;
+
 procedure TMainForm.SetScrollbars;
 var
   w : integer;
@@ -311,7 +352,7 @@ begin
   with cbFile do begin
     AddToHistory(Items,Items[ItemIndex],mList);
     ItemIndex:=0;
-    bbListClick(Sender);
+    bbSetupInfoClick(Sender);
     end;
   end;
 
@@ -334,7 +375,7 @@ begin
     if Execute then begin
       AddToHistory(cbFile.Items,Filename,mList);
       cbFile.Text:=Filename;
-      bbListClick(Sender);
+      bbSetupInfoClick(Sender);
       end;
     end;
   end;
@@ -436,7 +477,7 @@ var
 begin
   if Visible then begin
     pnExtract.Visible:=false;
-    s:=MakeQuotedStr(UnpProg)+' -b -v';
+    s:=MakeQuotedStr(UnpProg)+' -b -v -h';
     if cxEmbedded.Checked then s:=s+' -m';
     if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
     Execute(s,cbFile.Text,'','');
@@ -448,7 +489,7 @@ var
   s : string;
 begin
   pnExtract.Visible:=false;
-  s:=MakeQuotedStr(UnpProg)+' -b -t';
+  s:=MakeQuotedStr(UnpProg)+' -b -t -h';
   if cxEmbedded.Checked then s:=s+' -m';
   if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
   Execute(s,cbFile.Text,'','');
@@ -456,12 +497,17 @@ begin
 
 procedure TMainForm.bbLangClick(Sender: TObject);
 begin
-  Execute(MakeQuotedStr(UnpProg)+' -l',cbFile.Text,'','');
+  Execute(MakeQuotedStr(UnpProg)+' -l -h',cbFile.Text,'','');
   end;
 
 procedure TMainForm.bbVersionClick(Sender: TObject);
 begin
   Execute(MakeQuotedStr(UnpProg)+' -i','','','');
+  end;
+
+procedure TMainForm.bbSetupInfoClick(Sender: TObject);
+begin
+  Execute(MakeQuotedStr(UnpProg)+' -h',cbFile.Text,'','');
   end;
 
 procedure TMainForm.bbOptionsClick(Sender: TObject);
@@ -617,11 +663,12 @@ begin
         wc:=WaitForSingleObject(pi.hProcess,defTimeOut); // wait 10 s
         if wc<>WAIT_OBJECT_0 then Cancel:=not ConfirmDialog(_('Timeout occured - continue anyway?'));
         until (wc=WAIT_OBJECT_0) or Cancel;
+      if Cancel then TerminateProcess(pi.hProcess,3);
       GetExitCodeProcess(pi.hProcess,ec); // exit code from called program
       CloseHandle(pi.hProcess);
 // Close the write end of the pipe before reading from the
 // read end of the pipe.
-      if CloseHandle(hChildStdoutWr) then begin
+      if not Cancel and CloseHandle(hChildStdoutWr) then begin
   // Read output from the child process, and write to parent's STDOUT.
         while ReadFile(hChildStdoutRd,chBuf[0],BUFSIZE,dwRead,nil)
               and (dwRead=BUFSIZE) do begin
@@ -636,6 +683,7 @@ begin
         s:=ReplaceStr(s,Lf,CrLf);
         with mmDos do begin
           SetSelTextBuf(PChar(s));
+//          AddText(s);
           SetScrollbars;
           end;
         end;

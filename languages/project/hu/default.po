@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2024-10-31 13:39+0100\n"
-"PO-Revision-Date: 2024-10-31 13:40+0100\n"
+"POT-Creation-Date: 2024-11-03 14:27+0100\n"
+"PO-Revision-Date: 2024-11-03 14:31+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: hu\n"
@@ -29,16 +29,16 @@ msgstr "Válasszon kicsomagolási eszközt"
 msgid "Quit program"
 msgstr "Kilépés a programból"
 
-#. MainForm.pnTop.bbList.Caption
-#: UnpackMain.dfm:240
 msgid "File list"
 msgstr "Fájlok listája"
 
 msgid "Extract files"
 msgstr "Fájlok kinyerése"
 
-msgid "Verify archive"
-msgstr "Archívum ellenőrzése"
+#. MainForm.pnTop.bbVerify.Caption
+#: UnpackMain.dfm:486
+msgid "Verify setup"
+msgstr "Beállítás ellenőrzése"
 
 msgid "Process embedded files"
 msgstr "Beágyazott fájlok feldolgozása"

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-10-31 13:39+0100\n"
-"PO-Revision-Date: 2024-10-31 13:42+0100\n"
+"POT-Creation-Date: 2024-11-03 14:27+0100\n"
+"PO-Revision-Date: 2024-11-03 14:29+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -30,16 +30,16 @@ msgstr "Sélectionnez l'outil de dépaquage"
 msgid "Quit program"
 msgstr "Quitter le programme"
 
-#. MainForm.pnTop.bbList.Caption
-#: UnpackMain.dfm:240
 msgid "File list"
 msgstr "Liste de fichiers"
 
 msgid "Extract files"
 msgstr "Extraire les fichiers"
 
-msgid "Verify archive"
-msgstr "Vérifier l'archive"
+#. MainForm.pnTop.bbVerify.Caption
+#: UnpackMain.dfm:486
+msgid "Verify setup"
+msgstr "Vérifier la installation"
 
 msgid "Process embedded files"
 msgstr "Traiter les fichiers encastrés"

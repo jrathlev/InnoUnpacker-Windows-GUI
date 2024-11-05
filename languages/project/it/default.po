@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2024-10-31 13:39+0100\n"
-"PO-Revision-Date: 2024-10-31 13:42+0100\n"
+"POT-Creation-Date: 2024-11-03 14:27+0100\n"
+"PO-Revision-Date: 2024-11-03 14:34+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -26,16 +26,16 @@ msgstr "Seleziona strumento decompressione"
 msgid "Quit program"
 msgstr "Esci dal programma"
 
-#. MainForm.pnTop.bbList.Caption
-#: UnpackMain.dfm:240
 msgid "File list"
 msgstr "Elenco file"
 
 msgid "Extract files"
 msgstr "Estrai file"
 
-msgid "Verify archive"
-msgstr "Verifica archivio"
+#. MainForm.pnTop.bbVerify.Caption
+#: UnpackMain.dfm:486
+msgid "Verify setup"
+msgstr "Verifica installazione"
 
 msgid "Process embedded files"
 msgstr "Elabora file incorporati"
