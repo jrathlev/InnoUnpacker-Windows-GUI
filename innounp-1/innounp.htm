@@ -133,7 +133,7 @@ tt { font-size: 110%; }
 <a href="http://sourceforge.net/project/showfiles.php?group_id=102423">download page</a></small></div>-->
 
 <h3>innounp, the Inno Setup Unpacker</h3>
-<h4>Version 1.75 - Unicode </h4>
+<h4>Version 1.76 - Unicode </h4>
 <p><b>based on <a href="https://sourceforge.net/projects/innounp/" target="_blank"><i>innounp</i> version 0.50</a> by 
   <a href="https://sourceforge.net/u/ariman_ua/profile/" target="_blank">ariman</a></b><br>
   Supports Inno Setup versions 2.0.7 through 6.3.3</p>
@@ -175,13 +175,13 @@ the native type since Delphi 2009).</p>
   is recommended. Integration into batch scripts is possible for automation.</p>
 <pre>innounp [command] [options] &lt;setup.exe or setup.0&gt; [@filelist] [filemask ...]
 Commands:
-  (no)   display general installation info
+  (no)   display general information about the installation archive
   -v     verbosely list the files (with sizes and timestamps)
   -x     extract the files from the installation (to the current directory, also see -d)
   -e     extract files without paths
   -t     test files for integrity
   -l     show list of languages supported by the installation
-  -i     display list of all supported Inno Setup versions      
+  -i     show list of all supported Inno Setup versions      
 Options:
   -b     batch (non-interactive) mode - will not prompt for password or disk changes
          will not assume Yes on queries (see below) 
@@ -194,10 +194,12 @@ Options:
   -fFILE same as -p but reads the password from FILE
   -a     process all copies of duplicate files
   -y     assume Yes on all queries (e.g. overwrite files) 
+  -o     no colored console output  
+  -h     do not display headline with program info  
   -u     use UTF-8 for console output instead of ANSI (Codepage 850)
 Exit codes: 0 no errors
             1 version not supported
-            2 corrupt or inncompatible setup file
+            2 corrupt or incompatible setup file
             3 other error
 </pre>
 <p>If an installation has <tt>..setup.0</tt> (it is made without using SetupLdr), run
@@ -223,6 +225,13 @@ Exit codes: 0 no errors
   which is the code made by the RemObjects Pascal Script compiler.</p>
 
 <h2><a name="History"></a>What's new / History</h2>
+<p style="margin-bottom:-15px;"><b>1.76</b> <small>(2024-11-05)</small></p>
+<ul>
+  <li>New command line option <i>-h</i> to suppress the headline on console output</li>
+  <li>Colored console output (option <i>-o</i> to disable)</li>
+  <li>Automatic switching of the console to UTF-8 (code page 65001) if required</li>
+  <li>Encoding of standard console output fixed</li>
+</ul>
 <p style="margin-bottom:-15px;"><b>1.75</b> <small>(2024-11-01)</small></p>
 <ul>
   <li>New command line option <i>-l</i> to list all languages supported by the installation</li>
