@@ -46,11 +46,11 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 1.10.0';
+  ProgVers = ' 1.10.2';
   CopRgt = '© 2014-2024 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
-  defPipeSize = 64*1024;
+  defPipeSize = 1024*1024;
   defTimeOut  = 10000;  // 10 s
 
 type
