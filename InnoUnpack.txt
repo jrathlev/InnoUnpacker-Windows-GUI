@@ -1,29 +1,40 @@
-ï»¿ÃœberprÃ¼fen und Entpacken von InnoSetup-Archiven
+Überprüfen und Entpacken von InnoSetup-Archiven
 ===============================================
-Das Programm "InnoUnpack.exe" stellt eine Windows-BenutzeroberflÃ¤che fÃ¼r das
+Das Programm "InnoUnpack.exe" stellt eine Windows-Benutzeroberfläche für das
 Konsolenprogramm "innounp.exe" bereit.
 
-Das zu verarbeitende ausfÃ¼hrbare Setup kann Ã¼ber einen Datei-Dialog, per Drag&Drop 
+Das zu verarbeitende ausführbare Setup kann über einen Datei-Dialog, per Drag&Drop 
 oder durch Angabe in der Befehlszeile geladen werden. Danach werden sofort die grundlegenden 
-Datei-Informationen und eine Liste der enthaltenen Dateien angezeigt. Zum Extrahieren von Dateien 
-genÃ¼gt ein Klick auf die entsprechende SchaltflÃ¤che und die Auswahl des Zielverzeichnisses.
-Optional kann ein Filter angegeben werden, um nur die dazu passenden Dateien
-zu extrahieren.
+Datei-Informationen angezeigt. Außerdem gibt es Schaltflächen zum Anzeigen 
+der Liste aller enthaltenen Dateien und der vom Setup unterstützten Sprachen. 
+Zum Extrahieren von Dateien genügt ein Klick auf die entsprechende Schaltfläche 
+und die Auswahl des Zielverzeichnisses.
+Optional kann angegeben werden, ob nur das Installlations-Skript oder
+die zu einem Filter passenden Dateien extrahieren werden sollen.
 
-Befehlszeilenoptionen: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/o] [/l:xx]
+Befehlszeilenoptionen: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] [/a] [/o] [/l:xx]
   <name>   : Name der zu entpackenden Setup-Datei
-  <ddir>   : Zielverzeichnis fÃ¼r entpackte Dateien
+  <ddir>   : Zielverzeichnis für entpackte Dateien
   <filter> : Dateifilter
-  /m       : interne eingebettete Dateien verarbeiten
+  /p       : Als portables Programm starten
+  /m       : Interne eingebettete Dateien verarbeiten
   /s       : Dateien ohne Pfade entpacken
-  /a       : alle Kopien von doppelten Dateien verarbeiten
-  /o       : Dateien Ã¼berschreiben
-  /l:xx    : Sprache auswÃ¤hlen (xx = en, de, fr, it oder hu)
+  /a       : Alle Kopien von doppelten Dateien verarbeiten
+  /o       : Dateien überschreiben
+  /l:xx    : Sprache auswählen (xx = en, de, fr, it oder hu)
+  
+Hinweis zur Ausführung als portables Programm:
+----------------------------------------------
+Die Einstellungen des Programms werden normalerweise in der Datei "InnoUnpack.ini" 
+im Ordner "Anwendungsdaten" des Benutzers abgelegt. Wenn das Programm von einem 
+per USB angeschlossenen Gerät gestartet wird, wird stattdessen der Ordner der 
+ausführbaren Datei des Programms verwendet. Dasselbe gilt, wenn das Programm mit 
+der Befehlszeilen-Option "/P" aufgerufen wird.
   
 https://www.rathlev-home.de/tools/progtools.html#unpack
 https://github.com/jrathlev/InnoUnpacker-Windows-GUI
 
-J. Rathlev, Juni 2024
+J. Rathlev, November 2024
 
   
 Inspect and unpack InnoSetup archives
@@ -31,23 +42,33 @@ Inspect and unpack InnoSetup archives
 The "InnoUnpack.exe" is a Windows-GUI for the console program "innounp.exe".
 
 The executable setup to be processed can be loaded via a file selection dialog, 
-just by drag & drop or using the command line. The basic file info and the list of 
-included files are displayed immediately. To extract files, just click the appropriate 
-button and select the destination directory. Optionally, a filter can be specified
-to extract only the matching files. Inno Setup files up to version 6 are supported.
+just by drag & drop or using the command line. The basic file info are displayed 
+immediately. There are also buttons for displaying the list of all contained files 
+and the languages supported by the setup. To extract files, just click the appropriate 
+button and select the destination directory. 
+Optionally, you can specify whether only the installation script or the files
+matching a filter are to be extracted.
 
-Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/o] [/l:xx]
+Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] [/a] [/o] [/l:xx]
   <name>   : name of setup file to be unpacked
   <ddir>   : destination directory for unpacked files
   <filter> : file filter
+  /p       : run as portable program  
   /m       : process internal embedded files
   /s       : extract files without paths
   /a       : process all copies of duplicate files
   /o       : overwrite files
   /l:xx    : Language selection (xx = en, de, fr, it or hu)
   
+Note on execution as portable program:
+--------------------------------------  
+The program settings are normally stored in the "InnoUnpack.ini" file in the 
+user's "Application data" folder. If the program is started from a device connected 
+via USB, the folder of the executable file of the program is used instead. 
+The same applies if the program is started with the command line option "/P".
+
 https://www.rathlev-home.de/home-e.html#unpack
 https://github.com/jrathlev/InnoUnpacker-Windows-GUI
   
-J. Rathlev, June 2024
+J. Rathlev, November 2024
 

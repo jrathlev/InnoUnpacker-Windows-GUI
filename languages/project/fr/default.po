@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-11-03 14:27+0100\n"
-"PO-Revision-Date: 2024-11-03 14:29+0100\n"
+"POT-Creation-Date: 2024-11-20 12:10+0100\n"
+"PO-Revision-Date: 2024-11-20 12:16+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -30,16 +30,20 @@ msgstr "Sélectionnez l'outil de dépaquage"
 msgid "Quit program"
 msgstr "Quitter le programme"
 
+msgid "Show list of all contained files"
+msgstr "Afficher la liste de tous les fichiers contenus"
+
 msgid "File list"
 msgstr "Liste de fichiers"
 
 msgid "Extract files"
 msgstr "Extraire les fichiers"
 
-#. MainForm.pnTop.bbVerify.Caption
-#: UnpackMain.dfm:486
 msgid "Verify setup"
 msgstr "Vérifier la installation"
+
+msgid "Select InnoSetup archive"
+msgstr "Choisissez l'archive InnoSetup"
 
 msgid "Process embedded files"
 msgstr "Traiter les fichiers encastrés"
@@ -62,6 +66,9 @@ msgstr "Afficher la liste de toutes les langues prises en charge"
 
 msgid "Languages"
 msgstr "Langues"
+
+msgid "Show general information"
+msgstr "Afficher les informations générales"
 
 msgid "Extract to directory:"
 msgstr "Extraire dans le répertoire :"
@@ -109,23 +116,25 @@ msgid "Scroll up"
 msgstr "Haut de page"
 
 msgid ""
-"Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] "
-"[/o]\n"
+"Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] "
+"[/a] [/o]\n"
 "\t<name>\t: name of setup file to be unpacked\n"
 "\t<ddir>\t: destination directory for unpacked files\n"
 "\t<filter>\t: file filter\n"
+"\t/p\t: run as portable program\n"
 "\t/m\t: process internal embedded files\n"
 "\t/s\t: extract files without paths\n"
 "\t/a\t: process all copies of duplicate files\n"
 "\t/o\t: overwrite files"
 msgstr ""
 "Options de la ligne de commande : [<name>] [/d :<ddir>] [/f :<filter>] [/"
-"m] [/s] [/a] [/o]\n"
+"p] [/m] [/s] [/a] [/o]\n"
 "\t<name>\t: nom du fichier d'installation à décompresser\n"
 "\t<ddir>\t: répertoire de destination pour les fichiers décompressés\n"
-"\t<filter>\t: filtre de fichier\n"
-"\t/m\t: traiter les fichiers internes incorporés\n"
-"\t/s\t: extrait les fichiers sans chemin d'accès\n"
+"\t<filter>\t: filtre du fichier\n"
+"\t/p\t: exécuter en tant que programme portable\n"
+"\t/m\t: traiter les fichiers internes intégrés\n"
+"\t/s\t: extraire les fichiers sans chemin d'accès\n"
 "\t/a\t: traiter toutes les copies de fichiers dupliqués\n"
 "\t/o\t: écraser les fichiers"
 
@@ -134,9 +143,6 @@ msgstr "Cette application ne permet que le dépôt de fichiers exe !"
 
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programmes|*.exe|Tous le fichiers|*.*"
-
-msgid "Select InnoSetup archive"
-msgstr "Choisissez l'archive InnoSetup"
 
 msgid "Search for \"innounp.exe\""
 msgstr "Recherche pour \"innounp.exe\""
@@ -174,3 +180,4 @@ msgstr "Commentaire: "
 
 msgid "Timeout occured - continue anyway?"
 msgstr "Timeout survenu - continuer quand même ?"
+

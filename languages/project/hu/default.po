@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2024-11-03 14:27+0100\n"
-"PO-Revision-Date: 2024-11-03 14:31+0100\n"
+"POT-Creation-Date: 2024-11-20 12:10+0100\n"
+"PO-Revision-Date: 2024-11-20 12:15+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: hu\n"
@@ -29,16 +29,20 @@ msgstr "Válasszon kicsomagolási eszközt"
 msgid "Quit program"
 msgstr "Kilépés a programból"
 
+msgid "Show list of all contained files"
+msgstr "Az összes tartalmazott fájl listájának megjelenítése"
+
 msgid "File list"
 msgstr "Fájlok listája"
 
 msgid "Extract files"
 msgstr "Fájlok kinyerése"
 
-#. MainForm.pnTop.bbVerify.Caption
-#: UnpackMain.dfm:486
 msgid "Verify setup"
 msgstr "Beállítás ellenőrzése"
+
+msgid "Select InnoSetup archive"
+msgstr "Az InnoSetup archívum kiválasztása"
 
 msgid "Process embedded files"
 msgstr "Beágyazott fájlok feldolgozása"
@@ -60,6 +64,9 @@ msgstr "Az összes támogatott nyelv listájának megjelenítése"
 
 msgid "Languages"
 msgstr "Nyelvek"
+
+msgid "Show general information"
+msgstr "Általános információk megjelenítése"
 
 msgid "Extract to directory:"
 msgstr "Kivonatolás a könyvtárba:"
@@ -107,21 +114,23 @@ msgid "Scroll up"
 msgstr "Görgetés fel"
 
 msgid ""
-"Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/"
-"o]\n"
+"Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] [/a] "
+"[/o]\n"
 "\t<name>\t: name of setup file to be unpacked\n"
 "\t<ddir>\t: destination directory for unpacked files\n"
 "\t<filter>\t: file filter\n"
+"\t/p\t: run as portable program\n"
 "\t/m\t: process internal embedded files\n"
 "\t/s\t: extract files without paths\n"
 "\t/a\t: process all copies of duplicate files\n"
 "\t/o\t: overwrite files"
 msgstr ""
-"Parancssori opciók: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/o] [/"
-"a] [/o]\n"
+"Parancssori opciók: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] [/a] [/"
+"o] [/d: ] [/f: ] [/p] [/m] [/s] [/a] [/o]\n"
 "\t<name>\t: a kicsomagolandó telepítőfájl neve\n"
 "\t<ddir>\t: a kicsomagolt fájlok célkönyvtára\n"
 "\t<filter>\t: fájlszűrő\n"
+"\t/p\t: hordozható programként való futtatás\n"
 "\t/m\t: belső beágyazott fájlok feldolgozása\n"
 "\t/s\t: fájlok kicsomagolása elérési utak nélkül\n"
 "\t/a\t: a duplikált fájlok összes másolatának feldolgozása\n"
@@ -132,9 +141,6 @@ msgstr "Ez az alkalmazás csak lehetővé teszi csepegés exe fájlokat!"
 
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programok|*.exe|Minden fájl|*.*"
-
-msgid "Select InnoSetup archive"
-msgstr "Az InnoSetup archívum kiválasztása"
 
 msgid "Search for \"innounp.exe\""
 msgstr "Keresés \"innounp.exe\""
