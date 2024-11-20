@@ -129,7 +129,7 @@ type
     function CheckUnpackVersion : boolean;
 //    procedure AddText(const AText : string);
     procedure SetScrollbars;
-    procedure Execute (const Command,FileName,Filter,Comment : string);
+    procedure Execute (const Command,FileName,Filter,Comment : string; GoBottom : boolean = false);
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
   public
     { Public-Deklarationen }
@@ -144,14 +144,15 @@ implementation
 
 uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes,
   GnuGetText, WinUtils, MsgDialogs,IniFileUtils, PathUtils, ListUtils, InitProg,
-  StringUtils, ShellDirDlg, SelectFromListDlg;
+  WinDevUtils, StringUtils, ShellDirDlg, SelectFromListDlg;
 
 { ------------------------------------------------------------------- }
 resourcestring
-  rsInfo = 'Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/o]'+sLineBreak+
+  rsInfo = 'Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] [/a] [/o]'+sLineBreak+
      #9'<name>'#9': name of setup file to be unpacked'+sLineBreak+
      #9'<ddir>'#9': destination directory for unpacked files'+sLineBreak+
      #9'<filter>'#9': file filter'+sLineBreak+
+     #9'/p'#9': run as portable program'+sLineBreak+
      #9'/m'#9': process internal embedded files'+sLineBreak+
      #9'/s'#9': extract files without paths'+sLineBreak+
      #9'/a'#9': process all copies of duplicate files'+sLineBreak+
@@ -180,13 +181,32 @@ const
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   i : integer;
-  s : string;
+  port : boolean;
+  s,sa,sd,sf : string;
 begin
   TranslateComponent(self);
   DragAcceptFiles(MainForm.Handle, true);
   InitPaths(AppPath,UserPath,ProgPath);
   InitVersion(ProgName,ProgVers,CopRgt,3,3,ProgVersName,ProgVersDate);
-  IniName:=Erweiter(AppPath,PrgName,IniExt);
+  port:=false; sd:=''; sf:=''; sa:='';
+  if ParamCount>0 then for i:=1 to ParamCount do begin
+    s:=ParamStr(i);
+    if (s[1]='/') or (s[1]='-') then begin
+      Delete(s,1,1);
+      if CompareOption(s,'m') then cxEmbedded.Checked:=true
+      else if CompareOption(s,'s') then cxStrip.Checked:=true
+      else if CompareOption(s,'a') then cxDupl.Checked:=true
+      else if CompareOption(s,'o') then cxOverwrite.Checked:=true
+      else if CompareOption(s,'p') then port:=true
+      else if ReadOptionValue(s,'w') then edPassword.Text:=s
+      else if ReadOptionValue(s,'d') then sd:=s
+      else if ReadOptionValue(s,'f') then sf:=s;
+      cxEncrypted.Checked:=length(edPassword.Text)>0;
+      end
+    else sa:=s;
+    end;
+  if port or IsEmptyStr(AppPath) or IsRemovableDrive(PrgPath) then s:=PrgPath else s:=AppPath;
+  IniName:=Erweiter(s,PrgName,IniExt);
   with TUnicodeIniFile.CreateForRead(IniName) do begin
     Left:=ReadInteger(CfgSekt,iniLeft,Left);
     Top:=ReadInteger(CfgSekt,iniTop,Top);
@@ -200,16 +220,20 @@ begin
     if Items.Count=0 then AddItem('*.*',nil);
     ItemIndex:=0;
     end;
+  AddToHistory(cbFilter,sf);
   LoadHistory(Ininame,FileSekt,iniFName,cbFile.Items,mList);
   with cbFile do begin
     with Items do for i:=Count-1 downto 0 do
       if not FileExists(Strings[i]) then Delete(i);
     if Items.Count>0 then ItemIndex:=0;
     end;
+  AddToHistory(cbFile,sa);
   LoadHistory(Ininame,DirSekt,iniFName,cbDir.Items,mList);
   with cbDir do if Items.Count>0 then ItemIndex:=0;
+  AddToHistory(cbDir,sd);
   pnExtract.Visible:=false; NewUnp:=true;
   Caption:=ProgVersName+' - '+_('Inspect and unpack InnoSetup files');
+
   if ParamCount>0 then for i:=1 to ParamCount do begin
     s:=ParamStr(i);
     if (s[1]='/') or (s[1]='-') then begin
@@ -544,7 +568,7 @@ begin
   if cxOverwrite.Checked then cmd:=cmd+' -y';
   if cxDupl.Checked then cmd:=cmd+' -a';
   Execute(cmd+' -d'+sd,cbFile.Text,sf,'*** '
-    +Format(_('Extracting setup file ...'+sLineBreak+'Destination directory: %s'),[sd]));
+    +Format(_('Extracting setup file ...'+sLineBreak+'Destination directory: %s'),[sd]),true);
   end;
 
 procedure TMainForm.bbUpClick(Sender: TObject);
@@ -566,7 +590,7 @@ begin
   end;
 
 { ------------------------------------------------------------------- }
-procedure TMainForm.Execute (const Command,FileName,Filter,Comment : string);
+procedure TMainForm.Execute (const Command,FileName,Filter,Comment : string; GoBottom : boolean);
 const
   BUFSIZE = 4096;
 var
@@ -668,7 +692,7 @@ begin
       CloseHandle(pi.hProcess);
 // Close the write end of the pipe before reading from the
 // read end of the pipe.
-      if not Cancel and CloseHandle(hChildStdoutWr) then begin
+      if CloseHandle(hChildStdoutWr) then begin
   // Read output from the child process, and write to parent's STDOUT.
         while ReadFile(hChildStdoutRd,chBuf[0],BUFSIZE,dwRead,nil)
               and (dwRead=BUFSIZE) do begin
@@ -691,7 +715,8 @@ begin
       // DOS-Ausgabe anzeigen
       with mmDos do begin
         SelLength:=0;
-        Perform(WM_VSCROLL,SB_TOP,0);
+        if GoBottom then Perform(WM_VSCROLL,SB_BOTTOM,0)
+        else Perform(WM_VSCROLL,SB_TOP,0);
         end;
       if wc<>WAIT_OBJECT_0 then mmDos.Lines.Add('*** '+_('Error: ')+SysErrorMessage(wc));
       end
