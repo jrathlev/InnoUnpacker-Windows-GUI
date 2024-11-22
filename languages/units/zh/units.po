@@ -1,1 +1,1622 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2024-10-20 12:58+0200\n"
+"PO-Revision-Date: 2024-11-22 16:49+0800\n"
+"Last-Translator: 大眼仔~旭 <wcxu21@126.com>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
 
+#. Strings from ComPort
+#. Programmer's name for it: rsComNoError
+#. Strings from CpDrv
+#. Programmer's name for it: rsComNoError
+#: CommPortConsts.pas:25 UnitConsts.pas:62
+msgid "No errors on COM connection"
+msgstr "COM 连接无错误"
+
+#. Programmer's name for it: rsComOpenError
+#. Programmer's name for it: rsComOpenError
+#: CommPortConsts.pas:26 UnitConsts.pas:63
+msgid "Error opening COM port"
+msgstr "打开 COM 端口时出错"
+
+#. Programmer's name for it: rsComStateError
+#. Programmer's name for it: rsComStateError
+#: CommPortConsts.pas:27 UnitConsts.pas:64
+msgid "Error setting COM port state"
+msgstr "设置 COM 端口状态时出错"
+
+#. Programmer's name for it: rsComFlushError
+#. Programmer's name for it: rsComFlushError
+#: CommPortConsts.pas:28 UnitConsts.pas:65
+msgid "Error flushing COM buffers"
+msgstr "刷新 COM 缓冲区时出错"
+
+#. Programmer's name for it: rsComSetupError
+#. Programmer's name for it: rsComSetupError
+#: CommPortConsts.pas:29 UnitConsts.pas:66
+msgid "Error initializing COM port"
+msgstr "初始化 COM 端口时出错"
+
+#. Programmer's name for it: rsErrOpening
+#: FileConsts.pas:22
+msgid "Error opening \"%s\""
+msgstr "打开“%s”时出错"
+
+#. Programmer's name for it: rsErrCreating
+#: FileConsts.pas:23
+msgid "Error creating \"%s\""
+msgstr "创建“%s”时出错"
+
+#. Programmer's name for it: rsErrReading
+#: FileConsts.pas:24
+msgid "Error reading from \"%s\""
+msgstr "从“%s”读取时出错"
+
+#. Programmer's name for it: rsExtractErr
+#: FileConsts.pas:25
+msgid "Error extracting from \"%s\""
+msgstr "从“%s”解压时出错"
+
+#. Programmer's name for it: rsErrWriting
+#: FileConsts.pas:26
+msgid "Error writing to \"%s\""
+msgstr "写入“%s”时出错"
+
+#. Programmer's name for it: rsErrVerify
+#: FileConsts.pas:27
+msgid "Error verifying \"%s\""
+msgstr "验证“%s”时出错"
+
+#. Programmer's name for it: rsErrClosing
+#: FileConsts.pas:28
+msgid "Error closing \"%s\""
+msgstr "关闭“%s”时出错"
+
+#. Programmer's name for it: rsErrSetAttr
+#: FileConsts.pas:29
+msgid "Error setting attributes of \"%s\""
+msgstr "设置“%s”的属性时出错"
+
+#. Programmer's name for it: rsErrTimeStamp
+#: FileConsts.pas:30
+msgid "Error setting timestamps of \"%s\""
+msgstr "设置“%s”的时间戳时出错"
+
+#. Programmer's name for it: rsErrAcl
+#: FileConsts.pas:31
+msgid "Error setting permissions of \"%s\""
+msgstr "设置“%s”的权限时出错"
+
+#. Programmer's name for it: rsErrDirEntry
+#: FileConsts.pas:32
+msgid "Error writing directory entry: \"%s\""
+msgstr "写入目录条目“%s”时出错"
+
+#. Programmer's name for it: rsErrAddDir
+#: FileConsts.pas:33
+msgid "Error adding directory to \"%s\""
+msgstr "将目录添加到“%s”时出错"
+
+#. Programmer's name for it: rsErrAddFile
+#: FileConsts.pas:34
+msgid "Error adding file to \"%s\""
+msgstr "将文件添加到“%s”时出错"
+
+#. Programmer's name for it: rsErrAddStream
+#: FileConsts.pas:35
+msgid "Error adding stream to \"%s\""
+msgstr "将流添加到“%s”时出错"
+
+#. Programmer's name for it: rsErrCompFile
+#: FileConsts.pas:36
+msgid "Error comparing file from \"%s\" to \"%s\""
+msgstr "比较来自“%s”的文件与“%s”时出错"
+
+#. Programmer's name for it: rsErrEndRecord
+#: FileConsts.pas:37
+msgid "Error writing end record"
+msgstr "写入结束记录时出错"
+
+#. Programmer's name for it: rsErrNotFound
+#: FileConsts.pas:38
+msgid "File not found: \"%s\""
+msgstr "未找到文件：“%s”"
+
+#. Programmer's name for it: rsErrSystem
+#: FileConsts.pas:39
+msgid "System error: %s"
+msgstr "系统错误：%s"
+
+#. Programmer's name for it: rsNoError
+#: FileConsts.pas:41
+msgid "No errors"
+msgstr "无错误"
+
+#. Programmer's name for it: rsError
+#: FileConsts.pas:42
+msgid "Error - "
+msgstr "错误 - "
+
+#. Programmer's name for it: rsError2
+#: FileConsts.pas:43
+msgid "Error(2) - "
+msgstr "错误(2) - "
+
+#. Programmer's name for it: rsWarning
+#: FileConsts.pas:44
+msgid "Warning - "
+msgstr "警告 - "
+
+#. Programmer's name for it: rsInfo
+#: FileConsts.pas:45
+msgid "Info - "
+msgstr "信息 - "
+
+#. Programmer's name for it: rsFileCreate
+#: FileConsts.pas:46
+msgid "Could not create file"
+msgstr "无法创建文件"
+
+#. Programmer's name for it: rsFileOpen
+#: FileConsts.pas:47
+msgid "Could not open file"
+msgstr "无法打开文件"
+
+#. Programmer's name for it: rsFileClose
+#: FileConsts.pas:48
+msgid "Could not close file"
+msgstr "无法关闭文件"
+
+#. Programmer's name for it: rsFileRead
+#: FileConsts.pas:49
+msgid "Could not read from file"
+msgstr "无法从文件读取"
+
+#. Programmer's name for it: rsFileWrite
+#: FileConsts.pas:50
+msgid "Could not write to file"
+msgstr "无法写入文件"
+
+#. Programmer's name for it: rsFileAttr
+#: FileConsts.pas:51
+msgid "Attributes could not be set"
+msgstr "无法设置属性"
+
+#. Programmer's name for it: rsFileFull
+#: FileConsts.pas:52
+msgid "Low disk space"
+msgstr "磁盘空间不足"
+
+#. Programmer's name for it: rsFileGZip
+#: FileConsts.pas:53
+msgid "Illegal file header"
+msgstr "非法文件头"
+
+#. Programmer's name for it: rsFileCheck
+#: FileConsts.pas:54
+msgid "Corrupt file"
+msgstr "损坏的文件"
+
+#. Programmer's name for it: rsFileECrypt
+#: FileConsts.pas:55
+msgid "Encryption failed"
+msgstr "加密失败"
+
+#. Programmer's name for it: rsFileDCrypt
+#: FileConsts.pas:56
+msgid "Decryption failed"
+msgstr "解密失败"
+
+#. Programmer's name for it: rsFileVerify
+#: FileConsts.pas:57
+msgid "Verification failed"
+msgstr "验证失败"
+
+#. Programmer's name for it: rsLongPath
+#: FileConsts.pas:58
+msgid "Path too long"
+msgstr "路径过长"
+
+#. Programmer's name for it: rsNotFound
+#: FileConsts.pas:59
+msgid "File not found"
+msgstr "文件未找到"
+
+#. Programmer's name for it: rsFileTS
+#: FileConsts.pas:60
+msgid "Timestamp could not be set"
+msgstr "无法设置时间戳"
+
+#. Programmer's name for it: rsStorage
+#: FileConsts.pas:61
+msgid "Error copying document summary"
+msgstr "复制文档摘要时出错"
+
+#. Programmer's name for it: rsTimeout
+#: FileConsts.pas:62
+msgid "Timeout error on copying file"
+msgstr "复制文件时超时错误"
+
+#. Programmer's name for it: rsStream
+#: FileConsts.pas:63
+msgid "Undefined stream"
+msgstr "未定义的流"
+
+#. Programmer's name for it: rsAcl
+#: FileConsts.pas:64
+msgid "Permissions could not be copied"
+msgstr "无法复制权限"
+
+#. Programmer's name for it: rsFileExists
+#: FileConsts.pas:65
+msgid "File already exists"
+msgstr "文件已存在"
+
+#. Programmer's name for it: rsSzMismatch
+#: FileConsts.pas:66
+msgid "Size mismatch"
+msgstr "大小不匹配"
+
+#. Programmer's name for it: rsVerOpen
+#: FileConsts.pas:67
+msgid "Could not open destination file for verification"
+msgstr "无法打开目标文件以进行验证"
+
+#. Programmer's name for it: rsDirCreate
+#: FileConsts.pas:68
+msgid "Could not create directory"
+msgstr "无法创建目录"
+
+#. Programmer's name for it: rsFtpRead
+#: FileConsts.pas:69
+msgid "Could not read from FTP"
+msgstr "无法从 FTP 读取"
+
+#. Programmer's name for it: rsFtpWrite
+#: FileConsts.pas:70
+msgid "Could not write to FTP"
+msgstr "无法写入 FTP"
+
+#. Programmer's name for it: rsFtpConnect
+#: FileConsts.pas:71
+msgid "Could not connect to FTP server"
+msgstr "无法连接到 FTP 服务器"
+
+#. Programmer's name for it: rsFtpBroken
+#: FileConsts.pas:72
+msgid "FTP connection was closed by server"
+msgstr "FTP 连接被服务器关闭"
+
+#. Programmer's name for it: rsFtpDatConn
+#: FileConsts.pas:73
+msgid "Could not open FTP data connection"
+msgstr "无法打开 FTP 数据连接"
+
+#. Programmer's name for it: rsFtpTimeout
+#: FileConsts.pas:74
+msgid "Timeout error on copying file via FTP"
+msgstr "通过 FTP 复制文件时超时错误"
+
+#. Programmer's name for it: rsCompare
+#: FileConsts.pas:75
+msgid "Different content"
+msgstr "内容不同"
+
+#. Programmer's name for it: rsZipCrSeg
+#: FileConsts.pas:76
+msgid "Error creating new zip segment"
+msgstr "创建新的ZIP段时出错"
+
+#. Programmer's name for it: rsSignature
+#: FileConsts.pas:77
+msgid "Illegal zip signature"
+msgstr "非法的 ZIP 签名"
+
+#. Programmer's name for it: rsExtract
+#: FileConsts.pas:78
+msgid "Could not extract file"
+msgstr "无法解压文件"
+
+#. Programmer's name for it: rsFormat
+#: FileConsts.pas:79
+msgid "Unsupported file format"
+msgstr "不支持的文件格式"
+
+#. Programmer's name for it: rsTmpFile
+#: FileConsts.pas:80
+msgid "Could not rename temporary file"
+msgstr "无法重命名临时文件"
+
+#. Programmer's name for it: rsZipRdSeg
+#: FileConsts.pas:81
+msgid "Error reading next zip segment"
+msgstr "读取下一个 ZIP 段时出错"
+
+#. Programmer's name for it: rsAltStreams
+#: FileConsts.pas:82
+msgid "Error copying alternate data streams"
+msgstr "复制备用数据流时出错"
+
+#. Programmer's name for it: rsFileDel
+#: FileConsts.pas:83
+msgid "Error deleting file"
+msgstr "删除文件时出错"
+
+#. Programmer's name for it: rsFileRen
+#: FileConsts.pas:84
+msgid "Error renaming file"
+msgstr "重命名文件时出错"
+
+#. Programmer's name for it: rsUserBreak
+#: FileConsts.pas:86
+msgid "Terminated by user"
+msgstr "用户终止"
+
+#. Programmer's name for it: rsUnknownErrCode
+#: FileConsts.pas:87
+msgid "Unknown error code ($%.8x)"
+msgstr "未知错误代码（$%.8x）"
+
+#. Programmer's name for it: rsCopy
+#: FileConsts.pas:88
+msgid "Copy"
+msgstr "复制"
+
+#. Programmer's name for it: rsGZip
+#: FileConsts.pas:89
+msgid "gzip"
+msgstr "gzip"
+
+#. Programmer's name for it: rsGUnzip
+#: FileConsts.pas:90
+msgid "gunzip"
+msgstr "gunzip"
+
+#. Programmer's name for it: rsZip
+#: FileConsts.pas:91
+msgid "Zip"
+msgstr "压缩"
+
+#. Programmer's name for it: rsUnzip
+#: FileConsts.pas:92
+msgid "Unzip"
+msgstr "解压"
+
+#. Programmer's name for it: rsEnCrypt
+#: FileConsts.pas:93
+msgid "Encrypt"
+msgstr "加密"
+
+#. Programmer's name for it: rsDeCrypt
+#: FileConsts.pas:94
+msgid "Decrypt"
+msgstr "解密"
+
+#. Programmer's name for it: rsNoFileInfo
+#: FileConsts.pas:96
+msgid "File information not available"
+msgstr "文件信息不可用"
+
+#. Programmer's name for it: rsDescription
+#: FileConsts.pas:97
+msgid "Description: "
+msgstr "描述："
+
+#. Programmer's name for it: rsCompany
+#: FileConsts.pas:98
+msgid "Company: "
+msgstr "公司："
+
+#. Programmer's name for it: rsCopyright
+#: FileConsts.pas:99
+msgid "Copyright: "
+msgstr "版权："
+
+#. Programmer's name for it: rsVersion
+#: FileConsts.pas:100
+msgid "File version: "
+msgstr "文件版本："
+
+#. Programmer's name for it: rsFileDate
+#: FileConsts.pas:101
+msgid "Last modified: "
+msgstr "最后修改："
+
+#. Programmer's name for it: rsStrFormatError
+#. Strings from ExtSysUtils
+#. Programmer's name for it: rsFormatError
+#. Programmer's name for it: rsFormatError
+#: FileConsts.pas:103 UnitConsts.pas:26 WinTaskConsts.pas:22
+msgid "Format error: "
+msgstr "格式错误："
+
+#. Programmer's name for it: rsGlobalInfo
+#: FilePropConsts.pas:23
+msgid "Global info"
+msgstr "全局信息"
+
+#. Programmer's name for it: rsDocInfo
+#: FilePropConsts.pas:24
+msgid "Document info"
+msgstr "文档信息"
+
+#. Programmer's name for it: rsUserInfo
+#: FilePropConsts.pas:25
+msgid "User info"
+msgstr "用户信息"
+
+#. Programmer's name for it: rsAudioInfo
+#: FilePropConsts.pas:26
+msgid "Audio info"
+msgstr "音频信息"
+
+#. Programmer's name for it: rsVideoInfo
+#: FilePropConsts.pas:27
+msgid "Video info"
+msgstr "视频信息"
+
+#. Programmer's name for it: rsImageInfo
+#: FilePropConsts.pas:28
+msgid "Image info"
+msgstr "图像信息"
+
+#. Programmer's name for it: rsmediaInfo
+#: FilePropConsts.pas:29
+msgid "Media info"
+msgstr "媒体信息"
+
+#. Titel
+#. Programmer's name for it: rsTitel
+#: FilePropConsts.pas:31
+msgid "Title"
+msgstr "标题"
+
+#. Thema
+#. Programmer's name for it: rsSubject
+#: FilePropConsts.pas:32
+msgid "Subject"
+msgstr "主题"
+
+#. Autor
+#. Programmer's name for it: rsAuthor
+#: FilePropConsts.pas:33
+msgid "Author"
+msgstr "作者"
+
+#. Stichwörter
+#. Programmer's name for it: rsKeywords
+#: FilePropConsts.pas:34
+msgid "Keywords"
+msgstr "关键词"
+
+#. Kommentare
+#. Programmer's name for it: rsComments
+#: FilePropConsts.pas:35
+msgid "Comments"
+msgstr "评论"
+
+#. Vorlage
+#. Programmer's name for it: rsTemplate
+#: FilePropConsts.pas:36
+msgid "Template"
+msgstr "模板"
+
+#. Zuletzt gespeichert von
+#. Programmer's name for it: rsLastSaved
+#: FilePropConsts.pas:37
+msgid "Last saved by"
+msgstr "最后保存者"
+
+#. Version
+#. Programmer's name for it: rsRevNumber
+#: FilePropConsts.pas:38
+msgid "Revision Number"
+msgstr "修订号"
+
+#. Gesamte Bearbeitungszeit
+#. Programmer's name for it: rsTotalTime
+#: FilePropConsts.pas:39
+msgid "Total editing time"
+msgstr "总编辑时间"
+
+#. Zuletzt gedruckt
+#. Programmer's name for it: rsLastPrinted
+#: FilePropConsts.pas:40
+msgid "Last printed"
+msgstr "最后打印"
+
+#. Erstellt am
+#. Programmer's name for it: rsContentCreate
+#: FilePropConsts.pas:41
+msgid "Content created"
+msgstr "内容创建日期"
+
+#. Zuletzt gespeichert
+#. Programmer's name for it: rsDateLastSaved
+#: FilePropConsts.pas:42
+msgid "Date last saved"
+msgstr "最后保存日期"
+
+#. Seiten
+#. Programmer's name for it: rsPages
+#: FilePropConsts.pas:43
+msgid "Pages"
+msgstr "页数"
+
+#. Wortanzahl
+#. Programmer's name for it: rsWordCount
+#: FilePropConsts.pas:44
+msgid "Word count"
+msgstr "字数"
+
+#. Zeichenanzahl
+#. Programmer's name for it: rsCharCount
+#: FilePropConsts.pas:45
+msgid "Character count"
+msgstr "字符数"
+
+#. Miniaturbild
+#. Programmer's name for it: rsThumbnail
+#: FilePropConsts.pas:46
+msgid "Thumbnail"
+msgstr "缩略图"
+
+#. Anwendungsname
+#. Programmer's name for it: rsProgName
+#: FilePropConsts.pas:47
+msgid "Program name"
+msgstr "程序名称"
+
+#. Sicherheit
+#. Programmer's name for it: rsSecurity
+#: FilePropConsts.pas:48
+msgid "Security"
+msgstr "安全"
+
+#. Kategorie
+#. Programmer's name for it: rsCategory
+#: FilePropConsts.pas:50
+msgid "Category"
+msgstr "类别"
+
+#. Präsentationsformat
+#. Programmer's name for it: rsPresentation
+#: FilePropConsts.pas:51
+msgid "Presentation format"
+msgstr "演示文稿格式"
+
+#. Byzeanzahl
+#. Programmer's name for it: rsByteCount
+#: FilePropConsts.pas:52
+msgid "Byte count"
+msgstr "字节数"
+
+#. Zeilenanzahl
+#. Programmer's name for it: rsLineCount
+#: FilePropConsts.pas:53
+msgid "Line count"
+msgstr "行数"
+
+#. Absatzanzahl
+#. Programmer's name for it: rsParCount
+#: FilePropConsts.pas:54
+msgid "Paragraph count"
+msgstr "段落数"
+
+#. Folien
+#. Programmer's name for it: rsSlides
+#: FilePropConsts.pas:55
+msgid "Slides"
+msgstr "幻灯片"
+
+#. Hinweise
+#. Programmer's name for it: rsNotes
+#: FilePropConsts.pas:56
+msgid "Notes"
+msgstr "备注"
+
+#. Anzahl ausgeblendeter Elemente
+#. Programmer's name for it: rsHidden
+#: FilePropConsts.pas:57
+msgid "Hidden elements"
+msgstr "隐藏元素数"
+
+#. Multimediaclips
+#. Programmer's name for it: rsClips
+#: FilePropConsts.pas:58
+msgid "Clips"
+msgstr "多媒体片段"
+
+#. Skalierung
+#. Programmer's name for it: esScale
+#: FilePropConsts.pas:59
+msgid "Scale"
+msgstr "比例"
+
+#. Überschriftenpaare
+#. Programmer's name for it: rsHeadPairs
+#: FilePropConsts.pas:60
+msgid "Heading pairs"
+msgstr "标题部分"
+
+#. Dokumententeile
+#. Programmer's name for it: rsDocParts
+#: FilePropConsts.pas:61
+msgid "Document parts"
+msgstr "文档部分"
+
+#. Manager
+#. Programmer's name for it: rsManager
+#: FilePropConsts.pas:62
+msgid "Manager"
+msgstr "管理器"
+
+#. Firma
+#. Programmer's name for it: rsCompany
+#: FilePropConsts.pas:63
+msgid "Company"
+msgstr "公司"
+
+#. Zu aktualisierende Verknüpfungen
+#. Programmer's name for it: rsLinkUpdate
+#: FilePropConsts.pas:64
+msgid "Links to update"
+msgstr "待更新的链接"
+
+#. Programmer's name for it: rsYes
+#: FilePropConsts.pas:66
+msgid "Yes"
+msgstr "是"
+
+#. Programmer's name for it: rsNo
+#: FilePropConsts.pas:67
+msgid "No"
+msgstr "否"
+
+#. Strings for FTP connections
+#. Programmer's name for it: rsFtpConn
+#: FtpConsts.pas:23
+msgid "FTP connection"
+msgstr "FTP 连接"
+
+#. Programmer's name for it: rsTryConnect
+#: FtpConsts.pas:24
+msgid "Trying to connect to FTP server"
+msgstr "尝试连接到 FTP 服务器"
+
+#. Programmer's name for it: rsConnected
+#: FtpConsts.pas:25
+msgid "Connection to FTP server established"
+msgstr "已建立与 FTP 服务器的连接"
+
+#. Programmer's name for it: rsConnectErr
+#: FtpConsts.pas:26
+msgid "Connection to FTP server failed"
+msgstr "连接 FTP 服务器失败"
+
+#. Programmer's name for it: rsConnectTo
+#: FtpConsts.pas:27
+msgid "Connection to FTP server: %s:%u"
+msgstr "连接到 FTP 服务器：%s:%u"
+
+#. Programmer's name for it: rsFtpHint
+#: FtpConsts.pas:28
+msgid ""
+"Connection to FTP server: %s:%u\n"
+"for user: %s\n"
+"requires a password!"
+msgstr ""
+"连接到 FTP 服务器：%s:%u\n"
+"用户：%s\n"
+"需要密码！"
+
+#. Programmer's name for it: rsProxyHint
+#: FtpConsts.pas:29
+msgid ""
+"Connection to FTP proxy server: %s:%u\n"
+"for user: %s\n"
+"requires a password!"
+msgstr ""
+"连接到 FTP 代理服务器：%s:%u\n"
+"用户：%s\n"
+"需要密码！"
+
+#. Programmer's name for it: rsNoConnect
+#: FtpConsts.pas:30
+msgid "FTP connection lost!"
+msgstr "FTP 连接丢失！"
+
+#. Programmer's name for it: rsTryReconnect
+#: FtpConsts.pas:31
+msgid "Trying to reconnect"
+msgstr "尝试重新连接"
+
+#. Programmer's name for it: rsFtpWelcome
+#: FtpConsts.pas:32
+msgid "FTP welcome message:"
+msgstr "FTP 欢迎消息："
+
+#. Programmer's name for it: rsFtpStatus
+#: FtpConsts.pas:33
+msgid "FTP status query:"
+msgstr "FTP 状态查询："
+
+#. Programmer's name for it: rsFtpFeat
+#: FtpConsts.pas:34
+msgid "Supported features: "
+msgstr "支持的功能："
+
+#. Programmer's name for it: rsFtpRespCode
+#: FtpConsts.pas:35
+msgid "Response code: "
+msgstr "响应代码："
+
+#. Programmer's name for it: rsFtpResponse
+#: FtpConsts.pas:36
+msgid "Last FTP response: "
+msgstr "上次 FTP 响应："
+
+#. Programmer's name for it: rsIndyError
+#: FtpConsts.pas:37
+msgid "Reported error: "
+msgstr "报告的错误："
+
+#. Programmer's name for it: rsUnexpected
+#: FtpConsts.pas:38
+msgid "Unexpected response to command: "
+msgstr "命令的意外响应："
+
+#. Programmer's name for it: rsFtpTimeOut
+#: FtpConsts.pas:39
+msgid "Timeout on command: "
+msgstr "命令超时："
+
+#. Programmer's name for it: rsFtpBase
+#: FtpConsts.pas:40
+msgid "FTP root directory: \"%s\""
+msgstr "FTP 根目录：\"%s\""
+
+#. Programmer's name for it: rsFtpDir
+#: FtpConsts.pas:41
+msgid "Current FTP directory: \"%s\""
+msgstr "当前 FTP 目录：\"%s\""
+
+#. Certicate info
+#. Programmer's name for it: rsCertVersion
+#. Misc.
+#. Programmer's name for it: rsVersion
+#: FtpConsts.pas:44 UnitConsts.pas:131
+msgid "Version"
+msgstr "版本"
+
+#. Programmer's name for it: rsSerialNr
+#: FtpConsts.pas:45
+msgid "Serial number"
+msgstr "序列号"
+
+#. Programmer's name for it: rsIssuer
+#: FtpConsts.pas:46
+msgid "Issuer"
+msgstr "颁发者"
+
+#. Programmer's name for it: rsValidUntil
+#: FtpConsts.pas:47
+msgid "Valid until"
+msgstr "有效至"
+
+#. Programmer's name for it: rsFingerprint
+#: FtpConsts.pas:48
+msgid "Fingerprint"
+msgstr "指纹"
+
+#. Programmer's name for it: rsVerCertError
+#: FtpConsts.pas:49
+msgid "Error verifying server certificate"
+msgstr "验证服务器证书时出错"
+
+#. 'Fehler (öffnende/schließende Klammern)'
+#. Programmer's name for it: rsMathErrPar
+#: MathExpConsts.pas:22
+msgid "Error (left/right parenthesis)"
+msgstr "错误（左/右括号）"
+
+#. Eingabefehler (öffnende Klammer fehlt)';
+#. Programmer's name for it: rsMathErrLeftPar
+#: MathExpConsts.pas:23
+msgid "Input error (missing left parenthesis)"
+msgstr "输入错误（缺少左括号）"
+
+#. 'Eingabefehler (kein Klammerinhalt)';
+#. Programmer's name for it: rsMathErrEmptyPar
+#: MathExpConsts.pas:24
+msgid "Input error (empty parentheses)"
+msgstr "输入错误（空括号）"
+
+#. 'Division durch Null';
+#. Programmer's name for it: rsMathErrDivZero
+#: MathExpConsts.pas:25
+msgid "Division by zero"
+msgstr "除以零"
+
+#. 'Unzulässiges Argument';
+#. Programmer's name for it: rsMathErrInvalidArg
+#: MathExpConsts.pas:26
+msgid "Invalid argument"
+msgstr "无效参数"
+
+#. 'Operation führt zu Überlauf';
+#. Programmer's name for it: rsMathErrOverflow
+#: MathExpConsts.pas:27
+msgid "Overflow on operation"
+msgstr "操作导致溢出"
+
+#. 'Unidentifizierbarer Ausdruck';
+#. Programmer's name for it: rsMathErrInvalidExp
+#. 'Unvollständiger Ausdruck';
+#. Programmer's name for it: rsMathErrIncompExp
+#: MathExpConsts.pas:28 MathExpConsts.pas:30
+msgid "Invalid expression"
+msgstr "无效表达式"
+
+#. 'Unerwartetes Operationssymbol';
+#. Programmer's name for it: rsMathErrUnexpOper
+#: MathExpConsts.pas:29
+msgid "Unexpected operator"
+msgstr "意外的操作符"
+
+#. 'Operationssymbol fehlt';
+#. Programmer's name for it: rsMathErrMissOper
+#: MathExpConsts.pas:31
+msgid "Missing operator"
+msgstr "缺少操作符"
+
+#. 'Potenz mit unzulässiger (negativer) Basis';
+#. Programmer's name for it: rsMathErrNegPower
+#: MathExpConsts.pas:32
+msgid "Power with invalid (negative) base"
+msgstr "带有无效（负数）基数的幂"
+
+#. '"Null hoch Null"';
+#. Programmer's name for it: rsMathErrZeroPower
+#: MathExpConsts.pas:33
+msgid "Zero to power of zero"
+msgstr "零的零次幂"
+
+#. '"Null durch Null"';
+#. Programmer's name for it: rsMathErrZeroZero
+#: MathExpConsts.pas:34
+msgid "Divide zero by zero"
+msgstr "零除以零"
+
+#. 'Unzulässige Kombination von Operanden';
+#. Programmer's name for it: rsMathErrInvalidOps
+#: MathExpConsts.pas:35
+msgid "Invalid combination of operands"
+msgstr "无效的操作数组合"
+
+#. 'Unerlaubtes Zeichen';
+#. Programmer's name for it: rsMathErrInvalidChar
+#: MathExpConsts.pas:36
+msgid "Invalid character"
+msgstr "无效字符"
+
+#. 'Unzulässiges Argument (Überlaufgefahr)';
+#. Programmer's name for it: rsMathErrInvalidOvfl
+#: MathExpConsts.pas:37
+msgid "Invalid argument (potential overflow)"
+msgstr "无效参数（可能导致溢出）"
+
+#. 'Speicherplatz fehlt ("stack overflow")';
+#. Programmer's name for it: rsMathErrStackOvfl
+#: MathExpConsts.pas:38
+msgid "Low memory (\"stack overflow\")"
+msgstr "内存不足（“堆栈溢出”）"
+
+#. 'Speicherplatz fehlt ("string overflow")';
+#. Programmer's name for it: rsMathErrMemOvfl
+#: MathExpConsts.pas:39
+msgid "Low memory (\"string overflow\")"
+msgstr "内存不足（“字符串溢出”）"
+
+#. 'Unbekannter Fehler';
+#. Programmer's name for it: rsMathErrUnknown
+#: MathExpConsts.pas:40
+msgid "Unknown error"
+msgstr "未知错误"
+
+#. Programmer's name for it: rsUnknownError
+#: UnitConsts.pas:27
+msgid "Unknown system error code"
+msgstr "未知系统错误代码"
+
+#. Programmer's name for it: rsErrorCode
+#: UnitConsts.pas:28
+msgid "Error code"
+msgstr "错误代码"
+
+#. Programmer's name for it: rsWindowsError
+#: UnitConsts.pas:29
+msgid "Windows error"
+msgstr "Windows 错误"
+
+#. Programmer's name for it: rsStorageError
+#: UnitConsts.pas:30
+msgid "Storage error"
+msgstr "存储错误"
+
+#. Programmer's name for it: rsRpcError
+#: UnitConsts.pas:31
+msgid "Remote procedure call error"
+msgstr "远程过程调用错误"
+
+#. Programmer's name for it: rsInterfaceError
+#: UnitConsts.pas:32
+msgid "Interface error"
+msgstr "接口错误"
+
+#. Programmer's name for it: rsDispatchError
+#: UnitConsts.pas:33
+msgid "Dispatch error"
+msgstr "调度错误"
+
+#. Programmer's name for it: rsPreWin32Error
+#: UnitConsts.pas:34
+msgid "Error in SHFileOperation"
+msgstr "SHFileOperation 中的错误"
+
+#. Programmer's name for it: rsShellExec
+#: UnitConsts.pas:35
+msgid "ShellExecute error"
+msgstr "ShellExecute 错误"
+
+#. '%s ist kein gültiger Hexwert';
+#. Programmer's name for it: rsHexError
+#: UnitConsts.pas:39
+msgid "%s is not a valid hex value"
+msgstr "%s 不是有效的十六进制值"
+
+#. '%s ist kein gültiger Oktalwert';
+#. Programmer's name for it: rsOctError
+#: UnitConsts.pas:40
+msgid "%s is not a valid octal value"
+msgstr "%s 不是有效的八进制值"
+
+#. '%s ist kein gültiger Binärwert';
+#. Programmer's name for it: rsBinError
+#: UnitConsts.pas:41
+msgid "%s is not a valid binary value"
+msgstr "%s 不是有效的二进制值"
+
+#. "&" is required so that this entry is always the first when sorting
+#. Programmer's name for it: rsSystemDefault
+#: UnitConsts.pas:45
+msgid "&System default"
+msgstr "&系统默认"
+
+#. Programmer's name for it: rsLangRestart
+#: UnitConsts.pas:46
+msgid "Changing language requires the program to be restarted!"
+msgstr "更改语言需要重启程序！"
+
+#. Strings from TextFilter
+#. Programmer's name for it: rsIllRegExp
+#: UnitConsts.pas:50
+msgid "Illegal regular expression!"
+msgstr "非法正则表达式！"
+
+#. Programmer's name for it: rsIllmask
+#: UnitConsts.pas:51
+msgid "Illegal mask!"
+msgstr "非法掩码！"
+
+#. Strings from WinExecute
+#. Programmer's name for it: rsExecuteError
+#: UnitConsts.pas:55
+msgid "Error executing process"
+msgstr "执行进程时出错"
+
+#. Programmer's name for it: rsCreatePipeError
+#: UnitConsts.pas:56
+msgid "Stdout pipe creation failed"
+msgstr "创建标准输出管道失败"
+
+#. Programmer's name for it: rsDupHandleError
+#: UnitConsts.pas:57
+msgid "DuplicateHandle failed"
+msgstr "DuplicateHandle 失败"
+
+#. Programmer's name for it: rsCloseHandleError
+#: UnitConsts.pas:58
+msgid "Closing handle failed"
+msgstr "关闭句柄失败"
+
+#. Programmer's name for it: rsVersion10LongStr
+#: UnitConsts.pas:72
+msgid "%s%s (Version %s, Build %d, %s)"
+msgstr "%s%s（版本 %s，编译 %d，%s）"
+
+#. Programmer's name for it: rsVersion10ShortStr
+#: UnitConsts.pas:75
+msgid "%s (Version %s, %s)"
+msgstr "%s（版本 %s，%s）"
+
+#. Programmer's name for it: rsWindows11
+#: UnitConsts.pas:77
+msgid "Windows 11"
+msgstr "Windows 11"
+
+#. Programmer's name for it: rsProfessionalMC
+#: UnitConsts.pas:80
+msgid "Professional with Media Center"
+msgstr "带媒体中心的专业版"
+
+#. Programmer's name for it: rsEnterpriseServerIT
+#: UnitConsts.pas:88
+msgid "Server Enterprise for Itanium-based Systems"
+msgstr "基于 Itanium 系统的服务器企业版"
+
+#. Programmer's name for it: rsEssServerV
+#: UnitConsts.pas:98
+msgid "Essential Server without Hyper-V"
+msgstr "无 Hyper-V 的基本服务器"
+
+#. Programmer's name for it: rsUnlicensed
+#: UnitConsts.pas:112
+msgid "Unlicensed product"
+msgstr "未授权产品"
+
+#. Strings from DateUtilEx
+#. Programmer's name for it: rsBegSpring
+#: UnitConsts.pas:116
+msgid "Beginning of spring"
+msgstr "春季开始"
+
+#. Programmer's name for it: rsBegSummer
+#: UnitConsts.pas:117
+msgid "Beginning of summer"
+msgstr "夏季开始"
+
+#. Programmer's name for it: rsBegAutumn
+#: UnitConsts.pas:118
+msgid "Beginning of autumn"
+msgstr "秋季开始"
+
+#. Programmer's name for it: rsBegWinter
+#: UnitConsts.pas:119
+msgid "Beginning of winter"
+msgstr "冬季开始"
+
+#. Strings from PasswordStrength
+#. Programmer's name for it: rsVeryWeak
+#: UnitConsts.pas:123
+msgid "very weak"
+msgstr "非常弱"
+
+#. Programmer's name for it: rsWeak
+#: UnitConsts.pas:124
+msgid "weak"
+msgstr "弱"
+
+#. Programmer's name for it: rsGood
+#: UnitConsts.pas:125
+msgid "good"
+msgstr "良好"
+
+#. Programmer's name for it: rsStrong
+#: UnitConsts.pas:126
+msgid "strong"
+msgstr "强"
+
+#. Programmer's name for it: rsVeryStrong
+#: UnitConsts.pas:127
+msgid "very strong"
+msgstr "非常强"
+
+#. Programmer's name for it: rsLongCopyRight
+#: UnitConsts.pas:132
+msgid ""
+"%s Dr. J. Rathlev\n"
+" 24222 Schwentinental, Germany"
+msgstr ""
+"%s Dr. J. Rathlev\n"
+"德国 24222 Schwentinental"
+
+#. Programmer's name for it: rsCopyRight
+#: UnitConsts.pas:133
+msgid "%s Dr. J. Rathlev"
+msgstr "%s Dr. J. Rathlev"
+
+#. Programmer's name for it: rsNotAvail
+#: UnitConsts.pas:134
+msgid "not available"
+msgstr "不可用"
+
+#. Programmer's name for it: rsNoName
+#: UnitConsts.pas:135
+msgid "unlabeled"
+msgstr "未标记"
+
+#. Programmer's name for it: rsConnectTo
+#: UnitConsts.pas:136
+msgid "Connect to .."
+msgstr "连接到 .."
+
+#. Programmer's name for it: rsUnknown
+#: UnitConsts.pas:137
+msgid "<Unknown>"
+msgstr "<未知>"
+
+#. Programmer's name for it: rsAnyKey
+#: UnitConsts.pas:138
+msgid "Strike any key to continue ..."
+msgstr "按任意键继续 ..."
+
+#. Programmer's name for it: rsVssNotAvail
+#: VssConsts.pas:24
+msgid "Volume Shadow Copy could not be initialized on this system!"
+msgstr "无法在此系统上初始化卷影复制！"
+
+#. Programmer's name for it: rsInitBackupComps
+#: VssConsts.pas:25
+msgid "Initializing IVssBackupComponents Interface ..."
+msgstr "正在初始化 IVssBackupComponents 接口..."
+
+#. Programmer's name for it: rsInitMetaData
+#: VssConsts.pas:26
+msgid "Initialize writer metadata ..."
+msgstr "初始化写入器元数据..."
+
+#. Programmer's name for it: rsGatherMetaData
+#: VssConsts.pas:27
+msgid "Gathering writer metadata ..."
+msgstr "收集写入器元数据..."
+
+#. Programmer's name for it: rsGatherWriterStatus
+#: VssConsts.pas:28
+msgid "Gathering writer status ..."
+msgstr "收集写入器状态..."
+
+#. Programmer's name for it: rsDscvDirExclComps
+#: VssConsts.pas:29
+msgid "Discover directly excluded components ..."
+msgstr "发现直接排除的组件..."
+
+#. Programmer's name for it: rsDscvNsExclComps
+#: VssConsts.pas:30
+msgid "Discover components that reside outside the shadow set ..."
+msgstr "发现位于阴影集之外的组件..."
+
+#. Programmer's name for it: rsDscvAllExclComps
+#: VssConsts.pas:31
+msgid "Discover all excluded components ..."
+msgstr "发现所有排除的组件..."
+
+#. Programmer's name for it: rsDscvExclWriters
+#: VssConsts.pas:32
+msgid "Discover excluded writers ..."
+msgstr "发现排除的写入器..."
+
+#. Programmer's name for it: rsDscvExpInclComps
+#: VssConsts.pas:33
+msgid "Discover explicitly included components ..."
+msgstr "发现显式包含的组件..."
+
+#. Programmer's name for it: rsSelExpInclComps
+#: VssConsts.pas:34
+msgid "Select explicitly included components ..."
+msgstr "选择显式包含的组件..."
+
+#. Programmer's name for it: rsSaveBackCompsDoc
+#: VssConsts.pas:35
+msgid "Saving the backup components document ..."
+msgstr "保存备份组件文档..."
+
+#. Programmer's name for it: rsAddVolSnapSet
+#: VssConsts.pas:36
+msgid "Add volumes to snapshot set ..."
+msgstr "将卷添加到快照集中..."
+
+#. Programmer's name for it: rsPrepBackup
+#: VssConsts.pas:37
+msgid "Preparing for backup ..."
+msgstr "准备备份..."
+
+#. Programmer's name for it: rsCreateShadowCopy
+#: VssConsts.pas:38
+msgid "Creating the shadow copy ..."
+msgstr "正在创建快照..."
+
+#. Programmer's name for it: rsCreateCopySuccess
+#: VssConsts.pas:39
+msgid "Shadow copy set successfully created"
+msgstr "快照集成功创建"
+
+#. Programmer's name for it: rsQueryShadowCopies
+#: VssConsts.pas:40
+msgid "Querying all shadow copies in the system ..."
+msgstr "查询系统中的所有快照..."
+
+#. Programmer's name for it: rsQuerySnapshotSetID
+#: VssConsts.pas:41
+msgid "Querying all shadow copies with the SnapshotSetID %s ..."
+msgstr "查询具有快照集 ID %s 的所有快照..."
+
+#. Programmer's name for it: rsCreateShadowSet
+#: VssConsts.pas:42
+msgid "Creating shadow set {%s} ..."
+msgstr "正在创建快照集 {%s}..."
+
+#. Programmer's name for it: rsCompleteBackup
+#: VssConsts.pas:43
+msgid "Completing the backup ..."
+msgstr "完成备份..."
+
+#. Unbekannt
+#. Programmer's name for it: rsTrgUnknown
+#: WinTaskConsts.pas:24
+msgid "Unknown"
+msgstr "未知"
+
+#. Bereit
+#. Programmer's name for it: rsTrgReady
+#: WinTaskConsts.pas:25
+msgid "Ready"
+msgstr "就绪"
+
+#. In Warteschlange
+#. Programmer's name for it: rsTrgQueued
+#: WinTaskConsts.pas:26
+msgid "Queued"
+msgstr "排队中"
+
+#. Wird ausgeführt
+#. Programmer's name for it: rsTrgRunning
+#: WinTaskConsts.pas:27
+msgid "Running"
+msgstr "运行中"
+
+#. Deaktiviert
+#. Programmer's name for it: rsTrgDisabled
+#: WinTaskConsts.pas:28
+msgid "Disabled"
+msgstr "已禁用"
+
+#. Programm starten
+#. Programmer's name for it: rsTrgActionExec
+#: WinTaskConsts.pas:30
+msgid "Start a program"
+msgstr "启动程序"
+
+#. Programmer's name for it: rsTragActionCom
+#: WinTaskConsts.pas:31
+msgid "File handler"
+msgstr "文件处理程序"
+
+#. E-Mail senden
+#. Programmer's name for it: rsTragActionMail
+#: WinTaskConsts.pas:32
+msgid "Send an email"
+msgstr "发送电子邮件"
+
+#. Meldung anzeigen
+#. Programmer's name for it: rsTragActionMsg
+#: WinTaskConsts.pas:33
+msgid "Display a message"
+msgstr "显示消息"
+
+#. Bei einem Ereignis
+#. Programmer's name for it: rsTrgTypeEvent
+#. Bei einem Ereignis
+#. Programmer's name for it: rsTrgEvent
+#: WinTaskConsts.pas:35 WinTaskConsts.pas:82
+msgid "On an event"
+msgstr "在事件发生时"
+
+#. Einmal
+#. Programmer's name for it: rsTrgTypeTime
+#: WinTaskConsts.pas:36
+msgid "One time"
+msgstr "一次"
+
+#. Täglich
+#. Programmer's name for it: rsTrgTypeDaily
+#: WinTaskConsts.pas:37
+msgid "Daily"
+msgstr "每日"
+
+#. Wöchentlich
+#. Programmer's name for it: rsTrgTypeWeekly
+#: WinTaskConsts.pas:38
+msgid "Weekly"
+msgstr "每周"
+
+#. Monatlich
+#. Programmer's name for it: rsTrgTypeMonthly
+#: WinTaskConsts.pas:39
+msgid "Monthly"
+msgstr "每月"
+
+#. Im Leerlauf
+#. Programmer's name for it: rsTrgTypeIdle
+#: WinTaskConsts.pas:40
+msgid "On idle"
+msgstr "在空闲时"
+
+#. Bei Aufgabenerstellung/-änderung
+#. Programmer's name for it: rsTrgTypeRegister
+#: WinTaskConsts.pas:41
+msgid "On task creation/modification"
+msgstr "在任务创建或修改时"
+
+#. Beim Start
+#. Programmer's name for it: rsTrgTypeStartup
+#: WinTaskConsts.pas:42
+msgid "At startup"
+msgstr "启动时"
+
+#. Bei Anmeldung
+#. Programmer's name for it: rsTrgTypeLogon
+#: WinTaskConsts.pas:43
+msgid "At log on"
+msgstr "登录时"
+
+#. Programmer's name for it: rsTrgTypeStateChg
+#: WinTaskConsts.pas:44
+msgid "On session state change"
+msgstr "会话状态改变时"
+
+#. Programmer's name for it: rsTrgTypeCustom
+#: WinTaskConsts.pas:45
+msgid "Custom trigger"
+msgstr "自定义触发器"
+
+#. Ersten
+#. Programmer's name for it: rsTrgFirst
+#: WinTaskConsts.pas:47
+msgid "First"
+msgstr "第一个"
+
+#. Zweiten
+#. Programmer's name for it: rsTrgSecond
+#: WinTaskConsts.pas:48
+msgid "Second"
+msgstr "第二个"
+
+#. Dritten
+#. Programmer's name for it: rsTrgThird
+#: WinTaskConsts.pas:49
+msgid "Third"
+msgstr "第三个"
+
+#. Vierten
+#. Programmer's name for it: rsTrgFourth
+#: WinTaskConsts.pas:50
+msgid "Fourth"
+msgstr "第四个"
+
+#. Fünften
+#. Programmer's name for it: rsTrgFifth
+#: WinTaskConsts.pas:51
+msgid "Fifth"
+msgstr "第五个"
+
+#. Letzten
+#. Programmer's name for it: rsTrgLast
+#: WinTaskConsts.pas:52
+msgid "Last"
+msgstr "最后一个"
+
+#. Sekunde
+#. Programmer's name for it: rsTrgSec
+#: WinTaskConsts.pas:54
+msgid "second"
+msgstr "秒"
+
+#. Sekunden
+#. Programmer's name for it: rsTrgSecs
+#: WinTaskConsts.pas:55
+msgid "seconds"
+msgstr "秒"
+
+#. jede Sekunde
+#. Programmer's name for it: rsTrgEverySec
+#: WinTaskConsts.pas:56
+msgid "every second"
+msgstr "每秒"
+
+#. alle %u Sekunden
+#. Programmer's name for it: rsTrgEverySecs
+#: WinTaskConsts.pas:57
+msgid "every %u seconds"
+msgstr "每%u秒"
+
+#. Minute
+#. Programmer's name for it: rsTrgMin
+#: WinTaskConsts.pas:58
+msgid "minute"
+msgstr "分钟"
+
+#. Minuten
+#. Programmer's name for it: rsTrgMins
+#: WinTaskConsts.pas:59
+msgid "minutes"
+msgstr "分钟"
+
+#. jede Minute
+#. Programmer's name for it: rsTrgEveryMin
+#: WinTaskConsts.pas:60
+msgid "every minute"
+msgstr "每分钟"
+
+#. alle %u Minuten
+#. Programmer's name for it: rsTrgEveryMins
+#: WinTaskConsts.pas:61
+msgid "every %u minutes"
+msgstr "每 %u 分钟"
+
+#. Stunde
+#. Programmer's name for it: rsTrgHour
+#: WinTaskConsts.pas:62
+msgid "hour"
+msgstr "小时"
+
+#. Stunden
+#. Programmer's name for it: rsTrgHours
+#: WinTaskConsts.pas:63
+msgid "hours"
+msgstr "小时"
+
+#. jede Stunde
+#. Programmer's name for it: rsTrgEveryHour
+#: WinTaskConsts.pas:64
+msgid "every hour"
+msgstr "每小时"
+
+#. alle %u Stunden
+#. Programmer's name for it: rsTrgEveryHours
+#: WinTaskConsts.pas:65
+msgid "every %u hours"
+msgstr "每 %u 小时"
+
+#. Tag
+#. Programmer's name for it: rsTrgDay
+#: WinTaskConsts.pas:66
+msgid "day"
+msgstr "天"
+
+#. Tage
+#. Programmer's name for it: rsTrgDays
+#: WinTaskConsts.pas:67
+msgid "%u days"
+msgstr "%u 天"
+
+#. jeden Tag
+#. Programmer's name for it: rsTrgEveryDay
+#: WinTaskConsts.pas:68
+msgid "every day"
+msgstr "每天"
+
+#. alle %u Tage
+#. Programmer's name for it: rsTrgEveryDays
+#: WinTaskConsts.pas:69
+msgid "every %u days"
+msgstr "每 %u 天"
+
+#. Um %0:s am %1:s
+#. Programmer's name for it: rsTrgOnce
+#: WinTaskConsts.pas:70
+msgid "At %0:s on %1:s"
+msgstr "在 %1:s 的 %0:s"
+
+#. Jeden Tag um %s
+#. Programmer's name for it: rsTrgDailyAt
+#: WinTaskConsts.pas:72
+msgid "At %s every day"
+msgstr "每天在 %s"
+
+#. Um %0:s alle %1:u Tage
+#. Programmer's name for it: rsTrgRDailyAt
+#: WinTaskConsts.pas:73
+msgid "At %0:s every %1:u days"
+msgstr "每 %1:u 天在 %0:s"
+
+#. Wöchentlich um %0:s jeden %1:s, beginnend mit dem %2:s
+#. Programmer's name for it: rsTrgWeekly
+#: WinTaskConsts.pas:74
+msgid "At %0:s every %1:s of every week, starting %2:s"
+msgstr "每周在 %0:s 的每个 %1:s，从 %2:s 开始"
+
+#. Um %0:s jeden %1:s alle %2:u Wochen, beginnend mit dem %3:s
+#. Programmer's name for it: rsTrgRWeekly
+#: WinTaskConsts.pas:75
+msgid "At %0:s every %1:s of every %2:u weeks, starting %3:s"
+msgstr "每 %2:u 周在 %0:s 的每个 %1:s，从 %3:s 开始"
+
+#. Um %0:s am %1:s %2:s, beginnend mit dem %3:s
+#. Programmer's name for it: rsTrgMonthly
+#: WinTaskConsts.pas:76
+msgid "At %0:s on %1:s of %2:s, starting %3:s"
+msgstr "在 %2:s 的 %1:s 于 %0:s，从 %3:s 开始"
+
+#. Wird am %0:s %1:s jeden %2:s beginnend mit dem %3:s ausgeführt
+#. Programmer's name for it: rsTrgDMonthly
+#: WinTaskConsts.pas:77
+msgid "Runs on the %0:s %1:s, each %2:s starting %3:s"
+msgstr "在每个 %2:s 的 %0:s %1:s 运行，从 %3:s 开始"
+
+#. Programmer's name for it: rsTrgAnyLogon
+#: WinTaskConsts.pas:78
+msgid "At logon of any user"
+msgstr "任何用户登录时"
+
+#. Bei Anmeldung eines Benutzers
+#. Programmer's name for it: rsTrgLogon
+#: WinTaskConsts.pas:79
+msgid "At logon of %s"
+msgstr "用户 %s 登录时"
+
+#. Beim Systemstart
+#. Programmer's name for it: rsTrgStartup
+#: WinTaskConsts.pas:80
+msgid "At system startup"
+msgstr "系统启动时"
+
+#. Wenn der Computer inaktiv ist
+#. Programmer's name for it: rsTrgIdle
+#: WinTaskConsts.pas:81
+msgid "When computer is idle"
+msgstr "计算机空闲时"
+
+#. Programmer's name for it: rsTrgEventTime
+#: WinTaskConsts.pas:83
+msgid ", starting at %0:s on %1:s"
+msgstr "，从 %1:s 的 %0:s 开始"
+
+#. Bei Aufgabenerstellung oder -änderung
+#. Programmer's name for it: rsTrgRegistration
+#: WinTaskConsts.pas:85
+msgid "When task is created or modified"
+msgstr "任务创建或修改时"
+
+#. Nach Auslösung alle %0:s für die Dauer von %1:s wiederholen
+#. Programmer's name for it: rsTrgRepeat
+#: WinTaskConsts.pas:87
+msgid " - After triggered, repeat every %0:s for a duration of %1:s"
+msgstr " - 触发后，每隔 %0:s 重复，持续 %1:s"
+
+#. Programmer's name for it: rsCompAT
+#: WinTaskConsts.pas:89
+msgid "deprecated"
+msgstr "已弃用"
+
+#. Programmer's name for it: rsXP
+#: WinTaskConsts.pas:90
+msgid "Windows XP"
+msgstr "Windows XP"
+
+#. Programmer's name for it: rsVista
+#: WinTaskConsts.pas:91
+msgid "Windows Vista"
+msgstr "Windows Vista"
+
+#. Programmer's name for it: rsWin7
+#: WinTaskConsts.pas:92
+msgid "Windows 7"
+msgstr "Windows 7"
+
+#. Programmer's name for it: rsWin10
+#: WinTaskConsts.pas:93
+msgid "Windows 10"
+msgstr "Windows 10"
