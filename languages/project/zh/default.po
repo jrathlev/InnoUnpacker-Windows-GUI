@@ -1,1 +1,266 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2024-11-20 12:10+0100\n"
+"PO-Revision-Date: 2024-11-22 16:47+0800\n"
+"Last-Translator: 大眼仔~旭 <wcxu21@126.com>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
 
+#. MainForm.Caption
+#: UnpackMain.dfm:4 UnpackMain.pas:235 UnpackMain.pas:587
+msgid "Inspect and unpack InnoSetup files"
+msgstr "检查和解包 InnoSetup 文件"
+
+#. MainForm.pnTop.Label2.Caption
+#: UnpackMain.dfm:36
+msgid "InnoSetup archive:"
+msgstr "InnoSetup 归档文件："
+
+#. MainForm.pnTop.bbOptions.Hint
+#: UnpackMain.dfm:55
+msgid "Select unpack tool"
+msgstr "选择解包工具"
+
+#. MainForm.pnTop.bbExit.Hint
+#: UnpackMain.dfm:146
+msgid "Quit program"
+msgstr "退出程序"
+
+#. MainForm.pnTop.bbList.Hint
+#: UnpackMain.dfm:237
+msgid "Show list of all contained files"
+msgstr "显示所有包含的文件列表"
+
+#. MainForm.pnTop.bbList.Caption
+#: UnpackMain.dfm:239
+msgid "List files"
+msgstr "文件列表"
+
+#. MainForm.pnTop.bbExtract.Caption
+#: UnpackMain.dfm:363
+msgid "Extract files"
+msgstr "提取文件"
+
+#. MainForm.pnTop.bbVerify.Caption
+#: UnpackMain.dfm:487
+msgid "Verify archive"
+msgstr "验证安装程序"
+
+#. MainForm.pnTop.bbFile.Hint
+#: UnpackMain.dfm:610 UnpackMain.pas:398
+msgid "Select InnoSetup archive"
+msgstr "选择 InnoSetup 归档文件"
+
+#. MainForm.pnTop.cxEmbedded.Caption
+#: UnpackMain.dfm:735
+msgid "Process embedded files"
+msgstr "处理嵌入文件"
+
+#. MainForm.pnTop.bbInfo.Hint
+#: UnpackMain.dfm:744
+msgid "About the program"
+msgstr "关于程序"
+
+#. MainForm.pnTop.cxEncrypted.Caption
+#: UnpackMain.dfm:836
+msgid "InnoSetup archive is encrypted"
+msgstr "InnoSetup 归档文件已加密"
+
+#. MainForm.pnTop.edPassword.EditLabel.Caption
+#: UnpackMain.dfm:847
+msgid "Password:"
+msgstr "密码："
+
+#. MainForm.pnTop.bbVersion.Hint
+#: UnpackMain.dfm:856
+msgid "Show list of all supported Inno Setup versions"
+msgstr "显示支持的所有 Inno Setup 版本列表"
+
+#. MainForm.pnTop.bbLang.Hint
+#: UnpackMain.dfm:947
+msgid "Show list of all supported languages"
+msgstr "显示支持的所有语言列表"
+
+#. MainForm.pnTop.bbLang.Caption
+#: UnpackMain.dfm:949
+msgid "Languages"
+msgstr "语言"
+
+#. MainForm.pnTop.bbSetupInfo.Hint
+#: UnpackMain.dfm:1072
+msgid "Show general information"
+msgstr "显示常规信息"
+
+#. MainForm.pnExtract.Label1.Caption
+#: UnpackMain.dfm:1208
+msgid "Extract to directory:"
+msgstr "解压到目录："
+
+#. MainForm.pnExtract.Label3.Caption
+#: UnpackMain.dfm:1215
+msgid "File filter:"
+msgstr "文件过滤器："
+
+#. MainForm.pnExtract.cbDir.Hint
+#: UnpackMain.dfm:1222
+msgid "Extract files to this directory"
+msgstr "将文件解压到此目录"
+
+#. MainForm.pnExtract.bbStart.Hint
+#: UnpackMain.dfm:1236
+msgid "Start extraction"
+msgstr "开始解压"
+
+#. MainForm.pnExtract.bbStart.Caption
+#: UnpackMain.dfm:1238
+msgid "Extract"
+msgstr "解压"
+
+#. MainForm.pnExtract.cxDupl.Caption
+#: UnpackMain.dfm:1328
+msgid "Process duplicate files"
+msgstr "处理重复文件"
+
+#. MainForm.pnExtract.cxOverwrite.Caption
+#: UnpackMain.dfm:1336
+msgid "Overwrite files"
+msgstr "覆盖文件"
+
+#. MainForm.pnExtract.cxStrip.Caption
+#: UnpackMain.dfm:1344
+msgid "Without paths"
+msgstr "无路径"
+
+#. MainForm.pnExtract.bbFilter.Hint
+#: UnpackMain.dfm:1362
+msgid "Edit file filter"
+msgstr "编辑文件过滤器"
+
+#. MainForm.pnExtract.bbDir.Hint
+#: UnpackMain.dfm:1453 UnpackMain.pas:464
+msgid "Select directory for extracted files"
+msgstr "选择解压文件的目录"
+
+#. MainForm.pnExtract.bbCopyPath.Hint
+#: UnpackMain.dfm:1517
+msgid "Use directory of setup archive"
+msgstr "使用安装档案的目录"
+
+#. MainForm.pnExtract.bbScript.Hint
+#: UnpackMain.dfm:1581
+msgid "Filter for install script"
+msgstr "安装脚本过滤器"
+
+#. MainForm.pnBottom.pnTools.bbCopyResult.Hint
+#: UnpackMain.dfm:1692
+msgid "Copy output to clipboard"
+msgstr "复制输出到剪贴板"
+
+#. MainForm.pnBottom.pnTools.bbDown.Hint
+#: UnpackMain.dfm:1783
+msgid "Scroll down"
+msgstr "向下滚动"
+
+#. MainForm.pnBottom.pnTools.bbUp.Hint
+#: UnpackMain.dfm:1874
+msgid "Scroll up"
+msgstr "向上滚动"
+
+#. Programmer's name for it: rsInfo
+#: UnpackMain.pas:159
+msgid ""
+"Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/"
+"o]\n"
+"\t<name>\t: name of setup file to be unpacked\n"
+"\t<ddir>\t: destination directory for unpacked files\n"
+"\t<filter>\t: file filter\n"
+"\t/m\t: process internal embedded files\n"
+"\t/s\t: extract files without paths\n"
+"\t/a\t: process all copies of duplicate files\n"
+"\t/o\t: overwrite files"
+msgstr ""
+"大眼仔~旭 汉化分享（Anan）2024\n"
+"\n"
+"\t命令行选项: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/o]\n"
+"\t<name>\t: 要解包的设置文件的名称\n"
+"\t<ddir>\t: 解包文件的目的地目录\n"
+"\t<filter>\t: 文件过滤器\n"
+"\t/m\t: 处理内部嵌入的文件\n"
+"\t/s\t: 不带路径提取文件\n"
+"\t/a\t: 处理所有重复文件的副本\n"
+"\t/o\t: 覆盖文件"
+
+#: UnpackMain.pas:320
+msgid "This application only allows dropping of exe files!"
+msgstr "此应用程序仅允许拖放 exe 文件！"
+
+#: UnpackMain.pas:397 UnpackMain.pas:434
+msgid "Programs|*.exe|All files|*.*"
+msgstr "程序|*.exe|所有文件|*.*"
+
+#: UnpackMain.pas:435
+msgid "Search for \"innounp.exe\""
+msgstr "搜索“innounp.exe”"
+
+#: UnpackMain.pas:483
+msgid "Extract files matching:"
+msgstr "解压匹配的文件："
+
+#: UnpackMain.pas:571
+msgid ""
+"Extracting setup file ...\n"
+"Destination directory: %s"
+msgstr ""
+"正在解压安装文件...\n"
+"目标目录：%s"
+
+#: UnpackMain.pas:629
+msgid "Filename: "
+msgstr "文件名："
+
+#. DOS-Ausgabe anzeigen
+#: UnpackMain.pas:635 UnpackMain.pas:721 UnpackMain.pas:723
+msgid "Error: "
+msgstr "错误："
+
+#: UnpackMain.pas:645
+msgid "Name: "
+msgstr "名称："
+
+#: UnpackMain.pas:646
+msgid "Version: "
+msgstr "版本："
+
+#: UnpackMain.pas:647
+msgid "Copyright: "
+msgstr "版权："
+
+#: UnpackMain.pas:648
+msgid "Company: "
+msgstr "公司："
+
+#: UnpackMain.pas:649
+msgid "Comment: "
+msgstr "备注："
+
+#. wait 10 s
+#: UnpackMain.pas:688
+msgid "Timeout occured - continue anyway?"
+msgstr "超时发生 - 是否继续？"
+
+msgid "Information"
+msgstr "信息"
+
+msgid "OK"
+msgstr "确定"
