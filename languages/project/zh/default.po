@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2024-11-20 12:10+0100\n"
-"PO-Revision-Date: 2024-11-22 16:47+0800\n"
+"PO-Revision-Date: 2024-11-22 19:31+0800\n"
 "Last-Translator: 大眼仔~旭 <wcxu21@126.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. MainForm.Caption
 #: UnpackMain.dfm:4 UnpackMain.pas:235 UnpackMain.pas:587
 msgid "Inspect and unpack InnoSetup files"
-msgstr "检查和解包 InnoSetup 文件"
+msgstr "检查并解包 InnoSetup 文件"
 
 #. MainForm.pnTop.Label2.Caption
 #: UnpackMain.dfm:36
@@ -110,7 +110,7 @@ msgstr "解压到目录："
 #. MainForm.pnExtract.Label3.Caption
 #: UnpackMain.dfm:1215
 msgid "File filter:"
-msgstr "文件过滤器："
+msgstr "文件筛选器："
 
 #. MainForm.pnExtract.cbDir.Hint
 #: UnpackMain.dfm:1222
@@ -145,7 +145,7 @@ msgstr "无路径"
 #. MainForm.pnExtract.bbFilter.Hint
 #: UnpackMain.dfm:1362
 msgid "Edit file filter"
-msgstr "编辑文件过滤器"
+msgstr "编辑文件筛选器"
 
 #. MainForm.pnExtract.bbDir.Hint
 #: UnpackMain.dfm:1453 UnpackMain.pas:464
@@ -160,7 +160,7 @@ msgstr "使用安装档案的目录"
 #. MainForm.pnExtract.bbScript.Hint
 #: UnpackMain.dfm:1581
 msgid "Filter for install script"
-msgstr "安装脚本过滤器"
+msgstr "安装脚本筛选器"
 
 #. MainForm.pnBottom.pnTools.bbCopyResult.Hint
 #: UnpackMain.dfm:1692
@@ -193,9 +193,9 @@ msgstr ""
 "大眼仔~旭 汉化分享（Anan）2024\n"
 "\n"
 "\t命令行选项: [<name>] [/d:<ddir>] [/f:<filter>] [/m] [/s] [/a] [/o]\n"
-"\t<name>\t: 要解包的设置文件的名称\n"
-"\t<ddir>\t: 解包文件的目的地目录\n"
-"\t<filter>\t: 文件过滤器\n"
+"\t<name>\t: 设置要解包文件的名称\n"
+"\t<ddir>\t: 解包文件的目标目录\n"
+"\t<filter>\t: 文件筛选器\n"
 "\t/m\t: 处理内部嵌入的文件\n"
 "\t/s\t: 不带路径提取文件\n"
 "\t/a\t: 处理所有重复文件的副本\n"
@@ -257,7 +257,7 @@ msgstr "备注："
 #. wait 10 s
 #: UnpackMain.pas:688
 msgid "Timeout occured - continue anyway?"
-msgstr "超时发生 - 是否继续？"
+msgstr "发生超时 - 是否继续？"
 
 msgid "Information"
 msgstr "信息"
