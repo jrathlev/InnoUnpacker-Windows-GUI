@@ -24,7 +24,7 @@
                          removed that are now handled in Winapi.Windows)
    Vers. 7.1 - July 2021 : LoadLibrary replaced by ExtLoadLibrary to handle FPU exceptions
 
-   last modified:  September 2024
+   last modified:  November 2024
    *)
 
 unit WinApiUtils;
@@ -978,12 +978,12 @@ begin
       with FileVersionInfo do for i:=1 to InfoNum do begin
         if VerQueryValue(Buf, PChar('\StringFileInfo\'+t+'\'+InfoStr[i]), Pointer(Value), Len) then begin
           case i of
-          1 : Company:=value;
-          2 : Description:=value;
-          3 : Version:=value;
-          4 : InternalName:=value;
-          5 : Copyright:=value;
-          6 : Comments:=value;
+          1 : Company:=TrimRight(value);
+          2 : Description:=TrimRight(value);
+          3 : Version:=TrimRight(value);
+          4 : InternalName:=TrimRight(value);
+          5 : Copyright:=TrimRight(value);
+          6 : Comments:=TrimRight(value);
             end;
           end;
         end;

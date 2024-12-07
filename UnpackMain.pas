@@ -22,17 +22,18 @@
                                timeout on calling innounp.exe with confirmation
    Vers. 1.9.6 (October 2024): using innounp up to version 0.50 and 1.75
    Vers. 1.10 (November 2024): new layout
+   Vers. 1.11 (December 2024): colored display of innounp (v1.77) output
 
    last modified: August 2024
 
    Command line options: [<setupname>] [/d:<destdir>] [/f:<filter>] [/m] [/s] [/a] [/o]
-     <setupname> : name of setup file to be unpacked
-     <destdir>   : destination directory for unpacked files
-     <filter>    : file filter
-     /m          : process internal embedded files
-     /s          : extract files without paths
-     /a          : process all copies of duplicate files
-     /o          : overwrite files
+     <setupname>  : name of setup file to be unpacked
+     /d:<destdir> : destination directory for unpacked files
+     /f:<filter>  : file filter
+     /m           : process internal embedded files
+     /s           : extract files without paths
+     /a           : process all copies of duplicate files
+     /o           : overwrite files
    *)
 
 unit UnpackMain;
@@ -46,7 +47,7 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 1.10.2';
+  ProgVers = ' 2.0.0';
   CopRgt = '© 2014-2024 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -90,7 +91,10 @@ type
     bbLang: TBitBtn;
     bbScript: TBitBtn;
     bbSetupInfo: TBitBtn;
-    mmDos: TMemo;
+    paShowText: TPanel;
+    pbShowText: TPaintBox;
+    sbVert: TScrollBar;
+    sbHorz: TScrollBar;
     procedure FormCreate(Sender: TObject);
     procedure bbInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -118,17 +122,26 @@ type
     procedure bbLangClick(Sender: TObject);
     procedure bbScriptClick(Sender: TObject);
     procedure bbSetupInfoClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure pbShowTextPaint(Sender: TObject);
+    procedure sbVertScroll(Sender: TObject; ScrollCode: TScrollCode;
+      var ScrollPos: Integer);
+    procedure FormMouseWheel(Sender: TObject; Shift: TShiftState;
+      WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
     IniName,ProgPath,
     ProgVersName,ProgVersDate,
     UnpProg               : string;
+    ConsoleText           : TStringList;
     NewUnp                : boolean;
+    LineHeight,VisibleLines,
+    TextWdt               : integer;
+    function StripColCtrls (const AText : string) : string;
     function LoadUnpacker : boolean;
     function CheckUnpackVersion : boolean;
 //    procedure AddText(const AText : string);
-    procedure SetScrollbars;
     procedure Execute (const Command,FileName,Filter,Comment : string; GoBottom : boolean = false);
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
   public
@@ -142,9 +155,9 @@ implementation
 
 {$R *.dfm}
 
-uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes,
-  GnuGetText, WinUtils, MsgDialogs,IniFileUtils, PathUtils, ListUtils, InitProg,
-  WinDevUtils, StringUtils, ShellDirDlg, SelectFromListDlg;
+uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes, Vcl.ClipBrd,
+  System.Math, GnuGetText, InitProg,WinUtils, MsgDialogs,IniFileUtils, PathUtils,
+  ListUtils, WinDevUtils, StringUtils, ShellDirDlg, SelectFromListDlg;
 
 { ------------------------------------------------------------------- }
 resourcestring
@@ -176,7 +189,6 @@ const
   iniHgt  = 'Height';
   iniUnp = 'Unpacker';
   iniFName = 'Name';
-//  iniPpSz = 'BufferSize';
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var
@@ -233,7 +245,6 @@ begin
   AddToHistory(cbDir,sd);
   pnExtract.Visible:=false; NewUnp:=true;
   Caption:=ProgVersName+' - '+_('Inspect and unpack InnoSetup files');
-
   if ParamCount>0 then for i:=1 to ParamCount do begin
     s:=ParamStr(i);
     if (s[1]='/') or (s[1]='-') then begin
@@ -248,12 +259,51 @@ begin
       cxEncrypted.Checked:=length(edPassword.Text)>0;
       end
     else cbFile.Text:=s;
-    end
+    end;
+  ConsoleText:=TStringList.Create;
+  with pbShowText do Canvas.Font:=Font;
+  LineHeight:=MulDiv(abs(pbShowText.Font.Height),12,10);
+  end;
+
+procedure TMainForm.FormDestroy(Sender: TObject);
+begin
+  ConsoleText.Free;
+  end;
+
+procedure TMainForm.FormMouseWheel(Sender: TObject; Shift: TShiftState;
+  WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+begin
+with pbShowText do if sbVert.Visible and ClientRect.Contains(ScreenToClient(MousePos)) then begin
+    if WheelDelta<>0 then with sbVert do begin
+      if WheelDelta<0 then begin
+        if Position<Max then Position:=Position+1
+        end
+      else begin
+        if Position>Min then Position:=Position-1;
+        end;
+      end;
+    pbShowText.Invalidate;
+    Handled:=true;
+    end;
   end;
 
 procedure TMainForm.FormResize(Sender: TObject);
 begin
-  SetScrollbars;
+  if Visible then begin
+    if TextWdt>0 then begin
+      sbHorz.Visible:=TextWdt>pbShowText.Width;
+      with sbHorz do if Visible then Max:=TextWdt-pbShowText.Width;
+      end;
+    if ConsoleText.Count>0 then begin
+      VisibleLines:=pbShowText.Height div LineHeight;
+      sbVert.Visible:=ConsoleText.Count>VisibleLines;
+      with sbVert do if Visible then begin
+        Max:=ConsoleText.Count-VisibleLines;
+        if Position>Max then Position:=Max;
+        end;
+      pbShowText.Invalidate;
+      end;
+    end;
   end;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -323,54 +373,30 @@ begin
   DragFinish(Msg.WParam);
 end;
 
-{ ------------------------------------------------------------------- }
-// TRichEdit does not support alle Unicode characters, e.g. nepali and some chinese
-//procedure TMainForm.AddText (const AText : string);
-//var
-//  sl : TStringList;
-//  i,n0,n1,n2,k : integer;
-//  s,t : string;
-//const
-//  ColArray : array[0..5] of TColor = (clBlack,clRed,TColors.DarkGreen,clBlue,clMaroon,clPurple);
-//begin
-//  sl:=TStringList.Create;
-//  with sl do begin
-//    Text:=AText;
-//    for i:=0 to Count-1 do begin
-//      s:=sl[i];
-//      n0:=1;
-//      repeat
-//        n1:=PosEx('/',s,n0);
-//        if n1>0 then begin
-//          mmDos.SetSelText(copy(s,n0,n1-n0));
-//          n2:=PosEx('/',s,n1+1);
-//          if (n2=n1+2) and TryStrToInt(copy(s,n1+1,1),k) and (k<=5) then begin
-//            mmDos.SelAttributes.Color:=ColArray[k];
-//            n0:=n2+1;
-//            end
-//          else begin
-//            if n2=0 then n2:=n1;
-//            mmDos.SetSelText(copy(s,n0,n2-n1+1));
-//            n0:=n2
-//            end;
-//          end;
-//        until n1=0;
-//      mmDos.SetSelText(copy(s,n0,length(s)-n0+1)+sLineBreak);
-//      end;
-//    Free;
-//    end;
-//  end;
-
-procedure TMainForm.SetScrollbars;
-var
-  w : integer;
+procedure TMainForm.sbVertScroll(Sender: TObject; ScrollCode: TScrollCode;
+  var ScrollPos: Integer);
 begin
-  with mmDos do begin
-    w:=GetMaxTextWidth(Lines,Font);
-    if w>ClientWidth then Scrollbars:=ssBoth else Scrollbars:=ssVertical;
+  pbShowText.Invalidate;
+  end;
+
+{ ------------------------------------------------------------------- }
+function TMainForm.LoadUnpacker : boolean;
+begin
+  with OpenDialog do begin
+    if length(UnpProg)>0 then InitialDir:=ExtractFilePath(UnpProg)
+    else InitialDir:=ProgPath;
+    Filename:=ExtractFilename(UnpProg);
+    Filter:=_('Programs|*.exe|All files|*.*');
+    Title:=_('Search for "innounp.exe"');
+    Result:=Execute;
+    if Result then begin
+      UnpProg:=Filename;
+      NewUnp:=CheckUnpackVersion;
+      end;
     end;
   end;
 
+{ ------------------------------------------------------------------- }
 procedure TMainForm.cbFileCloseUp(Sender: TObject);
 begin
   with cbFile do begin
@@ -425,34 +451,30 @@ begin
   edPassword.Visible:=cxEncrypted.Checked;
   end;
 
-function TMainForm.LoadUnpacker : boolean;
-begin
-  with OpenDialog do begin
-    if length(UnpProg)>0 then InitialDir:=ExtractFilePath(UnpProg)
-    else InitialDir:=ProgPath;
-    Filename:=ExtractFilename(UnpProg);
-    Filter:=_('Programs|*.exe|All files|*.*');
-    Title:=_('Search for "innounp.exe"');
-    Result:=Execute;
-    if Result then begin
-      UnpProg:=Filename;
-      NewUnp:=CheckUnpackVersion;
-      end;
-    end;
-  end;
-
 procedure TMainForm.bbCopyPathClick(Sender: TObject);
 begin
   AddToHistory(cbDir,DelExt(cbFile.Text));
   end;
 
+function TMainForm.StripColCtrls (const AText : string) : string;
+var
+  n0,n1,n2 : integer;
+begin
+  Result:=''; n0:=1;
+  repeat
+    n1:=PosEx('<',AText,n0);
+    if n1>0 then begin
+      Result:=Result+copy(AText,n0,n1-n0);
+      n2:=PosEx('>',AText,n1+1);
+      if (n2=n1+2) then n0:=n2+1;
+      end;
+    until n1=0;
+  Result:=Result+copy(AText,n0,length(AText)-n0+1);
+  end;
+
 procedure TMainForm.bbCopyResultClick(Sender: TObject);
 begin
-  with mmDos do begin
-    SelectAll;
-    CopyToClipBoard;
-    SelLength:=0;
-    end;
+  ClipBoard.AsText:=_('Filename: ')+cbFile.Text+sLineBreak+sLineBreak+StripColCtrls(ConsoleText.Text);
   end;
 
 procedure TMainForm.bbDirClick(Sender: TObject);
@@ -567,18 +589,20 @@ begin
   if cxEncrypted.Checked then cmd:=cmd+' -p'+edPassword.Text;
   if cxOverwrite.Checked then cmd:=cmd+' -y';
   if cxDupl.Checked then cmd:=cmd+' -a';
-  Execute(cmd+' -d'+sd,cbFile.Text,sf,'*** '
-    +Format(_('Extracting setup file ...'+sLineBreak+'Destination directory: %s'),[sd]),true);
+  Execute(cmd+' -d'+sd,cbFile.Text,sf,'<0>*** '+_('Extract files from setup ...')+sLineBreak
+    +_('Destination directory: ')+'<2>'+sd,true);
   end;
 
 procedure TMainForm.bbUpClick(Sender: TObject);
 begin
-  mmDos.Perform(WM_VSCROLL,SB_TOP,0);
+  with sbVert do Position:=Min;
+  pbShowText.Invalidate;
   end;
 
 procedure TMainForm.bbDownClick(Sender: TObject);
 begin
-  mmDos.Perform(WM_VSCROLL,SB_BOTTOM,0);
+  with sbVert do Position:=Max;
+  pbShowText.Invalidate;
   end;
 
 procedure TMainForm.bbInfoClick(Sender: TObject);
@@ -590,9 +614,52 @@ begin
   end;
 
 { ------------------------------------------------------------------- }
+// To display colors and all unicode characters, TPaintBox is used.
+// It replaces a TRichEdit component because this does not support
+// all Unicode characters, e.g. nepali and some chinese
+procedure TMainForm.pbShowTextPaint(Sender: TObject);
+var
+  i,n,n0,n1,n2,w,k : integer;
+  s,sw : string;
+const
+  MaxCol = 5;
+  ColArray : array[0..5] of TColor = (clBlack,clred,clGreen,clBlue,clMaroon,clPurple);
+begin
+  with pbShowText do begin
+    Canvas.Brush.Color:=clWhite;
+    Canvas.FillRect(Rect(0,0,Width-1,Height-1));
+    with ConsoleText do if Count<VisibleLines then n:=Count else n:=VisibleLines;
+    for i:=0 to n-1 do begin
+      k:=sbVert.Position+i;
+      if k<ConsoleText.Count then s:=ConsoleText[k] else s:='';
+      n0:=1; w:=5-sbHorz.Position;
+      repeat
+        n1:=PosEx('<',s,n0);
+        if n1>0 then begin
+          sw:=copy(s,n0,n1-n0);
+          Canvas.TextOut(w,5+LineHeight*i,sw);
+          w:=w+Canvas.TextWidth(sw);
+          n2:=PosEx('>',s,n1+1);
+          if (n2=n1+2) and TryStrToInt(copy(s,n1+1,1),k) and (k<>MaxCol) then begin
+            Canvas.Font.Color:=ColArray[k];
+            n0:=n2+1;
+            end
+          else begin
+            if n2=0 then n2:=n1;
+            n0:=n2+1;
+            end;
+          end;
+        until n1=0;
+      Canvas.TextOut(w,5+LineHeight*i,copy(s,n0,length(s)-n0+1));
+      end;
+    end;
+  end;
+
+{ ------------------------------------------------------------------- }
 procedure TMainForm.Execute (const Command,FileName,Filter,Comment : string; GoBottom : boolean);
 const
   BUFSIZE = 4096;
+  TextAlign = 30;
 var
   si        : TStartupInfo;
   pi        : TProcessInformation;
@@ -605,6 +672,32 @@ var
   sa          : RawByteString;
   vi          : TFileVersionInfo;
   cancel      : boolean;
+
+  function GetMaxTextWidth (AList : TStrings) : integer;
+  var
+    i : integer;
+  begin
+    Result:=0;
+    with AList do for i:=0 to Count-1 do begin
+      Result:=Max(Result,pbShowText.Canvas.TextWidth(StripColCtrls(Strings[i])));
+      end;
+    end;
+
+  procedure InitShowText;
+  begin
+    // DOS-Ausgabe anzeigen
+    TextWdt:=GetMaxTextWidth(ConsoleText);
+    sbHorz.Visible:=TextWdt>pbShowText.Width;
+    with sbHorz do if Visible then Max:=TextWdt-pbShowText.Width;
+    VisibleLines:=pbShowText.Height div LineHeight;
+    sbVert.Visible:=ConsoleText.Count>VisibleLines;
+    with sbVert do begin
+      if Visible then Max:=ConsoleText.Count-VisibleLines else Max:=0;
+      if GoBottom then Position:=Max else Position:=Min;
+      end;
+    sbHorz.Position:=0;
+    pbShowText.Invalidate;
+    end;
 
   function RawByteToUnicode(sa : RawByteString; CodePage : integer = 1252) : string;
   var
@@ -622,36 +715,44 @@ var
       end;
     end;
 
-begin
-  with mmDos,Lines do begin
-    Clear;
-    if length(Filename)>0 then begin
-      Add(_('Filename: ')+FileName);
-      Add('');
-      end;
+  function AddColString (const Text1,Text2 : string) : string;
+  begin
+    Result:='<0>'+ExtSp(Text1,TextAlign)+'<2>'+Text2;
     end;
+
+begin
+  ConsoleText.Clear;
+  InitShowText;
   if (length(Filename)>0) and not FileExists(FileName) then begin
     s:=SysErrorMessage(ERROR_FILE_NOT_FOUND);
-    mmDos.Lines.Add(_('Error: ')+s);
-    ErrorDialog(s);
+    ErrorDialog(Filename+': '+s);
     Exit;
     end;
-  if NewUnp then s:=Command+' -u'
+//  with ConsoleText do begin
+//    if length(Filename)>0 then begin
+//      Add(_('Filename: ')+FileName);
+//      Add('');
+//      end;
+//    end;
+  if NewUnp then s:=Command+' -u -z'
   else s:=Command;
   if length(Filename)>0 then begin
     s:=s+Space+MakeQuotedStr(Erweiter(PrgPath,Filename,''));
-    with mmDos,Lines do begin
+    with ConsoleText do begin
       if GetFileVersion (Filename,vi) then begin
-        Add(_('Name: ')+vi.Description);
-        Add(_('Version: ')+vi.Version);
-        Add(_('Copyright: ')+Trim(vi.Copyright));
-        Add(_('Company: ')+vi.Company);
-        Add(_('Comment: ')+vi.Comments);
+        Add(AddColString(_('Name: '),vi.Description));
+        Add(AddColString(_('Version: '),vi.Version));
+        Add(AddColString(_('Copyright: '),Trim(vi.Copyright)));
+        Add(AddColString(_('Company: '),vi.Company));
+        Add(AddColString(_('Comment: '),vi.Comments));
         end;
-      Add('');
-      if length(Comment)>0 then Add(Comment);
+      if length(Comment)>0 then begin
+        Add('');
+        Add(Comment);
+        end;
       end;
     end;
+  InitShowText;
   if length(Filter)>0 then s:=s+Space+Filter;
   Application.ProcessMessages;
   Screen.Cursor:=crHourglass;
@@ -705,20 +806,12 @@ begin
         s:=UTF8ToString(sa);
         s:=ReplaceStr(s,CrLf,Lf); // Convert Unix style output
         s:=ReplaceStr(s,Lf,CrLf);
-        with mmDos do begin
-          SetSelTextBuf(PChar(s));
-//          AddText(s);
-          SetScrollbars;
-          end;
+        with ConsoleText do Text:=Text+s;
         end;
       CloseHandle(hChildStdoutRd);
-      // DOS-Ausgabe anzeigen
-      with mmDos do begin
-        SelLength:=0;
-        if GoBottom then Perform(WM_VSCROLL,SB_BOTTOM,0)
-        else Perform(WM_VSCROLL,SB_TOP,0);
-        end;
-      if wc<>WAIT_OBJECT_0 then mmDos.Lines.Add('*** '+_('Error: ')+SysErrorMessage(wc));
+      if wc<>WAIT_OBJECT_0 then ConsoleText.Add('*** '+_('Error: ')+SysErrorMessage(wc));
+      ConsoleText.Add('');
+      InitShowText;
       end
     else ErrorDialog(_('Error: ')+SysErrorMessage(GetLastError));
   finally
