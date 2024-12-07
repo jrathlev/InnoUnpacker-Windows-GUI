@@ -247,12 +247,13 @@ begin
 
       IsCompatible:=IsCompatibleVersion(TestID, VerObject);
       if AttemptUnpackUnknown and IsUnknownVersion and IsCompatible then begin
-        writeln('=> Signature detected: '+TestID);
-        writeln('This is not directly supported, but i''ll try to unpack it as version '+IntToStr(VerObject.VerSupported));
+        WriteNormalLine('=> Signature detected: ',TestID);
+        WriteNormalLine('This is not directly supported, but i''ll try to unpack it as version ',IntToStr(VerObject.VerSupported));
       end;
       if not IsCompatible then begin
         if not SetupLdrMode then SetupCorruptError;
-        writeln('=> Signature detected: '+TestID+'. This is not a supported version.');
+        WriteNormalText('=> Signature detected: ',TestID);
+        WriteErrorLine(' - This is not a supported version');
         raise EFatalError.Create('1');
       end else if IsVersionSuspicious(Ver) then
         WriteNormalLine(ExtSp('Inno Setup Version specified:',TextAlign),VersionToString(Ver))
@@ -262,7 +263,7 @@ begin
         if (VerIsRT) then s:=s+' (Custom)';
         WriteNormalLine(ExtSp('Inno Setup version detected: ',TextAlign),s);
       end;
-      if WarnOnMod then writeln('=> Signature: '+TestID);
+      if WarnOnMod then WriteNormalLine('=> Signature: '+TestID);
 
 // Extract the embedded setup exe      // causes problems. disabled for now.
       {if ExtractEmbedded then begin
@@ -303,14 +304,14 @@ begin
       if E is EMessage then raise;
       if E is EFatalError then raise;
 
-      write('Can not open or read the specified file: "'+SetupFileName+'"');
+      WriteFormatLine('Cannot open or read the specified file: ','"'+SetupFileName+'"',clRed,clBlue);
       if (E is EInOutError) then
-        writeln(' : '+SysErrorMessage(EInOutError(E).ErrorCode))
+        WriteErrorLine('  ==> '+SysErrorMessage(EInOutError(E).ErrorCode))
       else if (E is EFileError) then
-        writeln(' : '+SysErrorMessage(EFileError(E).ErrorCode))
+        WriteErrorLine('  ==> '+SysErrorMessage(EFileError(E).ErrorCode))
       else begin
-        writeln('');
-        writeln('Exception class '+E.ClassName+' with message: '+E.Message);
+        WriteNormalLine('');
+        WriteErrorLine('Exception class '+E.ClassName+' with message: ',E.Message);
       end;  
       raise EFatalError.Create('1');
     end;
@@ -319,7 +320,7 @@ end;
 
 procedure AbortInit(const Msg: TSetupMessageID);
 begin
-  writeln('Critical error: '+SetupMessages[Msg]);
+  WriteFormatLine('Critical error: ',SetupMessages[Msg],clRed,clBlue);
 //  MsgBox(SetupMessages[Msg], '', mbCriticalError, MB_OK);
   Abort;
 end;
@@ -431,8 +432,8 @@ begin
       
       if IsVersionSuspicious(Ver) then begin
         HeuristicVersionFinder(Reader, Ver);
-        write('; Version detected: '+IntToStr(Ver));
-        if (VerIsUnicode) then writeln(' (Unicode)') else writeln('');
+        WriteNormalText('; Version detected: ',IntToStr(Ver));
+        if (VerIsUnicode) then WriteNormalLine(' (Unicode)') else writeln('');
       end;
       VerObject := FindVerObject(IsUnknownVersion);
 //      if VerObject=nil then exit; // that should not happen
@@ -807,8 +808,7 @@ end;
 
 procedure ExtractorNotification(MessageText: String);
 begin
-  if (not QuietExtract) then
-    writeln(MessageText);
+  if (not QuietExtract) then WriteErrorLine(MessageText);
 end;
 
 function CreateFileExtractor : TFileExtractor;
@@ -942,12 +942,12 @@ begin
         'P': Password:=copy(ParamStr(i),3,length(ParamStr(i))-2);
         'O': ColorMode:=0;
         'Q': QuietExtract:=true;
-        'R': ColorMode:=2;    // used for InnoUnpacker GUI
         'T': begin CommandAction:=caExtractFiles; ExtractTestOnly:=true; AutoYes:=true; end;
         'U': UseUtf8:=true;   // console output
         'V': CommandAction:=caVerboseList;
         'X': CommandAction:=caExtractFiles;
         'Y': AutoYes:=true;
+        'Z': ColorMode:=2;    // used for InnoUnpacker GUI
         else Exit;
         end;
       end
@@ -967,7 +967,7 @@ begin
          end;
       except
         on E: Exception do begin
-          writeln('Reading the command line failed. Invalid filelist: "'+s+'"');
+          WriteErrorLine('Reading the command line failed. Invalid filelist: "'+s+'"');
           writeln;
           ExitCode:=3; Result:=1;
           end;
@@ -1002,7 +1002,7 @@ begin
     try
       Password:=FileContents(PasswordFileName);
     except
-      writeln('Failed to read "'+PasswordFileName+'". No password will be used');
+      WriteErrorLine('Failed to read "'+PasswordFileName+'". No password will be used');
       Password:='';
       end;
     end;
@@ -1109,8 +1109,8 @@ begin
               WriteNormalLine(ExtSp('Compiled Pascal script: ',TextAlign),IntToStr(length(SetupHeader.CompiledCodeText))+' byte(s)');
           end;
         caVerboseList: begin
-            WriteNormalLine('Size        Time              Filename');
-            WriteNormalLine('--------------------------------------');
+            WriteNormalLine('Size        Time              ','Filename');
+            WriteNormalLine('----------------------------------------------');
             for i:=0 to Entries[seFile].Count-1 do
               with PSetupFileEntry(Entries[seFile][i])^ do begin
     //            if not (FileType in [ftUserFile,ftFakeFile]) and not ExtractEmbedded then continue;
@@ -1123,10 +1123,10 @@ begin
                 else TimeStamp:=loc^.TimeStamp;
                 FileTimeToSystemTime(TimeStamp, systime);
                 str(loc^.OriginalSize:10,s);
-                writeln(s+'  '+FormatDateTime('yyyy.mm.dd hh:mm', SystemTimeToDateTime(systime))+
-                  '  '+SourceFileName);
+                WriteNormalLine(s+'  '+FormatDateTime('yyyy.mm.dd hh:mm', SystemTimeToDateTime(systime))+
+                  '  ',SourceFileName);
               end;
-            writeln('--------------------------------------');
+            WriteNormalLine('----------------------------------------------');
           end;
         caExtractFiles: begin
             QuietExtract:=false; CopyFiles;
@@ -1137,21 +1137,21 @@ begin
           ExitCode:=2; //This is a silent exception so just exit with error code
         on E: Exception do
           if IsUnknownVersion then begin
-            writeln('Unpacking failed. This version is not supported.'); ExitCode:=1;
+            WriteErrorLine('Unpacking failed. This version is not supported!'); ExitCode:=1;
             end
           else if E.Message=SSetupFileCorrupt then begin
-            writeln('The setup files are corrupted or made by incompatible version. Maybe it''s not an Inno Setup installation at all.');
-            writeln('('+inttohex(cardinal(ExceptAddr),8)+')');
+            WriteFormatLine('The setup files are corrupted or made by incompatible version ',
+              '(Address: '+inttohex(cardinal(ExceptAddr),8)+')',clRed,clBlue);
+            WriteErrorLine('Maybe it''s not an Inno Setup installation at all!');
     {$IFDEF EUREKALOG}raise;{$ELSE}        ExitCode:=2;{$ENDIF}
             end
           else if E.Message='' then begin //SetupMessages[msgSourceIsCorrupted] then
-            writeln('Setup files are corrupted.');
-            writeln('('+inttohex(cardinal(ExceptAddr),8)+')');
+            WriteFormatLine('Setup files are corrupted ','(Address: '+inttohex(cardinal(ExceptAddr),8)+')',clRed,clBlue);
     {$IFDEF EUREKALOG}raise;{$ELSE}        ExitCode:=2;{$ENDIF}
             end
           else begin
             if (E.Message <> '1') then // Hide service exceptions
-              writeln('Error ('+E.ClassName+') "'+E.Message+'" at address '+inttohex(cardinal(ExceptAddr),8));
+              WriteErrorLine('Error ('+E.ClassName+') "'+E.Message+'" at address '+inttohex(cardinal(ExceptAddr),8));
     {$IFDEF EUREKALOG}raise;{$ELSE}        ExitCode:=3;{$ENDIF}
             end;
           end;

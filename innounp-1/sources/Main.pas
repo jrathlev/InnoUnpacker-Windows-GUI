@@ -74,6 +74,7 @@ procedure WriteHighLightLine (const Text2 : string);
 procedure WriteBlueLine (const Text2 : string);
 procedure WriteErrorLine (const Text1 : string; const Text2 : string); overload;
 procedure WriteErrorLine (const Text2 : string); overload;
+procedure WriteFormatLine (const Text1,Text2 : string; Color1,Color2 : TColor);
 
 function ExtSp (const S : string; len : integer) : string;
 function VersionToString (ver : integer) : string;
@@ -195,7 +196,7 @@ begin
   write(s+sLineBreak);
 end;
 
-function SetConsoleColor(AColor:TColor) : string;
+function SetConsoleColor(AColor : TColor) : string;
 var
   attr : word;
 begin
@@ -226,7 +227,7 @@ begin
       clPurple: attr:=5;
       else attr:=0;
       end;
-    Result:='/'+IntToStr(attr)+'/';
+    Result:='<'+IntToStr(attr)+'>';
     end;
   end;
 
@@ -275,6 +276,18 @@ begin
 procedure WriteErrorLine (const Text2 : string);
 begin
   WriteErrorLine ('',Text2);
+  end;
+
+procedure WriteFormatLine (const Text1,Text2 : string; Color1,Color2 : TColor);
+var
+  n : integer;
+begin
+  n:=Pos('%',Text1);
+  if n>0 then begin
+    WriteColorText(copy(Text1,1,n-1),Text2,Color1,Color2,false);
+    WriteColorText(copy(Text1,n+1,length(Text1)),'',Color1,Color2);
+    end
+  else WriteColorText(Text1,Text2,Color1,Color2);
   end;
 
 function ExtSp (const S : string; len : integer) : string;
