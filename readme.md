@@ -1,4 +1,4 @@
-### Inno Setup Unpacker - Windows GUI
+### Inno Setup Unpacker - Windows GUI v 2.0
 
 #### Inspect and unpack InnoSetup archives
 
@@ -34,3 +34,4 @@ The same applies if the program is started with the command line option "/p".
 
 
 [Application download](https://www.rathlev-home.de/index-e.html?tools/prog-e.html#unpack)
+
