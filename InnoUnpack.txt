@@ -12,16 +12,17 @@ und die Auswahl des Zielverzeichnisses.
 Optional kann angegeben werden, ob nur das Installlations-Skript oder
 die zu einem Filter passenden Dateien extrahieren werden sollen.
 
-Befehlszeilenoptionen: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] [/a] [/o] [/l:xx]
-  <name>   : Name der zu entpackenden Setup-Datei
-  <ddir>   : Zielverzeichnis für entpackte Dateien
-  <filter> : Dateifilter
-  /p       : Als portables Programm starten
-  /m       : Interne eingebettete Dateien verarbeiten
-  /s       : Dateien ohne Pfade entpacken
-  /a       : Alle Kopien von doppelten Dateien verarbeiten
-  /o       : Dateien überschreiben
-  /l:xx    : Sprache auswählen (xx = en, de, fr, it oder hu)
+Befehlszeilenoptionen: [<name>] [/d:..] [/f:..] [/w:..] [/l:xx] [/m] [/s] [/a] [/o] [/p] 
+  <name>      : Name der zu entpackenden Setup-Datei
+  /d:<ddir>   : Zielverzeichnis für entpackte Dateien
+  /f:<filter> : Dateifilter
+  /w:<pwd>    : Kennwort für die Verschlüsselung
+  /l:<lg>     : Sprache auswählen (<lg> = en, de, fr, it oder hu)
+  /m          : Interne eingebettete Dateien verarbeiten
+  /s          : Dateien ohne Pfade entpacken
+  /a          : Alle Kopien von doppelten Dateien verarbeiten
+  /o          : Dateien überschreiben
+  /p          : Als portables Programm starten
   
 Hinweis zur Ausführung als portables Programm:
 ----------------------------------------------
@@ -34,7 +35,7 @@ der Befehlszeilen-Option "/P" aufgerufen wird.
 https://www.rathlev-home.de/tools/progtools.html#unpack
 https://github.com/jrathlev/InnoUnpacker-Windows-GUI
 
-J. Rathlev, November 2024
+J. Rathlev, Januar 2025
 
   
 Inspect and unpack InnoSetup archives
@@ -49,16 +50,17 @@ button and select the destination directory.
 Optionally, you can specify whether only the installation script or the files
 matching a filter are to be extracted.
 
-Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] [/a] [/o] [/l:xx]
-  <name>   : name of setup file to be unpacked
-  <ddir>   : destination directory for unpacked files
-  <filter> : file filter
-  /p       : run as portable program  
-  /m       : process internal embedded files
-  /s       : extract files without paths
-  /a       : process all copies of duplicate files
-  /o       : overwrite files
-  /l:xx    : Language selection (xx = en, de, fr, it or hu)
+Command line options: [<name>] [/d:..] [/f:..] [/w:..] [/l:xx] [/m] [/s] [/a] [/o] [/p]
+  <name>      : name of setup file to be unpacked
+  /d:<ddir>   : destination directory for unpacked files
+  /f:<filter> : file filter
+  /w:<pwd>    : encryption password
+  /l:<lg>     : language selection (<lg> = en, de, fr, it or hu)
+  /m          : process internal embedded files
+  /s          : extract files without paths
+  /a          : process all copies of duplicate files
+  /o          : overwrite files
+  /p          : run as portable program  
   
 Note on execution as portable program:
 --------------------------------------  
@@ -70,5 +72,5 @@ The same applies if the program is started with the command line option "/P".
 https://www.rathlev-home.de/home-e.html#unpack
 https://github.com/jrathlev/InnoUnpacker-Windows-GUI
   
-J. Rathlev, November 2024
+J. Rathlev, January 2025
 
