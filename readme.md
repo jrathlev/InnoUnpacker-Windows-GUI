@@ -7,7 +7,7 @@ for making software installations. To verify and get files out of the self-extra
 executable, these open source console applications are available:
 
 - Original version [Innounp](http://sourceforge.net/projects/innounp) (can be used up to InnoSetup 6.1)
-- Updated Unicode version [Innounp-1](innounp-1) (can be used up to InnoSetup 6.3)
+- Updated Unicode version [Innounp-2](innounp-2) (can be used up to InnoSetup 6.4)
 
 **InnoUnpacker** is a graphical user interface (GUI) for these console applications
 that makes the usage more comfortable.
@@ -24,7 +24,6 @@ Immediately after opening, the basic file info of the setup is displayed. All ot
 
 Optionally, you can specify whether only the installation script or the files
 matching a filter are to be extracted.
-button is provided to only select the install script. 
 
 **Note on execution as portable program:** 
 The program settings are normally stored in the InnoUnpack.ini file in the 

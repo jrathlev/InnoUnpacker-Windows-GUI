@@ -1,4 +1,4 @@
-(* Unpack Inoo setup files
+(* Unpack Inno setup files
    =======================
    GUI for "innounp.exe"
    see: https://sourceforge.net/projects/innounp/files/
@@ -14,26 +14,28 @@
    the specific language governing rights and limitations under the License.
 
    J. Rathlev, Jan. 2008
-   Vers. 1.6 (August 2020):    added filter to extract single files
-   Vers. 1.7 (October 2021):   console output uses UTF8
-   Vers. 1.8 (June 2022):      "embedded option" added
-   Vers. 1.9.1 (August 2022):  command line options added
-   Vers. 1.9.4 (August 2024):  innounp updated to version 1.72
-                               timeout on calling innounp.exe with confirmation
-   Vers. 1.9.6 (October 2024): using innounp up to version 0.50 and 1.75
-   Vers. 1.10 (November 2024): new layout
-   Vers. 1.11 (December 2024): colored display of innounp (v1.77) output
+   Vers. 1.6 (August 2020):     added filter to extract single files
+   Vers. 1.7 (October 2021):    console output uses UTF8
+   Vers. 1.8 (June 2022):       "embedded option" added
+   Vers. 1.9.1 (August 2022):   command line options added
+   Vers. 1.9.4 (August 2024):   innounp updated to version 1.72
+                                timeout on calling innounp.exe with confirmation
+   Vers. 1.9.6 (October 2024):  using innounp up to version 0.50 and 1.75
+   Vers. 2.0   (December 2024): new layout,
+                                colored display of innounp (v1.77 and up) output
 
-   last modified: August 2024
+   last modified: January 2025
 
-   Command line options: [<setupname>] [/d:<destdir>] [/f:<filter>] [/m] [/s] [/a] [/o]
+   Command line options: [<setupname>] [options]
      <setupname>  : name of setup file to be unpacked
      /d:<destdir> : destination directory for unpacked files
      /f:<filter>  : file filter
+     /e:<pwd>     : encryption password
      /m           : process internal embedded files
      /s           : extract files without paths
      /a           : process all copies of duplicate files
      /o           : overwrite files
+     /p           : run as portable program
    *)
 
 unit UnpackMain;
@@ -47,8 +49,8 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 2.0.0';
-  CopRgt = '© 2014-2024 Dr. J. Rathlev, D-24222 Schwentinental';
+  ProgVers = ' 2.0.2';
+  CopRgt = '© 2014-2025 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
   defPipeSize = 1024*1024;
@@ -128,6 +130,8 @@ type
       var ScrollPos: Integer);
     procedure FormMouseWheel(Sender: TObject; Shift: TShiftState;
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+    procedure edPasswordKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -161,15 +165,17 @@ uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes, Vcl.Clip
 
 { ------------------------------------------------------------------- }
 resourcestring
-  rsInfo = 'Command line options: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] [/a] [/o]'+sLineBreak+
-     #9'<name>'#9': name of setup file to be unpacked'+sLineBreak+
-     #9'<ddir>'#9': destination directory for unpacked files'+sLineBreak+
-     #9'<filter>'#9': file filter'+sLineBreak+
-     #9'/p'#9': run as portable program'+sLineBreak+
-     #9'/m'#9': process internal embedded files'+sLineBreak+
-     #9'/s'#9': extract files without paths'+sLineBreak+
-     #9'/a'#9': process all copies of duplicate files'+sLineBreak+
-     #9'/o'#9': overwrite files';
+  rsInfo = 'Command line options: [<name>] [options]'+sLineBreak+
+     #9'<name>'#9#9': name of setup file to be unpacked'+sLineBreak+
+     #9'/d:<ddir>'#9': destination directory for unpacked files'+sLineBreak+
+     #9'/f:<filter>'#9': file filter'+sLineBreak+
+     #9'/e:<pwd>'#9': encryption password'+sLineBreak+
+     #9'/l:<lg>'#9#9': language selection (en, de, fr, it or hu)'+sLineBreak+
+     #9'/m'#9#9': process internal embedded files'+sLineBreak+
+     #9'/s'#9#9': extract files without paths'+sLineBreak+
+     #9'/a'#9#9': process all copies of duplicate files'+sLineBreak+
+     #9'/o'#9#9': overwrite files'+sLineBreak+
+     #9'/p'#9#9': run as portable program';
 
 const
   mList = 20;
@@ -245,21 +251,6 @@ begin
   AddToHistory(cbDir,sd);
   pnExtract.Visible:=false; NewUnp:=true;
   Caption:=ProgVersName+' - '+_('Inspect and unpack InnoSetup files');
-  if ParamCount>0 then for i:=1 to ParamCount do begin
-    s:=ParamStr(i);
-    if (s[1]='/') or (s[1]='-') then begin
-      Delete(s,1,1);
-      if CompareOption(s,'m') then cxEmbedded.Checked:=true
-      else if CompareOption(s,'s') then cxStrip.Checked:=true
-      else if CompareOption(s,'a') then cxDupl.Checked:=true
-      else if CompareOption(s,'o') then cxOverwrite.Checked:=true
-      else if ReadOptionValue(s,'p') then edPassword.Text:=s
-      else if ReadOptionValue(s,'d') then cbDir.Text:=s
-      else if ReadOptionValue(s,'f') then cbFilter.Text:=s;
-      cxEncrypted.Checked:=length(edPassword.Text)>0;
-      end
-    else cbFile.Text:=s;
-    end;
   ConsoleText:=TStringList.Create;
   with pbShowText do Canvas.Font:=Font;
   LineHeight:=MulDiv(abs(pbShowText.Font.Height),12,10);
@@ -327,7 +318,7 @@ var
 begin
   Result:=GetFileVersionAsNumber(UnpProg,UnpVers);
   if Result then with UnpVers do begin
-    Result:=(Major>=1) and (Minor>=70);
+    Result:=(Major>1) or ((Major>=1) and (Minor>=70));
     end;
   end;
 
@@ -451,6 +442,12 @@ begin
   edPassword.Visible:=cxEncrypted.Checked;
   end;
 
+procedure TMainForm.edPasswordKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key=VK_RETURN then bbVerifyClick(Sender);
+  end;
+
 procedure TMainForm.bbCopyPathClick(Sender: TObject);
 begin
   AddToHistory(cbDir,DelExt(cbFile.Text));
@@ -558,7 +555,7 @@ begin
 
 procedure TMainForm.bbOptionsClick(Sender: TObject);
 begin
-  LoadUnpacker;
+  if LoadUnpacker then bbSetupInfoClick(Sender);
   end;
 
 procedure TMainForm.bbScriptClick(Sender: TObject);

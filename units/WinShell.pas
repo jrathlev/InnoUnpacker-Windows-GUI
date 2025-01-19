@@ -158,6 +158,7 @@ function GetLocalAppDataFolder : string;
 function GetPicturesFolder : string;
 function GetVideoFolder : string;
 function GetMusicFolder : string;
+function GetPublicFolder : string;
 
 procedure RefreshDesktop;
 
@@ -393,6 +394,11 @@ begin
 function GetMusicFolder : string;
 begin
   Result:=GetDesktopFolder(CSIDL_MYMUSIC);
+  end;
+
+function GetPublicFolder : string;
+begin
+  Result:=GetKnownFolder(FOLDERID_Public);
   end;
 
 { ---------------------------------------------------------------- }

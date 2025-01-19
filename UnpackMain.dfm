@@ -849,6 +849,7 @@ object MainForm: TMainForm
       EditLabel.Caption = 'Password:'
       TabOrder = 12
       Visible = False
+      OnKeyDown = edPasswordKeyDown
     end
     object bbVersion: TBitBtn
       Left = 590
@@ -1708,8 +1709,6 @@ object MainForm: TMainForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 251
-    ExplicitHeight = 210
     object pnTools: TPanel
       Left = 635
       Top = 0
@@ -1718,7 +1717,6 @@ object MainForm: TMainForm
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitHeight = 210
       DesignSize = (
         36
         200)
@@ -2005,7 +2003,6 @@ object MainForm: TMainForm
       BevelKind = bkTile
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitHeight = 210
       object pbShowText: TPaintBox
         Left = 0
         Top = 0
@@ -2037,7 +2034,6 @@ object MainForm: TMainForm
         PageSize = 0
         TabOrder = 0
         OnScroll = sbVertScroll
-        ExplicitHeight = 190
       end
       object sbHorz: TScrollBar
         Left = 0
@@ -2048,7 +2044,6 @@ object MainForm: TMainForm
         PageSize = 0
         TabOrder = 1
         OnChange = FormResize
-        ExplicitTop = 190
       end
     end
   end
