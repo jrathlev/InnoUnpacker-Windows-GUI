@@ -1,3 +1,42 @@
+Inspect and unpack InnoSetup archives
+=====================================
+(find the German description below)
+  
+The "InnoUnpack.exe" is a Windows-GUI for the console program "innounp.exe".
+
+The executable setup to be processed can be loaded via a file selection dialog, 
+just by drag & drop or using the command line. The basic file info is displayed 
+immediately. There are also buttons for displaying the list of all contained files 
+and the languages supported by the setup. To extract files, just click the appropriate 
+button and select the destination directory. 
+Optionally, you can specify whether only the installation script or the files
+matching a filter are to be extracted.
+
+Command line options: [<name>] [options]
+  <name>      : name of setup file to be unpacked
+  /d:<ddir>   : destination directory for unpacked files
+  /f:<filter> : file filter
+  /w:<pwd>    : encryption password
+  /l:<lg>     : language selection (<lg> = en, de, fr, it or hu)
+  /m          : process internal embedded files
+  /s          : extract files without paths
+  /a          : process all copies of duplicate files
+  /o          : overwrite files
+  /p          : run as portable program  
+  
+Note on execution as portable program:
+--------------------------------------  
+The program settings are normally stored in the "InnoUnpack.ini" file in the 
+user's "Application data" folder. If the program is started from a device connected 
+via USB, the folder of the executable file of the program is used instead. 
+The same applies if the program is started with the command line option "/P".
+
+https://www.rathlev-home.de/index-e.html?tools/prog-e.html#unpack
+https://github.com/jrathlev/InnoUnpacker-Windows-GUI
+  
+J. Rathlev, January 2025
+
+
 Überprüfen und Entpacken von InnoSetup-Archiven
 ===============================================
 Das Programm "InnoUnpack.exe" stellt eine Windows-Benutzeroberfläche für das
@@ -12,7 +51,7 @@ und die Auswahl des Zielverzeichnisses.
 Optional kann angegeben werden, ob nur das Installlations-Skript oder
 die zu einem Filter passenden Dateien extrahieren werden sollen.
 
-Befehlszeilenoptionen: [<name>] [/d:..] [/f:..] [/w:..] [/l:xx] [/m] [/s] [/a] [/o] [/p] 
+Befehlszeilenoptionen: [<name>] [Optionen] 
   <name>      : Name der zu entpackenden Setup-Datei
   /d:<ddir>   : Zielverzeichnis für entpackte Dateien
   /f:<filter> : Dateifilter
@@ -32,45 +71,10 @@ per USB angeschlossenen Gerät gestartet wird, wird stattdessen der Ordner der
 ausführbaren Datei des Programms verwendet. Dasselbe gilt, wenn das Programm mit 
 der Befehlszeilen-Option "/P" aufgerufen wird.
   
-https://www.rathlev-home.de/tools/progtools.html#unpack
+https://www.rathlev-home.de?tools/progtools.html#unpack
 https://github.com/jrathlev/InnoUnpacker-Windows-GUI
 
 J. Rathlev, Januar 2025
 
   
-Inspect and unpack InnoSetup archives
-=====================================  
-The "InnoUnpack.exe" is a Windows-GUI for the console program "innounp.exe".
-
-The executable setup to be processed can be loaded via a file selection dialog, 
-just by drag & drop or using the command line. The basic file info are displayed 
-immediately. There are also buttons for displaying the list of all contained files 
-and the languages supported by the setup. To extract files, just click the appropriate 
-button and select the destination directory. 
-Optionally, you can specify whether only the installation script or the files
-matching a filter are to be extracted.
-
-Command line options: [<name>] [/d:..] [/f:..] [/w:..] [/l:xx] [/m] [/s] [/a] [/o] [/p]
-  <name>      : name of setup file to be unpacked
-  /d:<ddir>   : destination directory for unpacked files
-  /f:<filter> : file filter
-  /w:<pwd>    : encryption password
-  /l:<lg>     : language selection (<lg> = en, de, fr, it or hu)
-  /m          : process internal embedded files
-  /s          : extract files without paths
-  /a          : process all copies of duplicate files
-  /o          : overwrite files
-  /p          : run as portable program  
-  
-Note on execution as portable program:
---------------------------------------  
-The program settings are normally stored in the "InnoUnpack.ini" file in the 
-user's "Application data" folder. If the program is started from a device connected 
-via USB, the folder of the executable file of the program is used instead. 
-The same applies if the program is started with the command line option "/P".
-
-https://www.rathlev-home.de/home-e.html#unpack
-https://github.com/jrathlev/InnoUnpacker-Windows-GUI
-  
-J. Rathlev, January 2025
 
