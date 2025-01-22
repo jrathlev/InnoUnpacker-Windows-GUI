@@ -357,19 +357,6 @@ var
 
 procedure TranslateSet(const SourceSet; var DestSet; const XlatTab: TByteArray; MaxElement: integer);
 
-// Delphi's dynamic strings get reallocated on every change (in this case, on every append).
-// If a string is at least 100K, operations on it slow down significantly.
-type
-  TBigString=object // old-style object: no VMT and other stuff unless really necessary
-    Capacity, Count, IncrementSize:integer;
-    Data: PChar;
-    constructor Init(IncrementBy:integer=10000);
-    destructor Destroy;
-    procedure SetCapacity(NewCapacity:integer); // new capacity can be greater than requested
-    procedure AppendString(const s: String);
-    function CopyAsString: String;
-  end;
-
 function NormalizeStringVal(const Input: String) : String; overload;
 function NormalizeStringVal(const Input: AnsiString) : String; overload;
 function CopyStringVal(const Input: String) : String; overload;
@@ -378,42 +365,6 @@ function CopyStringVal(const Input: AnsiString) : String; overload;
 function GetVersionBySetupId(const pSetupId; var VerObject: TInnoVer):boolean;
 
 implementation
-
-constructor TBigString.Init(IncrementBy: integer = 10000);
-begin
-  Capacity := 0;
-  Count := 0;
-  IncrementSize := IncrementBy;
-  Data := nil;
-end;
-
-destructor TBigString.Destroy;
-begin
-  if Data<>nil then FreeMem(Data);
-end;
-
-procedure TBigString.SetCapacity(NewCapacity:integer);
-var t:integer;
-begin
-  t:=NewCapacity mod IncrementSize;
-  if t>0 then Inc(NewCapacity,IncrementSize-t);
-  ReallocMem(Data,NewCapacity);
-  Capacity:=NewCapacity;
-end;
-
-procedure TBigString.AppendString(const s: String);
-begin
-  if Count+length(s) > Capacity then SetCapacity(Count+length(s));
-  Move(s[1],Data[Count],length(s));
-  Inc(Count,length(s));
-end;
-
-function TBigString.CopyAsString: String;
-begin
-  SetLength(Result,Count);
-  Move(Data^,Result[1],Count);
-end;
-
 
 procedure TranslateSet(const SourceSet; var DestSet; const XlatTab: TByteArray; MaxElement: integer);
 var
