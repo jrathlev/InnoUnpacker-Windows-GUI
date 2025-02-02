@@ -387,22 +387,12 @@ function NormalizeStringVal(const Input: AnsiString) : String;
 begin
   Result := Input;
 end;
-//var
-//  len: integer;
-//begin
-//  Result := '';
-//  len := WideCharToMultiByte(CP_UTF8, 0, PWideChar(Input), Length(Input), nil, 0, nil, nil);
-//  if (len > 0) then
-//  begin
-//    SetLength(Result, len);
-//    WideCharToMultiByte(CP_UTF8, 0, PWideChar(Input), Length(Input), PAnsiChar(Result), len, nil, nil);
-//  end;
-//end;
 
 function CopyStringVal(const Input: AnsiString) : String;
 var
   len: integer;
 begin
+// required because "LanguageName" string is Unicode
   len := Length(Input);
   SetLength(Result, len div sizeof(WideChar));
   CopyMemory(@Result[1], @Input[1], len);
@@ -410,7 +400,7 @@ end;
 
 function CopyStringVal(const Input: String) : String;
 begin
-  Result := Input;
+  Result := Input;    // dummy
 end;
 
 function GetVersionBySetupId(const pSetupId; var VerObject: TInnoVer):boolean;

@@ -678,8 +678,8 @@ procedure ExtractorProgressProc(Bytes: Cardinal);
 begin
 end;
 
-procedure ProcessFileEntry(const FileExtractor: TFileExtractor;
-  const CurFile: Struct.PSetupFileEntry);
+function ProcessFileEntry(const Caption : string; const FileExtractor: TFileExtractor;
+  const CurFile: Struct.PSetupFileEntry) : boolean;
 var
   CurFileLocation: PSetupFileLocationEntry;
   DestFile, TempFile: String;
@@ -688,7 +688,9 @@ var
   se,
   s,PasswdStr: String;
   sr : RawByteString;
+  ck : TSetupEncryptionKey;
 begin
+  Result:=true;
   if CurFile^.LocationEntry = -1 then Exit;
 
   CurFileLocation := PSetupFileLocationEntry(Entries[seFileLocation][CurFile^.LocationEntry]);
@@ -700,33 +702,52 @@ begin
     // Check if file already exists and ask if necessary
     if (InteractiveMode) then begin          // changes: JR - August 2020
       if (OverwriteAction = oaSkip) and FileExists(DestFile) then begin
-        WriteBlueLine(' - skipped'); Exit;
+        WriteBlueLine(Caption+' - skipped'); Exit;
         end;
       if (OverwriteAction = oaAsk) and FileExists(DestFile) then
         if not AskFileOverwrite(DestFile) then Exit;
       end
     else if (OverwriteAction <> oaOverwrite) and FileExists(DestFile) then begin
-      WriteBlueLine(' - skipped'); Exit;
+      WriteBlueLine(Caption+' - skipped'); Exit;
       end
     end;
   // Ask password if file is encrypted
-  if (InteractiveMode) and (foChunkEncrypted in CurFileLocation^.Flags) and (FileExtractor.CryptKey = '') then begin
-    Writeln('');
-    repeat
-      writeln('Type in a password (empty string to quit)');
-      readln(PasswdStr);
-      if (PasswdStr = '') then break;
-      PasswdStr := FixPasswordEncoding(PasswdStr); // For proper Unicode/Ansi support
-      if TestPassword(PasswdStr) then
-      begin
-        FileExtractor.CryptKey := PasswdStr;
-        break;
+  if (foChunkEncrypted in CurFileLocation^.Flags) and (FileExtractor.CryptKey = '') then begin
+    if InteractiveMode then begin
+      repeat
+        writeln('Type in a password (empty string to quit)');
+        readln(PasswdStr);
+        if (PasswdStr = '') then begin
+          Result:=false; break;
+          end;
+        if (Ver < 6400) then begin
+          PasswdStr := FixPasswordEncoding(PasswdStr); // For proper Unicode/Ansi support
+          if TestPassword(PasswdStr) then begin
+            FileExtractor.CryptKey := PasswdStr;
+            break;
+            end;
+          end
+        else begin    // new password handling in IS version 6.4
+          with SetupHeader.Is64Encryption do
+            GenerateEncryptionKey(PasswdStr, EncryptionKDFSalt, EncryptionKDFIterations, ck);
+          if TestPasswordIs64(ck) then begin
+            TFileExtractor6400(FileExtractor).Is64CryptKey:=ck;
+            FileExtractor.CryptKey := PasswdStr;
+            break;
+            end;
+          end;
+        WriteErrorLine('Wrong password');
+        until false;
+      Writeln('');
+      end
+    else begin
+      WriteErrorLine('Password required to read encrypted file');
+      Result:=false;
       end;
-      WriteErrorLine('Wrong password');
-      until false;
     end;
-  if (ExtractTestOnly) then
-    DestF := TNullFile.Create()
+  if not Result then Exit;
+  WriteNormalText(Caption);
+  if (ExtractTestOnly) then DestF := TNullFile.Create()
   else begin
     TempFile := GenerateUniqueName(ExtractFilePath(ExpandFilename(DestFile)), '.tmp');
     MakeDir(ExtractFilePath(TempFile));
@@ -840,14 +861,15 @@ begin
       end
     end
   else begin    // new password handling in IS version 6.4
-    if SetupHeader.EncryptionUsed then begin
+    if SetupHeader.EncryptionUsed and (Password <> '') then begin
       with SetupHeader.Is64Encryption do
         GenerateEncryptionKey(Password, EncryptionKDFSalt, EncryptionKDFIterations, ck);
-      if TestPasswordIs64(ck) then TFileExtractor6400(Result).Is64CryptKey:=ck
-      else if (InteractiveMode) then
-        WriteErrorLine('Warning: ',SetupMessages[msgIncorrectPassword])
-      else
-        AbortInit(msgIncorrectPassword);
+      if TestPasswordIs64(ck) then begin
+        TFileExtractor6400(Result).Is64CryptKey:=ck;
+        Result.CryptKey := Password;
+        end
+      else if (InteractiveMode) then WriteErrorLine('Warning: ',SetupMessages[msgIncorrectPassword])
+      else AbortInit(msgIncorrectPassword);
       end;
     end;
   end;
@@ -871,9 +893,8 @@ begin
       loc:=PSetupFileLocationEntry(Entries[seFileLocation][CurFile^.LocationEntry]);
       if not ExtractAllCopies and (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>CurFileNumber) then continue;
       with CurFile^ do begin
-        if not QuietExtract then
-          WriteNormalText('#'+IntToStr(CurFileNumber)+' '+SourceFilename);
-        if LocationEntry <> -1 then ProcessFileEntry(FileExtractor, CurFile);
+        if LocationEntry <> -1 then
+          if not ProcessFileEntry('#'+IntToStr(CurFileNumber)+' '+SourceFilename,FileExtractor,CurFile) then break;
         end;
 
       if (OverwriteAction = oaAbort) then break;
@@ -1054,8 +1075,8 @@ begin
   if not NoHeader or (n<0) then begin
     writeln;
     if ColorMode>0 then s:='innounp' else s:='*innounp*';
-    WriteColorText(s,Format(' - the Inno Setup Unpacker, Version %d.%d (%s)',
-      [IUV_MAJOR, IUV_MINOR,DateToStr(FileDateToDateTime(FileAge(ParamStr(0))))]),clRed,clWhite);
+    WriteColorText(s,Format(' - the Inno Setup Unpacker, Version %u.%u.%u (%s)',
+      [IUV_MAJOR, IUV_MINOR,IUV_RELEASE,DateToStr(FileDateToDateTime(FileAge(ParamStr(0))))]),clRed,clWhite);
     end;
   if UseUtf8 then SetConsoleOutputCP(65001) else SetConsoleOutputCP(850);
   writeln;
