@@ -4,15 +4,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dialogs\n"
-"POT-Creation-Date: 2024-10-20 13:41+0200\n"
-"PO-Revision-Date: 2024-10-20 13:41+0200\n"
+"POT-Creation-Date: 2024-10-25 12:38+0200\n"
+"PO-Revision-Date: 2025-02-10 17:54+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
-"Language-Team: MARBORO <mrbobrek@gmail.com>\n"
+"Language-Team: M.A.G. <xxxxx@gmail.com>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: GgtTranslate 3.3.1\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 
 msgid "Show password"
@@ -22,7 +22,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "OK"
-msgstr "OK"
+msgstr "Aceptar"
 
 msgid "Repeat password:"
 msgstr "Repetir contraseña:"
@@ -49,10 +49,10 @@ msgid "Application"
 msgstr "Aplicación"
 
 msgid "Add"
-msgstr "Agregar"
+msgstr "Añadir"
 
 msgid "Remove"
-msgstr "Remover"
+msgstr "Eliminar"
 
 msgid "Change"
 msgstr "Cambiar"
@@ -61,19 +61,19 @@ msgid "Rename"
 msgstr "Renombrar"
 
 msgid "Change order"
-msgstr "Cambiar Pedido"
+msgstr "Cambiar el orden"
 
 msgid "Move item up"
-msgstr "Mover elemento arriba"
+msgstr "Mover elemento hacia arriba"
 
 msgid "Move item down"
-msgstr "Mover elemento abajo"
+msgstr "Mover elemento hacia abajo"
 
 msgid "Path:"
 msgstr "Ruta:"
 
 msgid "Programs|*.exe|all|*.*"
-msgstr "Aplicaciones|*.exe|todo|*.*"
+msgstr "Programas|*.exe|todo(s)|*.*"
 
 msgid "Select application"
 msgstr "Seleccionar aplicación"
@@ -85,7 +85,7 @@ msgid "Select"
 msgstr "Seleccionar"
 
 msgid "Hex value:"
-msgstr "Valor hexadecimal:"
+msgstr "Valor HEX:"
 
 msgid "Edit columns"
 msgstr "Editar columnas"
@@ -94,16 +94,16 @@ msgid "Name"
 msgstr "Nombre"
 
 msgid "Width"
-msgstr "Ancho"
+msgstr "Largura"
 
 msgid "Sort"
 msgstr "Ordenar"
 
 msgid "Width:"
-msgstr "Ancho:"
+msgstr "Largura:"
 
 msgid "Sort as"
-msgstr "Ordenar como"
+msgstr "Ordenar por"
 
 msgid "Text"
 msgstr "Texto"
@@ -118,7 +118,7 @@ msgid "No"
 msgstr "No"
 
 msgid "Confirm replacement"
-msgstr "Confirmar reemplazo"
+msgstr "Confirmar la sustitución"
 
 msgid "&Yes"
 msgstr "&Si"
@@ -127,22 +127,22 @@ msgid "&No"
 msgstr "&No"
 
 msgid "&All"
-msgstr "&Todo"
+msgstr "&Todo(s)"
 
 msgid "Import CSV data"
 msgstr "Importar datos CSV"
 
 msgid "Import file:"
-msgstr "Importar archivo:"
+msgstr "Importar un fichero:"
 
 msgid "Column separator"
-msgstr "Separador de Columnas"
+msgstr "Separador de columnas"
 
 msgid "Space"
 msgstr "Espacio"
 
 msgid "Tab"
-msgstr "Tabulador"
+msgstr "Pestaña"
 
 msgid "Semicolon"
 msgstr "Punto y coma"
@@ -151,25 +151,25 @@ msgid "Comma"
 msgstr "Coma"
 
 msgid "Other"
-msgstr "Otro"
+msgstr "Otro(s)"
 
 msgid "Slash"
-msgstr "Barra inclinada"
+msgstr "Barra oblicua"
 
 msgid "Quote character"
-msgstr "Comilla"
+msgstr "Carácter entrecomillado"
 
 msgid "None"
-msgstr "Ninguno"
+msgstr "Ninguna"
 
 msgid "Double quote"
-msgstr "Comilla doble"
+msgstr "Doble comilla"
 
 msgid "Read data from"
-msgstr "Leer datos desde"
+msgstr "Leer datos de"
 
 msgid "Line:"
-msgstr "Línea:"
+msgstr "Línea :"
 
 msgid "Decimal separator"
 msgstr "Separador decimal"
@@ -178,7 +178,7 @@ msgid "Point"
 msgstr "Punto"
 
 msgid "Preview"
-msgstr "Previo"
+msgstr "Vista previa"
 
 msgid "Column 1"
 msgstr "Columna 1"
@@ -217,28 +217,28 @@ msgid "one line down"
 msgstr "una línea abajo"
 
 msgid "Delete word"
-msgstr "Borrar palabra"
+msgstr "Eliminar palabra"
 
 msgid "Insert word"
 msgstr "Insertar palabra"
 
 msgid "Replace word"
-msgstr "Reemplazar palabra"
+msgstr "Sustituir palabra"
 
 msgid "Download file"
-msgstr "Descargar archivo"
+msgstr "Descargar fichero"
 
 msgid "Download from URL:"
 msgstr "Descargar desde URL:"
 
 msgid "to file:"
-msgstr "a archivo:"
+msgstr "al fichero:"
 
 msgid "Edit double stringlists"
-msgstr "Editar doble lista de cadenas"
+msgstr "Editar listas de cadenas dobles"
 
 msgid "Load from file"
-msgstr "Cargar desde archivo"
+msgstr "Cargar desde el fichero"
 
 msgid "Edit"
 msgstr "Editar"
@@ -253,13 +253,13 @@ msgid "Parts:"
 msgstr "Partes:"
 
 msgid "Edit list entries"
-msgstr "Editar elementos de la lista"
+msgstr "Editar lista de entradas"
 
 msgid "Remove item"
-msgstr "Quitar elemento"
+msgstr "Eliminar el elemento"
 
 msgid "Move entry"
-msgstr "Mover entrada"
+msgstr "Mover la entrada"
 
 msgid "Edit item"
 msgstr "Editar elemento"
@@ -268,31 +268,31 @@ msgid "Edit items from list"
 msgstr "Editar elementos de la lista"
 
 msgid "Move item"
-msgstr "Mover elemento"
+msgstr "Mover el elemento"
 
 msgid "Label layout"
-msgstr "Diseño de etiqueta"
+msgstr "Diseño de la etiqueta"
 
 msgid "Horizontal:"
 msgstr "Horizontal:"
 
 msgid "Margin (a):"
-msgstr "Márgen (a):"
+msgstr "Margen (a):"
 
 msgid "Width (c):"
-msgstr "Ancho (c):"
+msgstr "Largura (c) :"
 
 msgid "Distance (e):"
 msgstr "Distancia (e):"
 
 msgid "Count:"
-msgstr "Incluido:"
+msgstr "Número:"
 
 msgid "Vertical:"
 msgstr "Vertical:"
 
 msgid "Margin (b):"
-msgstr "Márgen (b):"
+msgstr "Margen (b) :"
 
 msgid "Height (d):"
 msgstr "Altura (d):"
@@ -301,28 +301,28 @@ msgid "Distance (f):"
 msgstr "Distancia (f):"
 
 msgid "Frame around label"
-msgstr "Marco alrededor de la etiqueta"
+msgstr "Marco de la etiqueta"
 
 msgid "Import/export format"
-msgstr "Importar/exportar formato"
+msgstr "Formato de importación/exportación"
 
 msgid "Character between columns"
-msgstr "Caracteres entre columnas"
+msgstr "Caracter entre columnas"
 
 msgid "other"
-msgstr "otro"
+msgstr "otros(s)"
 
 msgid "Column width"
-msgstr "Ancho de columna"
+msgstr "Largura de columna"
 
 msgid "fixed"
-msgstr "fija"
+msgstr "corregido"
 
 msgid "variable"
 msgstr "variable"
 
 msgid "Use embrace characters  (\")"
-msgstr "Usar paréntesis (\")"
+msgstr "Usar caracteres de abrazo (\")"
 
 msgid "Description:"
 msgstr "Descripción:"
@@ -331,94 +331,94 @@ msgid "Filter:"
 msgstr "Filtro:"
 
 msgid "Move one line up"
-msgstr "Mover una línea arriba"
+msgstr "Mover una línea hacia arriba"
 
 msgid "Move one line down"
-msgstr "Mover una línea abajo"
+msgstr "Mover una línea hacia abajo"
 
 msgid "Remove from list"
-msgstr "Quitar de la lista"
+msgstr "Eliminar de la lista"
 
 msgid "Add to list"
-msgstr "Agregar a la lista"
+msgstr "Añadir a la lista"
 
 msgid "Replace in list"
-msgstr "Reemplazar en la lista"
+msgstr "Sustituir en la lista"
 
 msgid "Save list as new file"
-msgstr "Guardar lista como nuevo archivo"
+msgstr "Guardar lista como nuevo fichero"
 
 msgid "Remove file"
-msgstr "Quitar archivo"
+msgstr "Eliminar fichero"
 
 msgid "Move file down"
-msgstr "Mover archivo abajo"
+msgstr "Mover fichero hacia abajo"
 
 msgid "Add files"
-msgstr "Agregar archivos"
+msgstr "Añadir ficheros"
 
 msgid "List of files:"
-msgstr "Lista de archivos:"
+msgstr "Lista de ficheros:"
 
 msgid "Common path:"
-msgstr "Ruta común:"
+msgstr "Ruta habitual:"
 
 msgid "Move file up"
-msgstr "Mover archivo arriba"
+msgstr "Mover fichero hacia arriba"
 
 msgid "Text filter dialog"
-msgstr "Diálogo de filtro de texto"
+msgstr "Diálogo para filtrar texto"
 
 msgid "All matching"
 msgstr "Todos los coincidentes"
 
 msgid "All not matching"
-msgstr "Los no coincidentes"
+msgstr "Todos los que no coinciden"
 
 msgid "All"
-msgstr "Todo"
+msgstr "Todo(s)"
 
 msgid "Edit expressions"
-msgstr "Editar expresiones"
+msgstr "Modificar expresiones"
 
 msgid "Filter expressions:"
-msgstr "Expresiones de filtro:"
+msgstr "Filtrar expresiones:"
 
 msgid "Evaluate multiple expressions by"
-msgstr "Evaluar varias expresiones por"
+msgstr "Evaluar varias expresiones mediante"
 
 msgid "OR operation"
 msgstr "Operación OR"
 
 msgid "AND operation"
-msgstr "Y operación"
+msgstr "Operación AND"
 
 msgid "Use regular expressions"
 msgstr "Usar expresiones regulares"
 
 msgid "Search and replace"
-msgstr "Buscar y reemplazar"
+msgstr "Buscar y sustituir"
 
 msgid "Search for:"
-msgstr "Buscar para:"
+msgstr "Búsqueda por:"
 
 msgid "Options"
 msgstr "Opciones"
 
 msgid "Case sensitive"
-msgstr "Cambiar a minúsculas"
+msgstr "Mayúsculas/minúsculas"
 
 msgid "Whole words"
 msgstr "Palabras completas"
 
 msgid "Start "
-msgstr "Inicio "
+msgstr "Iniciar "
 
 msgid "from cursor"
 msgstr "desde el cursor"
 
 msgid "from beginning"
-msgstr "desde el principio"
+msgstr "desde el inicio"
 
 msgid "Direction"
 msgstr "Dirección"
@@ -433,28 +433,28 @@ msgid "Range"
 msgstr "Rango"
 
 msgid "Whole text"
-msgstr "Todo el texto"
+msgstr "Texto completo"
 
 msgid "Selected text"
-msgstr "Texto seleccionado"
+msgstr "Seleccionar texto"
 
 msgid "Close"
 msgstr "Cerrar"
 
 msgid "&Search"
-msgstr "&Buscar"
+msgstr "&Búsqueda"
 
 msgid "Replace &all"
-msgstr "Reeplazar &todo"
+msgstr "Sustituir &todo(s)"
 
 msgid "&Continue"
 msgstr "&Continuar"
 
 msgid "Keep this window opened"
-msgstr "Mantener esta ventana abierta"
+msgstr "Mantener la ventana abierta"
 
 msgid "Replace by:"
-msgstr "Reemplazar por:"
+msgstr "Sustituir por:"
 
 msgid "With confirmation"
 msgstr "Con confirmación"
@@ -466,13 +466,13 @@ msgid "Subdirectories:"
 msgstr "Subdirectorios:"
 
 msgid "One directory up"
-msgstr "Un directorio arriba"
+msgstr "Un directorio hacia arriba"
 
 msgid "Root directory on FTP server"
-msgstr "Directorio raíz en servidor FTP"
+msgstr "Directorio raíz en el servidor FTP"
 
 msgid "Selected subdirectory:"
-msgstr "Seleccionar subdirectorio:"
+msgstr "Subdirectorio seleccionado:"
 
 msgid "FTP connection"
 msgstr "Conexión FTP"
@@ -481,7 +481,7 @@ msgid "Server name:"
 msgstr "Nombre del servidor:"
 
 msgid "User name:"
-msgstr "Nombre del usuario:"
+msgstr "Nombre de usuario:"
 
 msgid "Remote directory:"
 msgstr "Directorio remoto:"
@@ -490,10 +490,10 @@ msgid "Port:"
 msgstr "Puerto:"
 
 msgid "Filenames:"
-msgstr "Nombres:"
+msgstr "Nombres de fichero:"
 
 msgid "Proxy server settings"
-msgstr "Ajustes del servidor Proxy"
+msgstr "Ajustes del servidor proxy"
 
 msgid "Use proxy server"
 msgstr "Usar servidor proxy"
@@ -505,13 +505,13 @@ msgid "change to lower case"
 msgstr "cambiar a minúsculas"
 
 msgid "change to UPPER CASE"
-msgstr "cambiar a MAYUSCULAS"
+msgstr "cambiar a MAYÚSCULAS"
 
 msgid "Use passive mode"
 msgstr "Usar modo pasivo"
 
 msgid "Use HOST command"
-msgstr "Usar comando  HOST"
+msgstr "Usar comando HOST"
 
 msgid "Force UTF-8 encoding"
 msgstr "Forzar codificación UTF-8"
@@ -520,23 +520,22 @@ msgid "Use secure data connection"
 msgstr "Usar conexión segura de datos"
 
 msgid "If available"
-msgstr "Si disponible"
+msgstr "Si está disponible"
 
 msgid "Always"
 msgstr "Siempre"
 
 msgid "Require"
-msgstr "Requerida"
+msgstr "Requerir"
 
 msgid "This option is only for debugging purposes"
-msgstr "Esta opción es únicamente para propositos de "
-"depuración"
+msgstr "Esta opción es sólo para fines de depuración"
 
 msgid "Write communication log to file"
-msgstr "Escribir diario de comunicación en archivo"
+msgstr "Escribir log de comunicaciones en un fichero"
 
 msgid "Allow filenames to be enclosed in quotes"
-msgstr "Permitir nombres encerrados en comillas"
+msgstr "Autorizar nombres de ficheros entre comillas"
 
 msgid "FTP proxy server options"
 msgstr "Opciones del servidor proxy FTP"
@@ -545,38 +544,37 @@ msgid "Connection method"
 msgstr "Método de conexión"
 
 msgid "Send command USER user@hostname"
-msgstr "Enviar el comando de USUARIO usuario@nombre de "
-"host"
+msgstr "Enviar comando USER user@hostname"
 
 msgid "Send command SITE (with logon)"
-msgstr "Enviar comando SITE (con inicio de sesión)"
+msgstr "Enviar comando SITE (con conexión)"
 
 msgid "Send command OPEN"
 msgstr "Enviar comando OPEN"
 
 msgid "USER user@firewalluser@hostname"
-msgstr "USUARIO user@firewalluser@hostname"
+msgstr "USER user@firewalluser@hostname"
 
 msgid "Transparent"
 msgstr "Transparente"
 
 msgid "USER hostuserID@hostname firewallUsername"
-msgstr "USUARIO hostuserID@hostname firewallUsername"
+msgstr "USER hostuserID@hostname firewallUsername"
 
 msgid "Server name"
 msgstr "Nombre del servidor"
 
 msgid "Port"
-msgstr "Port"
+msgstr "Puerto"
 
 msgid "Create texture"
 msgstr "Crear textura"
 
 msgid "Color spectrum"
-msgstr "Espectro de color"
+msgstr "Gama de colores"
 
 msgid "Start:"
-msgstr "Inicio:"
+msgstr "Iniciar:"
 
 msgid "Range:"
 msgstr "Rango:"
@@ -585,19 +583,19 @@ msgid "Help"
 msgstr "Ayuda"
 
 msgid "Previous"
-msgstr "Previo"
+msgstr "Anterior"
 
 msgid "Next"
 msgstr "Siguiente"
 
 msgid "Home"
-msgstr "Casa"
+msgstr "Página de inicio"
 
 msgid "End"
-msgstr "Fin"
+msgstr "Final"
 
 msgid "HTTP proxy settings"
-msgstr "Ajustes de proxy HTTP"
+msgstr "Ajustes del servidor proxy HTTP"
 
 msgid "Numeric input"
 msgstr "Entrada numérica"
@@ -609,34 +607,34 @@ msgid "Select date"
 msgstr "Seleccionar fecha"
 
 msgid "one month back"
-msgstr "un mes atrás"
+msgstr "hace un mes"
 
 msgid "to January"
-msgstr "hasta Enero"
+msgstr "hasta enero"
 
 msgid "3 months back"
-msgstr "3 mese atrás"
+msgstr "hace 3 meses"
 
 msgid "one month forward"
-msgstr "un mes adelante"
+msgstr "un mes después"
 
 msgid "3 months forward"
-msgstr "3 mese adelante"
+msgstr "3 meses después"
 
 msgid "to December"
 msgstr "hasta diciembre"
 
 msgid "one year back"
-msgstr "un año atrás"
+msgstr "hace un año"
 
 msgid "one year forward"
 msgstr "un año después"
 
 msgid "Select month"
-msgstr "Seleccionar mes"
+msgstr "Seleccionar un mes"
 
 msgid "January"
-msgstr "Enero"
+msgstr "Ener"
 
 msgid "February"
 msgstr "Febrero"
@@ -648,7 +646,7 @@ msgid "April"
 msgstr "Abril"
 
 msgid "May"
-msgstr "May"
+msgstr "Mayo"
 
 msgid "June"
 msgstr "Junio"
@@ -675,74 +673,73 @@ msgid "Select year"
 msgstr "Seleccionar año"
 
 msgid "Language selection"
-msgstr "Seleccionar lenguaje"
+msgstr "Seleccionar idioma"
 
 msgid "New item:"
 msgstr "Nuevo elemento:"
 
 msgid "Add item"
-msgstr "Agregar elemento"
+msgstr "Añadir un elemento"
 
 msgid "Replace item"
-msgstr "Reemplazar elemento"
+msgstr "Sustituir el elemento"
 
 msgid "Connect to"
 msgstr "Conectar a"
 
 msgid "Logon"
-msgstr "Inicio de sesión"
+msgstr "Abrir sesión"
 
 msgid "&Skip"
-msgstr "&Saltar"
+msgstr "&Omitir"
 
 msgid "LPT selection"
 msgstr "Selección LPT"
 
 msgid "Printer (Port/Irq)"
-msgstr "Impresora (Port/Irq)"
+msgstr "Imprimir (Puerto/IRQ)"
 
 msgid "Port addr.:"
-msgstr "Puerto dirección.:"
+msgstr "Puerto:"
 
 msgid "Interrupt"
-msgstr "Interumpir"
+msgstr "Interrumpir"
 
 msgid "Mail settings"
-msgstr "Configurar correo"
+msgstr "Ajustes del correo"
 
 msgid "Recipients:"
-msgstr "Receptores:"
+msgstr "Destinatario(s):"
 
 msgid "Add recipient"
-msgstr "Agregar destinatario"
+msgstr "Añadir destinatario"
 
 msgid "Remove recipient"
-msgstr "Quitar destinario"
+msgstr "Eliminar destinatario"
 
 msgid "Edit recipient"
 msgstr "Editar destinatario"
 
 msgid "Subject:"
-msgstr "Asunto:"
+msgstr "Objeto:"
 
 msgid "Sender:"
 msgstr "Remitente:"
 
 msgid "Reply-To:"
-msgstr "Responder-a:"
+msgstr "Responder a:"
 
 msgid "SMTP server:"
 msgstr "Servidor SMTP:"
 
 msgid "Click button to enter password"
-msgstr "Haga clic en el botón para introducir la "
-"contraseña"
+msgstr "Clic en botón para introducir la contraseña"
 
 msgid "Enable mail delivery"
-msgstr "Activar envío de correo"
+msgstr "Activar la entrega de correo"
 
 msgid "If available (explicit)"
-msgstr "Si disponible (explicit)"
+msgstr "Si está disponible (explícito)"
 
 msgid "Require (explicit)"
 msgstr "Requerir (explícito)"
@@ -751,16 +748,16 @@ msgid "Always (implicit)"
 msgstr "Siempre (implícito)"
 
 msgid "Change order of list items"
-msgstr "Cambiar órden de la lista de elementos"
+msgstr "Cambiar orden de los elementos de la lista"
 
 msgid "Enter password:"
-msgstr "Escribir contraseña:"
+msgstr "Introducir la contraseña:"
 
 msgid "Quality:"
 msgstr "Calidad:"
 
 msgid "Select files"
-msgstr "Seleccionar archivos"
+msgstr "Seleccionar ficheros"
 
 msgid "Directory:"
 msgstr "Directorio:"
@@ -769,13 +766,13 @@ msgid "Select all"
 msgstr "Seleccionar todo"
 
 msgid "Select none"
-msgstr "No seleccionar"
+msgstr "Sin selección"
 
 msgid "Printer settings"
-msgstr "Ajustes de impresora"
+msgstr "Ajustes de la impresora"
 
 msgid "Feeder offset:"
-msgstr "Alimentador de papel:"
+msgstr "Desplazamiento del alimentador:"
 
 msgid "Page margins"
 msgstr "Márgenes de página"
@@ -799,13 +796,13 @@ msgid "Portrait"
 msgstr "Retrato"
 
 msgid "Landscape"
-msgstr "Paisaje"
+msgstr "Apaisado"
 
 msgid "Status"
 msgstr "Estado"
 
 msgid "AES encryption depth:"
-msgstr "AES cifrado de profundidad:"
+msgstr "Profundidad de codificación AES:"
 
 msgid "128 bit"
 msgstr "128 bit"
@@ -814,54 +811,56 @@ msgid "256 bit"
 msgstr "256 bit"
 
 msgid "Automatic"
-msgstr "Automático"
+msgstr "Automática"
 
 msgid "Paste from clipboard"
-msgstr "Pegar desde el portapapeles"
+msgstr "Pegar el contenido del Portapapeles"
 
 msgid "Skip"
-msgstr "Saltar"
+msgstr "Omitir"
 
 msgid "Paper margins"
 msgstr "Márgenes del papel"
 
 msgid "Print page margins"
-msgstr "Imprimir márgenes de página"
+msgstr "Márgenes de la página de impresión"
 
 msgid "Edit search path list"
-msgstr "Editar lista de búsqueda de ruta"
+msgstr "Editar la lista de rutas de búsqueda"
 
 msgid "Select path"
 msgstr "Seleccionar ruta"
 
 msgid "Remove all"
-msgstr "Eliminar todos"
+msgstr "Eliminar todo"
 
 msgid "Replace path in search list"
-msgstr "Sustitución de ruta en la lista de búsqueda"
+msgstr "Sustituir ruta en la lista de búsquedas"
 
 msgid "Replace path"
-msgstr "Reemplazar ruta"
+msgstr "Sustituir ruta"
 
 msgid "Add path to search list"
-msgstr "Agregar ruta a la lista de búsqueda"
+msgstr "Añadir ruta a la lista de búsqueda"
 
 msgid "Add path"
-msgstr "Agregar ruta"
+msgstr "Añadir ruta"
 
 msgid "Remove path from search list"
-msgstr "Quitar ruta de la lista de búsqueda"
+msgstr "Eliminar ruta de la lista de búsqueda"
 
 msgid "Remove path"
-msgstr "Quitar ruta"
+msgstr "Eliminar ruta"
 
 msgid "Select color"
 msgstr "Seleccionar color"
 
 msgid "Additional colors:"
-msgstr "Colores adicionales:"
+msgstr "Otros colores:"
 
-msgid "Basic colors::"
+#. SelectColorDialog.Label2.Caption
+#: SelectColorDlg.dfm:32
+msgid "Basic colors:"
 msgstr "Colores básicos:"
 
 msgid "Selection:"
@@ -886,7 +885,7 @@ msgid "Bold"
 msgstr "Negrita"
 
 msgid "Italic"
-msgstr "Itálica"
+msgstr "Cursiva"
 
 msgid "Color"
 msgstr "Color"
@@ -904,13 +903,13 @@ msgid "Remove selected items"
 msgstr "Eliminar elementos seleccionados"
 
 msgid "Reset to default values"
-msgstr "Reiniciar a los valores predeterminados"
+msgstr "Restablecer a los valores predefinidos"
 
 msgid "Default"
-msgstr "Predefinido"
+msgstr "Por defecto"
 
 msgid "Remove all items"
-msgstr "Eliminar todos los artículos"
+msgstr "﻿Eliminar todos los elementos"
 
 msgid "Prompt"
 msgstr "Preguntar"
@@ -925,7 +924,7 @@ msgid "Network"
 msgstr "Red"
 
 msgid "Computer"
-msgstr "Computador"
+msgstr "Equipo"
 
 msgid "Desktop"
 msgstr "Escritorio"
@@ -934,25 +933,25 @@ msgid "Documents"
 msgstr "Documentos"
 
 msgid "Go to default folder"
-msgstr "Ir a carpeta predeterminada"
+msgstr "Ir a la carpeta predefinida"
 
 msgid "One folder up"
-msgstr "Una carpeta arriba"
+msgstr "Una carpeta más arriba"
 
 msgid "Create new folder"
-msgstr "Crear nueva carpeta"
+msgstr "Crear una nueva carpeta"
 
 msgid "Show files"
-msgstr "Mostrar archivos"
+msgstr "Mostrar ficheros"
 
 msgid "Directory"
 msgstr "Directorio"
 
 msgid "Create folder"
-msgstr "Crear carpeta"
+msgstr "Crear una carpeta"
 
 msgid "Delete folder"
-msgstr "Borrar carpeta"
+msgstr "Eliminar la carpeta"
 
 msgid "Update"
 msgstr "Actualizar"
@@ -961,16 +960,16 @@ msgid "My Documents"
 msgstr "Mis documentos"
 
 msgid "Go to last folder displayed"
-msgstr "Ir a la última carpeta mostrada"
+msgstr "Ir a la última carpeta visualizada"
 
 msgid "Filename:"
-msgstr "Nombre:"
+msgstr "Nombre de fichero:"
 
 msgid "File type:"
-msgstr "Tipo de archivo:"
+msgstr "Tipo de fichero:"
 
 msgid "All files (*.*)|*.*"
-msgstr "Todos los archivos (*.*)|*.*"
+msgstr "Todos los ficheros (*.*)|*.*"
 
 msgid "Show text"
 msgstr "Mostrar texto"
@@ -982,19 +981,19 @@ msgid "&Print"
 msgstr "&Imprimir"
 
 msgid "&Delete"
-msgstr "&Borrar"
+msgstr "&Eliminar"
 
 msgid "Go to previous error"
-msgstr "Ir al error previo"
+msgstr "Ir al error anterior"
 
 msgid "Go to previous section"
-msgstr "Ir a la sección previa"
+msgstr "Ir a la sección anterior"
 
 msgid "Go to next error"
 msgstr "Ir al siguiente error"
 
 msgid "Go to next section"
-msgstr "Ir a la sección siguiente"
+msgstr "Ir a la siguiente sección"
 
 msgid "Select codepage"
 msgstr "Seleccionar página de código"
@@ -1009,13 +1008,13 @@ msgid "Paper size:"
 msgstr "Tamaño del papel:"
 
 msgid "Length:"
-msgstr "Longitud:"
+msgstr "Largura:"
 
 msgid "Keyboard layout"
-msgstr "Distribución del teclado"
+msgstr "Disposición del teclado"
 
 msgid "Key code:"
-msgstr "Código de tecla:"
+msgstr "Código teclado:"
 
 msgid "Command:"
 msgstr "Comando:"
@@ -1024,40 +1023,40 @@ msgid "Command"
 msgstr "Comando"
 
 msgid "Key code"
-msgstr "Código de tecla"
+msgstr "Código teclado"
 
 msgid "Remove key code"
-msgstr "Quitar código de tecla"
+msgstr "Eliminar el código teclado"
 
 msgid "Change key code"
-msgstr "Cambiar código de tecla"
+msgstr "Cambiar el código teclado"
 
 msgid "Margins"
 msgstr "Márgenes"
 
 msgid "Gutter:"
-msgstr "Canal:"
+msgstr "Medianil:"
 
 msgid "Duplex print"
-msgstr "Impresión dúplex"
+msgstr "Impresión a doble cara"
 
 msgid "Print line numbers"
-msgstr "Imprimir número de línea"
+msgstr "Números de línea de impresión"
 
 msgid "Line break on long lines"
 msgstr "Salto de línea en líneas largas"
 
 msgid "Syntax highlighting"
-msgstr "Resaltado de sintaxis"
+msgstr "Resaltando sintaxis"
 
 msgid "Color print"
-msgstr "Imprimir a color"
+msgstr "Imprimir en color"
 
 msgid "Distance to text:"
-msgstr "Distancia del texto:"
+msgstr "Distancia al texto:"
 
 msgid "Print header"
-msgstr "Cabeza de impresora"
+msgstr "Cabecera de'impresión"
 
 msgid "Font:"
 msgstr "Fuente:"
@@ -1069,59 +1068,57 @@ msgid "Font style:"
 msgstr "Estilo de fuente:"
 
 msgid "File timestamp comparison"
-msgstr "Comparación de marca de tiempo de archivo"
+msgstr "Comparación de marcas de tiempo de ficheros"
 
 msgid "Time comparison tolerance in s:"
-msgstr "Tolerancia de comparación de tiempos en "
-"s:"
+msgstr "Tolerancia de comparación temporal en s:"
 
-msgid "Ignore 1 hour time difference from daylight saving time (winter - "
-"summer)"
-msgstr "Ignorar la diferencia horaria de 1 hora del horario de verano "
-"(invierno - verano)"
+msgid ""
+"Ignore 1 hour time difference from daylight saving time (winter - summer)"
+msgstr ""
+"Ignorar 1 hora de diferencia en el horario de verano (invierno - verano)"
 
 msgid "Transfer status"
-msgstr "Estado de la transferencia"
+msgstr "Estado de transferencia"
 
 msgid "Protocol:"
 msgstr "Protocolo:"
 
 msgid "Window size"
-msgstr "Tamaño de la ventana"
+msgstr "Tamaño de ventana"
 
 msgid "Global"
 msgstr "Global"
 
 msgid "Edit source text"
-msgstr "Editar texto fuente"
+msgstr "Editar texto original"
 
 msgid "Navigation"
-msgstr "Navegación"
+msgstr "Navigación"
 
 msgid "Reload"
 msgstr "Recargar"
 
 msgid "Previous page"
-msgstr "Página previa"
+msgstr "Página anterior"
 
 msgid "Next page"
-msgstr "Siguiente página"
+msgstr "Página siguiente"
 
 msgid "Exit"
 msgstr "Salir"
 
 msgid "OK and close"
-msgstr "OK y cerrar"
+msgstr "Aceptar y cerrar"
 
 msgid "Save as:"
 msgstr "Guardar como:"
 
 msgid "Open site"
-msgstr "Sitio abierto"
+msgstr "Abrir sitio"
 
 msgid "Minimum length of password is %u characters"
-msgstr "La longitud mínima de la contraseña es de %u "
-"caracteres"
+msgstr "Longitud mínima de contraseña de %u caractères"
 
 msgid "Passwords do not match!"
 msgstr "Las contraseñas no coinciden!"
@@ -1130,31 +1127,31 @@ msgid "Application (%s)"
 msgstr "Aplicación (%s)"
 
 msgid "Remove application: \"%s\"?"
-msgstr "Eliminar la aplicación: \"%s\"?"
+msgstr "Eliminar aplicación: \"%s\"?"
 
 msgid "Yes"
 msgstr "Si"
 
 msgid "all|*.*"
-msgstr "todo|*.*"
+msgstr "todo(s)|*.*"
 
 msgid "unknown"
 msgstr "desconocido"
 
 msgid "Error in line %s"
-msgstr "Error en línea %s"
+msgstr "Error en la línea %s"
 
 msgid "Shortcut:"
 msgstr "Acceso directo:"
 
 msgid "Remove group: \"%s\"?"
-msgstr "Quitar grupo: \"%s\"?"
+msgstr "Eliminar grupo: \"%s\"?"
 
 msgid "Item \"%s\" already exists!"
 msgstr "El elemento \"%s\" ya existe!"
 
 msgid "File filter dialog"
-msgstr "Diálogo de filtro de archivo"
+msgstr "Diálogo para filtrar ficheros"
 
 msgid "Description"
 msgstr "Descripción"
@@ -1162,16 +1159,18 @@ msgstr "Descripción"
 msgid "Filter"
 msgstr "Filtro"
 
-msgid "Invalid filter mask!\n"
+msgid ""
+"Invalid filter mask!\n"
 "Should resemble %s or %s"
-msgstr "Máscara de filtro no válido! \n"
+msgstr ""
+"Máscara de filtro no válido! \n"
 " debe ser similar a %s o %s"
 
 msgid "Replace text"
-msgstr "Reemplazar texto"
+msgstr "Sustituir texto"
 
 msgid "&Replace"
-msgstr "&Reemplazar"
+msgstr "&Sustituir"
 
 msgid "Search for text"
 msgstr "Búsqueda de texto"
@@ -1179,18 +1178,20 @@ msgstr "Búsqueda de texto"
 msgid "Searching for directories"
 msgstr "Búsqueda de directorios"
 
-msgid "Connection to FTP server: %s:%u\n"
+msgid ""
+"Connection to FTP server: %s:%u\n"
 "for user: %s\n"
 "requires a password!"
-msgstr "Conexión a FTP servidor: %s:%u\n"
+msgstr ""
+"Conexión a FTP servidor: %s:%u\n"
 "por usuario: %s\n"
 "requiere una clave!"
 
 msgid "Trying to connect to FTP server"
-msgstr "Intentando conectar a servidor FTP"
+msgstr "Intentando conectarse al servidor FTP"
 
 msgid "Connection to FTP server failed"
-msgstr "Falla en conexión a servidor FTP"
+msgstr "Error al conectarse al servidor FTP"
 
 msgid "Secure mode: "
 msgstr "Modo seguro: "
@@ -1199,18 +1200,17 @@ msgid "No host specified!"
 msgstr "Host no especificado!"
 
 msgid "No user name specified!"
-msgstr "No se ha especificado ningún nombre de "
-"usuario!"
+msgstr "No se ha especificado ningún nombre de usuario!"
 
 msgid "Invalid port number (%s)"
 msgstr "Número de puerto no válido (%s)"
 
-msgid "Online help is not available on your system\n"
-"You need to install Internet Explorer Vers. 4 or "
-"newer"
-msgstr "La ayuda en línea no está disponible en su sistema \n"
-" Usted necesita instalar Internet Explorer Vers. 4 o más "
-"reciente"
+msgid ""
+"Online help is not available on your system\n"
+"You need to install Internet Explorer Vers. 4 or newer"
+msgstr ""
+"La ayuda en línea no está disponible en su sistema\n"
+"Necesita instalar Internet Explorer 4 o posterior"
 
 msgid "Error: Out of range (%s)"
 msgstr "Error: Fuera de rango (%s)"
@@ -1222,11 +1222,10 @@ msgid "No."
 msgstr "No."
 
 msgid "Error: Invalid port address (%s)"
-msgstr "Error: Dirección de puerto inválida "
-"(%s)"
+msgstr "Error: Dirección de puerto no válida (%s)"
 
 msgid "Error: Invalid interrupt (%s)"
-msgstr "Error: Interrupción inválida (%s)"
+msgstr "Error: Interrupción no válida (%s)"
 
 msgid "Please specify an SMTP server!"
 msgstr "Por favor, especifique un servidor SMTP!"
@@ -1240,12 +1239,14 @@ msgstr "Nuevo destinatario de correo"
 msgid "Address:"
 msgstr "Dirección:"
 
-msgid "Remove recipient:\n"
+msgid ""
+"Remove recipient:\n"
 "%s\n"
 "from list?"
-msgstr "Quitar destinatario: \n"
-" %s\n"
-" de la lista?"
+msgstr ""
+"¿Eliminar destinatario:\n"
+"%s\n"
+"de la lista?"
 
 msgid "Edit mail recipient"
 msgstr "Editar destinatario de correo"
@@ -1257,10 +1258,10 @@ msgid "Clear search path list?"
 msgstr "¿Borrar la lista de rutas de búsqueda?"
 
 msgid "The quick brown fox jumps .."
-msgstr "El zorro marrón salta rápido .."
+msgstr "El veloz murciélago hindú comía feliz .."
 
 msgid "Select font color"
-msgstr "Seleccionar color de la fuente"
+msgstr "Seleccionar color de fuente"
 
 msgid "Invalid entry: \"%s\""
 msgstr "Entrada no válida: \"%s\""
@@ -1269,32 +1270,36 @@ msgid "Clear whole list"
 msgstr "Borrar toda la lista"
 
 msgid "Remove all selected items?"
-msgstr "Quitar todos los elementos seleccionados?"
+msgstr "¿Eliminar los elementos seleccionados?"
 
 msgid "Remove item: \"%s\"?"
 msgstr "Eliminar elemento: \"%s\"?"
 
 msgid "Default: "
-msgstr "Predefinido: "
+msgstr "Por defecto: "
 
-msgid "Directory not found:\n"
+msgid ""
+"Directory not found:\n"
 "%s!"
-msgstr "Directorio no encontrado:\n"
+msgstr ""
+"Directorio no encontrado:\n"
 " %s!"
 
 msgid "New subdirectory:"
 msgstr "Nuevo subdirectorio:"
 
-msgid "Could not create directory:\n"
+msgid ""
+"Could not create directory:\n"
 "%s!"
-msgstr "No se puede crear directorio:\n"
+msgstr ""
+"No se puede crear directorio:\n"
 " %s!"
 
 msgid "Delete directory"
-msgstr "Borrar directorio"
+msgstr "Eliminar directorio"
 
 msgid "Delete \"%s\""
-msgstr "Borrar \"%s\""
+msgstr "Eliminar \"%s\""
 
 msgid "Definitely"
 msgstr "Definitivamente"
@@ -1308,38 +1313,39 @@ msgstr "%u directorios con %u archivos borrados!"
 msgid "%s moved to Recycle Bin!"
 msgstr "%s movidos a la Papelera de Reciclaje!"
 
-msgid "Error deleting directory:\n"
+msgid ""
+"Error deleting directory:\n"
 "%s!"
-msgstr "Error borrando directorio:\n"
+msgstr ""
+"Error borrando directorio:\n"
 " %s!"
 
 msgid " free of "
 msgstr " libre de "
 
 msgid "Directory is not empty, delete anyway?"
-msgstr "El directorio no está vacío, borrar de todas "
-"maneras?"
+msgstr "El directorio no está vacio, ¿Eliminar de todas formas?"
 
 msgid " Line: %u of %u"
 msgstr " Línea: %u de %u"
 
 msgid "Error loading file: \"%s\""
-msgstr "Error al cargar el archivo: \"%s\""
+msgstr "Error al cargar el fichero: \"%s\""
 
 msgid "Delete selected text?"
-msgstr "Borrar el texto seleccionado?"
+msgstr "¿Eliminar texto seleccionado?"
 
 msgid "Page: %u"
 msgstr "Página: %u"
 
 msgid "File: "
-msgstr "Archivo: "
+msgstr "Fichero: "
 
 msgid "Print selected lines?"
-msgstr "Imprimir las líneas seleccionadas?"
+msgstr "¿Imprimir las líneas seleccionadas?"
 
 msgid "Delete file \"%s\"?"
-msgstr "Borrar archivo \"%s\"?"
+msgstr "¿Eliminar fichero \"%s\"?"
 
 msgid "\"%s\" not found!"
 msgstr "\"%s\" no encontrado!"
@@ -1347,9 +1353,9 @@ msgstr "\"%s\" no encontrado!"
 msgid "No further sections!"
 msgstr "Sin secciones adicionales!"
 
-msgid "Invalid code page - Windows default is "
-"used!"
-msgstr "Página de códigos no válida - ¡Se utiliza la página por defecto de "
+msgid "Invalid code page - Windows default is used!"
+msgstr ""
+"Página de códigos no válida - ¡Se utiliza la página por defecto de "
 "Windows!"
 
 msgid "No further errors!"
@@ -1368,28 +1374,28 @@ msgid "Normal"
 msgstr "Normal"
 
 msgid "Bold italic"
-msgstr "Itálica negrita"
+msgstr "Negrita y cursiva"
 
 msgid "Invalid input"
-msgstr "Entrada inválida"
+msgstr "Entrada no válida"
 
 msgid "Deleting"
-msgstr "Borrando"
+msgstr "Eliminando"
 
 msgid "Delete files:"
-msgstr "Borrar archivos:"
+msgstr "Eliminar ficheros:"
 
 msgid "Synchronizing"
-msgstr "Sincronización"
+msgstr "Sincronizando"
 
 msgid "Copying to"
-msgstr "Copiando a"
+msgstr "Copiando en"
 
 msgid "Copy files:"
-msgstr "Copiar archivos:"
+msgstr "Copiar ficheros:"
 
 msgid "%s of %s copied"
-msgstr "%s de %s copiados"
+msgstr "%s de %s copiado(s)"
 
 msgid "Canceled by user!"
 msgstr "Cancelado por el usuario!"
@@ -1397,26 +1403,28 @@ msgstr "Cancelado por el usuario!"
 msgid "Error during file transfer!"
 msgstr "Error durante la transferencia del archivo!"
 
-msgid "%u file(s) deleted\n"
+msgid ""
+"%u file(s) deleted\n"
 "%u file(s) copied!"
-msgstr "%u archivo(s) borrado\n"
+msgstr ""
+"%u archivo(s) borrado\n"
 " %u archivo(s) copiado!"
 
 msgid "%u file(s) deleted!"
 msgstr "%u archivo(s) borrado!"
 
 msgid "%u file(s) copied"
-msgstr "%u archivo(s) copiado"
+msgstr "%u fichero(s) copiado(s)"
 
 msgid "Nothing to do!"
 msgstr "No hay nada que hacer!"
 
-msgid "The integrated web browser is not available on your system\n"
-"You need to install Internet Explorer Vers. 4 or "
-"newer."
-msgstr "El navegador web integrado no se encuentra disponible en su sistema\n"
-"Es necesario instalar Internet Explorer Vers. 4 o más "
-"reciente."
+msgid ""
+"The integrated web browser is not available on your system\n"
+"You need to install Internet Explorer Vers. 4 or newer."
+msgstr ""
+"El navegador web integrado no está disponible en su sistema\n"
+"Necesita instalar Internet Explorer 4 o posterior."
 
 msgid "%s verification failed!"
 msgstr "Verificación %s ha fallado!"
@@ -1429,4 +1437,3 @@ msgstr "Navegador clásico"
 
 msgid "Edge Browser"
 msgstr "Navegador Edge"
-
