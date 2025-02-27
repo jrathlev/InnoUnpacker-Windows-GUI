@@ -103,6 +103,7 @@ var
   OverwriteAction: TOverwriteAction;
 
 // Run parameters
+  Filelist,
   SetupFileName: string;
   FileMasks: array of string;
   Password: string;
@@ -935,31 +936,11 @@ function ParseCommandLine : integer;
 var
   InstallNameParsed  : boolean;
   s,PasswordFileName : string;
-  i,j,n : integer;
-  sl    : TStringList;
-
-// no BOM found, check if UTF8 character in text
-  function CheckForUtf8(const s : string) : boolean;
-  const
-    Utf8Mask1 = $C0;
-    Utf8Mask2 = $80;
-  var
-    i : integer;
-  begin
-    Result:=false;
-    if length(s)>0 then for i:=1 to length(s) do begin
-      if cardinal(s[i]) and Utf8Mask1 = Utf8Mask1 then begin
-        if (i<length(s)) and (cardinal(s[i+1]) and Utf8Mask1 = Utf8Mask2) then begin
-          Result:=true; Break; // UTF8 caracter found
-          end;
-        end;
-      end;
-    end;
-
+  i  : integer;
 begin
   Result:=-1; CommandAction:=caInstallInfo; InstallNameParsed:=false; SetLength(FileMasks,0);
   PasswordFileName:=''; ExitCode:=0;
-  ExtractTestOnly := false;
+  ExtractTestOnly := false; Filelist:='';
   if (ParamCount<1) then exit;
   for i:=1 to ParamCount do begin
     if (ParamStr(i)[1]='-') and (length(ParamStr(i))>=2) then begin
@@ -987,29 +968,8 @@ begin
         else Exit;
         end;
       end
-    else if (ParamStr(i)[1]='@') and (length(ParamStr(i))>=2) then begin
-      sl:=TStringList.Create;
-      s:=copy(ParamStr(i),2,length(ParamStr(i))-1);
-      try
-        with sl do begin
-         LoadFromFile(s);   // try with automatic detection of encoding, needs BOM
-         if (Encoding<>TEncoding.UTF8) and CheckForUtf8(Text) then
-           LoadFromFile(s,TEncoding.UTF8);   // load again with Utf8 encoding
-         if Count>0 then begin
-           n:=length(FileMasks);
-           SetLength(FileMasks,n+Count);
-           for j:=0 to Count-1 do FileMasks[n+j]:=Strings[j];
-           end;
-         end;
-      except
-        on E: Exception do begin
-          WriteErrorLine('Reading the command line failed. Invalid filelist: "'+s+'"');
-          writeln;
-          ExitCode:=3; Result:=1;
-          end;
-        end;
-      sl.Free;
-      if Result=1 then Exit;
+    else if (ParamStr(i)[1]='@') and (length(ParamStr(i))>=2) then
+      Filelist:=copy(ParamStr(i),2,length(ParamStr(i))-1)
 //      AssignFile(f,copy(ParamStr(i),2,length(ParamStr(i))-1));
 //      try
 //        Reset(f);
@@ -1024,7 +984,6 @@ begin
 //        on E: Exception do raise EFatalError.Create('2');
 //      end;
 //      CloseFile(f);
-      end
     else if InstallNameParsed then begin
       SetLength(FileMasks,length(FileMasks)+1); FileMasks[High(FileMasks)]:=ParamStr(i);
       end
@@ -1048,6 +1007,24 @@ begin
   if (length(SetupFileName)=0) and (CommandAction<>caVersionList) then Result:=-1;
   end;
 
+// no BOM found, check if UTF8 character in text
+function CheckForUtf8(const s : string) : boolean;
+const
+  Utf8Mask1 = $C0;
+  Utf8Mask2 = $80;
+var
+  i : integer;
+begin
+  Result:=false;
+  if length(s)>0 then for i:=1 to length(s) do begin
+    if cardinal(s[i]) and Utf8Mask1 = Utf8Mask1 then begin
+      if (i<length(s)) and (cardinal(s[i+1]) and Utf8Mask1 = Utf8Mask2) then begin
+        Result:=true; Break; // UTF8 caracter found
+        end;
+      end;
+    end;
+  end;
+
 // ----------------------------------------------------------------------------
 // main program
 var
@@ -1061,6 +1038,7 @@ var
   TotalFiles,TotalEncryptedFiles,MaxSlice : Integer;
   cbi : TConsoleScreenBufferInfo;
   attr,cp  : word;
+  sl       : TStringList;
 begin
   StdOutputHandle:=GetStdHandle(STD_OUTPUT_HANDLE);
   if GetConsoleScreenBufferInfo(StdOutputHandle,cbi) then with cbi do begin
@@ -1069,6 +1047,7 @@ begin
     end
   else attr:=ConsoleBg or ConsoleFg;
   cp:=GetConsoleOutputCP;
+  if UseUtf8 then SetConsoleOutputCP(65001) else SetConsoleOutputCP(850);
   CreateEntryLists;
   n:=ParseCommandLine;
 
@@ -1078,8 +1057,42 @@ begin
     WriteColorText(s,Format(' - the Inno Setup Unpacker, Version %u.%u.%u (%s)',
       [IUV_MAJOR, IUV_MINOR,IUV_RELEASE,DateToStr(FileDateToDateTime(FileAge(ParamStr(0))))]),clRed,clWhite);
     end;
-  if UseUtf8 then SetConsoleOutputCP(65001) else SetConsoleOutputCP(850);
   writeln;
+
+  if (n=0) and (length(FileList)>0) then begin
+    if FileExists(FileList) then begin
+      sl:=TStringList.Create;
+      try
+        with sl do begin
+         LoadFromFile(FileList);   // try with automatic detection of encoding, needs BOM
+         if (Encoding<>TEncoding.UTF8) and CheckForUtf8(Text) then
+           LoadFromFile(FileList,TEncoding.UTF8);   // load again with Utf8 encoding
+         if Count>0 then begin
+           ml:=length(FileMasks);
+           SetLength(FileMasks,ml+Count);
+           for i:=0 to Count-1 do if not Strings[i].IsEmpty then begin
+             FileMasks[ml]:=Strings[i];
+             inc(ml);
+             end;
+           SetLength(FileMasks,ml);
+           end;
+         end;
+      except
+        on E: Exception do begin
+          WriteColorText('Reading the command line failed. Invalid filelist: ','"'+FileList+'"',clRed,clGreen);
+          writeln;
+          ExitCode:=3; n:=1;
+          end;
+        end;
+      sl.Free;
+      end
+    else begin
+      WriteColorText('Filelist not found: ','"'+FileList+'"',clRed,clGreen);
+      writeln;
+      ExitCode:=3; n:=1;
+      end;
+    end;
+
   if n=0 then begin
     if CommandAction=caVersionList then begin
       writeln('Supported Inno Setup Versions');
