@@ -20,5 +20,7 @@ The install script is saved in UTF-8 format.
 
 The program has also been adapted to *Inno Setup* versions 6.2 and 6.4.2.
 
-[Application download](https://www.rathlev-home.de/index-e.html?tools/prog-e.html#unpack)
+[Application download](https://github.com/jrathlev/InnoUnpacker-Windows-GUI/tree/master/innounp-2/bin)
+
+[Home page](https://www.rathlev-home.de/index-e.html?tools/prog-e.html#unpack)
 
