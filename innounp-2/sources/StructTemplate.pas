@@ -44,91 +44,103 @@ implementation
 
 const
   SetupFileOptionTable: array [0..MySetupFileOptionLast] of byte = (
-  ord(structDEFVER_EXTSUF_.foConfirmOverwrite)                                           ,  {foConfirmOverwrite        }
-  ord(structDEFVER_EXTSUF_.foUninsNeverUninstall)                                        ,  {foUninsNeverUninstall     }
-  ord(structDEFVER_EXTSUF_.foRestartReplace)                                             ,  {foRestartReplace          }
-  ord(structDEFVER_EXTSUF_.foDeleteAfterInstall)                                         ,  {foDeleteAfterInstall      }
-  ord(structDEFVER_EXTSUF_.foRegisterServer)                                             ,  {foRegisterServer          }
-  ord(structDEFVER_EXTSUF_.foRegisterTypeLib)                                            ,  {foRegisterTypeLib         }
-  ord(structDEFVER_EXTSUF_.foSharedFile)                                                 ,  {foSharedFile              }
-  {$IF DEFVER>=3005}
-  ord(structDEFVER_EXTSUF_.foCompareTimeStamp)                                           ,  {foCompareTimeStamp        }
-  {$ELSE}
-  ord(structDEFVER_EXTSUF_.foCompareTimeStampAlso)                                       ,  {foCompareTimeStamp        }
-  {$IFEND}
-  ord(structDEFVER_EXTSUF_.foFontIsntTrueType)                                           ,  {foFontIsntTrueType        }
-  ord(structDEFVER_EXTSUF_.foSkipIfSourceDoesntExist)                                    ,  {foSkipIfSourceDoesntExist }
-  ord(structDEFVER_EXTSUF_.foOverwriteReadOnly)                                          ,  {foOverwriteReadOnly       }
-  ord(structDEFVER_EXTSUF_.foOverwriteSameVersion)                                       ,  {foOverwriteSameVersion    }
-  ord(structDEFVER_EXTSUF_.foCustomDestName)                                             ,  {foCustomDestName          }
-  {$IF DEFVER>=1325}ord(structDEFVER_EXTSUF_.foOnlyIfDestFileExists)    {$ELSE}255{$IFEND} ,  {foOnlyIfDestFileExists    }
-  {$IF DEFVER>=2001}ord(structDEFVER_EXTSUF_.foNoRegError)              {$ELSE}255{$IFEND} ,  {foNoRegError              }
-  {$IF DEFVER>=3001}ord(structDEFVER_EXTSUF_.foUninsRestartDelete)      {$ELSE}255{$IFEND} ,  {foUninsRestartDelete      }
-  {$IF DEFVER>=3005}ord(structDEFVER_EXTSUF_.foOnlyIfDoesntExist)       {$ELSE}255{$IFEND} ,  {foOnlyIfDoesntExist       }
-  {$IF DEFVER>=3005}ord(structDEFVER_EXTSUF_.foIgnoreVersion)           {$ELSE}255{$IFEND} ,  {foIgnoreVersion           }
-  {$IF DEFVER>=3005}ord(structDEFVER_EXTSUF_.foPromptIfOlder)           {$ELSE}255{$IFEND} ,  {foPromptIfOlder           }
-  {$IF DEFVER>=4000}ord(structDEFVER_EXTSUF_.foDontCopy)                {$ELSE}255{$IFEND} ,  {foDontCopy                }
-  {$IF DEFVER>=4005}ord(structDEFVER_EXTSUF_.foUninsRemoveReadOnly)     {$ELSE}255{$IFEND} ,  {foUninsRemoveReadOnly     }
-  {$IF DEFVER>=4108}ord(structDEFVER_EXTSUF_.foRecurseSubDirsExternal)  {$ELSE}255{$IFEND} ,  {foRecurseSubDirsExternal  }
-  {$IF DEFVER>=4201}ord(structDEFVER_EXTSUF_.foReplaceSameVersionIfContentsDiffer){$ELSE}255{$IFEND} ,
-  {$IF DEFVER>=4205}ord(structDEFVER_EXTSUF_.foDontVerifyChecksum)      {$ELSE}255{$IFEND} ,
-  {$IF DEFVER>=5003}ord(structDEFVER_EXTSUF_.foUninsNoSharedFilePrompt) {$ELSE}255{$IFEND} ,
-  {$IF DEFVER>=5100}ord(structDEFVER_EXTSUF_.foCreateAllSubDirs)        {$ELSE}255{$IFEND} ,
-  {$IF DEFVER>=5102}ord(structDEFVER_EXTSUF_.fo32bit)                   {$ELSE}255{$IFEND} ,  {fo32bit                   }
-  {$IF DEFVER>=5102}ord(structDEFVER_EXTSUF_.fo64bit)                   {$ELSE}255{$IFEND} ,  {fo64bit                   }
-  {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.foExternalSizePreset)      {$ELSE}255{$IFEND} ,  {foExternalSizePreset      }
-  {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.foSetNTFSCompression)      {$ELSE}255{$IFEND} ,  {foSetNTFSCompression      }
-  {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.foUnsetNTFSCompression)    {$ELSE}255{$IFEND} ,  {foUnsetNTFSCompression    }
-  {$IF DEFVER>=5300}ord(structDEFVER_EXTSUF_.foGacInstall)              {$ELSE}255{$IFEND}    {foGacInstall              }
+    ord(structDEFVER_EXTSUF_.foConfirmOverwrite)                                           ,  {foConfirmOverwrite        }
+    ord(structDEFVER_EXTSUF_.foUninsNeverUninstall)                                        ,  {foUninsNeverUninstall     }
+    ord(structDEFVER_EXTSUF_.foRestartReplace)                                             ,  {foRestartReplace          }
+    ord(structDEFVER_EXTSUF_.foDeleteAfterInstall)                                         ,  {foDeleteAfterInstall      }
+    ord(structDEFVER_EXTSUF_.foRegisterServer)                                             ,  {foRegisterServer          }
+    ord(structDEFVER_EXTSUF_.foRegisterTypeLib)                                            ,  {foRegisterTypeLib         }
+    ord(structDEFVER_EXTSUF_.foSharedFile)                                                 ,  {foSharedFile              }
+    {$IF DEFVER>=3005}
+    ord(structDEFVER_EXTSUF_.foCompareTimeStamp)                                           ,  {foCompareTimeStamp        }
+    {$ELSE}
+    ord(structDEFVER_EXTSUF_.foCompareTimeStampAlso)                                       ,  {foCompareTimeStamp        }
+    {$IFEND}
+    ord(structDEFVER_EXTSUF_.foFontIsntTrueType)                                           ,  {foFontIsntTrueType        }
+    ord(structDEFVER_EXTSUF_.foSkipIfSourceDoesntExist)                                    ,  {foSkipIfSourceDoesntExist }
+    ord(structDEFVER_EXTSUF_.foOverwriteReadOnly)                                          ,  {foOverwriteReadOnly       }
+    ord(structDEFVER_EXTSUF_.foOverwriteSameVersion)                                       ,  {foOverwriteSameVersion    }
+    ord(structDEFVER_EXTSUF_.foCustomDestName)                                             ,  {foCustomDestName          }
+    {$IF DEFVER>=1325}ord(structDEFVER_EXTSUF_.foOnlyIfDestFileExists)    {$ELSE}255{$IFEND} ,  {foOnlyIfDestFileExists    }
+    {$IF DEFVER>=2001}ord(structDEFVER_EXTSUF_.foNoRegError)              {$ELSE}255{$IFEND} ,  {foNoRegError              }
+    {$IF DEFVER>=3001}ord(structDEFVER_EXTSUF_.foUninsRestartDelete)      {$ELSE}255{$IFEND} ,  {foUninsRestartDelete      }
+    {$IF DEFVER>=3005}ord(structDEFVER_EXTSUF_.foOnlyIfDoesntExist)       {$ELSE}255{$IFEND} ,  {foOnlyIfDoesntExist       }
+    {$IF DEFVER>=3005}ord(structDEFVER_EXTSUF_.foIgnoreVersion)           {$ELSE}255{$IFEND} ,  {foIgnoreVersion           }
+    {$IF DEFVER>=3005}ord(structDEFVER_EXTSUF_.foPromptIfOlder)           {$ELSE}255{$IFEND} ,  {foPromptIfOlder           }
+    {$IF DEFVER>=4000}ord(structDEFVER_EXTSUF_.foDontCopy)                {$ELSE}255{$IFEND} ,  {foDontCopy                }
+    {$IF DEFVER>=4005}ord(structDEFVER_EXTSUF_.foUninsRemoveReadOnly)     {$ELSE}255{$IFEND} ,  {foUninsRemoveReadOnly     }
+    {$IF DEFVER>=4108}ord(structDEFVER_EXTSUF_.foRecurseSubDirsExternal)  {$ELSE}255{$IFEND} ,  {foRecurseSubDirsExternal  }
+    {$IF DEFVER>=4201}ord(structDEFVER_EXTSUF_.foReplaceSameVersionIfContentsDiffer){$ELSE}255{$IFEND} ,
+    {$IF DEFVER>=4205}ord(structDEFVER_EXTSUF_.foDontVerifyChecksum)      {$ELSE}255{$IFEND} ,
+    {$IF DEFVER>=5003}ord(structDEFVER_EXTSUF_.foUninsNoSharedFilePrompt) {$ELSE}255{$IFEND} ,
+    {$IF DEFVER>=5100}ord(structDEFVER_EXTSUF_.foCreateAllSubDirs)        {$ELSE}255{$IFEND} ,
+    {$IF DEFVER>=5102}ord(structDEFVER_EXTSUF_.fo32bit)                   {$ELSE}255{$IFEND} ,  {fo32bit                   }
+    {$IF DEFVER>=5102}ord(structDEFVER_EXTSUF_.fo64bit)                   {$ELSE}255{$IFEND} ,  {fo64bit                   }
+    {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.foExternalSizePreset)      {$ELSE}255{$IFEND} ,  {foExternalSizePreset      }
+    {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.foSetNTFSCompression)      {$ELSE}255{$IFEND} ,  {foSetNTFSCompression      }
+    {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.foUnsetNTFSCompression)    {$ELSE}255{$IFEND} ,  {foUnsetNTFSCompression    }
+    {$IF DEFVER>=5300}ord(structDEFVER_EXTSUF_.foGacInstall)              {$ELSE}255{$IFEND}    {foGacInstall              }
 );
 
   SetupFileLocationFlagTable: array[0..MySetupFileLocationFlagLast] of byte = (
-    ord(structDEFVER_EXTSUF_.foVersionInfoValid)                                              ,
-    ord(structDEFVER_EXTSUF_.foVersionInfoNotValid)                                           ,
-    {$IF DEFVER>=4010}ord(structDEFVER_EXTSUF_.foTimeStampInUTC)           {$ELSE}255{$IFEND} ,
-    {$IF DEFVER>=4100}ord(structDEFVER_EXTSUF_.foIsUninstExe)              {$ELSE}255{$IFEND} ,
-    {$IF DEFVER>=4108}ord(structDEFVER_EXTSUF_.foCallInstructionOptimized) {$ELSE}255{$IFEND} ,
-    {$IF (DEFVER>=4200) AND (DEFVER<5507)}ord(structDEFVER_EXTSUF_.foTouch){$ELSE}255{$IFEND} ,
-    {$IF DEFVER>=4202}ord(structDEFVER_EXTSUF_.foChunkEncrypted)           {$ELSE}255{$IFEND} ,
-    {$IF DEFVER>=4205}ord(structDEFVER_EXTSUF_.foChunkCompressed)          {$ELSE}255{$IFEND} ,
-    {$IF DEFVER>=5113}ord(structDEFVER_EXTSUF_.foSolidBreak)               {$ELSE}255{$IFEND} ,
-    {$IF DEFVER>=6300}
-      255,255 
+    {$IF DEFVER>=6403}
+      ord(structDEFVER_EXTSUF_.floVersionInfoValid),  
+      255,                                            
+      ord(structDEFVER_EXTSUF_.floTimeStampInUTC),                                           
+      255,
+      ord(structDEFVER_EXTSUF_.floCallInstructionOptimized),
+      255,
+      ord(structDEFVER_EXTSUF_.floChunkEncrypted),
+      ord(structDEFVER_EXTSUF_.floChunkCompressed),
+      255,255,255                                                
     {$ELSE}       
-      {$IF DEFVER>=5602}ord(structDEFVER_EXTSUF_.foSign)                     {$ELSE}255{$IFEND} ,
-      {$IF DEFVER>=5602}ord(structDEFVER_EXTSUF_.foSignOnce)                 {$ELSE}255{$IFEND}
+      ord(structDEFVER_EXTSUF_.foVersionInfoValid),
+      ord(structDEFVER_EXTSUF_.foVersionInfoNotValid),
+      {$IF DEFVER>=4010}ord(structDEFVER_EXTSUF_.foTimeStampInUTC)           {$ELSE}255{$IFEND} ,
+      {$IF DEFVER>=4100}ord(structDEFVER_EXTSUF_.foIsUninstExe)              {$ELSE}255{$IFEND} ,
+      {$IF DEFVER>=4108}ord(structDEFVER_EXTSUF_.foCallInstructionOptimized) {$ELSE}255{$IFEND} ,
+      {$IF (DEFVER>=4200) AND (DEFVER<5507)}ord(structDEFVER_EXTSUF_.foTouch){$ELSE}255{$IFEND} ,
+      {$IF DEFVER>=4202}ord(structDEFVER_EXTSUF_.foChunkEncrypted)           {$ELSE}255{$IFEND} ,
+      {$IF DEFVER>=4205}ord(structDEFVER_EXTSUF_.foChunkCompressed)          {$ELSE}255{$IFEND} ,
+      {$IF DEFVER>=5113}ord(structDEFVER_EXTSUF_.foSolidBreak)               {$ELSE}255{$IFEND} ,
+      {$IF DEFVER>=6300}
+        255,255 
+      {$ELSE}       
+        {$IF DEFVER>=5601}ord(structDEFVER_EXTSUF_.foSign)                     {$ELSE}255{$IFEND} ,
+        {$IF DEFVER>=5601}ord(structDEFVER_EXTSUF_.foSignOnce)                 {$ELSE}255{$IFEND}
+      {$ENDIF}
     {$ENDIF}
   );
 
   SetupRegistryOptionTable: array[0..MySetupRegistryOptionLast] of byte = (
-  ord(structDEFVER_EXTSUF_.roCreateValueIfDoesntExist)                                   ,  {roCreateValueIfDoesntExist    }
-  ord(structDEFVER_EXTSUF_.roUninsDeleteValue)                                           ,  {roUninsDeleteValue            }
-  ord(structDEFVER_EXTSUF_.roUninsClearValue)                                            ,  {roUninsClearValue             }
-  ord(structDEFVER_EXTSUF_.roUninsDeleteEntireKey)                                       ,  {roUninsDeleteEntireKey        }
-  ord(structDEFVER_EXTSUF_.roUninsDeleteEntireKeyIfEmpty)                                ,  {roUninsDeleteEntireKeyIfEmpty }
-  ord(structDEFVER_EXTSUF_.roPreserveStringType)                                         ,  {roPreserveStringType          }
-  ord(structDEFVER_EXTSUF_.roDeleteKey)                                                  ,  {roDeleteKey                   }
-  ord(structDEFVER_EXTSUF_.roDeleteValue)                                                ,  {roDeleteValue                 }
-  ord(structDEFVER_EXTSUF_.roNoError)                                                    ,  {roNoError                     }
-  ord(structDEFVER_EXTSUF_.roDontCreateKey)                                              ,  {roDontCreateKey               }
-  {$IF DEFVER>=5100}ord(structDEFVER_EXTSUF_.ro32bit)                 {$ELSE}255{$IFEND} ,  {ro32bit                       }
-  {$IF DEFVER>=5100}ord(structDEFVER_EXTSUF_.ro64bit)                 {$ELSE}255{$IFEND}    {ro64bit                       }
-);
+    ord(structDEFVER_EXTSUF_.roCreateValueIfDoesntExist)                                   ,  {roCreateValueIfDoesntExist    }
+    ord(structDEFVER_EXTSUF_.roUninsDeleteValue)                                           ,  {roUninsDeleteValue            }
+    ord(structDEFVER_EXTSUF_.roUninsClearValue)                                            ,  {roUninsClearValue             }
+    ord(structDEFVER_EXTSUF_.roUninsDeleteEntireKey)                                       ,  {roUninsDeleteEntireKey        }
+    ord(structDEFVER_EXTSUF_.roUninsDeleteEntireKeyIfEmpty)                                ,  {roUninsDeleteEntireKeyIfEmpty }
+    ord(structDEFVER_EXTSUF_.roPreserveStringType)                                         ,  {roPreserveStringType          }
+    ord(structDEFVER_EXTSUF_.roDeleteKey)                                                  ,  {roDeleteKey                   }
+    ord(structDEFVER_EXTSUF_.roDeleteValue)                                                ,  {roDeleteValue                 }
+    ord(structDEFVER_EXTSUF_.roNoError)                                                    ,  {roNoError                     }
+    ord(structDEFVER_EXTSUF_.roDontCreateKey)                                              ,  {roDontCreateKey               }
+    {$IF DEFVER>=5100}ord(structDEFVER_EXTSUF_.ro32bit)                 {$ELSE}255{$IFEND} ,  {ro32bit                       }
+    {$IF DEFVER>=5100}ord(structDEFVER_EXTSUF_.ro64bit)                 {$ELSE}255{$IFEND}    {ro64bit                       }
+  );
 
   SetupDirOptionTable: array[0..MySetupDirOptionLast] of byte = (
-  ord(structDEFVER_EXTSUF_.doUninsNeverUninstall)                                          ,  {doUninsNeverUninstall   }
-  ord(structDEFVER_EXTSUF_.doDeleteAfterInstall)                                           ,  {doDeleteAfterInstall    }
-  ord(structDEFVER_EXTSUF_.doUninsAlwaysUninstall)                                         ,  {doUninsAlwaysUninstall  }
-  {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.doSetNTFSCompression)      {$ELSE}255{$IFEND} ,  {doSetNTFSCompression    }
-  {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.doUnsetNTFSCompression)    {$ELSE}255{$IFEND}    {doUnsetNTFSCompression  }
+    ord(structDEFVER_EXTSUF_.doUninsNeverUninstall)                                          ,  {doUninsNeverUninstall   }
+    ord(structDEFVER_EXTSUF_.doDeleteAfterInstall)                                           ,  {doDeleteAfterInstall    }
+    ord(structDEFVER_EXTSUF_.doUninsAlwaysUninstall)                                         ,  {doUninsAlwaysUninstall  }
+    {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.doSetNTFSCompression)      {$ELSE}255{$IFEND} ,  {doSetNTFSCompression    }
+    {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.doUnsetNTFSCompression)    {$ELSE}255{$IFEND}    {doUnsetNTFSCompression  }
 );
 
   SetupIniOptionTable: array[0..MySetupIniOptionLast] of byte = (
-  ord(structDEFVER_EXTSUF_.ioCreateKeyIfDoesntExist)                       ,  {ioCreateKeyIfDoesntExist     }
-  ord(structDEFVER_EXTSUF_.ioUninsDeleteEntry)                             ,  {ioUninsDeleteEntry           }
-  ord(structDEFVER_EXTSUF_.ioUninsDeleteEntireSection)                     ,  {ioUninsDeleteEntireSection   }
-  ord(structDEFVER_EXTSUF_.ioUninsDeleteSectionIfEmpty)                    ,  {ioUninsDeleteSectionIfEmpty  }
-  ord(structDEFVER_EXTSUF_.ioHasValue)                                        {ioHasValue                   }
+    ord(structDEFVER_EXTSUF_.ioCreateKeyIfDoesntExist)                       ,  {ioCreateKeyIfDoesntExist     }
+    ord(structDEFVER_EXTSUF_.ioUninsDeleteEntry)                             ,  {ioUninsDeleteEntry           }
+    ord(structDEFVER_EXTSUF_.ioUninsDeleteEntireSection)                     ,  {ioUninsDeleteEntireSection   }
+    ord(structDEFVER_EXTSUF_.ioUninsDeleteSectionIfEmpty)                    ,  {ioUninsDeleteSectionIfEmpty  }
+    ord(structDEFVER_EXTSUF_.ioHasValue)                                        {ioHasValue                   }
 );
 
   SetupHeaderOptionTable: array[0..MySetupHeaderOptionLast] of byte = (
@@ -146,7 +158,7 @@ const
     ord(structDEFVER_EXTSUF_.shPassword),
     ord(structDEFVER_EXTSUF_.shAllowRootDirectory),
     ord(structDEFVER_EXTSUF_.shDisableFinishedPage),
-    {$IF DEFVER<5602}ord(structDEFVER_EXTSUF_.shChangesAssociations)        {$ELSE}255{$IFEND},
+    {$IF DEFVER<5601}ord(structDEFVER_EXTSUF_.shChangesAssociations)        {$ELSE}255{$IFEND},
     ord(structDEFVER_EXTSUF_.shUsePreviousAppDir),
     {$IF DEFVER<6400}ord(structDEFVER_EXTSUF_.shBackColorHorizontal)        {$ELSE}255{$IFEND},
     ord(structDEFVER_EXTSUF_.shUsePreviousGroup),
@@ -171,7 +183,7 @@ const
     {$IF DEFVER>=4108}ord(structDEFVER_EXTSUF_.shAppendDefaultDirName)      {$ELSE}255{$IFEND},
     {$IF DEFVER>=4108}ord(structDEFVER_EXTSUF_.shAppendDefaultGroupName)    {$ELSE}255{$IFEND},
     {$IF DEFVER>=4202}ord(structDEFVER_EXTSUF_.shEncryptionUsed)            {$ELSE}255{$IFEND},
-    {$IF (DEFVER>=5004) AND (DEFVER<5602)}ord(structDEFVER_EXTSUF_.shChangesEnvironment){$ELSE}255{$IFEND},
+    {$IF (DEFVER>=5004) AND (DEFVER<5601)}ord(structDEFVER_EXTSUF_.shChangesEnvironment){$ELSE}255{$IFEND},
     {$IF (DEFVER>=5107) AND (NOT DEFINED(ISUNICODE))}
       ord(structDEFVER_EXTSUF_.shShowUndisplayableLanguages)
     {$ELSE}255{$IFEND},
@@ -716,7 +728,7 @@ begin
 {$ELSE}
     SetupMutex := '';
 {$IFEND}
-{$IF DEFVER>=5602}
+{$IF DEFVER>=5601}
     ChangesEnvironment := osh.ChangesEnvironment;
 {$ELSEIF DEFVER>=5004}
     if (shChangesEnvironment in osh.Options) then
@@ -726,7 +738,7 @@ begin
 {$ELSE}
     ChangesEnvironment := 'no';
 {$IFEND}
-{$IF DEFVER<5602}
+{$IF DEFVER<5601}
     if (shChangesAssociations in osh.Options) then
       ChangesAssociations := 'yes'
     else
@@ -871,9 +883,11 @@ begin
     FileVersionLS               :=ofl.FileVersionLS;
     Contents:='';
     PrimaryFileEntry:=-1;
-{$IF DEFVER>=6300}
+{$IF DEFVER>=6403}
+    Sign:=fsNoSetting;
+{$ELSEIF DEFVER>=6300}
     Sign:=TMySetupFileLocationSign(ofl.Sign);
-{$ELSEIF DEFVER>=5602}
+{$ELSEIF DEFVER>=5601}
     if foSign in ofl.Flags then Sign:=fsYes 
     else if foSign in ofl.Flags then Sign:=fsOnce
     else Sign:=fsNoSetting;

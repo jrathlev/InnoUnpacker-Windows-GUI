@@ -1,4 +1,4 @@
-unit Struct5602u;
+unit Struct5601u;
 
 {
   Inno Setup

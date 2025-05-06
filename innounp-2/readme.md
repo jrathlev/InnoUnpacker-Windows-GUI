@@ -2,7 +2,7 @@
 
 #### Unpacker for installations made by Inno Setup
 
-#### Supports Inno Setup versions 2.0.7 to 6.4.2
+#### Supports Inno Setup versions 2.0.7 to 6.4.3
 
 ##### Branch of the project on [SourceForge](http://sourceforge.net/projects/innounp)
 
@@ -18,7 +18,7 @@ In addition, some errors have been fixed and new command line options (*-l*, *-i
 
 The install script is saved in UTF-8 format.
 
-The program has also been adapted to *Inno Setup* versions 6.2 and 6.4.2.
+The program has also been adapted to *Inno Setup* versions 6.2 and 6.4.3.
 
 [Application download](https://github.com/jrathlev/InnoUnpacker-Windows-GUI/tree/master/innounp-2/bin)
 
