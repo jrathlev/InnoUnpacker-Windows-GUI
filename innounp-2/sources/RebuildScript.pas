@@ -6,6 +6,7 @@ uses MyTypes;
 
 function GetInstallScript : String;
 function GetLanguageFile(i: Integer) : String;
+function GetVersionText(MinVersion : TMySetupVersionData) : string;
 function GetCompressMethodName(Method: TSetupCompressMethod) : AnsiString;
 procedure AddEmbeddedFiles;
 
@@ -257,6 +258,14 @@ begin
     Builder.Free;
   end;
 end;
+
+function GetVersionText(MinVersion : TMySetupVersionData) : string;
+begin
+  with MinVersion do begin
+    if WinVersion<>0 then Result:=VerToStr(WinVersion,0)
+    else Result:=VerToStr(NTVersion,NTServicePack);
+    end;
+  end;
 
 { TScriptBuilder }
 

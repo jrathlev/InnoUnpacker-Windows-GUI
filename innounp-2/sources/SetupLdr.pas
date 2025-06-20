@@ -187,9 +187,11 @@ begin
       DestDir := PathExtractPath(DestName); SourceFileName:=DestName;
       DestName := PathExtractName(DestName);
       for t:=1 to length(SourceFileName) do                        // '/' and '\' are valid since
-        if SourceFileName[t] in [',',':','*','?','"','<','>','|'] then // they work as path delimiters
+      // allow ´',' as valid character - JR June 2025
+        if SourceFileName[t] in [':','*','?','"','<','>','|'] then // they work as path delimiters
+//        if SourceFileName[t] in [',',':','*','?','"','<','>','|'] then // they work as path delimiters
           SourceFileName[t]:='_';                                  // even inside brace constants
-      // count the duplicate file names                            // , (comma) is reserved for duplicate files
+      // count the duplicate file names           // . (period) is reserved for duplicate files - JR June 2025
       j:=list.IndexOf(SourceFileName);
       if j>=0 then list.Objects[j]:=pointer(integer(list.Objects[j])+1)
       else begin
@@ -240,6 +242,8 @@ begin
       k:=integer(list.Objects[j]);
       if (k>0) and (FileType<>ftFakeFile) then begin
         SourceFileName:=PathChangeExt(SourceFileName,'')+','+IntToStr(k)+PathExtractExt(SourceFileName);
+        // use '.' as separator instead of "," - JR June 2025
+//        SourceFileName:=PathChangeExt(SourceFileName,'')+'.'+IntToStr(k)+PathExtractExt(SourceFileName);
         list.Objects[j]:=pointer(k-1);
       end;
       if DestName=PathExtractName(SourceFileName) then DestName:='';  // don't need the DestName if it's the same as Source

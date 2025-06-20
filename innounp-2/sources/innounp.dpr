@@ -1134,8 +1134,10 @@ begin
             with SetupHeader do begin
               WriteNormalLine(ExtSp('Application name:',TextAlign),AppName);
               WriteNormalLine(ExtSp('Application version:',TextAlign),AppVersion);
+              if (MinVersion.WinVersion>$04000000) or (MinVersion.NTVersion>$04000000) then
+                WriteNormalLine(ExtSp('Required Windows version:',TextAlign),GetVersionText(MinVersion));
+              WriteNormalLine(ExtSp('Compression used:',TextAlign),GetCompressMethodName(CompressMethod));
               end;
-            WriteNormalLine(ExtSp('Compression used:',TextAlign),GetCompressMethodName(SetupHeader.CompressMethod));
             TotalFileSize:=0; TotalFiles:=0; TotalEncryptedFiles:=0; MaxSlice:=0;
             for i:=0 to Entries[seFile].Count-1 do
               with Struct.PSetupFileEntry(Entries[seFile][i])^ do begin
