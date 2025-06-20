@@ -24,8 +24,19 @@ unit gnugettext;
 //    All Delphi version related compiler switches removed - needs at least Delphi XE2
 //    GetWindowsLanguage uses GetUserPreferredUILanguages (Sept. 2023)
 
+// Changes Olray (olray(a)allanime.org)
+//    see: TODO: Olray 2025-06-13
+//    Implemented a virtual file system from resources embedded in the executable
+//    instead of using ggassemble.exe.
+//    Just add resources of type RCDATA within the Delphi IDE and name them as
+//    follows:
+//      IDR_TRANS_<LNG>_<DOMAIN>
+//    these resources will replace the files from directories that match the <LNG> and
+//    <DOMAIN> parts. E.g. a resource named IDR_TRANS_DE_DEFAULT replaces the file
+//    'locale\DE\LC_MESSAGES\default.mo'
+
 // Information about this file:
-// $LastChangedDate: 2023-11-14 $
+// $LastChangedDate: 2025-06-16 $
 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -61,6 +72,16 @@ uses
 {$endif}
   System.Classes, System.StrUtils, System.SysUtils, System.TypInfo;
 
+// TODO: Olray
+type
+  TLanguageTableEntry = record
+    FileName: string;
+    ResourceId: string;
+  end;
+
+var
+  GLanguageTable: TArray<TLanguageTableEntry>;
+
 (*****************************************************************************)
 (*                                                                           *)
 (*  MAIN API                                                                 *)
@@ -75,7 +96,7 @@ type
   {$ELSE}
   RawUtf8String=RawByteString;
   {$ENDIF}
-  DomainString=string;
+DomainString=string;
   LanguageString=string;
   ComponentNameString=string;
   FilenameString=string;
@@ -262,7 +283,7 @@ type
   IGnuGettextInstanceWhenNewLanguageListener = interface
     procedure WhenNewLanguage (const LanguageID:LanguageString);
   end;
-    
+
 {*------------------------------------------------------------------------------
   The main translation engine.
 -------------------------------------------------------------------------------}
@@ -380,6 +401,49 @@ implementation
 {$endif}
 {$endif}
 
+// TODO: Olray
+function PathCanonicalize(lpszDst: PChar; lpszSrc: PChar): LongBool; stdcall;
+  external 'shlwapi.dll' name 'PathCanonicalizeW';
+
+function RelToAbs(const RelPath, BasePath: string): string;
+var
+  Dst: array[0..MAX_PATH-1] of char;
+begin
+  PathCanonicalize(@Dst[0], PChar(IncludeTrailingPathDelimiter(BasePath) + RelPath));
+  result := Dst;
+end;
+
+function IsVirtualFileName(filename: string): Boolean;
+var
+  AbsPath : string;
+  i       : integer;
+begin
+  Result := False;
+  for i := Low(GLanguageTable) to High(GLanguageTable) do
+  begin
+    AbsPath := RelToAbs(GLanguageTable[i].FileName, ExtractFilePath(ParamStr(0)));
+    if AbsPath = filename then
+      Exit(True);
+  end;
+end;
+
+function TryGetResourceFileStream(filename: string): TStream;
+var
+  AbsPath: string;
+  i       : integer;
+begin
+  Result := nil;
+  for i := Low(GLanguageTable) to High(GLanguageTable) do
+  begin
+    AbsPath := RelToAbs(GLanguageTable[i].FileName, ExtractFilePath(ParamStr(0)));
+    if AbsPath = filename then
+    begin
+      Result := TResourceStream.Create(hInstance, GLanguageTable[i].ResourceId, RT_RCDATA);
+      Exit;
+    end;
+  end;
+end;
+
 (**************************************************************************)
 // Some comments on the implementation:
 // This unit should be independent of other units where possible.
@@ -419,6 +483,7 @@ type
       destructor Destroy; override;
       function FindSignaturePos(const signature: RawByteString; str: TFileStream): Int64;
       procedure Analyze;  // List files embedded inside executable
+      procedure AnalyzeVirtualResources; // list files embedded as resource
       function FileExists (filename:FilenameString):boolean;
       function GetMoFile (filename:FilenameString;DebugLogger:TDebugLogger):TMoFile;
       procedure ReleaseMoFile (mofile:TMoFile);
@@ -958,8 +1023,6 @@ begin
   Result:=DefaultInstance.LoadResString(ResStringRec);
 end;
 
-
-
 function GetCurrentLanguage:LanguageString;
 begin
   Result:=DefaultInstance.GetCurrentLanguage;
@@ -1307,6 +1370,13 @@ begin
     end;
   finally
     FindClose (sr);
+  end;
+
+// TODO: Olray
+  // Iterate through resource ID's
+  for i := Low(GLanguageTable) to High(GLanguageTable) do
+  begin
+
   end;
 
   // Iterate through embedded files
@@ -2653,112 +2723,89 @@ begin
   end;
 end;
 
-(* procedure TFileLocator.Analyze;
-var
-  HeaderSize,
-  PrefixSize: Integer;
-  dummysig,
-  headerpre,
-  headerbeg,
-  headerend:RawByteString;
-  i:integer;
-  headerbeginpos,
-  headerendpos:integer;
-  offset,
-  tableoffset:int64;
-  fs:TFileStream;
-  fi:TEmbeddedFileInfo;
-  filename:FilenameString;
-  filename8bit:RawByteString;
-const
-  // DetectionSignature: used solely to detect gnugettext usage by assemble
-  DetectionSignature: array[0..35] of AnsiChar='2E23E563-31FA-4C24-B7B3-90BE720C6B1A';
-  // Embedded Header Begin Signature (without dynamic prefix written by assemble)
-  BeginHeaderSignature: array[0..35] of AnsiChar='BD7F1BE4-9FCF-4E3A-ABA7-3443D11AB362';
-  // Embedded Header End Signature (without dynamic prefix written by assemble)
-  EndHeaderSignature: array[0..35] of AnsiChar='1C58841C-D8A0-4457-BF54-D8315D4CF49D';
-  // Assemble Prefix (do not put before the Header Signatures!)
-  SignaturePrefix: array[0..2] of AnsiChar='DXG'; // written from assemble
+// TODO: Olray
+//   Callback procs must be at procedure level
+function EnumRCDataProc(hModule: HMODULE; lpszType, lpszName: PChar; lParam: NativeInt): BOOL; stdcall;
 begin
-  // Attn: Ensure all Signatures have the same size!
-  HeaderSize := High(BeginHeaderSignature) - Low(BeginHeaderSignature) + 1;
-  PrefixSize := High(SignaturePrefix) - Low(SignaturePrefix) + 1;
+  if LeftStr(lpszName, 10) = 'IDR_TRANS_' then
+    TStrings(lParam).Add(lpszName);
+  Result := True;
+end;
 
-  // dummy usage of DetectionSignature (otherwise not compiled into exe)
-  SetLength(dummysig, HeaderSize);
-  for i := 0 to HeaderSize-1 do
-    dummysig[i+1] := DetectionSignature[i];
+procedure EnumerateRCDataResourceNames;
 
-  // copy byte by byte (D2009+ compatible)
-  SetLength(headerpre, PrefixSize);
-  for i:= 0 to PrefixSize-1 do
-    headerpre[i+1] := SignaturePrefix[i];
-
-  SetLength(headerbeg, HeaderSize);
-  for i:= 0 to HeaderSize-1 do
-    headerbeg[i+1] := BeginHeaderSignature[i];
-
-  SetLength(headerend, HeaderSize);
-  for i:= 0 to HeaderSize-1 do
-    headerend[i+1] := EndHeaderSignature[i];
-
-  BaseDirectory:=ExtractFilePath(ExecutableFilename);
-  try
-    fs:=TFileStream.Create(ExecutableFilename,fmOpenRead or fmShareDenyNone);
-    try
-      // try to find new header begin and end signatures
-      headerbeginpos := FindSignaturePos(headerpre+headerbeg, fs);
-      headerendpos := FindSignaturePos(headerpre+headerend, fs);
-
-      if (headerbeginpos > 0) and (headerendpos > 0) then
-      begin
-        // adjust positions (to the end of each signature)
-        headerbeginpos := headerbeginpos + HeaderSize + PrefixSize;
-
-        // get file table offset (8 byte, stored directly before the end header)
-        fs.Seek(headerendpos - 8, soFromBeginning);
-        // get relative offset and convert to absolute offset during runtime
-        tableoffset := headerbeginpos + ReadInt64(fs);
-
-        // go to beginning of embedded block
-        fs.Seek(headerbeginpos, soFromBeginning);
-        
-        offset := tableoffset;
-        Assert(sizeof(offset)=8);
-        while (true) and (fs.Position<headerendpos) do begin
-          fs.Seek(offset,soFromBeginning);
-          offset:=ReadInt64(fs);
-          if offset=0 then
-            exit;
-          offset:=headerbeginpos+offset;
-          fi:=TEmbeddedFileInfo.Create;
-          try
-            // get embedded file info (adjusting dynamic to real offsets now)
-            fi.Offset:=headerbeginpos+ReadInt64(fs);
-            fi.Size:=ReadInt64(fs);
-            SetLength (filename8bit, offset-fs.position);
-            fs.ReadBuffer (filename8bit[1], offset-fs.position);
-            filename:=trim(utf8decode(filename8bit));
-            if PreferExternal and sysutils.fileexists(basedirectory+filename) then begin
-              // Disregard the internal version and use the external version instead
-              FreeAndNil (fi);
-            end else
-              filelist.AddObject(filename,fi);
-          except
-            FreeAndNil (fi);
-            raise;
-          end;
-        end;
-      end;
-    finally
-      FreeAndNil (fs);
+  procedure BuildResourceTable(const List: TStringList);
+  var
+    count: Integer;
+    bufs: string;
+    parts: TArray<string>;
+    i       : integer;
+  begin
+    count := 0;
+    for i := 0 to List.Count-1 do
+    begin
+      bufs := RightStr(List[i], Length(List[i])-10);  // cut 'IDR_TRANS_'
+      parts := bufs.split(['_']);
+      SetLength(GLanguageTable, Succ(count));
+      GLanguageTable[count].FileName := Format('locale\%s\LC_MESSAGES\%s.mo', [parts[0].ToLower, Parts[1].ToLower]);
+      GLanguageTable[count].ResourceId := List[i];
+      Inc(count);
     end;
-  except
-    {$ifdef DXGETTEXTDEBUG}
-    raise;
-    {$endif}
   end;
-end;       *)
+
+var
+  ExecutableHandle: HMODULE;
+  ResourcesList: TStringList;
+  length: Integer;
+begin
+  ExecutableHandle := LoadLibraryEx(PChar(ParamStr(0)), 0, LOAD_LIBRARY_AS_DATAFILE);
+  try
+    ResourcesList := TStringList.Create;
+    EnumResourceNames(ExecutableHandle, RT_RCDATA, @EnumRCDataProc, NativeInt(ResourcesList));
+  finally
+    FreeLibrary(ExecutableHandle);
+  end;
+
+  BuildResourceTable(ResourcesList);
+  FreeAndNil(ResourcesList);
+end;
+
+procedure TFileLocator.AnalyzeVirtualResources;
+var
+  BaseDirectory: string;
+//  ResourceVirtualFileName: string;
+  ResourceStream: TResourceStream;
+//  s:ansistring;
+//  offset:int64;
+  fi:TEmbeddedFileInfo;
+  filename:AnsiString;
+  i       : integer;
+begin
+  EnumerateRCDataResourceNames;
+  if Length(GLanguageTable) < 1 then
+    Exit;
+
+  BaseDirectory := ExtractFilePath(ExecutableFilename);
+  for i := Low(GLanguageTable) to High(GLanguageTable) do
+  begin
+    try
+      ResourceStream := TResourceStream.Create(hInstance, GLanguageTable[i].ResourceId, RT_RCDATA);
+      try
+        fi:=TEmbeddedFileInfo.Create;
+        fi.Offset:=0;
+        fi.Size:=ResourceStream.Size;
+        filename := BaseDirectory + GLanguageTable[i].FileName;
+        filelist.AddObject(filename,fi);
+      finally
+        FreeAndNil (ResourceStream);
+      end;
+    except
+      {$ifdef DXGETTEXTDEBUG}
+      raise;
+      {$endif}
+    end;
+  end;
+end;
 
 constructor TFileLocator.Create;
 begin
@@ -2819,7 +2866,9 @@ begin
     idx:=filelist.IndexOf(filename);
     if idx<>-1 then begin
       fi:=filelist.Objects[idx] as TEmbeddedFileInfo;
-      realfilename:=ExecutableFilename;
+// TODO: Olray
+      if not IsVirtualFileName(filename) then
+        realfilename:=ExecutableFilename;
       offset:=fi.offset;
       size:=fi.size;
       {$ifdef DXGETTEXTDEBUG}
@@ -3117,16 +3166,26 @@ end;
 constructor TMoFile.Create(const filename: FilenameString;
                            const Offset: int64; Size: int64;
                            const xUseMemoryMappedFiles: Boolean);
+
+// TODO: Olray
+  function GetFileStream(filename: string): TStream;
+  begin
+    Result := TryGetResourceFileStream(filename);
+    if not Assigned(Result) then
+      Result := TFileStream.Create (filename, fmOpenRead or fmShareDenyNone);
+  end;
+
 var
   i:cardinal;
   nn:integer;
-  mofile:TFileStream;
+  mofile:TStream;
 begin
   if sizeof(i) <> 4 then
     raise EGGProgrammingError.Create('TDomain in gnugettext is written for an architecture that has 32 bit integers.');
 
   {$ifdef mswindows}
-  FUseMemoryMappedFiles := xUseMemoryMappedFiles;
+  if not IsVirtualFileName(filename) then
+    FUseMemoryMappedFiles := xUseMemoryMappedFiles;
   {$endif}
 
   {$ifdef linux}
@@ -3151,7 +3210,7 @@ begin
   else
   begin
     // Read the whole file into memory
-    mofile:=TFileStream.Create (filename, fmOpenRead or fmShareDenyNone);
+    mofile := GetFileStream(filename);
     try
       if (size = 0) then
         size := mofile.Size;
@@ -3306,6 +3365,8 @@ initialization
   {$endif}
   FileLocator:=TFileLocator.Create;
   FileLocator.Analyze;
+// TODO: Olray
+  FileLocator.AnalyzeVirtualResources;
   ResourceStringDomainList:=TStringList.Create;
   ResourceStringDomainList.Add(DefaultTextDomain);
   ResourceStringDomainListCS:=TMultiReadExclusiveWriteSynchronizer.Create;
@@ -3316,7 +3377,6 @@ initialization
   {$ifdef MSWINDOWS}
   Win32PlatformIsUnicode := (Win32Platform = VER_PLATFORM_WIN32_NT);
   {$endif}
-
   // replace Borlands LoadResString with gettext enabled version:
   {$ifdef UNICODE}
   HookLoadResString:=THook.Create (@system.LoadResString, @LoadResStringW);
@@ -3329,6 +3389,7 @@ initialization
   if (param0<>'delphi32.exe') and (param0<>'kylix') and (param0<>'bds.exe') then
     HookIntoResourceStrings (AutoCreateHooks,false);
   param0:='';
+
 
 finalization
   FreeAndNil (DefaultInstance);

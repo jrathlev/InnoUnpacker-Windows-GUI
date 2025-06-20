@@ -191,6 +191,7 @@ function DelMultSp (const S : string) : string;
 function DelCtrlChars(const S : string) : string;
 function CrLfToChar (s : string; c : char) : string;
 function CharToCr (s : string; c : char) : string;
+function CharToCrLf (s : string; c : char) : string;
 
 // erstes nichtleeres Zeichen suchen
 function SeekNoSp (const s : string; Offset : cardinal = 1) : integer;
@@ -362,6 +363,9 @@ function MatchesFilter(const AText,AFilter : string; Sep : char) : boolean;
 
 { ---------------------------------------------------------------- }
 // Routinen zur Auswertung einer Befehlszeile
+// prüfe ob Param eine Option ist
+function IsOption (const Param : string) : boolean;
+
 // prüfe, ob die ersten Zeichen einer Option mit dem Parameter übereinstimmen
 function CompareOption (const Param,Option : string) : boolean;
 
@@ -807,16 +811,22 @@ begin
     end;
   end;
 
-// Cr-Lf im String durch spez. Zeichen ersetzen
+// Cr-Lf oder Cr im String durch spez. Zeichen ersetzen
 function CrLfToChar (s : string; c : char) : string;
 begin
-  Result:=DelCtrlChars(AnsiReplaceStr(s,#$0D,c));
+  Result:=DelCtrlChars(AnsiReplaceStr(s,Cr,c));
   end;
 
-// spez. Zeichen im String durch Cr-Lf ersetzen
+// spez. Zeichen im String durch Cr ersetzen
 function CharToCr (s : string; c : char) : string;
 begin
-  Result:=AnsiReplaceStr(s,c,#$0D);
+  Result:=AnsiReplaceStr(s,c,Cr);
+  end;
+
+// spez. Zeichen im String durch CrLf ersetzen
+function CharToCrLf (s : string; c : char) : string;
+begin
+  Result:=AnsiReplaceStr(s,c,CrLf);
   end;
 
 { --------------------------------------------------------------- }
@@ -1562,6 +1572,8 @@ function MatchesFilter(const AText,AFilter : string; Sep : char) : boolean;
 var
   s : string;
 begin
+  Result:=false;
+  if Afilter.IsEmpty then Exit;
   s:=AFilter;
   repeat
     try
@@ -1574,6 +1586,12 @@ begin
 
 { ---------------------------------------------------------------- }
 // Routinen zur Auswertung einer Befehlszeile
+// prüfe ob Param eine Option ist
+function IsOption (const Param : string) : boolean;
+begin
+  Result:=not Param.IsEmpty and ((Param[1]='/') or (Param[1]='-'));
+  end;
+
 // prüfe, ob die ersten Zeichen einer Option mit dem Parameter übereinstimmen
 function CompareOption (const Param,Option : string) : boolean;
 begin

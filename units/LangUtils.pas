@@ -14,8 +14,9 @@
 
   Version 2.0 - Nov. 2011
           2.1 - Sept. 2024: languages added
+          2.2 - June 2025: optional loading of language list from resource
 
-          last modified: September 2024
+          last modified: June 2025
 
   Hinweise zur Verwendung:
   ========================
@@ -160,7 +161,6 @@ function GetLanguageHint : string;
 function LangIdToCode(id : integer) : TLangCodeString;
 
 var
-  CfgName            : string;
   SelectedLanguage   : TLangCodeString;
   LangFromCfg        : boolean;
 
@@ -322,26 +322,49 @@ var
   s,sn    : string;
   ss      : TLangCodeString;
   i,n     : integer;
+  rs      : TResourceStream;
+  sa      : RawByteString;
 begin
   if length(LangCode)>0 then begin
-    LoadDefaultNames;
-    s:=FPath+'locale\'+LangCode+'\LC_MESSAGES\'+FName;
-    Result:=FileExists(s);  // localized language table found
-    if Result then begin
-      sl:=TStringList.Create;
-      sl.LoadFromFile(s);
-      for i:=0 to sl.Count-1 do begin
-        s:=Trim(sl[i]);
-        if (length(s)>0) and (s[1]<>'#') then begin
-          ss:=ReadNxtStr(s,'=');
-          n:=GetLangIndex(ss);
-          sn:=Trim(ReadNxtStr(s,'#'));
-          if (length(sn)>0) and (n>=0) then Strings[n]:=sn;
-          end;
+    if FindResource(HInstance,'IDR_LANGUAGES',RT_RCDATA)<>0 then begin
+    // read list of supported languages from resource
+      rs:=TResourceStream.Create(HInstance,'IDR_LANGUAGES',RT_RCDATA);
+      SetLength(sa,rs.Size);
+      rs.Read(sa[1],rs.Size);
+      rs.Free;
+      s:=RawByteToUnicode(sa,cpUtf8);
+      Clear;
+      AddObject(rsSystemDefault,LangCodeStringToCardinal(''));  // system language
+      while(length(s)>0) do begin
+        ss:=ReadNxtStr(s,'=');
+        sn:=Trim(ReadNxtStr(s,','));
+        if (length(sn)>0) and (length(ss)>0) then
+          AddObject(sn,pointer(LangCodeStringToCardinal(ss)));
         end;
-      sl.Free;
+      for i:=1 to Count-1 do Strings[i]:=dgettext('languages',Strings[i]);
       Sort;
       if Assigned(FMenu) then SetMenu(FMenu);
+      end
+    else begin
+      LoadDefaultNames;
+      s:=FPath+'locale\'+LangCode+'\LC_MESSAGES\'+FName;
+      Result:=FileExists(s);  // localized language table found
+      if Result then begin
+        sl:=TStringList.Create;
+        sl.LoadFromFile(s);
+        for i:=0 to sl.Count-1 do begin
+          s:=Trim(sl[i]);
+          if (length(s)>0) and (s[1]<>'#') then begin
+            ss:=ReadNxtStr(s,'=');
+            n:=GetLangIndex(ss);
+            sn:=Trim(ReadNxtStr(s,'#'));
+            if (length(sn)>0) and (n>=0) then Strings[n]:=sn;
+            end;
+          end;
+        sl.Free;
+        Sort;
+        if Assigned(FMenu) then SetMenu(FMenu);
+        end;
       end;
     SetLangCode(LangCode);
     end
@@ -458,7 +481,7 @@ function ReadLanguageCode : TLangCodeString;
 var
   s,si  : string;
   j     : integer;
-  ok,po : boolean;
+  po    : boolean;
 
   // replace environment variable
   function ReplacePathPlaceHolder (const ps : string) : string;
@@ -483,8 +506,8 @@ var
     end;
 
 begin
-  ok:=false; po:=false; si:=''; Result:='';
-  for j:=1 to ParamCount do if not ok then begin   // prüfe Befehlszeile
+  po:=false; si:=''; Result:='';
+  for j:=1 to ParamCount do begin   // prüfe Befehlszeile
     s:=ParamStr(j);
     if (s[1]='/') or (s[1]='-') then begin
       delete (s,1,1);
@@ -593,7 +616,6 @@ begin
   end;
 
 initialization
-  CfgName:='';
   SelectedLanguage:=''; // default: system language
 
 end.
