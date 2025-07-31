@@ -956,8 +956,8 @@ begin
         'L': CommandAction:=caLanguageList;
         'M': ExtractEmbedded:=true;
         'N': AttemptUnpackUnknown:=false;
-        'P': Password:=copy(ParamStr(i),3,length(ParamStr(i))-2);
         'O': ColorMode:=0;
+        'P': Password:=copy(ParamStr(i),3,length(ParamStr(i))-2);
         'Q': QuietExtract:=true;
         'T': begin CommandAction:=caExtractFiles; ExtractTestOnly:=true; AutoYes:=true; end;
         'U': UseUtf8:=true;   // console output

@@ -74,6 +74,9 @@ begin
   end;
 end;
 
+const
+  HKEY_A = 1;  // equals HKLM in administrative install mode, HKCU otherwise
+
 function RegRootToStr(const re:TSetupRegistryEntry):string;
 begin
   with re do begin
@@ -82,6 +85,7 @@ begin
     else if rootkey=HKEY_LOCAL_MACHINE then Result:='HKLM'
     else if rootkey=HKEY_USERS then Result:='HKU'
     else if rootkey=HKEY_CURRENT_CONFIG then Result:='HKCC'
+    else if rootkey=HKEY_A then Result:='HKA'
     else Result:='';
     if Result<>'' then
       if ro32bit in Options then Result:=Result+'32'
