@@ -31,6 +31,7 @@
      /d:<destdir> : destination directory for unpacked files
      /f:<filter>  : file filter
      /e:<pwd>     : encryption password
+     /c           : only files from {app} path
      /m           : process internal embedded files
      /s           : extract files without paths
      /a           : process all copies of duplicate files
@@ -49,7 +50,7 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 2.0.2';
+  ProgVers = ' 2.0.3';
   CopRgt = '© 2014-2025 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -97,6 +98,7 @@ type
     pbShowText: TPaintBox;
     sbVert: TScrollBar;
     sbHorz: TScrollBar;
+    cxOnlyApp: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure bbInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -212,6 +214,7 @@ begin
     if (s[1]='/') or (s[1]='-') then begin
       Delete(s,1,1);
       if CompareOption(s,'m') then cxEmbedded.Checked:=true
+      else if CompareOption(s,'c') then cxOnlyApp.Checked:=true
       else if CompareOption(s,'s') then cxStrip.Checked:=true
       else if CompareOption(s,'a') then cxDupl.Checked:=true
       else if CompareOption(s,'o') then cxOverwrite.Checked:=true
@@ -582,6 +585,7 @@ begin
   if AnsiSameText(sf,'*.*') then sf:='';
   cmd:=MakeQuotedStr(UnpProg)+' -b';
   if cxStrip.Checked then cmd:=cmd+' -e' else cmd:=cmd+' -x';
+  if cxOnlyApp.Checked then cmd:=cmd+' -c{app}';
   if cxEmbedded.Checked then cmd:=cmd+' -m';
   if cxEncrypted.Checked then cmd:=cmd+' -p'+edPassword.Text;
   if cxOverwrite.Checked then cmd:=cmd+' -y';

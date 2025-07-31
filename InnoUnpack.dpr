@@ -1,5 +1,7 @@
 program InnoUnpack;
 
+{$R 'languages.res' 'languages.rc'}
+
 uses
   GnuGetText in 'units\GnuGetText.pas',
   LangUtils in 'units\LangUtils.pas',
