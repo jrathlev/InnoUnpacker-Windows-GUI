@@ -159,6 +159,8 @@ function GetPicturesFolder : string;
 function GetVideoFolder : string;
 function GetMusicFolder : string;
 function GetPublicFolder : string;
+function GetUserDesktopFolder : string;
+function GetUserStartupFolder : string;
 
 procedure RefreshDesktop;
 
@@ -401,6 +403,16 @@ begin
   Result:=GetKnownFolder(FOLDERID_Public);
   end;
 
+function GetUserDesktopFolder : string;
+begin
+  Result:=GetKnownFolder(FOLDERID_Desktop);
+  end;
+
+function GetUserStartupFolder : string;
+begin
+  Result:=GetKnownFolder(FOLDERID_Startup);
+  end;
+
 { ---------------------------------------------------------------- }
 procedure RefreshDesktop;
 var
@@ -477,7 +489,7 @@ begin
   if SUCCEEDED(Result) then with psl do begin
     Result:=SetPath(pChar(ProgName));
     if SUCCEEDED(Result) then begin
-      SetArguments(PChar(Arg));
+      SetArguments(PChar(Arg));                 // max length is INFOTIPSIZE = 1024
       if length(IconLocation)>0 then SetIconLocation(PChar(IconLocation),IconIndex);
       if length(WorkDir)>0 then SetWorkingDirectory(PChar(WorkDir));
       if length(Desc)>0 then SetDescription(PChar(Desc));
