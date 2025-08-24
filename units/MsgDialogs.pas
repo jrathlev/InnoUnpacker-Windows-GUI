@@ -4,6 +4,8 @@
    Uses library function "CreateMessageDialog" from "Vcl.Dialogs"
    The messages are not accessible to screenreaders (use "ShowMessageDlg" instead)
 
+   Note: Parameter "Msg" can hold a title string separated by "|"
+
    © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
    The contents of this file may be used under the terms of the
@@ -15,7 +17,7 @@
    the specific language governing rights and limitations under the License.
 
    July 2022
-   last modified: July 2022
+   last modified: August 2025
    *)
 
 unit MsgDialogs;
@@ -88,7 +90,7 @@ procedure ErrorDialog (Pos : TPoint; const Msg : string;
 
 implementation
 
-uses Vcl.Controls, WinUtils;
+uses Vcl.Controls, WinUtils, StringUtils;
 
 { ---------------------------------------------------------------- }
 // neuer Message-Dialog mit Positionsprüfung
@@ -99,22 +101,32 @@ function MessageDialog(const Title,Msg: string; DlgType: TMsgDlgType;
                 Pos : TPoint; Delay : integer;
                 AMonitor : TDefaultMonitor = dmActiveForm) : integer;
 var
-  w : integer;
+  w,n : integer;
+  st,sm : string;
 begin
-  with CreateMessageDialog(Msg,DlgType,Buttons,DefaultButton) do begin
+  n:=System.pos(VertBar,Msg);
+  if n>0 then begin
+    st:=copy(Msg,1,n-1); sm:=copy(Msg,n+1,length(Msg));
+    end
+  else begin
+    sm:=Msg; st:='';
+    end;
+  if not Title.IsEmpty then st:=Title;
+  with CreateMessageDialog(sm,DlgType,Buttons,DefaultButton) do begin
     Scaled:=true;
     DefaultMonitor:=AMonitor;
     try
       with Pos do begin
-        if (Y < 0) and (X < 0) then Position:=poScreenCenter
+        if Pos=ScreenPos then Position:=poScreenCenter
+        else if Pos=CenterPos then Position:=poMainFormCenter
         else begin
           CheckScreenBounds(Screen,x,y,Width,Height);
           Left:=x; Top:=y;
           end;
         end;
-      if length(Title)>0 then begin
-        Caption:=Title;
-        w:=Canvas.TextWidth(Title)+50;
+      if length(st)>0 then begin
+        Caption:=st;
+        w:=Canvas.TextWidth(st)+50;
         if w>ClientWidth then ClientWidth:=w;
         end;
       FormStyle:=fsStayOnTop;

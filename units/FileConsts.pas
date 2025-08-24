@@ -11,7 +11,7 @@
    the specific language governing rights and limitations under the License.
 
    Vers. 1.0 - Jan. 2016
-   last modified: Dec. 2017
+   last modified: July 2025
    *)
 
 unit FileConsts;
@@ -82,6 +82,7 @@ resourcestring
   rsAltStreams   = 'Error copying alternate data streams';
   rsFileDel      = 'Error deleting file';
   rsFileRen      = 'Error renaming file';
+  rsZipFormat    = 'Invalid zip format';
 
   rsUserBreak    = 'Terminated by user';
   rsUnknownErrCode  = 'Unknown error code ($%.8x)';

@@ -15,7 +15,7 @@
    the specific language governing rights and limitations under the License.
 
    October 2024
-   last modified: October 2024
+   last modified: March 2025
    *)
 
 unit ListUtils;
@@ -97,7 +97,7 @@ function GetInfoFromList (ACombo : TComboBox) : string;
 
 { ---------------------------------------------------------------- }
 // Entferne alle Objekte einer String-Liste oder einer ListView-Liste aus dem Speicher
-procedure FreeListObjects (Liste : TStrings);
+procedure FreeListObjects (Liste : TStrings); overload;
 procedure FreeListViewData (Liste : TListItems);
 
 { ---------------------------------------------------------------- }

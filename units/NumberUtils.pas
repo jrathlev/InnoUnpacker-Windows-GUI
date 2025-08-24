@@ -2,10 +2,11 @@
    number conversions
    ==================
 
-   - conversion of float numbers to engeneering format and to values with unit prefixes
+   - conversion of float numbers to engineering format and to values with unit prefixes
    - conversion Deg:Min:Sec -> String and back
    - conversion of Hex, Octal und Binary <-> string
    - conversion of set <-> hex
+   - Filesize as string
 
    © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
@@ -19,7 +20,7 @@
 
    Vers. 1 - Jun. 1989
    Vers. 2 - May 2015
-   last modified:  April 2020
+   last modified: August 2025
    *)
 
 unit NumberUtils;
@@ -1092,7 +1093,7 @@ begin
 
 { ---------------------------------------------------------------- }
 // Umwandeln einer Menge in einen Hex-String und zurück
-// Format des Strings: nnaabb.. (nn = Hexwert der nachfolgenden Bytes)
+// Format des Strings: nnaabb.. (nn = Hexwert der Anzahl der nachfolgenden Bytes)
 function SetToHex (ASet : PSetArray; Low,High : integer) : string;
 var
   i : integer;

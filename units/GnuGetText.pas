@@ -25,7 +25,7 @@ unit gnugettext;
 //    GetWindowsLanguage uses GetUserPreferredUILanguages (Sept. 2023)
 
 // Changes Olray (olray(a)allanime.org)
-//    see: TODO: Olray 2025-06-13
+//    Olray 2025-06-13
 //    Implemented a virtual file system from resources embedded in the executable
 //    instead of using ggassemble.exe.
 //    Just add resources of type RCDATA within the Delphi IDE and name them as
@@ -36,7 +36,7 @@ unit gnugettext;
 //    'locale\DE\LC_MESSAGES\default.mo'
 
 // Information about this file:
-// $LastChangedDate: 2025-06-16 $
+// $LastChangedDate: 2025-06-25 $
 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -72,7 +72,7 @@ uses
 {$endif}
   System.Classes, System.StrUtils, System.SysUtils, System.TypInfo;
 
-// TODO: Olray
+// Olray - June 2025
 type
   TLanguageTableEntry = record
     FileName: string;
@@ -401,19 +401,20 @@ implementation
 {$endif}
 {$endif}
 
-// TODO: Olray
-function PathCanonicalize(lpszDst: PChar; lpszSrc: PChar): LongBool; stdcall;
-  external 'shlwapi.dll' name 'PathCanonicalizeW';
+// Olray - June 2025
+//function PathCanonicalize(lpszDst: PChar; lpszSrc: PChar): LongBool; stdcall;
+//  external 'shlwapi.dll' name 'PathCanonicalizeW';
 
 function RelToAbs(const RelPath, BasePath: string): string;
-var
-  Dst: array[0..MAX_PATH-1] of char;
+//var
+//  Dst: array[0..MAX_PATH-1] of char;
 begin
-  PathCanonicalize(@Dst[0], PChar(IncludeTrailingPathDelimiter(BasePath) + RelPath));
-  result := Dst;
+//  PathCanonicalize(@Dst[0], PChar(IncludeTrailingPathDelimiter(BasePath) + RelPath));
+//  result := Dst;
+  Result:=BasePath+RelPath;
 end;
 
-function IsVirtualFileName(filename: string): Boolean;
+function IsVirtualFileName(const filename: string): Boolean;
 var
   AbsPath : string;
   i       : integer;
@@ -422,12 +423,12 @@ begin
   for i := Low(GLanguageTable) to High(GLanguageTable) do
   begin
     AbsPath := RelToAbs(GLanguageTable[i].FileName, ExtractFilePath(ParamStr(0)));
-    if AbsPath = filename then
+    if SameFileName(AbsPath,filename) then
       Exit(True);
   end;
 end;
 
-function TryGetResourceFileStream(filename: string): TStream;
+function TryGetResourceFileStream(const filename: string): TStream;
 var
   AbsPath: string;
   i       : integer;
@@ -436,7 +437,7 @@ begin
   for i := Low(GLanguageTable) to High(GLanguageTable) do
   begin
     AbsPath := RelToAbs(GLanguageTable[i].FileName, ExtractFilePath(ParamStr(0)));
-    if AbsPath = filename then
+    if SameFileName(AbsPath,filename) then
     begin
       Result := TResourceStream.Create(hInstance, GLanguageTable[i].ResourceId, RT_RCDATA);
       Exit;
@@ -582,7 +583,7 @@ begin
   Assert (sLinebreak=ansistring(#13#10));
   i:=1;
   while i<=length(s) do begin
-    if (s[i]=#10) and (MidStr(s,i-1,1)<>#13) then begin
+    if (s[i]=#10) and (copy(s,i-1,1)<>#13) then begin
       insert (#13,s,i);
       inc (i,2);
     end else
@@ -1370,13 +1371,6 @@ begin
     end;
   finally
     FindClose (sr);
-  end;
-
-// TODO: Olray
-  // Iterate through resource ID's
-  for i := Low(GLanguageTable) to High(GLanguageTable) do
-  begin
-
   end;
 
   // Iterate through embedded files
@@ -2677,11 +2671,12 @@ var
   fs:TFileStream;
   fi:TEmbeddedFileInfo;
   filename:AnsiString;        // change from FilenameString to AnsiString, JR - 2010-04-10
+  fn : string;
 begin
 // "ggassemble" will search for this GUI and replace the trailing #0s by a pointer
 // to the begin of the embedded mo files
   s:='6637DB2E-62E1-4A60-AC19-C23867046A89'#0#0#0#0#0#0#0#0;  // constant
-  s:=MidStr(s,length(s)-7,8);
+  s:=copy(s,length(s)-7,8);
   offset:=0;
   for i:=8 downto 1 do
     offset:=offset shl 8+ord(s[i]);
@@ -2702,12 +2697,12 @@ begin
           fi.Size:=ReadInt64(fs);
           SetLength (filename, offset-fs.position);
           fs.ReadBuffer (filename[1],offset-fs.position);
-          filename:=trim(filename);
-          if PreferExternal and System.sysutils.FileExists(basedirectory+filename) then begin
+          fn:=trim(filename);
+          if PreferExternal and System.sysutils.FileExists(basedirectory+fn) then begin
             // Disregard the internal version and use the external version instead
             FreeAndNil (fi);
           end else
-            filelist.AddObject(filename,fi);
+            filelist.AddObject(fn,fi);
         except
           FreeAndNil (fi);
           raise;
@@ -2723,7 +2718,7 @@ begin
   end;
 end;
 
-// TODO: Olray
+// Olray - June 2025
 //   Callback procs must be at procedure level
 function EnumRCDataProc(hModule: HMODULE; lpszType, lpszName: PChar; lParam: NativeInt): BOOL; stdcall;
 begin
@@ -2756,7 +2751,6 @@ procedure EnumerateRCDataResourceNames;
 var
   ExecutableHandle: HMODULE;
   ResourcesList: TStringList;
-  length: Integer;
 begin
   ExecutableHandle := LoadLibraryEx(PChar(ParamStr(0)), 0, LOAD_LIBRARY_AS_DATAFILE);
   try
@@ -2778,7 +2772,7 @@ var
 //  s:ansistring;
 //  offset:int64;
   fi:TEmbeddedFileInfo;
-  filename:AnsiString;
+  filename: String;
   i       : integer;
 begin
   EnumerateRCDataResourceNames;
@@ -2866,9 +2860,8 @@ begin
     idx:=filelist.IndexOf(filename);
     if idx<>-1 then begin
       fi:=filelist.Objects[idx] as TEmbeddedFileInfo;
-// TODO: Olray
-      if not IsVirtualFileName(filename) then
-        realfilename:=ExecutableFilename;
+// Olray - June 2025
+      if not IsVirtualFileName(filename) then realfilename:=ExecutableFilename;
       offset:=fi.offset;
       size:=fi.size;
       {$ifdef DXGETTEXTDEBUG}
@@ -3167,7 +3160,7 @@ constructor TMoFile.Create(const filename: FilenameString;
                            const Offset: int64; Size: int64;
                            const xUseMemoryMappedFiles: Boolean);
 
-// TODO: Olray
+// Olray - June 2025
   function GetFileStream(filename: string): TStream;
   begin
     Result := TryGetResourceFileStream(filename);
@@ -3365,8 +3358,7 @@ initialization
   {$endif}
   FileLocator:=TFileLocator.Create;
   FileLocator.Analyze;
-// TODO: Olray
-  FileLocator.AnalyzeVirtualResources;
+  FileLocator.AnalyzeVirtualResources; // Olray - June 2025
   ResourceStringDomainList:=TStringList.Create;
   ResourceStringDomainList.Add(DefaultTextDomain);
   ResourceStringDomainListCS:=TMultiReadExclusiveWriteSynchronizer.Create;

@@ -23,11 +23,15 @@
    Vers. 7 - Dec. 2015 : Modifications for Delphi 10 (all functions and constants
                          removed that are now handled in Winapi.Windows)
    Vers. 7.1 - July 2021 : LoadLibrary replaced by ExtLoadLibrary to handle FPU exceptions
+   Vers. 7.2 - August 2025 : ExtendedUserName, GetPreviousProgram, GetPowerCapabilities added
 
-   last modified:  November 2024
+   last modified: August 2025
    *)
 
 unit WinApiUtils;
+
+{$ALIGN ON}
+{$MINENUMSIZE 4}
 
 interface
 
@@ -37,8 +41,6 @@ const
   powrprof  = 'powrprof.dll';
   secur32 = 'Secur32.dll';
   wtsapi32 = 'Wtsapi32.dll';
-
-  UserError = $20000000;
 
 // Reason flags       (not used on Windows 2000, Windows NT and Windows Me/98/95)
 // Flags that end up in the event log code
@@ -197,7 +199,18 @@ const
   NameCanonicalEx        = 9;
   NameServicePrincipal   = 10;
   NameDnsDomain          = 12;
+  NameGivenName          = 13;
+  NameSurname            = 14;
 
+type
+  TNameFormat = (nfUnknown,nfFullyQualifiedDN,nfSamCompatibl,nfDisplay,
+                 nfUniqueId,nfCanonical,nfUserPrincipal,nfCanonicalEx,
+                 nfServicePrincipal,nfDnsDomain,nfGivenName,nfSurname);
+const
+  TNameValues : array[TNameFormat] of DWORD = (NameUnknown,NameFullyQualifiedDN,
+                 NameSamCompatible,NameDisplay,NameUniqueId,NameCanonical,
+                 NameUserPrincipal,NameCanonicalEx,NameServicePrincipal,
+                 NameDnsDomain,NameGivenName,NameSurname);
 type
   TLuidArray = array of TLuid;
   USHORT = word;
@@ -242,6 +255,66 @@ type
   SECURITY_LOGON_SESSION_DATA = _SECURITY_LOGON_SESSION_DATA;
   TSecurityLogonSessionData = _SECURITY_LOGON_SESSION_DATA;
   PSecurityLogonSessionData = ^TSecurityLogonSessionData;
+
+  _BATTERY_REPORTING_SCALE = record
+     Granularity,
+     Capacity: DWORD;
+     end;
+  TBatteryReportingScale = _BATTERY_REPORTING_SCALE;
+
+  _SYSTEM_POWER_STATE = (
+    PowerSystemUnspecified,
+    PowerSystemWorking,
+    PowerSystemSleeping1,
+    PowerSystemSleeping2,
+    PowerSystemSleeping3,
+    PowerSystemHibernate,
+    PowerSystemShutdown,
+    PowerSystemMaximum);
+  TSystemPowerState = _SYSTEM_POWER_STATE;
+
+  _SYSTEM_POWER_CAPABILITIES = record
+    PowerButtonPresent,
+    SleepButtonPresent,
+    LidPresent,
+    SystemS1,
+    SystemS2,
+    SystemS3,                   // standby
+    SystemS4,                   // hibernate
+    SystemS5,                   // off
+    HiberFilePresent,
+    FullWake,
+    VideoDimPresent,
+    ApmPresent,
+    UpsPresent,
+    // Processors
+    ThermalControl,
+    ProcessorThrottle : boolean;
+    ProcessorMinThrottle,
+    ProcessorMaxThrottle : byte;
+    FastSystemS4,
+    Hiberboot,
+    WakeAlarmPresent,
+    AoAc,
+    // Disk
+    DiskSpinDown : boolean;
+    // HiberFile
+    HiberFileType : byte;
+    AoAcConnectivitySupported : boolean;
+    spare3 : array [0..5] of byte;
+    // System Battery
+    SystemBatteriesPresent,
+    BatteriesAreShortTerm : boolean;
+    BatteryScale: array [0..2] of TBatteryReportingScale;
+    // Wake
+    AcOnLineWake,
+    SoftLidWake,
+    RtcWake,
+    MinDeviceWakeState,
+    DefaultLowLatencyWake: TSystemPowerState;
+    end;
+  TSystemPowerCapabilities = _SYSTEM_POWER_CAPABILITIES;
+  PSystemPowerCapabilities = ^TSystemPowerCapabilities;
 
   _WTS_INFO_CLASS = (
     WTSInitialProgram,
@@ -337,7 +410,8 @@ type
   TQueryFullProcessImageName = function (hProcess : THandle; dwFlags : DWORD;
     lpExeName : LPWSTR; var lpdwSize : DWORD) : boolean; stdcall;
 
-  TSetSuspendState = function (Hibernate, ForceCritical, DisableWakeEvent: BOOL) : BOOL; stdcall;
+  TSetSuspendState = function (Hibernate, ForceCritical, DisableWakeEvent: BOOL) : boolean; stdcall;
+  TGetPwrCapabilities = function (var lpSpc : TSystemPowerCapabilities) : BOOL;  stdcall;
 
   TCreateProcessWithLogonW = function(lpUsername: PWideChar;
     lpDomain: PWideChar; lpPassword: PWideChar; dwLogonFlags: DWORD;
@@ -431,6 +505,7 @@ function CreateProcessWithLogonW(lpUsername: PWideChar;
 { ---------------------------------------------------------------- }
 // available since Win 2000
 function SetSuspendState(Hibernate, ForceCritical, DisableWakeEvent: Boolean): Boolean;
+function GetPowerCapabilities (var PwrCaps : TSystemPowerCapabilities) : boolean;
 
 { ---------------------------------------------------------------- }
 // alternate file streams
@@ -467,6 +542,7 @@ function PublicFolder : string;
 (* Systeminformationen *)
 function UserName : string;
 function UserFullName : string;
+function ExtendedUserName (nf : TNameFormat) : string;
 function UserProfile : string;
 function AllUsersProfile : string;
 function ComputerName : string;
@@ -569,6 +645,7 @@ var
   DllHandle : THandle;
   FCreateProcessWithLogonW : TCreateProcessWithLogonW; // erst ab Win 2000
   FSetSuspendState : TSetSuspendState;                 // erst ab Win 2000
+  FGetPwrCapabilities : TGetPwrCapabilities;           // erst ab Win XP
   FFindFirstStream : TFindFirstStream;                 // erst ab Vista
   FFindNextStream : TFindNextStream;                   // erst ab Vista
   FGetTickCount64 : TGetTickCount64;
@@ -629,6 +706,19 @@ begin
   end;
 
 { ---------------------------------------------------------------- }
+function SetSuspendState(Hibernate, ForceCritical, DisableWakeEvent: Boolean): Boolean;
+begin
+  if assigned(@FSetSuspendState) then Result:=FSetSuspendState(Hibernate,ForceCritical,DisableWakeEvent)
+  else Result:=false;
+  end;
+
+function GetPowerCapabilities (var PwrCaps : TSystemPowerCapabilities) : boolean;
+begin
+  if assigned(@FGetPwrCapabilities) then Result:=FGetPwrCapabilities(PwrCaps)
+  else Result:=false;
+  end;
+
+{ ---------------------------------------------------------------- }
 // availble since Vista
 function GetTickCount64 : ULONGLONG;
 begin
@@ -637,12 +727,6 @@ begin
   end;
 
 { ---------------------------------------------------------------- }
-function SetSuspendState(Hibernate, ForceCritical, DisableWakeEvent: Boolean): Boolean;
-begin
-  if assigned(@FSetSuspendState) then Result:=FSetSuspendState(Hibernate,ForceCritical,DisableWakeEvent)
-  else Result:=false;
-  end;
-
 function CreateProcessWithLogonW;
 begin
   if assigned(@FCreateProcessWithLogonW) then begin
@@ -823,6 +907,11 @@ begin
 function UserFullName : string;
 begin
   if not GetExtendedUserName(NameSamCompatible,Result) then Result:=UserName;
+  end;
+
+function ExtendedUserName (nf : TNameFormat) : string;
+begin
+  if not GetExtendedUserName(TNameValues[nf],Result) then Result:='???';
   end;
 
 function ComputerName : string;
@@ -1261,9 +1350,11 @@ var
     hp   : dword;
     sBuf : PWideChar;
     n    : dword;
+  const
+    PROCESS_QUERY_LIMITED_INFORMATION = $1000;
   begin
     Result:='';
-    hp:=OpenProcess(PROCESS_QUERY_INFORMATION,false,Id);
+    hp:=OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION,false,Id);
     if hp<>0 then begin
       n:=1024; sBuf:=StrAlloc(n);
       if assigned(@FQueryFullProcessImageName) then begin
@@ -1864,9 +1955,10 @@ initialization
   DllHandle:=FpuSafeLoadLibrary(powrprof);
   if DllHandle<>0 then begin
     @FSetSuspendState:=GetProcAddress(DllHandle,'SetSuspendState');
+    @FGetPwrCapabilities:=GetProcAddress(DllHandle,'GetPwrCapabilities');
     end
   else begin
-    FSetSuspendState:=nil;
+    FSetSuspendState:=nil; FGetPwrCapabilities:=nil;
     end;
 
   DllHandle:=GetModuleHandle(kernel32);

@@ -13,7 +13,7 @@
   the specific language governing rights and limitations under the License.
 
   Version 1.0 - Nov. 2011
-  last modified: October 2024
+  last modified: April 2025
   *)
   
 unit InitProg;
@@ -49,7 +49,8 @@ procedure FixToolBar(tb: TToolBar);
 
 var
   PrgPath,PrgName,
-  AppSubDir        : string;
+  AppSubDir,
+  CfgName          : string;
   VersInfo         : TFileVersionInfo;       // Programm- und Versionsinfo
 
 implementation
@@ -181,5 +182,6 @@ initialization
   PrgPath:=ExtractFilePath(Application.ExeName);
   PrgName:=ExtractFileName(ChangeFileExt(Application.ExeName,''));
   AppSubDir:='';
+  CfgName:='';
 end.
 

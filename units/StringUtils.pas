@@ -5,7 +5,6 @@
    - Conversions ANSI <-> OEM
    - Character manipulations (e.g. add/remove charachters)
    - Extract substrings and numbers until next delimiter
-   - Filesize as string
    - Routines to parse commandlines
    - Quicksort
 
@@ -20,7 +19,7 @@
    the specific language governing rights and limitations under the License.
 
    New compilation - May 2007
-   last modified:  December 2022
+   last modified: August 2025
    *)
 
 unit StringUtils;
@@ -316,8 +315,8 @@ function ReadNxtStr (var s   : String;
 function TryReadNxtInt (s : string; Del : char; var Value : integer) : boolean;
 
 function GetNxtStr (const s   : String; Del : char) : string;
-function GetTrimStr (const S : string; Del : char) : string;
-function GetNxtInt (const S : string; Del : char; Default : int64) : int64;
+function GetTrimStr (const s : string; Del : char) : string;
+function GetNxtInt (const s : string; Del : char; Default : int64) : int64;
 
 function ReadNxtWord (var s : string;
                       Dels  : TSysCharSet) : string;
@@ -333,6 +332,8 @@ function ReadNxtChr (var s   : String;
 
 function ReadNxtQuotedStr (var s : string;
                            ADelim,AQuote : char) : string;
+function GetNxtQuotedStr (const s : string;
+                          ADelim,AQuote : char) : string;
 
 function MakeQuotedStr (const s : string; CheckChars : array of char) : string; overload;
 function MakeQuotedStr (const s : string) : string; overload;
@@ -1281,7 +1282,7 @@ begin
   if length(t)=0 then Result:=Default else Result:=t;
   end;
 
-function GetNxtStr (const S   : String; Del : char) : string;
+function GetNxtStr (const s   : String; Del : char) : string;
 var
   i : integer;
 begin
@@ -1293,14 +1294,14 @@ begin
   else Result:='';
   end;
 
-function GetTrimStr(const S : string; Del : char) : string;
+function GetTrimStr(const s : string; Del : char) : string;
 begin
   Result:=Trim(GetNxtStr(s,Del));
   end;
 
-function GetNxtInt(const S : string; Del : char; Default : int64) : int64;
+function GetNxtInt(const s : string; Del : char; Default : int64) : int64;
 begin
-  if not TryStrToInt64(GetTrimStr(S,Del),Result) then Result:=Default;
+  if not TryStrToInt64(GetTrimStr(s,Del),Result) then Result:=Default;
   end;
 
 { ------------------------------------------------------------------- }
@@ -1382,6 +1383,15 @@ begin
     delete(s,1,n);
     end
   else Result:='';
+  end;
+
+function GetNxtQuotedStr (const s : string;
+                          ADelim,AQuote : char) : string;
+var
+  ss : string;
+begin
+  ss:=s;
+  Result:=ReadNxtQuotedStr(ss,ADelim,AQuote);
   end;
 
 function MakeQuotedStr (const s : string; CheckChars : array of char) : string;
