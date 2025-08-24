@@ -25,6 +25,7 @@ type
     procedure SetupSizes; override;
     procedure UnifySetupLdrOffsetTable(const p; var ot:TMySetupLdrOffsetTable); override;
     procedure UnifySetupHeader(const p; var sh:TMySetupHeader); override;
+    procedure UnifySetupISSigKeyEntry(const p; var sk:TMySetupISSigKeyEntry); override;
     procedure UnifyFileEntry(const p; var fe:TMySetupFileEntry); override;
     procedure UnifyFileLocationEntry(const p; var fl:TMySetupFileLocationEntry); override;
     procedure UnifyRegistryEntry(const p; var re:TMySetupRegistryEntry); override;
@@ -79,7 +80,9 @@ const
     {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.foExternalSizePreset)      {$ELSE}255{$IFEND} ,  {foExternalSizePreset      }
     {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.foSetNTFSCompression)      {$ELSE}255{$IFEND} ,  {foSetNTFSCompression      }
     {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.foUnsetNTFSCompression)    {$ELSE}255{$IFEND} ,  {foUnsetNTFSCompression    }
-    {$IF DEFVER>=5300}ord(structDEFVER_EXTSUF_.foGacInstall)              {$ELSE}255{$IFEND}    {foGacInstall              }
+    {$IF DEFVER>=5300}ord(structDEFVER_EXTSUF_.foGacInstall)              {$ELSE}255{$IFEND} ,  {foGacInstall              }
+    {$IF DEFVER>=6500}ord(structDEFVER_EXTSUF_.foDownload)                {$ELSE}255{$IFEND} ,
+    {$IF DEFVER>=6500}ord(structDEFVER_EXTSUF_.foExtractArchive)          {$ELSE}255{$IFEND}
 );
 
   SetupFileLocationFlagTable: array[0..MySetupFileLocationFlagLast] of byte = (
@@ -182,7 +185,7 @@ const
     {$IF DEFVER>=4103}ord(structDEFVER_EXTSUF_.shWizardImageStretch)        {$ELSE}255{$IFEND},
     {$IF DEFVER>=4108}ord(structDEFVER_EXTSUF_.shAppendDefaultDirName)      {$ELSE}255{$IFEND},
     {$IF DEFVER>=4108}ord(structDEFVER_EXTSUF_.shAppendDefaultGroupName)    {$ELSE}255{$IFEND},
-    {$IF DEFVER>=4202}ord(structDEFVER_EXTSUF_.shEncryptionUsed)            {$ELSE}255{$IFEND},
+    {$IF (DEFVER>=4202) AND (DEFVER<6500)}ord(structDEFVER_EXTSUF_.shEncryptionUsed)    {$ELSE}255{$IFEND},
     {$IF (DEFVER>=5004) AND (DEFVER<5601)}ord(structDEFVER_EXTSUF_.shChangesEnvironment){$ELSE}255{$IFEND},
     {$IF (DEFVER>=5107) AND (NOT DEFINED(ISUNICODE))}
       ord(structDEFVER_EXTSUF_.shShowUndisplayableLanguages)
@@ -212,7 +215,7 @@ const
     {$IF DEFVER>=5110}ord(structDEFVER_EXTSUF_.roRun32Bit)            {$ELSE}255{$IFEND},
     {$IF DEFVER>=5110}ord(structDEFVER_EXTSUF_.roRun64Bit)            {$ELSE}255{$IFEND},
     {$IF DEFVER>=5200}ord(structDEFVER_EXTSUF_.roRunAsOriginalUser)   {$ELSE}255{$IFEND},
-    {$IF DEFVER>=6100}ord(structDEFVER_EXTSUF_.roDontLogParameters)   {$ELSE}255{$IFEND}, 
+    {$IF DEFVER>=6100}ord(structDEFVER_EXTSUF_.roDontLogParameters)   {$ELSE}255{$IFEND},
     {$IF DEFVER>=6300}ord(structDEFVER_EXTSUF_.roLogOutput)           {$ELSE}255{$IFEND}
   );
 
@@ -222,6 +225,9 @@ begin
   IsUnicode:={$IFDEF ISUNICODE}true{$ELSE}false{$ENDIF};
   IsRT:={$IFDEF RTVER}true{$ELSE}false{$ENDIF};
   SetupID:=SetupLdrOffsetTableId;
+  {$IF DEFVER>=5105}
+    OfsTabVers:=SetupLdrOffsetTableVersion;
+  {$IFEND}
   OfsTabSize:=sizeof(TSetupLdrOffsetTable);
 end;
 
@@ -379,6 +385,16 @@ begin
   MyTypes.SetupDirEntryAnsiStrings:=SetupDirEntryStrings;
   {$IFEND}
 
+{$IF DEFVER >= 6500}
+  MyTypes.SetupISSigKeyEntrySize:=sizeof(TSetupISSigKeyEntry);
+  MyTypes.SetupISSigKeyEntryStrings:=SetupISSigKeyEntryStrings;
+  MyTypes.SetupISSigKeyEntryAnsiStrings:=SetupISSigKeyEntryAnsiStrings;
+{$ELSE}
+  MyTypes.SetupISSigKeyEntrySize:=0;
+  MyTypes.SetupISSigKeyEntryStrings:=0;
+  MyTypes.SetupISSigKeyEntryAnsiStrings:=0;
+{$IFEND}
+
   MyTypes.SetupFileEntrySize:=sizeof(TSetupFileEntry);
   {$IF DEFVER>=UNI_FIRST}
     {$IFDEF ISUNICODE}
@@ -531,7 +547,7 @@ begin
     AppSupportPhone             :=osh.AppSupportPhone;
 {$ELSE}
     AppSupportPhone             :='';
-{$IFEND}    
+{$IFEND}
     AppSupportURL               :=osh.AppSupportURL;
     AppUpdatesURL               :=osh.AppUpdatesURL;
     AppVersion                  :=osh.AppVersion;
@@ -569,6 +585,11 @@ begin
 {$IFEND}
     NumDirEntries               :=osh.NumDirEntries;
     NumFileEntries              :=osh.NumFileEntries;
+{$IF DEFVER>=6500}
+    NumISSigKeyEntries          :=osh.NumISSigKeyEntries;
+{$ELSE}
+    NumISSigKeyEntries          :=0;
+{$IFEND}
     NumFileLocationEntries      :=osh.NumFileLocationEntries;
     NumIconEntries              :=osh.NumIconEntries;
     NumIniEntries               :=osh.NumIniEntries;
@@ -613,25 +634,31 @@ begin
     CompressMethod:=MyTypes.cmZip;
 {$IFEND}
 {$IF DEFVER>=4202}
-    EncryptionUsed := shEncryptionUsed in osh.Options;
-    {$IF DEFVER>=6400}
-      PasswordHash.HashType := htSHA256;
-      FillChar(PasswordSalt, SizeOf(PasswordSalt), 0);
-      with Is64Encryption do begin
-        PasswordTest:=osh.PasswordTest;
-        Move(osh.EncryptionKDFSalt, EncryptionKDFSalt, sizeof(EncryptionKDFSalt));
-        EncryptionKDFIterations:=osh.EncryptionKDFIterations;
-        Move(osh.EncryptionBaseNonce, EncryptionBaseNonce, sizeof(EncryptionBaseNonce));
-        end;
-    {$ELSE}
-      {$IF DEFVER>=5309}
-      PasswordHash.HashType := htSHA1;
-      Move(osh.PasswordHash, PasswordHash.SHA1, sizeof(PasswordHash.SHA1));
+    {$IF DEFVER<6500}
+      EncryptionUsed := shEncryptionUsed in osh.Options;
+      {$IF DEFVER>=6400}
+        PasswordHash.HashType := htSHA256;
+        FillChar(PasswordSalt, SizeOf(PasswordSalt), 0);
+        with Is64Encryption do begin
+          PasswordTest:=osh.PasswordTest;
+          Move(osh.EncryptionKDFSalt, EncryptionKDFSalt, sizeof(EncryptionKDFSalt));
+          EncryptionKDFIterations:=osh.EncryptionKDFIterations;
+          Move(osh.EncryptionBaseNonce, EncryptionBaseNonce, sizeof(EncryptionBaseNonce));
+          end;
       {$ELSE}
-      PasswordHash.HashType := htMD5;
-      Move(osh.PasswordHash, PasswordHash.MD5, sizeof(PasswordHash.MD5));
+        {$IF DEFVER>=5309}
+        PasswordHash.HashType := htSHA1;
+        Move(osh.PasswordHash, PasswordHash.SHA1, sizeof(PasswordHash.SHA1));
+        {$ELSE}
+        PasswordHash.HashType := htMD5;
+        Move(osh.PasswordHash, PasswordHash.MD5, sizeof(PasswordHash.MD5));
+        {$IFEND}
+        Move(osh.PasswordSalt, PasswordSalt, sizeof(PasswordSalt));
+        FillChar(Is64Encryption, SizeOf(Is64Encryption), 0);
       {$IFEND}
-      Move(osh.PasswordSalt, PasswordSalt, sizeof(PasswordSalt));
+    {$ELSE}
+      EncryptionUsed := false;
+      FillChar(PasswordSalt, SizeOf(PasswordSalt), 0);
       FillChar(Is64Encryption, SizeOf(Is64Encryption), 0);
     {$IFEND}
 {$ELSE}
@@ -785,6 +812,27 @@ begin
   TranslateSet(osh.Options, sh.Options, PByteArray(@SetupHeaderOptionTable)^, MySetupHeaderOptionLast);
 end;
 
+procedure TAnInnoVer.UnifySetupISSigKeyEntry(const p; var sk:TMySetupISSigKeyEntry);
+{$IF DEFVER>=6500}
+var
+  osk :   TSetupISSigKeyEntry absolute p;
+begin
+  with sk do begin
+    PublicX          :=osk.PublicX;
+    PublicY          :=osk.PublicY;
+    RuntimeID        :=osk.RuntimeID;
+  end;
+end;
+{$ELSE}
+begin
+  with sk do begin
+    PublicX:='';
+    PublicY:='';
+    RuntimeID:='';
+  end;
+end;
+{$IFEND}
+
 procedure TAnInnoVer.UnifyFileEntry(const p; var fe:TMySetupFileEntry);
 var
   ofe: TSetupFileEntry absolute p;
@@ -793,16 +841,16 @@ begin
     SourceFilename              := ofe.SourceFilename;
     DestName                    := ofe.DestName;
     {$IF DEFVER>=2001}
-    Components                  := ofe.Components;
-    Tasks                       := ofe.Tasks;
+      Components                := ofe.Components;
+      Tasks                     := ofe.Tasks;
     {$ELSE}
-    Components                  := '';
-    Tasks                       := '';
+      Components                := '';
+      Tasks                     := '';
     {$IFEND}
     {$IF DEFVER>=4000}
-    Check                       := ofe.Check;
+      Check                     := ofe.Check;
     {$ELSE}
-    Check                       := '';
+      Check                     := '';
     {$IFEND}
     {$IF DEFVER>=4001}
     Languages                   := ofe.Languages;
@@ -1100,10 +1148,12 @@ begin
     {$ELSE}
     Languages                     :='';
     {$IFEND}
-    {$IF DEFVER>=4000}
-    Check                         :=oce.Check;
+    {$IF DEFVER>=6500}
+      Check                       := oce.CheckOnce;
+    {$ELSEIF DEFVER>=4000}
+      Check                       := oce.Check;
     {$ELSE}
-    Check                         :='';
+      Check                       := '';
     {$IFEND}
     MinVersion                    :=TMySetupVersionData(oce.MinVersion);
     OnlyBelowVersion              :=TMySetupVersionData(oce.OnlyBelowVersion);
@@ -1127,10 +1177,12 @@ begin
     {$ELSE}
     Languages                     :='';
     {$IFEND}
-    {$IF DEFVER>=4000}
-    Check                         :=ote.Check;
+    {$IF DEFVER>=6500}
+       Check                      := ote.CheckOnce;
+    {$ELSEIF DEFVER>=4000}
+       Check                      := ote.Check;
     {$ELSE}
-    Check                         :='';
+      Check                       := '';
     {$IFEND}
     MinVersion                    :=TMySetupVersionData(ote.MinVersion);
     OnlyBelowVersion              :=TMySetupVersionData(ote.OnlyBelowVersion);

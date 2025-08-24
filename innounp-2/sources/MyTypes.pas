@@ -16,10 +16,11 @@ type
   TMySetupLdrOffsetTable = record // in-memory only
     ID: AnsiString; //array[1..12] of Char;
     Version: LongWord;
-    TotalSize,
-    OffsetEXE, CompressedSizeEXE, UncompressedSizeEXE, CRCEXE,
-    Offset0, Offset1: Longint;
-    TableCRC: Longint;  { CRC of all prior fields in this record }
+    TotalSize, OffsetEXE : int64;
+    CompressedSizeEXE, UncompressedSizeEXE : UInt32;
+    CRCEXE : Int32;
+    Offset0, Offset1: int64;
+    TableCRC: Int32;  { CRC of all prior fields in this record }
     TableCRCUsed: boolean;
   end;
 
@@ -57,6 +58,15 @@ type
     EncryptionBaseNonce: TSetupEncryptionNonce;
     end;
 
+  { Should not contain strings }
+  TMySetupEncryptionHeader = packed record
+    EncryptionUse: (euNone, euFiles, euFull);
+    KDFSalt: TSetupKDFSalt;
+    KDFIterations: Integer;
+    BaseNonce: TSetupEncryptionNonce;
+    PasswordTest: Integer;
+  end;
+
   TMySetupHeaderOption = (shDisableStartupPrompt, shUninstallable, shCreateAppDir,
     shAllowNoIcons, shAlwaysRestart, shAlwaysUsePersonalGroup,
     shWindowVisible, shWindowShowCaption, shWindowResizable,
@@ -91,7 +101,7 @@ type
     LicenseText, InfoBeforeText, InfoAfterText, CompiledCodeText: AnsiString;
     NumLanguageEntries, NumCustomMessageEntries, NumPermissionEntries,
       NumTypeEntries, NumComponentEntries, NumTaskEntries, NumDirEntries,
-      NumFileEntries, NumFileLocationEntries, NumIconEntries, NumIniEntries,
+      NumISSigKeyEntries, NumFileEntries, NumFileLocationEntries, NumIconEntries, NumIniEntries,
       NumRegistryEntries, NumInstallDeleteEntries, NumUninstallDeleteEntries,
       NumRunEntries, NumUninstallRunEntries: Integer;
     MinVersion, OnlyBelowVersion: TMySetupVersionData;
@@ -125,9 +135,13 @@ type
     foRecurseSubDirsExternal, foReplaceSameVersionIfContentsDiffer,
     foDontVerifyChecksum, foUninsNoSharedFilePrompt, foCreateAllSubDirs,
     fo32bit, fo64bit, foExternalSizePreset, foSetNTFSCompression,
-    foUnsetNTFSCompression, foGacInstall);
+    foUnsetNTFSCompression, foGacInstall, foDownload, foExtractArchive);
   const MySetupFileOptionLast = ord(High(TMySetupFileOption));
   type TMySetupFileOptions = set of TMySetupFileOption;
+
+  TMySetupISSigKeyEntry = record
+    PublicX, PublicY, RuntimeID: String;
+    end;
 
   TMySetupFileEntry = record // in-memory only
     SourceFilename, DestName, InstallFontName, StrongAssemblyName: String;
@@ -316,6 +330,7 @@ var
   SetupDeleteEntrySize, SetupDeleteEntryStrings, SetupDeleteEntryAnsiStrings: Integer;
   SetupRunEntrySize, SetupRunEntryStrings, SetupRunEntryAnsiStrings: Integer;
   SetupFileLocationEntrySize, SetupFileLocationEntryStrings, SetupFileLocationEntryAnsiStrings: Integer;
+  SetupISSigKeyEntrySize, SetupISSigKeyEntryStrings , SetupISSigKeyEntryAnsiStrings : integer;
 
 const
   UNI_FIRST = 5205; // First Inno Setup version that had Unicode support
@@ -328,11 +343,13 @@ type
     IsUnicode:boolean;
     IsRT:boolean;
     SetupID:array[1..12] of AnsiChar; // other units have no access to global data in structXXXX.pas
+    OfsTabVers:UInt32;   // same reason
     OfsTabSize:integer;  // same reason
     constructor Create; virtual; abstract;
     procedure SetupSizes; virtual; abstract;
     procedure UnifySetupLdrOffsetTable(const p; var OffsetTable:TMySetupLdrOffsetTable); virtual; abstract;
     procedure UnifySetupHeader(const p; var SetupHeader:TMySetupHeader); virtual; abstract;
+    procedure UnifySetupISSigKeyEntry(const p; var SetupISSigKeyEntry:TMySetupISSigKeyEntry); virtual; abstract;
     procedure UnifyFileEntry(const p; var FileEntry:TMySetupFileEntry); virtual; abstract;
     procedure UnifyFileLocationEntry(const p; var FileLocationEntry:TMySetupFileLocationEntry); virtual; abstract;
     procedure UnifyRegistryEntry(const p; var RegistryEntry:TMySetupRegistryEntry); virtual; abstract;
@@ -350,6 +367,7 @@ type
 
   TByteArray = array [byte] of byte;
   PByteArray = ^TByteArray;
+  TIdArray = array [1..12] of AnsiChar;
 
 ///////// all objects representing supported versions are stored here
 var
@@ -362,7 +380,7 @@ function NormalizeStringVal(const Input: AnsiString) : String; overload;
 function CopyStringVal(const Input: String) : String; overload;
 function CopyStringVal(const Input: AnsiString) : String; overload;
 
-function GetVersionBySetupId(const pSetupId; var VerObject: TInnoVer):boolean;
+function GetVersionBySetupId(const SetupId : TIdArray; SetupVersion : UInt32; var VerObject: TInnoVer):boolean;
 
 implementation
 
@@ -403,14 +421,14 @@ begin
   Result := Input;    // dummy
 end;
 
-function GetVersionBySetupId(const pSetupId; var VerObject: TInnoVer):boolean;
+function GetVersionBySetupId(const SetupId : TIdArray; SetupVersion : UInt32; var VerObject: TInnoVer):boolean;
 var
   i:integer;
-  aSetupId: array [1..12] of AnsiChar absolute pSetupId;
+//  aSetupId: array [1..12] of AnsiChar absolute pSetupId;
 begin
   VerObject := nil;
-  for i:=0 to High(VerList) do
-    if VerList[i].SetupID=aSetupID then begin VerObject:=VerList[i]; break end;
+  for i:=0 to High(VerList) do with VerList[i] do
+    if (SetupID=SetupID) and (OfsTabVers=SetupVersion) then begin VerObject:=VerList[i]; break end;
   Result := VerObject<>nil;
 end;
 

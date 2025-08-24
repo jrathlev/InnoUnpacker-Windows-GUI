@@ -5,7 +5,7 @@ interface
 uses System.Classes, System.SysUtils, System.UITypes, MyTypes, Struct;
 
 type
-  TEntryType = (seLanguage, sePermission, seType, seComponent, seTask, seDir,
+  TEntryType = (seLanguage, sePermission, seType, seComponent, seTask, seDir, seKeySig,
     seFile, seFileLocation, seIcon, seIni, seRegistry, seInstallDelete,
     seUninstallDelete, seRun, seUninstallRun, seCustomMessage);
 
@@ -35,11 +35,12 @@ const
 
 
 var
-  SetupLdrOffset0: integer;
-  SetupLdrOffset1: integer;
+  SetupLdrOffset0: int64;
+  SetupLdrOffset1: int64;
   SetupLdrMode: Boolean = true;
   SetupLdrOriginalFilename: String;
   Entries: array[TEntryType] of TList;
+  SetupEncryptionHeader: TSetupEncryptionHeader;
   SetupHeader: TSetupHeader;
   TimeStampsInUTC:boolean;
   SetUpMinVersion : TSetupVersionData;

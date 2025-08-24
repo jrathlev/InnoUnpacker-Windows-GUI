@@ -225,7 +225,7 @@ begin
 procedure SetupLdr;
 var
   SourceF: TFile;
-  OffsetTable: TSetupLdrOffsetTable;
+  OffsetTable: TMySetupLdrOffsetTable;
   IsCompatible: boolean;
   TestID: TSetupID;
   VerObject: TInnoVer;
@@ -329,6 +329,7 @@ end;
 procedure InitializeSetup;
 var
   SetupFile: TFile;
+  SetupEncryptionHeaderCRC: Longint;
   pFileEntry: Struct.PSetupFileEntry;
   pFileLocationEntry: PSetupFileLocationEntry;
   pRegistryEntry: PSetupRegistryEntry;
@@ -340,6 +341,7 @@ var
   pCustomMessageEntry: PSetupCustomMessageEntry;
   pLanguageEntry: PSetupLanguageEntry;
   pDirEntry: PSetupDirEntry;
+  pSigKeyEntry: PSetupISSigKeyEntry;
   pIniEntry: PSetupIniEntry;
   pDeleteEntry: PSetupDeleteEntry;
   RealReader: TAbstractBlockReader;
@@ -425,12 +427,26 @@ begin
     SetupFile.Seek(SetupLdrOffset0);
     if SetupFile.Read(TestID, SizeOf(TestID)) <> SizeOf(TestID) then
       AbortInit(msgSetupFileCorruptOrWrongVer);
+    { Encryption header in version 6.5 }
+    if Ver>=6500 then begin
+      SetupFile.Read(SetupEncryptionHeaderCRC, SizeOf(SetupEncryptionHeaderCRC));
+      SetupFile.Read(SetupEncryptionHeader, SizeOf(SetupEncryptionHeader));
+      if SetupEncryptionHeaderCRC <> GetCRC32(SetupEncryptionHeader, SizeOf(SetupEncryptionHeader)) then begin
+        WriteErrorLine('The encryption header is corrupted!');
+        raise EFatalError.Create('2');
+        end;
+      if SetupEncryptionHeader.EncryptionUse=euFull then begin
+        WriteErrorLine('The full encryption mode is not supported!');
+        raise EFatalError.Create('1');
+        end
+      end;
+
     try
       TheBlockReader := GetBlockReaderClass(Ver);
 
       RealReader := TheBlockReader.Create(SetupFile, TLZMA1SmallDecompressor);
       Reader := TCacheReader.CreateCache(RealReader);
-      
+
       if IsVersionSuspicious(Ver) then begin
         HeuristicVersionFinder(Reader, Ver);
         WriteNormalText('; Version detected: ',IntToStr(Ver));
@@ -445,6 +461,13 @@ begin
         p:=AllocMem(SetupHeaderSize);
         SECompressedBlockRead(Reader, p^, SetupHeaderSize, SetupHeaderStrings, SetupHeaderAnsiStrings);
         VerObject.UnifySetupHeader(p^, SetupHeader);
+        if Ver>=6500 then with SetupHeader.Is64Encryption do begin
+          SetupHeader.EncryptionUsed:=SetupEncryptionHeader.EncryptionUse=euFiles;
+          PasswordTest:=SetupEncryptionHeader.PasswordTest;
+          Move(SetupEncryptionHeader.KDFSalt, EncryptionKDFSalt, sizeof(EncryptionKDFSalt));
+          EncryptionKDFIterations:=SetupEncryptionHeader.KDFIterations;
+          Move(SetupEncryptionHeader.BaseNonce, EncryptionBaseNonce, sizeof(EncryptionBaseNonce));
+          end;
         SetUpMinVersion:=TSetupVersionData(SetupHeader.MinVersion);
         FreeMem(p);
         if Ver<4000 then begin // language options, wizard images and compressor dll are stored here in 3.x
@@ -456,7 +479,7 @@ begin
         if Ver>=4000 then begin
           p:=AllocMem(SetupLanguageEntrySize);
           for i:=0 to SetupHeader.NumLanguageEntries-1 do begin
-            SECompressedBlockRead(Reader, p^, SetupLanguageEntrySize, SetupLanguageEntryStrings, SetupLanguageEntryAnsiStrings);
+            SECompressedBlockRead(Reader, p^, SetupLanguageEntrySize, MyTypes.SetupLanguageEntryStrings, MyTypes.SetupLanguageEntryAnsiStrings);
             pLanguageEntry:=AllocMem(sizeof(TSetupLanguageEntry));
             VerObject.UnifyLanguageEntry(p^, pLanguageEntry^);
             Entries[seLanguage].Add(pLanguageEntry);
@@ -488,7 +511,7 @@ begin
         begin
           p:=AllocMem(SetupTypeEntrySize);
           for i:=0 to SetupHeader.NumTypeEntries-1 do begin
-            SECompressedBlockRead(Reader, p^, SetupTypeEntrySize, SetupTypeEntryStrings, SetupTypeEntryAnsiStrings);
+            SECompressedBlockRead(Reader, p^, SetupTypeEntrySize, MyTypes.SetupTypeEntryStrings, MyTypes.SetupTypeEntryAnsiStrings);
             pTypeEntry:=AllocMem(sizeof(TSetupTypeEntry));
             VerObject.UnifyTypeEntry(p^, pTypeEntry^);
             Entries[seType].Add(pTypeEntry);
@@ -501,7 +524,7 @@ begin
         begin
           p:=AllocMem(SetupComponentEntrySize);
           for i:=0 to SetupHeader.NumComponentEntries-1 do begin
-            SECompressedBlockRead(Reader, p^, SetupComponentEntrySize, SetupComponentEntryStrings, SetupComponentEntryAnsiStrings);
+            SECompressedBlockRead(Reader, p^, SetupComponentEntrySize, MyTypes.SetupComponentEntryStrings, MyTypes.SetupComponentEntryAnsiStrings);
             pComponentEntry:=AllocMem(sizeof(TSetupComponentEntry));
             VerObject.UnifyComponentEntry(p^, pComponentEntry^);
             Entries[seComponent].Add(pComponentEntry);
@@ -514,7 +537,7 @@ begin
         begin
           p:=AllocMem(SetupTaskEntrySize);
           for i:=0 to SetupHeader.NumTaskEntries-1 do begin
-            SECompressedBlockRead(Reader, p^, SetupTaskEntrySize, SetupTaskEntryStrings, SetupTaskEntryAnsiStrings);
+            SECompressedBlockRead(Reader, p^, SetupTaskEntrySize, MyTypes.SetupTaskEntryStrings, MyTypes.SetupTaskEntryAnsiStrings);
             pTaskEntry:=AllocMem(sizeof(TSetupTaskEntry));
             VerObject.UnifyTaskEntry(p^,pTaskEntry^);
             Entries[seTask].Add(pTaskEntry);
@@ -525,17 +548,29 @@ begin
         { Dir entries }
         p:=AllocMem(SetupDirEntrySize);
         for i:=0 to SetupHeader.NumDirEntries-1 do begin
-          SECompressedBlockRead(Reader, p^, SetupDirEntrySize, SetupDirEntryStrings, SetupDirEntryAnsiStrings);
+          SECompressedBlockRead(Reader, p^, SetupDirEntrySize, MyTypes.SetupDirEntryStrings, MyTypes.SetupDirEntryAnsiStrings);
           pDirEntry:=AllocMem(sizeof(TSetupDirEntry));
           VerObject.UnifyDirEntry(p^,pDirEntry^);
           Entries[seDir].Add(pDirEntry);
         end;
         FreeMem(p);
 
+        if Ver>=6500 then begin
+        { ISSigKey entries }
+          p:=AllocMem(SetupISSigKeyEntrySize);
+          for i:=0 to SetupHeader.NumISSigKeyEntries-1 do begin
+            SECompressedBlockRead(Reader, p^, SetupISSigKeyEntrySize, MyTypes.SetupISSigKeyEntryStrings, MyTypes.SetupISSigKeyEntryAnsiStrings);
+            pSigKeyEntry:=AllocMem(sizeof(TSetupISSigKeyEntry));
+            VerObject.UnifySetupISSigKeyEntry(p^,pSigKeyEntry^);
+            Entries[seKeySig].Add(pSigKeyEntry);
+          end;
+          FreeMem(p);
+        end;
+
         { File entries }
         p:=AllocMem(SetupFileEntrySize);
         for i:=0 to SetupHeader.NumFileEntries-1 do begin
-          SECompressedBlockRead(Reader, p^, SetupFileEntrySize, SetupFileEntryStrings, SetupFileEntryAnsiStrings);
+          SECompressedBlockRead(Reader, p^, SetupFileEntrySize, MyTypes.SetupFileEntryStrings, MyTypes.SetupFileEntryAnsiStrings);
           pFileEntry:=AllocMem(sizeof(TSetupFileEntry));
           VerObject.UnifyFileEntry(p^,pFileEntry^);
           Entries[seFile].Add(pFileEntry);
@@ -546,7 +581,7 @@ begin
         { Icon entries }
         p:=AllocMem(SetupIconEntrySize);
         for i:=0 to SetupHeader.NumIconEntries-1 do begin
-          SECompressedBlockRead(Reader, p^, SetupIconEntrySize, SetupIconEntryStrings, SetupIconEntryAnsiStrings);
+          SECompressedBlockRead(Reader, p^, SetupIconEntrySize, MyTypes.SetupIconEntryStrings, MyTypes.SetupIconEntryAnsiStrings);
           pIconEntry:=AllocMem(sizeof(TSetupIconEntry));
           VerObject.UnifyIconEntry(p^,pIconEntry^);
           Entries[seIcon].Add(pIconEntry);
@@ -556,7 +591,7 @@ begin
         { INI entries }
         p:=AllocMem(SetupIniEntrySize);
         for i:=0 to SetupHeader.NumIniEntries-1 do begin
-          SECompressedBlockRead(Reader, p^, SetupIniEntrySize, SetupIniEntryStrings, SetupIniEntryAnsiStrings);
+          SECompressedBlockRead(Reader, p^, SetupIniEntrySize, MyTypes.SetupIniEntryStrings, MyTypes.SetupIniEntryAnsiStrings);
           pIniEntry:=AllocMem(sizeof(TSetupIniEntry));
           VerObject.UnifyIniEntry(p^,pIniEntry^);
           Entries[seIni].Add(pIniEntry);
@@ -566,7 +601,7 @@ begin
         { Registry entries }
         p:=AllocMem(SetupRegistryEntrySize);
         for i:=0 to SetupHeader.NumRegistryEntries-1 do begin
-          SECompressedBlockRead(Reader, p^, SetupRegistryEntrySize, SetupRegistryEntryStrings, SetupRegistryEntryAnsiStrings);
+          SECompressedBlockRead(Reader, p^, SetupRegistryEntrySize, MyTypes.SetupRegistryEntryStrings, MyTypes.SetupRegistryEntryAnsiStrings);
           pRegistryEntry:=AllocMem(sizeof(TSetupRegistryEntry));
           VerObject.UnifyRegistryEntry(p^,pRegistryEntry^);
           Entries[seRegistry].Add(pRegistryEntry);
@@ -576,7 +611,7 @@ begin
         { InstallDelete entries }
         p:=AllocMem(SetupDeleteEntrySize);
         for i:=0 to SetupHeader.NumInstallDeleteEntries-1 do begin
-          SECompressedBlockRead(Reader, p^, SetupDeleteEntrySize, SetupDeleteEntryStrings, SetupDeleteEntryAnsiStrings);
+          SECompressedBlockRead(Reader, p^, SetupDeleteEntrySize, MyTypes.SetupDeleteEntryStrings, MyTypes.SetupDeleteEntryAnsiStrings);
           pDeleteEntry:=AllocMem(sizeof(TSetupDeleteEntry));
           VerObject.UnifyDeleteEntry(p^, pDeleteEntry^);
           Entries[seInstallDelete].Add(pDeleteEntry);
@@ -586,7 +621,7 @@ begin
         { UninstallDelete entries }
         p:=AllocMem(SetupDeleteEntrySize);
         for i:=0 to SetupHeader.NumUninstallDeleteEntries-1 do begin
-          SECompressedBlockRead(Reader, p^, SetupDeleteEntrySize, SetupDeleteEntryStrings, SetupDeleteEntryAnsiStrings);
+          SECompressedBlockRead(Reader, p^, SetupDeleteEntrySize, MyTypes.SetupDeleteEntryStrings, MyTypes.SetupDeleteEntryAnsiStrings);
           pDeleteEntry:=AllocMem(sizeof(TSetupDeleteEntry));
           VerObject.UnifyDeleteEntry(p^, pDeleteEntry^);
           Entries[seUninstallDelete].Add(pDeleteEntry);
@@ -596,7 +631,7 @@ begin
         { Run entries }
         p:=AllocMem(SetupRunEntrySize);
         for i:=0 to SetupHeader.NumRunEntries-1 do begin
-          SECompressedBlockRead(Reader, p^, SetupRunEntrySize, SetupRunEntryStrings, SetupRunEntryAnsiStrings);
+          SECompressedBlockRead(Reader, p^, SetupRunEntrySize, MyTypes.SetupRunEntryStrings, MyTypes.SetupRunEntryAnsiStrings);
           pRunEntry:=AllocMem(sizeof(TSetupRunEntry));
           VerObject.UnifyRunEntry(p^,pRunEntry^);
           Entries[seRun].Add(pRunEntry);
@@ -606,7 +641,7 @@ begin
         { UninstallRun entries }
         p:=AllocMem(SetupRunEntrySize);
         for i:=0 to SetupHeader.NumUninstallRunEntries-1 do begin
-          SECompressedBlockRead(Reader, p^, SetupRunEntrySize, SetupRunEntryStrings, SetupRunEntryAnsiStrings);
+          SECompressedBlockRead(Reader, p^, SetupRunEntrySize, MyTypes.SetupRunEntryStrings, MyTypes.SetupRunEntryAnsiStrings);
           pRunEntry:=AllocMem(sizeof(TSetupRunEntry));
           VerObject.UnifyRunEntry(p^,pRunEntry^);
           Entries[seUninstallRun].Add(pRunEntry);

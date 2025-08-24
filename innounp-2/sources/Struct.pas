@@ -10,8 +10,11 @@ uses Winapi.Windows, MyTypes;
 type
   TSetupLdrOffsetTable = TMySetupLdrOffsetTable;
   PSetupLdrOffsetTable = ^TSetupLdrOffsetTable;
+  TSetupEncryptionHeader = TMySetupEncryptionHeader;
   TSetupHeader = TMySetupHeader;
   PSetupHeader = ^TSetupHeader;
+  TSetupISSigKeyEntry = TMySetupISSigKeyEntry;
+  PSetupISSigKeyEntry = ^TSetupISSigKeyEntry;
   TSetupFileEntry = TMySetupFileEntry;
   PSetupFileEntry = ^TSetupFileEntry;
   TSetupFileLocationEntry = TMySetupFileLocationEntry;

@@ -38,8 +38,10 @@ var
   hMod: HMODULE;
   Rsrc: HRSRC;
   ResData: HGLOBAL;
-//  p: pointer;
-  p : PSetupLdrOffsetTable;  // changes: JR - August 2020
+  p : pbytearray; //pointer;
+  id : TIdArray;
+  v : cardinal;
+//  p : PSetupLdrOffsetTable;  // changes: JR - August 2020
   VerObject: TInnoVer;
 begin
   Result:=false;
@@ -59,7 +61,9 @@ begin
     if ResData = 0 then break;
     p := LockResource(ResData);
     if p = nil then break;
-    Result := GetVersionBySetupId(p^.Id, VerObject);
+    move(p^[0],id[1],12);
+    move(p^[12],v,4);
+    Result := GetVersionBySetupId(Id,v,VerObject);
     if not Result then break;
     VerObject.UnifySetupLdrOffsetTable(p^, OffsetTable);
     Result:=CheckCrc(SourceF, p, OffsetTable, VerObject.OfsTabSize);
@@ -69,7 +73,7 @@ end;
 
 function GetSetupLdrOffsetTableFromFile(SourceF:TFile; var OffsetTable:TSetupLdrOffsetTable): boolean;
 var
-  aSetupID: array[1..12] of char;
+  SetupID: TIdArray;
   SizeOfFile, SizeDif: integer;
   ExeHeader: TSetupLdrExeHeader;
   RawOffsetTable: pointer;
@@ -85,9 +89,9 @@ begin
   if SizeDif>4 then exit; // other info might be appended after the offset table
   // assume that TSetupLdrOffsetTable.ID is the same size (12 bytes) for all versions
   SourceF.Seek(ExeHeader.OffsetTableOffset);
-  SourceF.ReadBuffer(aSetupID, sizeof(aSetupID));
+  SourceF.ReadBuffer(SetupID, sizeof(SetupID));
   SourceF.Seek(ExeHeader.OffsetTableOffset);
-  if not GetVersionBySetupId(aSetupId, VerObject) then SetupCorruptError;
+  if not GetVersionBySetupId(SetupId, 0, VerObject) then SetupCorruptError;
   GetMem(RawOffsetTable, VerObject.OfsTabSize);
   SourceF.ReadBuffer(RawOffsetTable^, VerObject.OfsTabSize);
   VerObject.UnifySetupLdrOffsetTable(RawOffsetTable^, OffsetTable);

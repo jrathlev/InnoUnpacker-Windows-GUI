@@ -15,7 +15,7 @@
    New compilation: April 2015
    language dependend strings in UnitConsts
 
-   last modified: August 2024
+   last modified: August 2025
    *)
 
 unit WinUtils;
@@ -27,8 +27,9 @@ uses Winapi.Windows, System.SysUtils, System.Classes, System.Types, Vcl.Graphics
   System.IniFiles, Vcl.Dialogs, Vcl.Buttons;
 
 const
-  CenterPos : TPoint = (X : -1; Y : -1);
-  DesignPos : TPoint = (X : 0; Y : -1);
+  CenterPos : TPoint = (X : -1; Y : -1);   // main form center
+  DesignPos : TPoint = (X : 0; Y : -1);    // designed position
+  ScreenPos : TPoint = (X : -1; Y : 0);    // screen center
 
   // Bildschirm-Auflösung bei der Programmentwicklung
   PixelsPerInchOnDesign = 96;
@@ -205,6 +206,7 @@ procedure AdjustClientWidth (AForm : TForm; AControl : TControl; Dist : integer 
 (* System herunterfahren *)
 function ExitFromWindows (Prompt : string; EwFlags,RsFlags : longword) : boolean;
 function ShutDownWindows (Prompt : string; Restart : boolean; RsFlags : longword) : boolean;
+function SuspendWindows (Hibernate : boolean) : boolean;
 
 { ---------------------------------------------------------------- }
 // Tastaturpuffer löschen
@@ -430,16 +432,15 @@ begin
 procedure AdjustFormPosition (AScreen : TScreen; AForm : TForm;
           APos : TPoint; AtBottom : boolean = false);
 begin
-  with AForm,APos do begin
-    if (Y < 0) or (X < 0) then Position:=poMainFormCenter // poScreenCenter
-    else begin
-      Position:=poDesigned;
-      if X<0 then X:=Left;
-      if Y<0 then Y:=Top;
-      if AtBottom then Y:=Y-Height;
-      CheckScreenBounds(AScreen,x,y,Width,Height);  // DefaultMonitor = dmDesktop
-      Left:=x; Top:=y;
-      end;
+  if APos=ScreenPos then AForm.Position:=poScreenCenter
+  else if APos=CenterPos then AForm.Position:=poMainFormCenter
+  else with AForm,APos do begin
+    Position:=poDesigned;
+    if X<0 then X:=Left;
+    if Y<0 then Y:=Top;
+    if AtBottom then Y:=Y-Height;
+    CheckScreenBounds(AScreen,x,y,Width,Height);  // DefaultMonitor = dmDesktop
+    Left:=x; Top:=y;
     end;
   end;
 
@@ -579,28 +580,34 @@ var
   bm,bms,gl : TBitmap;
 begin
   if MulDiv(100,NewDPI,OldDPI)<MinScale then Exit;
-  bm:=TBitmap.Create;
-  if AControl is TBitBtn then begin
-    gl:=(AControl as TBitBtn).Glyph; bm.Assign(gl);
+  bm:=TBitmap.Create; gl:=nil;
+  if AControl is TBitBtn then with AControl as TBitBtn do begin
+    if not Glyph.Empty then begin
+      gl:=Glyph; bm.Assign(gl);
+      end;
     end
 // assign is required to work for 64-bit applications
-  else if AControl is TSpeedButton then begin
-    gl:=(AControl as TSpeedButton).Glyph; bm.Assign(gl);
-    end
-  else Exit;
-  bms:=TBitmap.Create;
-  try
-    with bms do begin
-      SetSize(MulDiv(bm.Width,NewDPI,OldDPI),MulDiv(bm.Height,NewDPI,OldDPI));
-      with Canvas do begin
-        FillRect(ClipRect);
-        StretchDraw(Rect(0,0,Width,Height),bm);
-        end;
+  else if AControl is TSpeedButton then with AControl as TSpeedButton do begin
+    if not Glyph.Empty then begin
+      gl:=Glyph; bm.Assign(gl);
       end;
-    gl.Assign(bms);
-  finally
-    bm.Free; bms.Free;
     end;
+  if assigned(gl) then begin
+    bms:=TBitmap.Create;
+    try
+      with bms do begin
+        SetSize(MulDiv(bm.Width,NewDPI,OldDPI),MulDiv(bm.Height,NewDPI,OldDPI));
+        with Canvas do begin
+          FillRect(ClipRect);
+          StretchDraw(Rect(0,0,Width,Height),bm);
+          end;
+        end;
+      gl.Assign(bms);
+    finally
+      bms.Free;
+      end;
+    end;
+  bm.Free;
   end;
 
 procedure ScaleButtonGlyphs (AControl : TWinControl; OldDPI,NewDPI : integer);
@@ -749,7 +756,7 @@ procedure AdjustComboBoxes(AControl : TWinControl; OldDPI,NewDPI : integer);
 var
   i : integer;
 begin
-  with AControl do for i:=0 to ControlCount-1 do begin
+  if OldDPI<>NewDPI then with AControl do for i:=0 to ControlCount-1 do begin
     if (Controls[i] is TComboBox) then with (Controls[i] as TComboBox) do begin
       if Style in [csOwnerDrawFixed, csOwnerDrawVariable] then ItemHeight:=MulDiv(ItemHeight,NewDPI,OldDPI);
       end;
@@ -992,18 +999,15 @@ begin
   end;
 
 { ---------------------------------------------------------------- }
-(* System herunterfahren *)
-function ExitFromWindows (Prompt : string; EwFlags,RsFlags : longword) : boolean;
+function EnableShutdownPrivilege : boolean;
 var
   vi     : TOSVersionInfo;
   n      : dword;
   hToken : THandle;
   tkp    : TTokenPrivileges;
 begin
-  Result:=false;
-  if (length(Prompt)>0) and (MessageDlg(Prompt,mtConfirmation,[mbYes,mbNo],0)=mrNo) then exit;
   vi.dwOSVersionInfoSize:=SizeOf(vi);
-  GetVersionEx(vi);
+  GetVersionEx(vi); Result:=true;
   if vi.dwPlatformId>=VER_PLATFORM_WIN32_NT then begin // Windows NT
     // Get a token for this process.
     if OpenProcessToken(GetCurrentProcess,
@@ -1013,10 +1017,18 @@ begin
       tkp.PrivilegeCount:=1;  // one privilege to set
       tkp.Privileges[0].Attributes:=SE_PRIVILEGE_ENABLED;
     // Get the shutdown privilege for this process.
-      AdjustTokenPrivileges(hToken,FALSE,tkp,0,nil,n);
+      Result:=AdjustTokenPrivileges(hToken,FALSE,tkp,0,nil,n);
       end;
     end;
-  Result:=ExitWindowsEx (EwFlags,RsFlags);
+  end;
+
+{ ---------------------------------------------------------------- }
+(* System herunterfahren *)
+function ExitFromWindows (Prompt : string; EwFlags,RsFlags : longword) : boolean;
+begin
+  Result:=false;
+  if (length(Prompt)>0) and (MessageDlg(Prompt,mtConfirmation,[mbYes,mbNo],0)=mrNo) then exit;
+  Result:=EnableShutdownPrivilege and ExitWindowsEx (EwFlags,RsFlags);
   end;
 
 function ShutDownWindows (Prompt : string; Restart : boolean; RsFlags : longword) : boolean;
@@ -1028,21 +1040,30 @@ var
 begin
   Result:=false;
   if (length(Prompt)>0) and (MessageDlg(Prompt,mtConfirmation,[mbYes,mbNo],0)=mrNo) then exit;
-  vi.dwOSVersionInfoSize:=SizeOf(vi);
-  GetVersionEx(vi);
-  if vi.dwPlatformId>=VER_PLATFORM_WIN32_NT then begin // Windows NT
-    // Get a token for this process.
-    if OpenProcessToken(GetCurrentProcess,
-          TOKEN_ADJUST_PRIVILEGES or TOKEN_QUERY,hToken) then begin
-    // Get the LUID for the shutdown privilege.
-      LookupPrivilegeValue(nil,SE_SHUTDOWN_NAME,tkp.Privileges[0].Luid);
-      tkp.PrivilegeCount:=1;  // one privilege to set
-      tkp.Privileges[0].Attributes:=SE_PRIVILEGE_ENABLED;
-    // Get the shutdown privilege for this process.
-      AdjustTokenPrivileges(hToken,FALSE,tkp,0,nil,n);
-      end;
+  Result:=EnableShutdownPrivilege and InitiateSystemShutdownEx(nil,nil,0,true,Restart,RsFlags);
+  end;
+
+function HasS3Support : boolean;
+// Check if computer supports S3 - disabled on new computers using S0 (modern standby)
+var
+  pwc : TSystemPowerCapabilities;
+  n   : int64;
+begin
+  if GetPowerCapabilities(pwc) then Result:=true //pwc.SystemS3
+  else Result:=true;
+  end;
+
+function SuspendWindows (Hibernate : boolean) : boolean;
+// Hibernate = true  : S4 (Ruhezustand)
+//           = false : S3 (Standby) if available see "powercg /a"
+// Remark: S0 (modern standby) is not supported
+begin
+  Result:=EnableShutdownPrivilege;
+  if Result then begin
+    if Hibernate or HasS3Support then SetSuspendState(Hibernate,false,false)
+    else PostMessage(HWND_BROADCAST,WM_SYSCOMMAND,SC_MONITORPOWER,2);  // monitor off
     end;
-  Result:=InitiateSystemShutdownEx(nil,nil,0,true,Restart,RsFlags);
+//  Result:=EnableShutdownPrivilege and SetSystemPowerState(not Hibernate,false);
   end;
 
 //-----------------------------------------------------------------------------
