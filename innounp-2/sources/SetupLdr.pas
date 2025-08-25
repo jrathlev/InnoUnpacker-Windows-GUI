@@ -41,7 +41,6 @@ var
   p : pbytearray; //pointer;
   id : TIdArray;
   v : cardinal;
-//  p : PSetupLdrOffsetTable;  // changes: JR - August 2020
   VerObject: TInnoVer;
 begin
   Result:=false;

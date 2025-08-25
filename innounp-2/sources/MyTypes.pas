@@ -380,7 +380,7 @@ function NormalizeStringVal(const Input: AnsiString) : String; overload;
 function CopyStringVal(const Input: String) : String; overload;
 function CopyStringVal(const Input: AnsiString) : String; overload;
 
-function GetVersionBySetupId(const SetupId : TIdArray; SetupVersion : UInt32; var VerObject: TInnoVer):boolean;
+function GetVersionBySetupId(const ASetupId : TIdArray; ASetupVersion : UInt32; var VerObject: TInnoVer):boolean;
 
 implementation
 
@@ -421,14 +421,14 @@ begin
   Result := Input;    // dummy
 end;
 
-function GetVersionBySetupId(const SetupId : TIdArray; SetupVersion : UInt32; var VerObject: TInnoVer):boolean;
+function GetVersionBySetupId(const ASetupId : TIdArray; ASetupVersion : UInt32; var VerObject: TInnoVer):boolean;
 var
   i:integer;
 //  aSetupId: array [1..12] of AnsiChar absolute pSetupId;
 begin
   VerObject := nil;
   for i:=0 to High(VerList) do with VerList[i] do
-    if (SetupID=SetupID) and (OfsTabVers=SetupVersion) then begin VerObject:=VerList[i]; break end;
+    if (SetupID=ASetupID) and (OfsTabVers=ASetupVersion) then begin VerObject:=VerList[i]; break end;
   Result := VerObject<>nil;
 end;
 
