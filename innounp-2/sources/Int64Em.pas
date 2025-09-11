@@ -2,14 +2,12 @@ unit Int64Em;
 
 {
   Inno Setup
-  Copyright (C) 1997-2024 Jordan Russell
+  Copyright (C) 1997-2025 Jordan Russell
   Portions by Martijn Laan
   For conditions of distribution and use, see LICENSE.TXT.
 
   Declaration of the Integer64 type - which represents an *unsigned* 64-bit
   integer value - and functions for manipulating Integer64's.
-  (We can't use the Int64 type since it's only available in Delphi 4 and
-  later.)
 }
 
 interface
@@ -17,6 +15,8 @@ interface
 type
   Integer64 = record
     Lo, Hi: LongWord;
+    class operator Implicit(const A: Integer64): Int64;
+    class operator Implicit(const A: Int64): Integer64;
   end;
 
 function Compare64(const N1, N2: Integer64): Integer;
@@ -25,12 +25,10 @@ procedure Dec6464(var X: Integer64; const N: Integer64);
 function Div64(var X: Integer64; const Divisor: LongWord): LongWord;
 function Inc64(var X: Integer64; N: LongWord): Boolean;
 function Inc6464(var X: Integer64; const N: Integer64): Boolean;
-function Integer64ToStr(X: Integer64): String;
 function Mod64(const X: Integer64; const Divisor: LongWord): LongWord;
-function Mul64(var X: Integer64; N: LongWord): Boolean;
 procedure Multiply32x32to64(N1, N2: LongWord; var X: Integer64);
-procedure Shr64(var X: Integer64; Count: LongWord);
-function StrToInteger64(const S: String; var X: Integer64): Boolean;
+function StrToInteger64(const S: String; var X: Integer64): Boolean; overload;
+function StrToInteger64(const S: String; var X: Int64): Boolean; overload;
 
 implementation
 
@@ -185,61 +183,32 @@ asm
   pop  ebx
 end;
 
-procedure Shr64(var X: Integer64; Count: LongWord);
-{ Unsigned SHR of an Integer64 }
-asm
-  mov  ecx, edx
-  push esi
-  mov  esi, eax
-  mov  eax, [esi]
-  mov  edx, [esi+4]
-
-  cmp  ecx, 32
-  jb   @@below32
-  cmp  ecx, 64
-  jb   @@below64
-  xor  edx, edx
-  xor  eax, eax
-  jmp  @@exit
-
-@@below64:
-  mov  eax, edx
-  xor  edx, edx
-  shr  eax, cl
-  jmp  @@exit
-
-@@below32:
-  shrd eax, edx, cl
-  shr  edx, cl
-
-@@exit:
-  mov  [esi], eax
-  mov  [esi+4], edx
-  pop  esi
-end;
-
 function StrToInteger64(const S: String; var X: Integer64): Boolean;
 { Converts a string containing an unsigned decimal number, or hexadecimal
   number prefixed with '$', into an Integer64. Returns True if successful,
-  or False if invalid characters were encountered or an overflow occurred. }
+  or False if invalid characters were encountered or an overflow occurred.
+  Supports digits separators. }
 var
   Len, Base, StartIndex, I: Integer;
   V: Integer64;
   C: Char;
 begin
+  Result := False;
+
   Len := Length(S);
   Base := 10;
   StartIndex := 1;
-  if (Len > 0) and (S[1] = '$') then begin
-    Base := 16;
-    Inc(StartIndex);
+  if Len > 0 then begin
+    if S[1] = '$' then begin
+      Base := 16;
+      Inc(StartIndex);
+    end else if S[1] = '_' then
+      Exit;
   end;
 
-  Result := False;
-  if StartIndex > Len then
+  if (StartIndex > Len) or (S[StartIndex] = '_') then
     Exit;
-  V.Lo := 0;
-  V.Hi := 0;
+  V := 0;
   for I := StartIndex to Len do begin
     C := UpCase(S[I]);
     case C of
@@ -259,6 +228,8 @@ begin
           if not Inc64(V, Ord(C) - (Ord('A') - 10)) then
             Exit;
         end;
+      '_':
+        { Ignore }
     else
       Exit;
     end;
@@ -267,17 +238,25 @@ begin
   Result := True;
 end;
 
-function Integer64ToStr(X: Integer64): String;
+function StrToInteger64(const S: String; var X: Int64): Boolean;
 var
-  I: Integer;
-  Buf: array[0..31] of Char;  { need at least 20 characters }
+  X2: Integer64;
 begin
-  I := High(Buf) + 1;
-  repeat
-    Dec(I);
-    Buf[I] := Chr(Ord('0') + Div64(X, 10));
-  until (X.Lo = 0) and (X.Hi = 0);
-  SetString(Result, PChar(@Buf[I]), (High(Buf) + 1) - I);
+  X2 := X;
+  Result := StrToInteger64(S, X2);
+  X := X2;
+end;
+
+{ Integer64 }
+
+class operator Integer64.Implicit(const A: Int64): Integer64;
+begin
+  Int64Rec(Result) := Int64Rec(A);
+end;
+
+class operator Integer64.Implicit(const A: Integer64): Int64;
+begin
+  Int64Rec(Result) := Int64Rec(A);
 end;
 
 end.

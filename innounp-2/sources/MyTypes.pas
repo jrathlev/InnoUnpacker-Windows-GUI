@@ -166,7 +166,7 @@ type
 
   TMySetupFileLocationEntry = record // in-memory only
     FirstSlice, LastSlice: Integer;
-    StartOffset: Longint;
+    StartOffset: int64;
     ChunkSuboffset: Int64;
     OriginalSize: Int64;
     ChunkCompressedSize: Int64;

@@ -130,6 +130,7 @@ var
   Filename: String;
   TestDiskSliceID: TDiskSliceID;
   DiskSliceHeader: TDiskSliceHeader;
+  DiskSliceHeader1: TDiskSliceHeader6502;
 begin
   if FOpenedSlice = ASlice then
     Exit;
@@ -144,14 +145,26 @@ begin
   Notify('Reading slice ' + Filename);
   FSourceF := TFile.Create(Filename, fdOpenExisting, faRead, fsRead);
   if SetupLdrOffset1 = 0 then begin
-    if FSourceF.Read(TestDiskSliceID, SizeOf(TestDiskSliceID)) <> SizeOf(TestDiskSliceID) then
-      SourceIsCorrupted;
-    if TestDiskSliceID <> DiskSliceID then
-      SourceIsCorrupted;
-    if FSourceF.Read(DiskSliceHeader, SizeOf(DiskSliceHeader)) <> SizeOf(DiskSliceHeader) then
-      SourceIsCorrupted;
-    if FSourceF.Size.Lo <> DiskSliceHeader.TotalSize then
-      SourceIsCorrupted;
+    if Ver>=6502 then begin  // changed header since 6.5.2
+      if FSourceF.Read(TestDiskSliceID, SizeOf(TestDiskSliceID)) <> SizeOf(TestDiskSliceID) then
+        SourceIsCorrupted;
+      if TestDiskSliceID <> DiskSliceID6502 then
+        SourceIsCorrupted;
+      if FSourceF.Read(DiskSliceHeader1, SizeOf(DiskSliceHeader1)) <> SizeOf(DiskSliceHeader1) then
+        SourceIsCorrupted;
+      if int64(FSourceF.Size) <> DiskSliceHeader1.TotalSize then
+        SourceIsCorrupted;
+      end
+    else begin
+      if FSourceF.Read(TestDiskSliceID, SizeOf(TestDiskSliceID)) <> SizeOf(TestDiskSliceID) then
+        SourceIsCorrupted;
+      if TestDiskSliceID <> DiskSliceID then
+        SourceIsCorrupted;
+      if FSourceF.Read(DiskSliceHeader, SizeOf(DiskSliceHeader)) <> SizeOf(DiskSliceHeader) then
+        SourceIsCorrupted;
+      if FSourceF.Size.Lo <> DiskSliceHeader.TotalSize then
+        SourceIsCorrupted;
+    end;
   end;
   FOpenedSlice := ASlice;
 end;

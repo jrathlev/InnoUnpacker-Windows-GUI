@@ -67,6 +67,7 @@ const
 //  SetupID: TSetupID = 'Inno Setup Setup Data (4.1.5)';
   ZLIBID: TCompID = 'zlb'#26;
   DiskSliceID: TDiskSliceID = 'idska32'#26;
+  DiskSliceID6502: TDiskSliceID = 'idskb32'#26; // since inno setup 6.5.2
 type
   TSetupVersionDataVersion = packed record
     Build: Word;
@@ -81,6 +82,10 @@ type
   { A TDiskSliceHeader record follows DiskSliceID in a SETUP-*.BIN file }
   TDiskSliceHeader = packed record
     TotalSize: Cardinal;
+  end;
+  // since inno setup 6.5.2
+  TDiskSliceHeader6502 = packed record
+    TotalSize: Int64;
   end;
 
   { A TMessageHeader record follows MessagesHdrID in a SETUP.MSG file }
