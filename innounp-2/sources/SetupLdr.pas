@@ -16,7 +16,8 @@ procedure RenameFiles(ExtractAllCopies: Boolean);
 
 implementation
 
-uses Winapi.Windows, System.Classes, System.SysUtils, Main, Msgs, MyTypes, SetupEnt, PathFunc;
+uses Winapi.Windows, System.Classes, System.SysUtils, System.StrUtils,
+  Main, Msgs, MyTypes, SetupEnt, PathFunc;
 
 procedure SetupCorruptError;
 begin
@@ -179,7 +180,7 @@ begin
         loc:=PSetupFileLocationEntry(Entries[seFileLocation][LocationEntry]);
         if loc^.PrimaryFileEntry=-1 then loc^.PrimaryFileEntry:=i;
       end;
-      // This is an attempt to fix some bugy compilations
+      // This is an attempt to fix some buggy compilations
       // with double \\ chars in path
       DestName := StringReplace(DestName, '\\', '\', [rfReplaceAll]);
       DestName := StringReplace(DestName, '{{', '{', [rfReplaceAll]);

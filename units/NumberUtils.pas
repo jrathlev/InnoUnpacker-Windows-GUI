@@ -100,8 +100,8 @@ function CheckValue (s : string;
 function DecimalRound (Value : double; Decimal : integer) : double;
 
 (* Normalisieren eines Wertes in den Bereich 0.1 .. 999.9 *)
-procedure Normal (var Value,Factor : extended;
-                  var PrefixIndex  : integer);
+procedure Normalize (var Value,Factor : extended;
+                     var PrefixIndex  : integer);
 
 (* Zahlenwert mit nachfolgendem Einheitenvorsatz erzeugen *)
 function FloatToStrP (Value : extended;
@@ -386,10 +386,10 @@ begin
   if Value<0 then Result:=-Result;
   end;
 
-(* ----------PROCEDURE-NORMAL------------------------------------------- *)
+(* ----------PROCEDURE-Normalize------------------------------------------- *)
 (* Normalisieren eines Wertes in den Bereich 0.1 .. 999.9 *)
-procedure Normal (var Value,Factor : extended;
-                  var PrefixIndex  : integer);
+procedure Normalize (var Value,Factor : extended;
+                     var PrefixIndex  : integer);
 var
   AVal : double;
   k    : integer;
@@ -433,7 +433,7 @@ var
 begin
   fs:=FormatSettings;
   if DecSep<>#0 then fs.DecimalSeparator:=DecSep;
-  Normal (Value,f,i); pf:=Prefixes[i];
+  Normalize (Value,f,i); pf:=Prefixes[i];
   if nd<0 then begin
     nd:=abs(nd)-2;
     if abs(Value)<100.0 then inc(nd);
@@ -510,13 +510,13 @@ begin
   end;
 
 (* ----------FUNCTION--FloatToEng---------------------------------------- *)
-procedure FloatToEng (Value   : extended;
-                      n       : integer;
+procedure FloatToEng (Value    : extended;
+                      Digits   : integer;
                       var Mant : string;
-                      var Exp : integer;
-                      DecSep  : char = #0);
+                      var Exp  : integer;
+                      DecSep   : char = #0);
 // Value   = Wert
-// n       = Anzahl der signifikanten Stellen
+// Digits  = Anzahl der signifikanten Stellen
 // DecSep  = Dez.trenner
 // Mant    = Mantisse mit n signif. Stellen
 // Exp     = Exponent in 3er-Stufen
@@ -525,23 +525,23 @@ var
   nd,v : integer;
 begin
   if DecSep=#0 then DecSep:=FormatSettings.DecimalSeparator;
-  Normal (Value,f,Exp);
-  if n<=1 then n:=2;
-  if n>8 then n:=8;
+  Normalize (Value,f,Exp);
+  if Digits<=1 then Digits:=2;
+  if Digits>8 then Digits:=8;
   nd:=0;
   if abs(Value)>=0.99999 then inc(nd);
   if abs(Value)>=9.9999 then inc(nd);
   if abs(Value)>=99.999 then inc(nd);
-  v:=round(abs(Value)*FFak[n-nd]);
-  if n<nd then v:=v*NFak[nd-n];
+  v:=round(abs(Value)*FFak[Digits-nd]);
+  if Digits<nd then v:=v*NFak[nd-Digits];
   if v=0 then begin
     Mant:='0'+DecSep;
-    for nd:=1 to n do Mant:=Mant+'0';
+    for nd:=1 to Digits do Mant:=Mant+'0';
     end
   else begin
     Mant:=IntToStr(v);
     if nd>0 then begin
-      if n>nd then insert(DecSep,Mant,nd+1);
+      if Digits>nd then insert(DecSep,Mant,nd+1);
       end
     else Insert('0'+DecSep,Mant,1);
     if Value<0 then Insert('-',Mant,1);
@@ -552,7 +552,7 @@ begin
 function FloatToStrE (Value   : extended;
                       Digits  : integer;
                       DecSep  : char = #0) : string;
-(* n    = Anzahl der signifikanten Stellen *)
+(* Digits    = Anzahl der signifikanten Stellen *)
 var
   s : string;
   k : integer;
@@ -578,7 +578,7 @@ function FloatToPrefixStr (Value     : extended;
                            Digits    : integer;
                            Separator : string = '';
                            DecSep    : char = #0) : string;
-(* n    = Anzahl der signifikanten Stellen *)
+(* Digits    = Anzahl der signifikanten Stellen *)
 var
   s   : string;
   k   : integer;

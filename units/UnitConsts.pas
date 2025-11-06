@@ -76,6 +76,20 @@ resourcestring
   rsVersion10Str = '%s (Version %d, Build %d, %s)';
   rsWindows11 = 'Windows 11';
 
+  rsVersionText   = 'Product name        : %s%s'+sLineBreak+
+                    'Version             : %d.%d'+sLineBreak+
+                    'Build               : %d'+sLineBreak+
+                    'Edition             : %6:s';
+  rsSPVersionText = 'Product name        : %s%s'+sLineBreak+
+                    'Service Pack        : %5:d'+sLineBreak+
+                    'Version             : %2:d.%3:d'+sLineBreak+
+                    'Build               : %4:d'+sLineBreak+
+                    'Edition             : %6:s';
+  rsVersion10Text = 'Product name        : %s%s'+sLineBreak+
+                    'Version             : %s'+sLineBreak+
+                    'Build               : %d'+sLineBreak+
+                    'Edition             : %s';
+
   rsProfessionalN = 'Professional';
   rsProfessionalMC = 'Professional with Media Center';
   rsBusiness = 'Business';

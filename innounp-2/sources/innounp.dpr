@@ -1054,7 +1054,7 @@ begin
   if length(s)>0 then for i:=1 to length(s) do begin
     if cardinal(s[i]) and Utf8Mask1 = Utf8Mask1 then begin
       if (i<length(s)) and (cardinal(s[i+1]) and Utf8Mask1 = Utf8Mask2) then begin
-        Result:=true; Break; // UTF8 caracter found
+        Result:=true; Break; // UTF8 character found
         end;
       end;
     end;
@@ -1167,8 +1167,9 @@ begin
           end;
         caInstallInfo: begin
             with SetupHeader do begin
-              WriteNormalLine(ExtSp('Application name:',TextAlign),AppName);
-              WriteNormalLine(ExtSp('Application version:',TextAlign),AppVersion);
+              WriteNormalLine(ExtSp('Application name:',TextAlign),GetCustomMessage(AppName));
+              WriteNormalLine(ExtSp('Application version:',TextAlign),GetCustomMessage(AppVersion));
+              WriteNormalLine(ExtSp('Default directory:',TextAlign),DefaultDirName);
               if (MinVersion.WinVersion>$04000000) or (MinVersion.NTVersion>$04000000) then
                 WriteNormalLine(ExtSp('Required Windows version:',TextAlign),GetVersionText(MinVersion));
               WriteNormalLine(ExtSp('Compression used:',TextAlign),GetCompressMethodName(CompressMethod));

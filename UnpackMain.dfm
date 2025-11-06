@@ -27,7 +27,6 @@ object MainForm: TMainForm
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 671
     DesignSize = (
       736
       146)
@@ -49,7 +48,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 0
       OnCloseUp = cbFileCloseUp
-      ExplicitWidth = 616
     end
     object bbOptions: TBitBtn
       Left = 655
@@ -141,7 +139,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 7
       OnClick = bbOptionsClick
-      ExplicitLeft = 590
     end
     object bbExit: TBitBtn
       Left = 695
@@ -233,7 +230,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 9
       OnClick = bbExitClick
-      ExplicitLeft = 630
     end
     object bbList: TBitBtn
       Left = 405
@@ -359,7 +355,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 2
       OnClick = bbListClick
-      ExplicitLeft = 340
     end
     object bbExtract: TBitBtn
       Left = 510
@@ -484,7 +479,6 @@ object MainForm: TMainForm
       ShowHint = False
       TabOrder = 5
       OnClick = bbExtractClick
-      ExplicitLeft = 445
     end
     object bbVerify: TBitBtn
       Left = 365
@@ -609,7 +603,6 @@ object MainForm: TMainForm
       ShowHint = False
       TabOrder = 4
       OnClick = bbVerifyClick
-      ExplicitLeft = 300
     end
     object bbFile: TBitBtn
       Left = 695
@@ -734,7 +727,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 1
       OnClick = bbFileClick
-      ExplicitLeft = 630
     end
     object cxEmbedded: TCheckBox
       Left = 10
@@ -745,7 +737,6 @@ object MainForm: TMainForm
       Caption = 'Process embedded files'
       TabOrder = 10
       OnClick = bbListClick
-      ExplicitWidth = 281
     end
     object bbInfo: TBitBtn
       Left = 695
@@ -837,7 +828,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 8
       OnClick = bbInfoClick
-      ExplicitLeft = 630
     end
     object cxEncrypted: TCheckBox
       Left = 10
@@ -848,7 +838,6 @@ object MainForm: TMainForm
       Caption = 'InnoSetup archive is encrypted'
       TabOrder = 11
       OnClick = cxEncryptedClick
-      ExplicitWidth = 281
     end
     object edPassword: TLabeledEdit
       Left = 60
@@ -952,7 +941,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 6
       OnClick = bbVersionClick
-      ExplicitLeft = 590
     end
     object bbLang: TBitBtn
       Left = 530
@@ -1078,7 +1066,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 3
       OnClick = bbLangClick
-      ExplicitLeft = 465
     end
     object bbSetupInfo: TBitBtn
       Left = 365
@@ -1203,7 +1190,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 13
       OnClick = bbSetupInfoClick
-      ExplicitLeft = 300
     end
   end
   object pnExtract: TPanel
@@ -1214,8 +1200,6 @@ object MainForm: TMainForm
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 90
-    ExplicitWidth = 671
     DesignSize = (
       736
       115)
@@ -1246,7 +1230,6 @@ object MainForm: TMainForm
       TabOrder = 0
       OnCloseUp = cbDirCloseUp
       OnExit = cbDirExit
-      ExplicitWidth = 596
     end
     object bbStart: TBitBtn
       Left = 625
@@ -1382,17 +1365,17 @@ object MainForm: TMainForm
       TabOrder = 5
     end
     object cxOverwrite: TCheckBox
-      Left = 290
+      Left = 300
       Top = 90
-      Width = 146
+      Width = 136
       Height = 17
       Caption = 'Overwrite files'
       TabOrder = 6
     end
     object cxStrip: TCheckBox
-      Left = 170
+      Left = 160
       Top = 90
-      Width = 111
+      Width = 131
       Height = 17
       Caption = 'Without paths'
       TabOrder = 4
@@ -1406,7 +1389,6 @@ object MainForm: TMainForm
       DropDownCount = 20
       TabOrder = 7
       OnCloseUp = cbFilterCloseUp
-      ExplicitWidth = 476
     end
     object bbFilter: TBitBtn
       Left = 590
@@ -1498,7 +1480,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 9
       OnClick = bbFilterClick
-      ExplicitLeft = 525
     end
     object bbDir: TBitBtn
       Left = 705
@@ -1563,7 +1544,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 1
       OnClick = bbDirClick
-      ExplicitLeft = 640
     end
     object bbCopyPath: TBitBtn
       Left = 675
@@ -1628,7 +1608,6 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 2
       OnClick = bbCopyPathClick
-      ExplicitLeft = 610
     end
     object bbScript: TBitBtn
       Left = 555
@@ -1720,12 +1699,11 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 8
       OnClick = bbScriptClick
-      ExplicitLeft = 490
     end
     object cxOnlyApp: TCheckBox
       Left = 10
       Top = 90
-      Width = 156
+      Width = 146
       Height = 17
       Caption = 'Only from {app} path'
       TabOrder = 10
@@ -1739,7 +1717,6 @@ object MainForm: TMainForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitWidth = 671
     object pnTools: TPanel
       Left = 700
       Top = 0
@@ -1748,7 +1725,6 @@ object MainForm: TMainForm
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitLeft = 635
       DesignSize = (
         36
         200)
@@ -2035,7 +2011,6 @@ object MainForm: TMainForm
       BevelKind = bkTile
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitWidth = 635
       object pbShowText: TPaintBox
         Left = 0
         Top = 0
@@ -2064,10 +2039,10 @@ object MainForm: TMainForm
         Height = 180
         Align = alRight
         Kind = sbVertical
+        LargeChange = 10
         PageSize = 0
         TabOrder = 0
         OnScroll = sbVertScroll
-        ExplicitLeft = 615
       end
       object sbHorz: TScrollBar
         Left = 0
@@ -2078,7 +2053,6 @@ object MainForm: TMainForm
         PageSize = 0
         TabOrder = 1
         OnChange = FormResize
-        ExplicitWidth = 631
       end
     end
   end

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-07-27 17:49+0200\n"
-"PO-Revision-Date: 2025-07-27 17:50+0200\n"
+"POT-Creation-Date: 2025-10-11 16:17+0200\n"
+"PO-Revision-Date: 2025-10-11 16:18+0200\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 msgid "Inspect and unpack InnoSetup files"
@@ -169,6 +169,10 @@ msgstr "Nom: "
 
 msgid "Version: "
 msgstr "Version: "
+
+#: UnpackMain.pas:748
+msgid "Date: "
+msgstr "Date:"
 
 msgid "Copyright: "
 msgstr "Copyright: "

@@ -2,6 +2,7 @@
    =======================
    GUI for "innounp.exe"
    see: https://sourceforge.net/projects/innounp/files/
+   and https://github.com/jrathlev/InnoUnpacker-Windows-GUI
 
    © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
@@ -24,7 +25,7 @@
    Vers. 2.0   (December 2024): new layout,
                                 colored display of innounp (v1.77 and up) output
 
-   last modified: January 2025
+   last modified: November 2025
 
    Command line options: [<setupname>] [options]
      <setupname>  : name of setup file to be unpacked
@@ -50,7 +51,7 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 2.0.3';
+  ProgVers = ' 2.0.7';
   CopRgt = '© 2014-2025 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -672,6 +673,7 @@ var
   s           : string;
   sa          : RawByteString;
   vi          : TFileVersionInfo;
+  dt          : TDateTime;
   cancel      : boolean;
 
   function GetMaxTextWidth (AList : TStrings) : integer;
@@ -686,15 +688,19 @@ var
 
   procedure InitShowText;
   begin
-    // DOS-Ausgabe anzeigen
+    // Show console output
     TextWdt:=GetMaxTextWidth(ConsoleText);
-    sbHorz.Visible:=TextWdt>pbShowText.Width;
-    with sbHorz do if Visible then Max:=TextWdt-pbShowText.Width;
+    with sbHorz do begin
+      Visible:=TextWdt>pbShowText.Width;
+      if Visible then Max:=TextWdt-pbShowText.Width;
+      LargeChange:=TextWdt div 2;
+      end;
     VisibleLines:=pbShowText.Height div LineHeight;
     sbVert.Visible:=ConsoleText.Count>VisibleLines;
     with sbVert do begin
       if Visible then Max:=ConsoleText.Count-VisibleLines else Max:=0;
       if GoBottom then Position:=Max else Position:=Min;
+      LargeChange:=VisibleLines div 2;
       end;
     sbHorz.Position:=0;
     pbShowText.Invalidate;
@@ -729,20 +735,16 @@ begin
     ErrorDialog(Filename+': '+s);
     Exit;
     end;
-//  with ConsoleText do begin
-//    if length(Filename)>0 then begin
-//      Add(_('Filename: ')+FileName);
-//      Add('');
-//      end;
-//    end;
   if NewUnp then s:=Command+' -u -z'
   else s:=Command;
   if length(Filename)>0 then begin
     s:=s+Space+MakeQuotedStr(Erweiter(PrgPath,Filename,''));
+    FileAge(Filename,dt);
     with ConsoleText do begin
       if GetFileVersion (Filename,vi) then begin
         Add(AddColString(_('Name: '),vi.Description));
         Add(AddColString(_('Version: '),vi.Version));
+        Add(AddColString(_('Date: '),DateToStr(dt)));
         Add(AddColString(_('Copyright: '),Trim(vi.Copyright)));
         Add(AddColString(_('Company: '),vi.Company));
         Add(AddColString(_('Comment: '),vi.Comments));
@@ -785,6 +787,7 @@ begin
                      nil,                   // Environment
                      nil,                   // Verzeichnis
                      si,pi) then begin
+      Cancel:=false;
       repeat
         wc:=WaitForSingleObject(pi.hProcess,defTimeOut); // wait 10 s
         if wc<>WAIT_OBJECT_0 then Cancel:=not ConfirmDialog(_('Timeout occured - continue anyway?'));

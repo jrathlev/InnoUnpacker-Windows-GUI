@@ -20,6 +20,8 @@
   - Oct. 2017: Property to optionally include zip files to file view
   - May  2018: function GetWidth to get total width in number of characters
   - Aug. 2019: added OLE error code to error message for SErrorSettingPath
+
+   last modified: February 2025
 }
 unit Vcl.Shell.ShellCtrls platform;
 
@@ -191,6 +193,7 @@ type
     FOnAddFolder: TAddFolderEvent;
     FSavePath: string;
     FShowZip : boolean;              // JR - Oct 2015
+    FExpandOnLoad : boolean;         // JR - Feb 2025
     FNodeToMonitor: TTreeNode;
     function FolderExists(FindID: PItemIDList; InNode: TTreeNode): TTreeNode;
     function GetFolder(Index: Integer): TShellFolder;
@@ -205,7 +208,7 @@ type
   protected
     function CanChange(Node: TTreeNode): Boolean; override;
     function CanExpand(Node: TTreeNode): Boolean; override;
-    procedure CreateRoot;
+    procedure CreateRoot (AExpand : boolean = true);
     procedure CreateWnd; override;
     procedure DestroyWnd; override;
     procedure DoContextPopup(MousePos: TPoint; var Handled: Boolean); override;
@@ -244,6 +247,7 @@ type
     property ShellComboBox: TCustomShellComboBox read FComboBox write SetComboBox;
     property ShellListView: TCustomShellListView read FListView write SetListView;
     property ShowZip : boolean read FShowZip write FShowZip default true; // JR - Oct 2015
+    property ExpandOnLoad : boolean read FExpandOnLoad write FExpandOnLoad default true;  // JR - Feb 2025
     property UseShellImages: Boolean read FUseShellImages write SetUseShellImages;
     property OnAddFolder: TAddFolderEvent read FOnAddFolder write FOnAddFolder;
     procedure CommandCompleted(Verb: String; Succeeded: Boolean);
@@ -272,6 +276,7 @@ type
     property DragCursor;
     property DragMode;
     property Enabled;
+    property ExpandOnLoad;
     property Font;
     property HideSelection;
     property Images;
@@ -501,6 +506,7 @@ type
     procedure Back;
     procedure Refresh;
     procedure SetColWidths(const AWidths : array of word);
+    function GetColWidth(ACol : integer) : integer;
     function GetWidth : integer;
     function SelectedFolder: TShellFolder;
     property FolderCount : integer read GetFolderCount;
@@ -594,7 +600,11 @@ function IsMyComputer(ID : PItemIDList): boolean;
 implementation
 
 uses Vcl.Shell.ShellConsts, Winapi.ShellAPI, System.Win.ComObj, System.TypInfo,
-  Vcl.Menus, Vcl.Consts, System.Math, System.StrUtils;
+  Vcl.Menus, Vcl.Consts, System.Math, System.StrUtils
+{$IFDEF Trace}
+  , FileUtils
+{$EndIf}
+  ;
 
 const
   nFolder: array[TRootFolder] of Integer =
@@ -833,12 +843,18 @@ begin
   if IsElement(SFGAO_HASPROPSHEET, Flags) then Include(Result, fcHasPropSheet);
 end;
 
+function GetDisplayName(Parentfolder: IShellFolder; PIDL: PItemIDList;
+                        Flags: DWORD): string; forward;
+
 function GetProperties(ParentFolder: IShellFolder; PIDL: PItemIDList): TShellFolderProperties;
 var
   Flags: LongWord;
 begin
   Result := [];
   if ParentFolder = nil then Exit;
+{$IFDEF Trace}
+  WriteDebugLog('Folder: '+GetDisplayName(ParentFolder,PIDL,SHGDN_NORMAL));
+{$EndIf}
 //  Flags := SFGAO_DISPLAYATTRMASK;
   Flags := SFGAO_LINK + SFGAO_SHARE + SFGAO_GHOSTED;  // no ReadOnly, see http://tinyurl.com/273dsj
   ParentFolder.GetAttributesOf(1, PIDL, Flags);
@@ -1790,6 +1806,7 @@ begin
   RightClickSelect := True;
   FAutoContext := True;
   FShowZip := True;              // JR - Oct 2015
+  FExpandOnLoad := True;         // JR - Feb 2025
   //! OnDeletion := NodeDeleted;
   FUpdating := False;
   FComboBox := nil;
@@ -1971,7 +1988,7 @@ begin
   RootChanged;
 end;
 
-procedure TCustomShellTreeView.CreateRoot;
+procedure TCustomShellTreeView.CreateRoot (AExpand : boolean);
 var
   RootNode: TTreeNode;
   ErrorMsg: string;
@@ -2007,7 +2024,7 @@ begin
         RootNode.HasChildren := TShellFolder(RootNode.Data).IsFolder;  // see Borland report 41777 for changes
 //        RootNode.HasChildren := TShellFolder(RootNode.Data).SubFolders;
       end;
-      RootNode.Expand(False);
+      if AExpand then RootNode.Expand(False);
       Selected := RootNode;
     finally
       FLoadingRoot := False;
@@ -2471,7 +2488,7 @@ end;
 procedure TCustomShellTreeView.Loaded;
 begin
   inherited Loaded;
-  CreateRoot;
+  CreateRoot(FExpandOnLoad);
 end;
 
 procedure TCustomShellTreeView.DoContextPopup(MousePos: TPoint;
@@ -3502,9 +3519,15 @@ procedure TCustomShellListView.SetColWidths(const AWidths : array of word);
 var
   i : integer;
 begin
-  SetLength(FColWidths,length(AWidths));
-  for i:=0 to High(AWidths) do FColWidths[i]:=AWidths[i];
+  if length(FColWidths)<length(AWidths) then SetLength(FColWidths,length(AWidths));
+  for i:=0 to High(AWidths) do if AWidths[i]>0 then FColWidths[i]:=AWidths[i];
   EnumColumns;
+  end;
+
+function TCustomShellListView.GetColWidth(ACol : integer) : integer;
+begin
+  if (ACol>=0) and (ACol<Columns.Count) then Result:=FColWidths[ACol]
+  else Result:=0;
   end;
 
 function TCustomShellListView.GetWidth : integer; // Total number of characters
@@ -3559,7 +3582,7 @@ var
           Width := n * GetParentForm(self).Canvas.TextWidth('X');
           ColNames.Add(ColName);
         end;
-    end
+      end
     else
       Result := True;
   end;

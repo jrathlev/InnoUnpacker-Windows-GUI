@@ -1,10 +1,9 @@
 object InputStringDialog: TInputStringDialog
   Left = 275
   Top = 268
-  BorderStyle = bsDialog
   Caption = 'Edit text'
-  ClientHeight = 106
-  ClientWidth = 311
+  ClientHeight = 96
+  ClientWidth = 301
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,16 +12,18 @@ object InputStringDialog: TInputStringDialog
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = True
+  Position = poDesigned
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnShow = FormShow
   DesignSize = (
-    311
-    106)
+    301
+    96)
   PixelsPerInch = 96
   TextHeight = 13
   object OKBtn: TBitBtn
-    Left = 135
-    Top = 65
+    Left = 125
+    Top = 60
     Width = 66
     Height = 31
     Anchors = [akTop, akRight]
@@ -84,8 +85,8 @@ object InputStringDialog: TInputStringDialog
     TabOrder = 3
   end
   object CancelBtn: TBitBtn
-    Left = 205
-    Top = 65
+    Left = 195
+    Top = 60
     Width = 96
     Height = 31
     Anchors = [akTop, akRight]
@@ -217,12 +218,24 @@ object InputStringDialog: TInputStringDialog
   object TextFeld: TEdit
     Left = 10
     Top = 30
-    Width = 291
+    Width = 251
     Height = 21
     Anchors = [akLeft, akTop, akRight]
     ParentShowHint = False
     ShowHint = False
     TabOrder = 1
     OnKeyPress = TextFeldKeyPress
+    ExplicitWidth = 261
+  end
+  object SuffixText: TStaticText
+    Left = 270
+    Top = 35
+    Width = 22
+    Height = 17
+    Alignment = taRightJustify
+    Anchors = [akTop, akRight]
+    Caption = 'xxx'
+    TabOrder = 5
+    ExplicitLeft = 280
   end
 end

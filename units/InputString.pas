@@ -13,7 +13,7 @@
    the specific language governing rights and limitations under the License.
 
    Vers. 1 - Sep. 2002 
-   last modified: June 2023
+   last modified: July 2025
    *)
 
 unit InputString;
@@ -30,9 +30,11 @@ type
     CharTabBtn: TBitBtn;
     Descriptor: TStaticText;
     TextFeld: TEdit;
+    SuffixText: TStaticText;
     procedure FormCreate(Sender: TObject);
     procedure TextFeldKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     defWidth : integer;
@@ -42,14 +44,18 @@ type
     procedure AfterConstruction; override;
 {$EndIf}
     function Execute (APos       : TPoint;
-                      const Titel,Desc : string;
+                      const Titel,Desc,Suffix : string;
                       var AText  : string) : boolean;
   end;
 
 (* Text eingeben, Ergebnis: "true" bei "ok" *)
 function InputText(APos       : TPoint;
+                   const Titel,Desc,Suffix : string;
+                   var AText  : string) : boolean; overload;
+
+function InputText(APos       : TPoint;
                    const Titel,Desc : string;
-                   var AText  : string) : boolean;
+                   var AText  : string) : boolean; overload;
 
 var
   InputStringDialog: TInputStringDialog;
@@ -87,6 +93,11 @@ begin
 {$ENDIF}
   end;
 
+procedure TInputStringDialog.FormShow(Sender: TObject);
+begin
+  FitToScreen(Screen,self);
+  end;
+
 { ------------------------------------------------------------------- }
 procedure TInputStringDialog.TextFeldKeyPress(Sender: TObject;
   var Key: Char);
@@ -97,7 +108,7 @@ begin
 
 { ------------------------------------------------------------------- }
 function TInputStringDialog.Execute (APos       : TPoint;
-                                     const Titel,Desc : string;
+                                     const Titel,Desc,Suffix : string;
                                      var AText  : string) : boolean;
 var
   w : integer;
@@ -105,6 +116,8 @@ begin
   AdjustFormPosition(Screen,self,APos);
   if length(Titel)>0 then Caption:=Titel;
   Descriptor.Caption:=Desc;
+  SuffixText.Caption:=Suffix;
+  if length(Suffix)>=0 then
   ActiveControl:=TextFeld;
   with TextFeld do begin
     Text:=AText;
@@ -121,13 +134,20 @@ begin
 
 { ------------------------------------------------------------------- }
 (* Txt eingeben, Ergebnis: "true" bei "ok" *)
+function InputText(APos       : TPoint;
+                   const Titel,Desc,Suffix : string;
+                   var AText  : string) : boolean;
+begin
+  if not assigned(InputStringDialog) then InputStringDialog:=TInputStringDialog.Create(Application);
+  Result:=InputStringDialog.Execute(APos,Titel,Desc,Suffix,AText);
+  FreeAndNil(InputStringDialog);
+  end;
+
 function InputText (APos       : TPoint;
                     const Titel,Desc : string;
                     var AText  : string) : boolean;
 begin
-  if not assigned(InputStringDialog) then InputStringDialog:=TInputStringDialog.Create(Application);
-  Result:=InputStringDialog.Execute(APos,Titel,Desc,AText);
-  FreeAndNil(InputStringDialog);
+  Result:=InputText(APos,Titel,Desc,'',AText);
   end;
 
 end.

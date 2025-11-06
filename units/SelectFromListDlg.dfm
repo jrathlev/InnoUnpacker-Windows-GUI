@@ -13,8 +13,11 @@ object SelectFromListDialog: TSelectFromListDialog
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  Position = poDesigned
+  OnAfterMonitorDpiChanged = FormAfterMonitorDpiChanged
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object paEdit: TPanel

@@ -87,12 +87,14 @@ function AddFakeFile(const FileName,FileContents : String;
 function FileContents(const Filename:string) : string;
 function MakeDir(Dir: String) : Boolean;
 
+function GetCustomMessage (const AText : string) : string;
+
 procedure GenerateEncryptionKey(const Password: String; const Salt: TSetupKDFSalt;
   const Iterations: Integer; out Key: TSetupEncryptionKey);
 
 implementation
 
-uses Winapi.Windows, MD5, SHA1, SHA256, ChaCha20, PathFunc, PBKDF2, CmnFunc2, Msgs, MsgIds;
+uses Winapi.Windows, System.StrUtils, MD5, SHA1, SHA256, ChaCha20, PathFunc, PBKDF2, CmnFunc2, Msgs, MsgIds;
 
 procedure InternalError(const Id: String);
 begin
@@ -390,6 +392,71 @@ begin
   end;
   Result := True;
 end;
+
+function GetCustomMessage (const AText : string) : string;
+var
+  MsgName,sm : string;
+  Args       : array of string;
+  n,lo       : integer;
+
+  function ReadNxtStr (var s : string) : string;
+  var
+    i : integer;
+  begin
+    if length(s)>0 then begin
+      i:=pos (',',s);
+      if i=0 then i:=succ(length(s));
+      Result:=copy(s,1,pred(i));
+      delete(s,1,i);
+      end
+    else Result:='';
+    end;
+
+  function FindCustomMessage (const AName : string; var AText : string) : boolean;
+  var
+    i : integer;
+  begin
+    Result:=false;
+    if Entries[seCustomMessage].Count>0 then begin
+      for i:=0 to Entries[seCustomMessage].Count-1 do with PSetupCustomMessageEntry(Entries[seCustomMessage][i])^ do begin
+        if AnsiSameText(Name,AName) and (LangIndex=0) then begin
+          AText:=Value; Result:=true;
+          Break;
+          end;
+        end;
+      end
+    end;
+
+  function CmFormat (const AText : string; Args : array of string) : string;
+  var
+    n,k,j : integer;
+  begin
+    n:=1; Result:=AText;
+    repeat
+      k:=PosEx('%',AText,n);
+      if k>0 then begin
+        if TryStrToInt(copy(AText,k+1,1),j) and (j>0) and (j<=length(Args)) then
+          Result:=AnsiReplaceText(Result,copy(AText,k,2),Args[j-1]);
+        n:=k+1;
+        end;
+      until k=0;
+    end;
+
+begin
+  if AnsiStartsText('{cm:',AText) then begin
+    sm:=copy(AText,5,length(AText)-5);
+    MsgName:=ReadNxtStr(sm);
+    Args:=nil; n:=0;
+    if not sm.IsEmpty then repeat
+      SetLength(Args,n+1);
+      Args[n]:=ReadNxtStr(sm);
+      inc(n);
+      until sm.IsEmpty;
+    if FindCustomMessage(MsgName,sm) then Result:=CmFormat(sm,Args)
+    else Result:=AText;
+    end
+  else Result:=AText;
+  end;
 
 function FixPasswordEncoding(const Password: AnsiString) : AnsiString;
 var

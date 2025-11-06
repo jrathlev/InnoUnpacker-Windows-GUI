@@ -61,7 +61,7 @@ uses Vcl.Forms, WinShell, Winapi.ShlObj, UnitConsts;
 // Standardpfade
 function GetAppPath : string;
 begin
-  Result:=GetDesktopFolder(CSIDL_APPDATA);
+  Result:=GetAppDataFolder;
   end;
 
 function GetAppSubPath (const SubDir : string; CreateAppDir : boolean) : string;
@@ -78,19 +78,19 @@ begin
 
 function GetUserPath : string;
 begin
-  Result:=GetDesktopFolder(CSIDL_PERSONAL);
+  Result:=GetPersonalFolder;
   end;
 
 function GetProgPath : string;
 begin
-  Result:=GetDesktopFolder(CSIDL_PROGRAM_FILES);
+  Result:=GetProgramFolder(pfProgramFiles);
   end;
 
 procedure InitPaths (var AppPath,UserPath,ProgPath : string; CreateAppDir : boolean);
 begin
   AppPath:=GetAppSubPath(AppSubDir,CreateAppDir);
   UserPath:=IncludeTrailingPathDelimiter(GetUserPath);
-  ProgPath:=IncludeTrailingPathDelimiter(GetDesktopFolder(CSIDL_PROGRAM_FILES));
+  ProgPath:=IncludeTrailingPathDelimiter(GetProgPath);
   end;
 
 procedure InitPaths (var AppPath,UserPath : string);

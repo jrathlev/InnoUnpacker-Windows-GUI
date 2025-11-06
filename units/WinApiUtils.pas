@@ -41,6 +41,7 @@ const
   powrprof  = 'powrprof.dll';
   secur32 = 'Secur32.dll';
   wtsapi32 = 'Wtsapi32.dll';
+  ntdll = 'ntdll.dll';
 
 // Reason flags       (not used on Windows 2000, Windows NT and Windows Me/98/95)
 // Flags that end up in the event log code
@@ -61,6 +62,7 @@ const
   LOGON_ZERO_PASSWORD_BUFFER = DWORD($80000000);
 
   // constants missing in unit Windows
+  // see: https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/c8e77b37-3909-4fe6-a4ea-2b9d423b1ee4
   IO_REPARSE_TAG_MOUNT_POINT         = $A0000003;
   {$EXTERNALSYM IO_REPARSE_TAG_MOUNT_POINT}
   IO_REPARSE_TAG_HSM                 = $C0000004;
@@ -627,6 +629,10 @@ function ModifyPrivilege (const PrivilegeName : string; Enable : boolean) : bool
 function KillProcessByWinHandle(WinHandle : Hwnd) : boolean;
 
 { ---------------------------------------------------------------- }
+// Check whether the program runs under Wine.
+function CheckForWine : boolean;
+
+{ ---------------------------------------------------------------- }
 // Replacement for SysUtils.SafeLoadLibrary with FPU exception handling for x86 and x64
 function FpuSafeLoadLibrary(const FileName : string; ErrorMode : UINT = SEM_NOOPENFILEERRORBOX) : HMODULE;
 
@@ -885,8 +891,8 @@ var
   GetUserNameEx : TGetUserNameEx;
 begin
   Result:=false;
-  Secur32Handle:=FpuSafeLoadLibrary(secur32);
   try
+    Secur32Handle:=FpuSafeLoadLibrary(secur32);
     if Secur32Handle<>0 then begin
       GetUserNameEx:=GetProcAddress(Secur32Handle,'GetUserNameExW');
       if assigned(GetUserNameEx) then begin
@@ -1929,6 +1935,20 @@ begin
    if Processhandle=0 then Result:=false
    else Result:=TerminateProcess(ProcessHandle,4);
    end;
+
+{ ---------------------------------------------------------------- }
+// Check whether the program runs under Wine.
+function CheckForWine : boolean;
+var
+  NtDllHandle : THandle;
+begin
+  Result:=false;
+  NtDllHandle:=FpuSafeLoadLibrary(ntdll);
+  if NtDllHandle<>0 then begin
+    Result:=assigned(GetProcAddress(NtDllHandle,'wine_get_version'));
+    FreeLibrary(NtDllHandle);
+    end;
+  end;
 
 { ---------------------------------------------------------------- }
 // Replacement for SysUtils.SafeLoadLibrary with FPU exception handling for x86 and x64

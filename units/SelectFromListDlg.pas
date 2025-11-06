@@ -15,7 +15,7 @@
    Vers. 1 - Apr. 2005
    Vers. 2 - July 2022: define compiler switch "ACCESSIBLE" to make the
                         messages accessible to screenreaders
-   last modified: July 2022
+   last modified: July 2025
     *)
     
 unit SelectFromListDlg;
@@ -60,6 +60,9 @@ type
     procedure btnPromptClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnDelAllClick(Sender: TObject);
+    procedure FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+      NewDPI: Integer);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FEdit   : boolean;
@@ -131,13 +134,24 @@ begin
 {$ENDIF}
 end;
 
+procedure TSelectFromListDialog.FormShow(Sender: TObject);
+begin
+  FitToScreen(Screen,self);
+  end;
+
+procedure TSelectFromListDialog.FormAfterMonitorDpiChanged(Sender: TObject;
+  OldDPI, NewDPI: Integer);
+begin
+  dist:=MulDiv(dist,NewDpi,OldDPI);
+  hh:=MulDiv(hh,NewDpi,OldDPI);
+  end;
+
 {$IFDEF HDPI}   // scale glyphs and images for High DPI
 procedure TSelectFromListDialog.AfterConstruction;
 begin
   inherited;
   if Application.Tag=0 then
     ScaleButtonGlyphs(self,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
-  dist:=MulDiv(dist,Monitor.PixelsPerInch,PixelsPerInchOnDesign);
   end;
 {$EndIf}
 

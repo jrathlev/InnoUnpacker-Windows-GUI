@@ -476,8 +476,8 @@ begin
   StrConst(';InnoSetupVersion', GetInnoVersionStr());
 
   PrintSectionHeader('Setup');
-  StrConst('AppName', sh.AppName, True);
-  StrConst('AppVerName', sh.AppVerName);
+  StrConst('AppName', GetCustomMessage(sh.AppName), True);
+  StrConst('AppVerName', GetCustomMessage(sh.AppVerName));
   StrConst('AppId', sh.AppId, True);
   StrConst('AppVersion', sh.AppVersion);
   StrConst('AppPublisher', sh.AppPublisher);
