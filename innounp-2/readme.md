@@ -1,4 +1,4 @@
-### Inno Setup Unpacker 2.65.3 - Console version
+### Inno Setup Unpacker 2.65.4 - Console version
 
 #### Unpacker for installations made by Inno Setup
 
@@ -14,7 +14,7 @@ Since there have been no updates of the *SourceForge* project since 2020 and the
 source codes are not yet adapted to the current Delphi versions (Unicode strings are 
 the native type since *Delphi 2009*), I have modified them so that they can be 
 compiled with newer Delphi versions (tested with *Delphi 10 Seattle*).
-In addition, some errors have been fixed and new command line options (*-l*, *-i* and *-u*) were added, as well as exit codes to support the use in batch files. 
+In addition, some errors have been fixed and new command line options (*-s*, *-l*, *-i* and *-u*) were added, as well as exit codes to support the use in batch files. 
 
 The install script is saved in UTF-8 format.
 

@@ -133,7 +133,7 @@ tt { font-size: 110%; }
 <a href="http://sourceforge.net/project/showfiles.php?group_id=102423">download page</a></small></div>-->
 
 <h3>innounp, the Inno Setup Unpacker</h3>
-<h4>Version 2.65.3 - Unicode </h4>
+<h4>Version 2.65.4 - Unicode </h4>
 <p><b>based on <a href="https://sourceforge.net/projects/innounp/" target="_blank"><i>innounp</i> version 0.50</a> by 
   <a href="https://sourceforge.net/u/ariman_ua/profile/" target="_blank">ariman</a></b><br>
   Supports Inno Setup versions 2.0.7 through 6.5.4</p>
@@ -176,7 +176,8 @@ the native type since Delphi 2009).</p>
 <pre>innounp [command] [options] &lt;setup.exe or setup.0&gt; [@filelist] [filemask ...]
 Commands:
   (no)   display general information about the installation archive
-  -v     verbosely list the files (with sizes and timestamps)
+  -v     verbose list of files (with sizes and timestamps)
+  -s     short list of files (without sizes and timestamps)
   -x     extract the files from the installation (to the current directory, also see -d)
   -e     extract files without paths
   -t     test files for integrity
@@ -225,6 +226,10 @@ Exit codes: 0 no errors
   which is the code made by the RemObjects Pascal Script compiler.</p>
 
 <h2><a name="History"></a>What's new / History</h2>
+<p style="margin-bottom:-15px;"><b>2.65.4</b> <small>(2025-11-09)</small></p>
+<ul>
+  <li>New command <i>-s</i>: show a list of files without size and date</li>
+</ul>
 <p style="margin-bottom:-15px;"><b>2.65.3</b> <small>(2025-11-06)</small></p>
 <ul>
   <li>Display the default install directory in the general information</li>

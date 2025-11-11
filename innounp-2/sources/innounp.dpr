@@ -48,6 +48,7 @@
            1.76 - November 2024 : colored console output, optional suppressing header
            2.64 - January 2025  : new version numbering, support for Inno Setup 6.4
                                   EurekaLog directives removed
+           2.65 - November 2025 : support for Inno Setup 6.5
 *)
 
 program innounp;
@@ -451,7 +452,7 @@ begin
         HeuristicVersionFinder(Reader, Ver);
         WriteNormalText('; Version detected: ',IntToStr(Ver));
         if (VerIsUnicode) then WriteNormalLine(' (Unicode)') else writeln('');
-      end;
+        end;
       VerObject := FindVerObject(IsUnknownVersion);
 //      if VerObject=nil then exit; // that should not happen
 
@@ -738,13 +739,13 @@ begin
     // Check if file already exists and ask if necessary
     if (InteractiveMode) then begin          // changes: JR - August 2020
       if (OverwriteAction = oaSkip) and FileExists(DestFile) then begin
-        WriteBlueLine(Caption+' - skipped'); Exit;
+        WriteBlueLine(Caption,' - skipped'); Exit;
         end;
       if (OverwriteAction = oaAsk) and FileExists(DestFile) then
         if not AskFileOverwrite(DestFile) then Exit;
       end
     else if (OverwriteAction <> oaOverwrite) and FileExists(DestFile) then begin
-      WriteBlueLine(Caption+' - skipped'); Exit;
+      WriteBlueLine(Caption,' - skipped'); Exit;
       end
     end;
   // Ask password if file is encrypted
@@ -945,7 +946,8 @@ begin
   writeln('Usage: innounp [command] [options] <setup.exe or setup.0> [@filelist] [filemask ...]');
   writeln('Commands:');
   writeln('  (no)   display general information about the installation archive');
-  writeln('  -v     verbosely list the files (with sizes and timestamps)');
+  writeln('  -v     verbose list if files (with sizes and timestamps)');
+  writeln('  -s     short list of files (without sizes and timestamps)');
   writeln('  -x     extract the files from the installation (to the current directory, also see -d)');
   writeln('  -e     extract files without paths');
   writeln('  -t     test files for integrity');
@@ -994,6 +996,7 @@ begin
         'O': ColorMode:=0;
         'P': Password:=copy(ParamStr(i),3,length(ParamStr(i))-2);
         'Q': QuietExtract:=true;
+        'S': CommandAction:=caShortList;
         'T': begin CommandAction:=caExtractFiles; ExtractTestOnly:=true; AutoYes:=true; end;
         'U': UseUtf8:=true;   // console output
         'V': CommandAction:=caVerboseList;
@@ -1089,7 +1092,7 @@ begin
   if not NoHeader or (n<0) then begin
     writeln;
     if ColorMode>0 then s:='innounp' else s:='*innounp*';
-    WriteColorText(s,Format(' - the Inno Setup Unpacker, Version %u.%u.%u (%s)',
+    WriteColorText(s,Format(' - the Inno Setup Unpacker, version %u.%u.%u (%s)',
       [IUV_MAJOR, IUV_MINOR,IUV_RELEASE,DateToStr(FileDateToDateTime(FileAge(ParamStr(0))))]),clRed,clWhite);
     end;
   writeln;
@@ -1106,7 +1109,7 @@ begin
            ml:=length(FileMasks);
            SetLength(FileMasks,ml+Count);
            for i:=0 to Count-1 do if not Strings[i].IsEmpty then begin
-             FileMasks[ml]:=Strings[i];
+             FileMasks[ml]:=AnsiDequotedStr(Strings[i],'"');
              inc(ml);
              end;
            SetLength(FileMasks,ml);
@@ -1186,14 +1189,26 @@ begin
                 end;
                 Inc(TotalFiles);
               end;
-            WriteNormalLine(ExtSp('Files:',TextAlign),IntToStr(TotalFiles));
-            WriteNormalLine(ExtSp('Bytes:',TextAlign),IntToStr(TotalFileSize));
+            WriteNormalLine(ExtSp('Number of files:',TextAlign),GroupDigits(IntToStr(TotalFiles)));
+            WriteNormalLine(ExtSp('Total size of files:',TextAlign),GroupDigits(IntToStr(TotalFileSize))+' bytes');
             if MaxSlice>0 then WriteNormalLine(ExtSp('Disk slices: ',TextAlign),IntToStr(MaxSlice+1));
             if TotalEncryptedFiles>0 then
 
-              WriteNormalLine(ExtSp('Encryted files:',TextAlign),IntToStr(TotalEncryptedFiles));
+              WriteNormalLine(ExtSp('Encryted files:',TextAlign),GroupDigits(IntToStr(TotalEncryptedFiles)));
             if length(SetupHeader.CompiledCodeText)>0 then
-              WriteNormalLine(ExtSp('Compiled Pascal script: ',TextAlign),IntToStr(length(SetupHeader.CompiledCodeText))+' byte(s)');
+              WriteNormalLine(ExtSp('Compiled Pascal script: ',TextAlign),
+                GroupDigits(IntToStr(length(SetupHeader.CompiledCodeText)))+' bytes');
+          end;
+        caShortList: begin
+            for i:=0 to Entries[seFile].Count-1 do
+                with Struct.PSetupFileEntry(Entries[seFile][i])^ do begin
+              if ((FileType in [ftUninstExe, ftRegSvrExe]) or not (FileType in [ftUserFile, ftFakeFile]))
+                and not ExtractEmbedded then continue;
+              if (LocationEntry=-1) then continue;
+              loc:=PSetupFileLocationEntry(Entries[seFileLocation][LocationEntry]);
+              if not ExtractAllCopies and (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>i) then continue;
+              WriteNormalLine('  '+SourceFileName);
+              end;
           end;
         caVerboseList: begin
             WriteNormalLine('Size        Time              ','Filename');

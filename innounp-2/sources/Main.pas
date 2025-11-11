@@ -9,7 +9,7 @@ type
     seFile, seFileLocation, seIcon, seIni, seRegistry, seInstallDelete,
     seUninstallDelete, seRun, seUninstallRun, seCustomMessage);
 
-  TCommandAction=(caInstallInfo, {caListFiles,} caVerboseList, caExtractFiles,
+  TCommandAction=(caInstallInfo, caShortList, caVerboseList, caExtractFiles,
                   caWriteCode, caVersionList, caLanguageList);
 
   EMessage = class(Exception); // Exception raised by our code, The Message field (string)
@@ -73,12 +73,13 @@ procedure WriteColorText (const Text1,Text2 : string; Color1,Color2 : TColor; Ne
 procedure WriteNormalText (const Text1 : string = ''; const Text2 : string = '');
 procedure WriteNormalLine (const Text1 : string = ''; const Text2 : string = '');
 procedure WriteHighLightLine (const Text2 : string);
-procedure WriteBlueLine (const Text2 : string);
+procedure WriteBlueLine (const Text1,Text2 : string);
 procedure WriteErrorLine (const Text1 : string; const Text2 : string); overload;
 procedure WriteErrorLine (const Text2 : string); overload;
 procedure WriteFormatLine (const Text1,Text2 : string; Color1,Color2 : TColor);
 
 function ExtSp (const S : string; len : integer) : string;
+function GroupDigits (const s : string; Sep : char = ' ') : string;
 function VersionToString (ver : integer) : string;
 
 function AddFakeFile(const FileName,FileContents : String;
@@ -289,9 +290,9 @@ begin
   WriteColorText('',Text2,clWhite,clGreen);
   end;
 
-procedure WriteBlueLine (const Text2 : string);
+procedure WriteBlueLine (const Text1,Text2 : string);
 begin
-  WriteColorText('',Text2,clWhite,clBlue);
+  WriteColorText(Text1,Text2,clWhite,clBlue);
   end;
 
 procedure WriteErrorLine (const Text1,Text2 : string);
@@ -322,6 +323,21 @@ var
 begin
   Result:=s;
   for i:=succ(length(Result)) to len do Result:=Result+' ';
+  end;
+
+function GroupDigits (const s : string; Sep : char) : string;
+var
+  i : integer;
+const
+  Group = 3;
+begin
+  Result:=s;
+  if (Group>0) then begin
+    i:=length(Result);
+    while (i>Group) do begin
+      dec(i,Group); Insert(Sep,Result,i+1);
+      end;
+    end;
   end;
 
 function VersionToString (ver : integer) : string;
