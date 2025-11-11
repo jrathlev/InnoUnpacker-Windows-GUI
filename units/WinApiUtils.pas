@@ -438,7 +438,7 @@ type
   TGetUserNameEx = function (NameFormat : DWORD; lpBuffer: LPWSTR; var nSize: DWORD): BOOL; stdcall;
 
   TFileVersionInfo = record
-    Company,Description,Version,InternalName,Copyright,Comments : string;
+    Company,Description,Version,InternalName,Copyright,Comments,ProductName,ProductVersion : string;
     end;
 
   TSessionData = record
@@ -564,6 +564,7 @@ function GetFileVersionAsNumber (const Filename : string; var Version : TVersion
 function GetFileVersionName (const Filename,DefName,DefVers : string): string;
 function GetFileVersionRelease (const Filename,defVers : string) : string;
 function GetFileVersionCopyright (const Filename,defCopyright : string) : string;
+function FileVersionToNumber (vs: string) : TVersion;
 
 { ---------------------------------------------------------------- }
 (* ermittle Zeitzonen-Info für aktuelle Zone *)
@@ -1079,6 +1080,8 @@ begin
           4 : InternalName:=TrimRight(value);
           5 : Copyright:=TrimRight(value);
           6 : Comments:=TrimRight(value);
+          9 : ProductName:=TrimRight(value);
+          10 : ProductVersion:=TrimRight(value);
             end;
           end;
         end;
@@ -1118,12 +1121,11 @@ begin
     end;
   end;
 
-function GetFileVersionAsNumber (const Filename : string; var Version : TVersion) : boolean;
+function FileVersionToNumber (vs: string) : TVersion;
 var
-  s : string;
   val : integer;
 
-  function ReadNxtInt (var s : String;
+  function ReadNxtInt (var s : string;
                        var n : integer) : boolean;
   var
     i : integer;
@@ -1135,22 +1137,30 @@ var
     end;
 
 begin
-  with Version do begin
+  with Result do begin
     Major:=0; Minor:=0; Release:=0; Build:=0; ;
-    end;
-  Result:=GetFileVersionString(Filename,s);
-  if Result then with Version do begin
-    if ReadNxtInt(s,val) then begin
+    if ReadNxtInt(vs,val) then begin
       Major:=val;
-      if ReadNxtInt(s,val) then begin
+      if ReadNxtInt(vs,val) then begin
         Minor:=val;
-        if ReadNxtInt(s,val) then begin
+        if ReadNxtInt(vs,val) then begin
           Release:=val;
-          if ReadNxtInt(s,val) then Build:=val;
+          if ReadNxtInt(vs,val) then Build:=val;
           end;
         end;
       end;
     end
+  end;
+
+function GetFileVersionAsNumber (const Filename : string; var Version : TVersion) : boolean;
+var
+  vs : string;
+begin
+  with Version do begin
+    Major:=0; Minor:=0; Release:=0; Build:=0;
+    end;
+  Result:=GetFileVersionString(Filename,vs);
+  if Result then Version:=FileVersionToNumber(vs);
   end;
 
 function GetFileVersionName (const Filename,DefName,DefVers : string) : string;

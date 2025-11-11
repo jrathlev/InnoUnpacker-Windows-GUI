@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-10-11 16:17+0200\n"
-"PO-Revision-Date: 2025-10-11 16:17+0200\n"
+"POT-Creation-Date: 2025-11-10 14:01+0100\n"
+"PO-Revision-Date: 2025-11-10 14:02+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-"
 "home.de>\n"
 "Language-Team: M.A.G. <xxxxx@gmail.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 msgid "Inspect and unpack InnoSetup files"
 msgstr ""
@@ -112,6 +112,9 @@ msgstr "Filtrar por script de instalación"
 msgid "Only from {app} path"
 msgstr "Sólo desde la ruta {app}"
 
+msgid "Select files"
+msgstr "Seleccionar archivos"
+
 msgid "Copy output to clipboard"
 msgstr "Copiar resultado al portapapeles"
 
@@ -153,6 +156,15 @@ msgstr ""
 "\t/o\t\t: sobrescribir ficheros\n"
 "\t/p\t\t: ejecutar como programa portátil"
 
+msgid "Selected files"
+msgstr "Archivos seleccionados"
+
+msgid "Version"
+msgstr "Versión"
+
+msgid "Unknown unpacker"
+msgstr "Descompresor desconocido"
+
 msgid ""
 "This application only allows dropping of exe files!"
 msgstr "Esta aplicación sólo permite soltar EXEs!"
@@ -169,11 +181,24 @@ msgstr "Nombre de fichero: "
 msgid "Extract files matching:"
 msgstr "Extraer ficheros coincidentes:"
 
+msgid "Error: "
+msgstr "Error: "
+
+msgid "Select files to be extracted"
+msgstr "Seleccionar los archivos que se van a extraer"
+
+#: UnpackMain.pas:596
+msgid "Files found in %s"
+msgstr "Archivos encontrados en %s"
+
 msgid "Extract files from setup ..."
 msgstr "Extraer ficheros del instalador..."
 
 msgid "Destination directory: "
 msgstr "Directorio de destino: "
+
+msgid "Using: "
+msgstr "Utilizando: "
 
 msgid "Name: "
 msgstr "Nombre: "
@@ -181,7 +206,6 @@ msgstr "Nombre: "
 msgid "Version: "
 msgstr "Versión: "
 
-#: UnpackMain.pas:748
 msgid "Date: "
 msgstr "Fecha: "
 
@@ -196,6 +220,3 @@ msgstr "Comentario(s): "
 
 msgid "Timeout occured - continue anyway?"
 msgstr "Tiempo de espera agotado - ¿continuar?"
-
-msgid "Error: "
-msgstr "Error: "

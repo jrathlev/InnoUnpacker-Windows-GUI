@@ -1,4 +1,4 @@
-### Inno Setup Unpacker - Windows GUI v 2.0
+### Inno Setup Unpacker - Windows GUI v 2.1
 
 #### Inspect and unpack InnoSetup archives
 
@@ -19,11 +19,12 @@ Immediately after opening, the basic file info of the setup is displayed. All ot
 - A list of all included files 
 - All supported languages 
 - Verify setup file
-- Start file extraction
 - Select destination directory for extracted files
+- Start file extraction
 
-Optionally, you can specify whether only the installation script or the files
-matching a filter are to be extracted.
+Optionally, you can specify whether only the installation script or the files matching a filter are to be extracted.
+
+**New:** optional selection of single files for extraction
 
 **Note on execution as portable program:** 
 The program settings are normally stored in the InnoUnpack.ini file in the 

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2025-10-11 16:17+0200\n"
-"PO-Revision-Date: 2025-10-11 16:18+0200\n"
+"POT-Creation-Date: 2025-11-10 14:01+0100\n"
+"PO-Revision-Date: 2025-11-10 14:07+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-"
 "home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
@@ -15,12 +15,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-SourceCharset: ISO-8859-1\n"
 
 #. MainForm.Caption
-#: UnpackMain.dfm:4 UnpackMain.pas:256
-#: UnpackMain.pas:612
+#. UseFilelist:=ReadBool(CfgSekt,iniFileList,false);
+#: UnpackMain.dfm:4 UnpackMain.pas:267
+#: UnpackMain.pas:678
 msgid "Inspect and unpack InnoSetup files"
 msgstr "Überprüfen und Entpacken von InnoSetup-Dateien"
 
@@ -60,7 +61,7 @@ msgid "Verify setup"
 msgstr "Setup überprüfen"
 
 #. MainForm.pnTop.bbFile.Hint
-#: UnpackMain.dfm:612 UnpackMain.pas:418
+#: UnpackMain.dfm:612 UnpackMain.pas:436
 msgid "Select InnoSetup archive"
 msgstr "InnoSetup-Archiv auswählen"
 
@@ -147,47 +148,52 @@ msgid "Without paths"
 msgstr "Ohne Pfade"
 
 #. MainForm.pnExtract.bbFilter.Hint
-#: UnpackMain.dfm:1398
+#: UnpackMain.dfm:1401
 msgid "Edit file filter"
 msgstr "Datei-Filter bearbeiten"
 
 #. MainForm.pnExtract.bbDir.Hint
-#: UnpackMain.dfm:1489 UnpackMain.pas:486
+#: UnpackMain.dfm:1492 UnpackMain.pas:503
 msgid "Select directory for extracted files"
 msgstr "Verzeichnis für zu extrahierende Dateien"
 
 #. MainForm.pnExtract.bbCopyPath.Hint
-#: UnpackMain.dfm:1553
+#: UnpackMain.dfm:1556
 msgid "Use directory of setup archive"
 msgstr "Verzeichnis des Setup-Archivs verwenden"
 
 #. MainForm.pnExtract.bbScript.Hint
-#: UnpackMain.dfm:1617
+#: UnpackMain.dfm:1620
 msgid "Filter for install script"
 msgstr "Filter für das Installationsskript"
 
 #. MainForm.pnExtract.cxOnlyApp.Caption
-#: UnpackMain.dfm:1708
+#: UnpackMain.dfm:1711
 msgid "Only from {app} path"
 msgstr "Nur aus {app}-Pfad"
 
+#. MainForm.pnExtract.bbSelFiles.Hint
+#: UnpackMain.dfm:1719
+msgid "Select files"
+msgstr "Dateien auswählen"
+
 #. MainForm.pnBottom.pnTools.bbCopyResult.Hint
-#: UnpackMain.dfm:1736
+#: UnpackMain.dfm:1830
 msgid "Copy output to clipboard"
 msgstr "Ausgabe in Zwischenablage kopieren"
 
 #. MainForm.pnBottom.pnTools.bbDown.Hint
-#: UnpackMain.dfm:1827
+#: UnpackMain.dfm:1921
 msgid "Scroll down"
 msgstr "Nach unten rollen"
 
 #. MainForm.pnBottom.pnTools.bbUp.Hint
-#: UnpackMain.dfm:1918
+#: UnpackMain.dfm:2012
 msgid "Scroll up"
 msgstr "Nach oben rollen"
 
 #. Programmer's name for it: rsInfo
-#: UnpackMain.pas:180
+#: UnpackMain.pas:188
 msgid ""
 "Command line options: [<name>] [options]\n"
 "\t<name>\t\t: name of setup file to be unpacked\n"
@@ -216,66 +222,92 @@ msgstr ""
 "\t/o\t\t: Dateien überschreiben\n"
 "\t/p\t\t: als portables Programm starten"
 
-#: UnpackMain.pas:364
+#: UnpackMain.pas:273
+msgid "Selected files"
+msgstr "Ausgewählte Dateien"
+
+#: UnpackMain.pas:340
+msgid "Version"
+msgstr "Version"
+
+#. GetFileVersionAsNumber(UnpProg,UnpVers);
+#: UnpackMain.pas:344
+msgid "Unknown unpacker"
+msgstr "Unbekannter Entpacker"
+
+#: UnpackMain.pas:382
 msgid ""
 "This application only allows dropping of exe files!"
 msgstr "Diese Anwendung akzeptiert nur Exe-Dateien!"
 
-#: UnpackMain.pas:383 UnpackMain.pas:417
+#: UnpackMain.pas:401 UnpackMain.pas:435
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programme|*.exe|alle Dateien|*.*"
 
-#: UnpackMain.pas:384
+#: UnpackMain.pas:402
 msgid "Search for \"innounp.exe\""
 msgstr "Suche nach \"innounp.exe\""
 
-#: UnpackMain.pas:477
+#: UnpackMain.pas:494
 msgid "Filename: "
 msgstr "Dateiname: "
 
-#: UnpackMain.pas:505
+#: UnpackMain.pas:521
 msgid "Extract files matching:"
 msgstr "Dateien extrahieren passend zu:"
 
-#: UnpackMain.pas:593
+#. Select files to be extracted
+#. Convert Unix style output
+#: UnpackMain.pas:591 UnpackMain.pas:821
+#: UnpackMain.pas:894
+msgid "Error: "
+msgstr "Fehler: "
+
+#: UnpackMain.pas:595
+msgid "Select files to be extracted"
+msgstr "Zu extrahierende Dateien auswählen"
+
+#: UnpackMain.pas:596
+msgid "Files found in %s"
+msgstr "In %s gefundene Dateien"
+
+#: UnpackMain.pas:659
 msgid "Extract files from setup ..."
 msgstr "Dateien aus dem Setup extrahieren ..."
 
-#: UnpackMain.pas:594
+#: UnpackMain.pas:660
 msgid "Destination directory: "
 msgstr "Zielverzeichnis: "
 
-#. end;
-#: UnpackMain.pas:746
+#: UnpackMain.pas:681
+msgid "Using: "
+msgstr "Verwendet: "
+
+#: UnpackMain.pas:801
 msgid "Name: "
 msgstr "Name: "
 
-#: UnpackMain.pas:747
+#: UnpackMain.pas:802
 msgid "Version: "
 msgstr "Version: "
 
-#: UnpackMain.pas:748
+#: UnpackMain.pas:803
 msgid "Date: "
 msgstr "Datum: "
 
-#: UnpackMain.pas:749
+#: UnpackMain.pas:804
 msgid "Copyright: "
 msgstr "Copyright: "
 
-#: UnpackMain.pas:750
+#: UnpackMain.pas:805
 msgid "Company: "
 msgstr "Firma: "
 
-#: UnpackMain.pas:751
+#: UnpackMain.pas:806
 msgid "Comment: "
 msgstr "Kommentar: "
 
 #. wait 10 s
-#: UnpackMain.pas:794
+#: UnpackMain.pas:871
 msgid "Timeout occured - continue anyway?"
 msgstr "Timeout aufgetreten - trotzdem weitermachen?"
-
-#. Convert Unix style output
-#: UnpackMain.pas:817 UnpackMain.pas:821
-msgid "Error: "
-msgstr "Fehler: "

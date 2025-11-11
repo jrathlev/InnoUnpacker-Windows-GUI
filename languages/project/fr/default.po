@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-10-11 16:17+0200\n"
-"PO-Revision-Date: 2025-10-11 16:18+0200\n"
+"POT-Creation-Date: 2025-11-10 14:01+0100\n"
+"PO-Revision-Date: 2025-11-10 14:02+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 msgid "Inspect and unpack InnoSetup files"
@@ -109,6 +109,9 @@ msgstr "Filtre pour le script d'installation"
 msgid "Only from {app} path"
 msgstr "Uniquement du {app}"
 
+msgid "Select files"
+msgstr "Sélectionner fichiers:"
+
 msgid "Copy output to clipboard"
 msgstr "Copier dans le presse-papiers"
 
@@ -143,6 +146,15 @@ msgstr ""
 "\t/\t\to : écraser les fichiers\n"
 "\t/\t\tp : exécuter comme programme portable"
 
+msgid "Selected files"
+msgstr "Fichiers sélectionnés"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Unknown unpacker"
+msgstr "Décompresseur inconnu"
+
 msgid "This application only allows dropping of exe files!"
 msgstr "Cette application ne permet que le dépôt de fichiers exe !"
 
@@ -158,11 +170,24 @@ msgstr "Nom du fichier: "
 msgid "Extract files matching:"
 msgstr "Extraire les fichiers correspondants :"
 
+msgid "Error: "
+msgstr "Erreur: "
+
+msgid "Select files to be extracted"
+msgstr "Sélectionnez les fichiers à extraire"
+
+#: UnpackMain.pas:596
+msgid "Files found in %s"
+msgstr "Fichiers trouvés dans %s"
+
 msgid "Extract files from setup ..."
 msgstr "Extraire les fichiers de l'installation ..."
 
 msgid "Destination directory: "
 msgstr "Répertoire de destination : "
+
+msgid "Using: "
+msgstr "En utilisant : "
 
 msgid "Name: "
 msgstr "Nom: "
@@ -170,7 +195,6 @@ msgstr "Nom: "
 msgid "Version: "
 msgstr "Version: "
 
-#: UnpackMain.pas:748
 msgid "Date: "
 msgstr "Date:"
 
@@ -185,6 +209,3 @@ msgstr "Commentaire: "
 
 msgid "Timeout occured - continue anyway?"
 msgstr "Timeout survenu - continuer quand même ?"
-
-msgid "Error: "
-msgstr "Erreur: "

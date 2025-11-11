@@ -144,7 +144,7 @@ begin
         s:=ReadString(Section,si+IntToStr(i),'');
         if length(s)>0 then begin
           if CvQuote then s:=ReplChars(s,'#',Quote);
-          History.Add(s);
+          if History.IndexOf(s)<0 then History.Add(s);  // no duplicates
           end;
         end;
       end;
@@ -336,7 +336,7 @@ procedure AddToHistory (History : TStrings; const hs : string; MaxCount : intege
 var
   n : integer;
 begin
-  if length(hs)>0 then with History do begin
+if length(hs)>0 then with History do begin
     n:=IndexOf(hs);
     if n<0 then begin
       if Count>=MaxCount then Delete (Count-1);
@@ -359,7 +359,9 @@ begin
   with Combo do begin
     AddToHistory (Items,hs,DropDownCount);
     if Items.Count>0 then ItemIndex:=0;
-    if (Items.Count<=1) then Style:=csSimple else Style:=csDropDown;
+    if Style<>csDropDownList then begin
+      if (Items.Count<=1) then Style:=csSimple else Style:=csDropDown;
+      end;
     end;
   end;
 

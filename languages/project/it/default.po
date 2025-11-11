@@ -3,15 +3,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2025-10-11 16:17+0200\n"
-"PO-Revision-Date: 2025-10-11 16:18+0200\n"
+"POT-Creation-Date: 2025-11-10 14:01+0100\n"
+"PO-Revision-Date: 2025-11-10 14:02+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-SourceCharset: ISO-8859-1\n"
 
 msgid "Inspect and unpack InnoSetup files"
@@ -105,6 +105,9 @@ msgstr "Filtro per lo script di installazione"
 msgid "Only from {app} path"
 msgstr "Solo dal {app}"
 
+msgid "Select files"
+msgstr "Seleziona files"
+
 msgid "Copy output to clipboard"
 msgstr "Copia output negli Appunti"
 
@@ -140,6 +143,15 @@ msgstr ""
 "\t/o \t\t: sovrascrivere i file\n"
 "\t/p\t\t : eseguire come programma portatile"
 
+msgid "Selected files"
+msgstr "File selezionati"
+
+msgid "Version"
+msgstr "Versione"
+
+msgid "Unknown unpacker"
+msgstr "Unpacker sconosciuto"
+
 msgid "This application only allows dropping of exe files!"
 msgstr ""
 "Questa applicazione consente solo di rilasciare i file exe!"
@@ -156,11 +168,24 @@ msgstr "Nome file: "
 msgid "Extract files matching:"
 msgstr "Estrarre i file corrispondenti:"
 
+msgid "Error: "
+msgstr "Errore: "
+
+msgid "Select files to be extracted"
+msgstr "Selezionare i file da estrarre"
+
+#: UnpackMain.pas:596
+msgid "Files found in %s"
+msgstr "File trovati in %s"
+
 msgid "Extract files from setup ..."
 msgstr "Estrarre i file dal setup ..."
 
 msgid "Destination directory: "
 msgstr "Directory di destinazione: "
+
+msgid "Using: "
+msgstr "Utilizzando: "
 
 msgid "Name: "
 msgstr "Nome: "
@@ -168,7 +193,6 @@ msgstr "Nome: "
 msgid "Version: "
 msgstr "Versione: "
 
-#: UnpackMain.pas:748
 msgid "Date: "
 msgstr "Data: "
 
@@ -183,6 +207,3 @@ msgstr "Commento: "
 
 msgid "Timeout occured - continue anyway?"
 msgstr "Si è verificato un timeout - continuare comunque?"
-
-msgid "Error: "
-msgstr "Errore: "

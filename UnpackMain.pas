@@ -24,6 +24,7 @@
    Vers. 1.9.6 (October 2024):  using innounp up to version 0.50 and 1.75
    Vers. 2.0   (December 2024): new layout,
                                 colored display of innounp (v1.77 and up) output
+   Vers. 2.1   (November 2025): extract selected files
 
    last modified: November 2025
 
@@ -51,7 +52,7 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 2.0.7';
+  ProgVers = ' 2.1.0';
   CopRgt = '© 2014-2025 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt(a)rathlev-home.de';
 
@@ -100,6 +101,7 @@ type
     sbVert: TScrollBar;
     sbHorz: TScrollBar;
     cxOnlyApp: TCheckBox;
+    bbSelFiles: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure bbInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -135,21 +137,25 @@ type
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
     procedure edPasswordKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure bbSelFilesClick(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
     IniName,ProgPath,
     ProgVersName,ProgVersDate,
-    UnpProg               : string;
+    UnpProg,UnpVersion,
+    TempFile,SelFilesHint : string;
+    SelectedFiles,
     ConsoleText           : TStringList;
-    NewUnp                : boolean;
+    NewUnp,UseFilelist    : boolean;
     LineHeight,VisibleLines,
     TextWdt               : integer;
     function StripColCtrls (const AText : string) : string;
     function LoadUnpacker : boolean;
     function CheckUnpackVersion : boolean;
-//    procedure AddText(const AText : string);
-    procedure Execute (const Command,FileName,Filter,Comment : string; GoBottom : boolean = false);
+    procedure ExtractFiles (const Filter : string);
+    procedure ShowUnpackInfo (const Command,FileName,Filter,Comment : string; GoBottom : boolean = false);
+    function Execute (const Command : string; OutText: TStringList) : boolean;
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
   public
     { Public-Deklarationen }
@@ -164,7 +170,8 @@ implementation
 
 uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes, Vcl.ClipBrd,
   System.Math, GnuGetText, InitProg,WinUtils, MsgDialogs,IniFileUtils, PathUtils,
-  ListUtils, WinDevUtils, StringUtils, ShellDirDlg, SelectFromListDlg;
+  ListUtils, WinDevUtils, StringUtils, ShellDirDlg, SelectFromListDlg,
+  SelectListItems;
 
 { ------------------------------------------------------------------- }
 resourcestring
@@ -190,6 +197,7 @@ const
   FileSekt = 'Files';
   DirSekt  = 'Directories';
   FilterSekt = 'Filter';
+  SelectSekt = 'SelectedFiles';
 
   (* INI-Variablen *)
   iniLeft = 'Left';
@@ -198,6 +206,7 @@ const
   iniHgt  = 'Height';
   iniUnp = 'Unpacker';
   iniFName = 'Name';
+  iniFileList = 'UseFilelist';
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var
@@ -209,7 +218,7 @@ begin
   DragAcceptFiles(MainForm.Handle, true);
   InitPaths(AppPath,UserPath,ProgPath);
   InitVersion(ProgName,ProgVers,CopRgt,3,3,ProgVersName,ProgVersDate);
-  port:=false; sd:=''; sf:=''; sa:='';
+  port:=false; sd:=''; sf:=''; sa:=''; UseFilelist:=false;
   if ParamCount>0 then for i:=1 to ParamCount do begin
     s:=ParamStr(i);
     if (s[1]='/') or (s[1]='-') then begin
@@ -235,6 +244,7 @@ begin
     ClientWidth:=ReadInteger(CfgSekt,iniWdt,ClientWidth);
     ClientHeight:=ReadInteger(CfgSekt,iniHgt,ClientHeight);
     UnpProg:=ReadString(CfgSekt,iniUnp,'');
+//    UseFilelist:=ReadBool(CfgSekt,iniFileList,false);
     Free;
     end;
   LoadHistory(Ininame,FilterSekt,'',cbFilter.Items,mList);
@@ -242,7 +252,7 @@ begin
     if Items.Count=0 then AddItem('*.*',nil);
     ItemIndex:=0;
     end;
-  AddToHistory(cbFilter,sf);
+  if not sf.IsEmpty then AddToHistory(cbFilter,sf);
   LoadHistory(Ininame,FileSekt,iniFName,cbFile.Items,mList);
   with cbFile do begin
     with Items do for i:=Count-1 downto 0 do
@@ -252,17 +262,21 @@ begin
   AddToHistory(cbFile,sa);
   LoadHistory(Ininame,DirSekt,iniFName,cbDir.Items,mList);
   with cbDir do if Items.Count>0 then ItemIndex:=0;
-  AddToHistory(cbDir,sd);
+  if not sd.IsEmpty then AddToHistory(cbDir,sd);
   pnExtract.Visible:=false; NewUnp:=true;
   Caption:=ProgVersName+' - '+_('Inspect and unpack InnoSetup files');
   ConsoleText:=TStringList.Create;
+  SelectedFiles:=TStringList.Create;
   with pbShowText do Canvas.Font:=Font;
   LineHeight:=MulDiv(abs(pbShowText.Font.Height),12,10);
+  TempFile:=TempDirectory+'FileList.txt';
+  SelFilesHint:='==> '+_('Selected files');
   end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
-  ConsoleText.Free;
+  if FileExists(TempFile) then DeleteFile(TempFile);
+  ConsoleText.Free; SelectedFiles.Free;
   end;
 
 procedure TMainForm.FormMouseWheel(Sender: TObject; Shift: TShiftState;
@@ -318,17 +332,19 @@ begin
 
 function TMainForm.CheckUnpackVersion : boolean;
 var
-  UnpVers : TVersion;
+  uv : TVersion;
+  vi : TFileVersionInfo;
 begin
-  Result:=GetFileVersionAsNumber(UnpProg,UnpVers);
-  if Result then with UnpVers do begin
-    Result:=(Major>1) or ((Major>=1) and (Minor>=70));
-    end;
+  Result:=false;
+  if GetFileVersion(UnpProg,vi) then with vi do begin
+    UnpVersion:=ProductName+Space+_('Version')+Space+Version;
+    uv:=FileVersionToNumber(vi.Version); //GetFileVersionAsNumber(UnpProg,UnpVers);
+    with uv do Result:=(Major>1) or ((Major>=1) and (Minor>=70));
+    end
+  else UnpVersion:=_('Unknown unpacker');
   end;
 
 procedure TMainForm.FormShow(Sender: TObject);
-var
-  s : string;
 begin
   if not FileExists(UnpProg) then UnpProg:=SetDirName(PrgPath)+InnoUnp;
   if not FileExists(UnpProg) then begin
@@ -341,6 +357,7 @@ begin
 
 procedure TMainForm.bbExitClick(Sender: TObject);
 begin
+  RemoveFromHistory(cbFilter.Items,SelFilesHint);
   Close;
   end;
 
@@ -357,7 +374,7 @@ begin
     Filename:= StrAlloc(size);
     DragQueryFile(Msg.WParam,0 , Filename, size);
     if AnsiSameText(GetExt(Filename),'exe') then begin
-      AddToHistory(cbFile.Items,Filename,mList);
+      AddToHistory(cbFile,Filename);
       cbFile.Text:=Filename;
       Application.BringToFront;
       bbSetupInfoClick(self);
@@ -418,8 +435,7 @@ begin
     Filter:=_('Programs|*.exe|All files|*.*');
     Title:=_('Select InnoSetup archive');
     if Execute then begin
-      AddToHistory(cbFile.Items,Filename,mList);
-      cbFile.Text:=Filename;
+      AddToHistory(cbFile,Filename);
       bbSetupInfoClick(Sender);
       end;
     end;
@@ -486,8 +502,7 @@ begin
   if length(s)=0 then s:=ExtractFilePath(cbFile.Text);
   if ShellDirDialog.Execute(_('Select directory for extracted files'),
                 true,true,false,UserPath,s) then begin
-    AddToHistory(cbDir.Items,s,mList);
-    cbDir.Text:=s;
+    AddToHistory(cbDir,s);
     end;
   end;
 
@@ -503,14 +518,10 @@ begin
     DelimitedText:=cbFilter.Text;
     end;
   if SelectFromListDialog.Execute(BottomRightPos(bbFilter,5,5),
-              ProgVersName,_('Extract files matching:'),'',
-              [soEdit,soOrder],0,tcLower,'*.*',ml,s)=mrOK then begin
-    with cbFilter do begin
-      Text:=ml.DelimitedText; AddItem(Text,nil);
-      AddToHistory(Items,Text,mList);
-      end;
-    ml.Free;
-    end;
+              ExtractFileName(cbFile.Text),_('Extract files matching:'),'',
+              [soEdit,soOrder],0,tcLower,'*.*',ml,s)=mrOK then
+      AddToHistory(cbFilter,ml.DelimitedText);
+  ml.Free;
   end;
 
 procedure TMainForm.bbExtractClick(Sender: TObject);
@@ -524,10 +535,10 @@ var
 begin
   if Visible then begin
     pnExtract.Visible:=false;
-    s:=MakeQuotedStr(UnpProg)+' -b -v -h';
+    s:=' -v -b -h';
     if cxEmbedded.Checked then s:=s+' -m';
     if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
-    Execute(s,cbFile.Text,'','');
+    ShowUnpackInfo(s,cbFile.Text,'','');
     end;
   end;
 
@@ -536,25 +547,67 @@ var
   s : string;
 begin
   pnExtract.Visible:=false;
-  s:=MakeQuotedStr(UnpProg)+' -b -t -h';
+  s:=' -b -t -h';
   if cxEmbedded.Checked then s:=s+' -m';
   if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
-  Execute(s,cbFile.Text,'','');
+  ShowUnpackInfo(s,cbFile.Text,'','');
   end;
 
 procedure TMainForm.bbLangClick(Sender: TObject);
 begin
-  Execute(MakeQuotedStr(UnpProg)+' -l -h',cbFile.Text,'','');
+  ShowUnpackInfo(' -l -h',cbFile.Text,'','');
   end;
 
 procedure TMainForm.bbVersionClick(Sender: TObject);
 begin
-  Execute(MakeQuotedStr(UnpProg)+' -i','','','');
+  ShowUnpackInfo(' -i','','','');
+  end;
+
+// Select files to be extracted
+procedure TMainForm.bbSelFilesClick(Sender: TObject);
+var
+  s : string;
+  i : integer;
+begin
+  if not UseFilelist then begin
+    SelectedFiles.Clear;
+    s:=MakeQuotedStr(UnpProg)+' -s -b';
+    if cxEmbedded.Checked then s:=s+' -m';
+    if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
+    s:=s+Space+MakeQuotedStr(Erweiter(PrgPath,cbFile.Text,''));
+    if Execute(s,SelectedFiles) then begin
+      with SelectedFiles do for i:=Count-1 downto 0 do begin
+        s:=Strings[i];
+        if StartsStr('  ',s) then Strings[i]:=Trim(s)
+        else Delete(i);
+        end;
+      end
+    else begin
+      ErrorDialog(_('Error: ')+SysErrorMessage(GetLastError)); Exit;
+      end;
+    end;
+  if SelectListItemsDialog.Execute(TopRightPos(bbSelFiles),ExtractFileName(cbFile.Text),'',
+      _('Select files to be extracted'),SelectedFiles) then begin
+    with TStringList.Create do begin
+      for i:=0 to SelectedFiles.Count-1 do begin
+        if integer(SelectedFiles.Objects[i]) and 1 <>0 then Add(SelectedFiles.Strings[i]);
+        end;
+      SaveToFile(TempFile);
+      cbFilter.Hint:=Text;
+      Free;
+      end;
+    AddToHistory(cbFilter,SelFilesHint);
+    UseFilelist:=true;
+    end;
   end;
 
 procedure TMainForm.bbSetupInfoClick(Sender: TObject);
 begin
-  Execute(MakeQuotedStr(UnpProg)+' -h',cbFile.Text,'','');
+  ShowUnpackInfo(' -h',cbFile.Text,'','');
+  UseFilelist:=false;
+  cbFilter.Hint:='';
+  RemoveFromHistory(cbFilter.Items,SelFilesHint);
+  AddToHistory(cbFilter,'*.*');
   end;
 
 procedure TMainForm.bbOptionsClick(Sender: TObject);
@@ -564,10 +617,16 @@ begin
 
 procedure TMainForm.bbScriptClick(Sender: TObject);
 begin
-  cbFilter.Text:='install_script.iss';
+  AddToHistory(cbFilter,'install_script.iss');
   end;
 
 procedure TMainForm.bbStartClick(Sender: TObject);
+begin
+  if UseFilelist then ExtractFiles(AnsiQuotedStr('@'+TempFile,'"'))
+  else ExtractFiles(cbFilter.Text);
+  end;
+
+procedure TMainForm.ExtractFiles (const Filter : string);
 var
   s,sd,sf,cmd : string;
 begin
@@ -578,20 +637,20 @@ begin
     sd:=MakeQuotedStr(cmd)+sd;
     end
   else sd:=MakeQuotedStr(sd);
-  s:=cbFilter.Text; sf:='';
+  s:=Filter; sf:='';
   repeat
     sf:=sf+MakeQuotedStr(ReadNxtStr(s,';'))+Space;
     until (length(s)=0);
   sf:=Trim(sf);
   if AnsiSameText(sf,'*.*') then sf:='';
-  cmd:=MakeQuotedStr(UnpProg)+' -b';
+  cmd:=' -b';
   if cxStrip.Checked then cmd:=cmd+' -e' else cmd:=cmd+' -x';
   if cxOnlyApp.Checked then cmd:=cmd+' -c{app}';
   if cxEmbedded.Checked then cmd:=cmd+' -m';
   if cxEncrypted.Checked then cmd:=cmd+' -p'+edPassword.Text;
   if cxOverwrite.Checked then cmd:=cmd+' -y';
   if cxDupl.Checked then cmd:=cmd+' -a';
-  Execute(cmd+' -d'+sd,cbFile.Text,sf,'<0>*** '+_('Extract files from setup ...')+sLineBreak
+  ShowUnpackInfo(cmd+' -d'+sd,cbFile.Text,sf,'<0>*** '+_('Extract files from setup ...')+sLineBreak
     +_('Destination directory: ')+'<2>'+sd,true);
   end;
 
@@ -612,7 +671,8 @@ begin
   InfoDialog (ProgVersName+' - '+ProgVersDate
     +sLineBreak+_('Inspect and unpack InnoSetup files')
     +sLineBreak+VersInfo.CopyRight
-    +sLineBreak+'E-Mail: '+EmailAdr+sLineBreak+sLineBreak+rsInfo);
+    +sLineBreak+'E-Mail: '+EmailAdr+sLineBreak+sLineBreak+rsInfo
+    +sLineBreak+sLineBreak+_('Using: ')+UnpVersion);
   end;
 
 { ------------------------------------------------------------------- }
@@ -658,23 +718,13 @@ begin
   end;
 
 { ------------------------------------------------------------------- }
-procedure TMainForm.Execute (const Command,FileName,Filter,Comment : string; GoBottom : boolean);
+procedure TMainForm.ShowUnpackInfo (const Command,FileName,Filter,Comment : string; GoBottom : boolean);
 const
-  BUFSIZE = 4096;
   TextAlign = 30;
 var
-  si        : TStartupInfo;
-  pi        : TProcessInformation;
-  saAttr    : TSecurityAttributes;
-  hChildStdoutRd,
-  hChildStdoutWr  : THandle;
-  chBuf           : array [0..BUFSIZE] of AnsiChar;
-  dwRead,ec,wc    : DWord;
   s           : string;
-  sa          : RawByteString;
-  vi          : TFileVersionInfo;
   dt          : TDateTime;
-  cancel      : boolean;
+  vi          : TFileVersionInfo;
 
   function GetMaxTextWidth (AList : TStrings) : integer;
   var
@@ -735,8 +785,8 @@ begin
     ErrorDialog(Filename+': '+s);
     Exit;
     end;
-  if NewUnp then s:=Command+' -u -z'
-  else s:=Command;
+  s:=MakeQuotedStr(UnpProg)+Command;
+  if NewUnp then s:=s+' -u -z';
   if length(Filename)>0 then begin
     s:=s+Space+MakeQuotedStr(Erweiter(PrgPath,Filename,''));
     FileAge(Filename,dt);
@@ -758,7 +808,29 @@ begin
   InitShowText;
   if length(Filter)>0 then s:=s+Space+Filter;
   Application.ProcessMessages;
-  Screen.Cursor:=crHourglass;
+  if Execute(s,ConsoleText) then begin
+    ConsoleText.Add('');
+    InitShowText;
+    end
+  else ErrorDialog(_('Error: ')+SysErrorMessage(GetLastError));
+  end;
+
+function TMainForm.Execute (const Command : string; OutText : TStringList) : boolean;
+const
+  BUFSIZE = 4096;
+var
+  si        : TStartupInfo;
+  pi        : TProcessInformation;
+  saAttr    : TSecurityAttributes;
+  hChildStdoutRd,
+  hChildStdoutWr  : THandle;
+  chBuf           : array [0..BUFSIZE] of AnsiChar;
+  dwRead,ec,wc    : DWord;
+  sa          : RawByteString;
+  s           : string;
+  cancel      : boolean;
+begin
+  Screen.Cursor:=crHourglass; Result:=false;
 // Set the bInheritHandle flag so pipe handles are inherited.
   with saAttr do begin
     nLength:=sizeof(SECURITY_ATTRIBUTES);
@@ -779,7 +851,7 @@ begin
     end;
   try
      if CreateProcess(nil,                // Anwendungsname
-                     pchar(s),
+                     pchar(Command),
                      nil,                // Security
                      nil,                // Security
                      true,               // use InheritHandles
@@ -810,14 +882,12 @@ begin
         s:=UTF8ToString(sa);
         s:=ReplaceStr(s,CrLf,Lf); // Convert Unix style output
         s:=ReplaceStr(s,Lf,CrLf);
-        with ConsoleText do Text:=Text+s;
+        with OutText do Text:=Text+s;
         end;
       CloseHandle(hChildStdoutRd);
-      if wc<>WAIT_OBJECT_0 then ConsoleText.Add('*** '+_('Error: ')+SysErrorMessage(wc));
-      ConsoleText.Add('');
-      InitShowText;
+      if wc<>WAIT_OBJECT_0 then OutText.Add('*** '+_('Error: ')+SysErrorMessage(wc));
+      Result:=true;
       end
-    else ErrorDialog(_('Error: ')+SysErrorMessage(GetLastError));
   finally
     Screen.Cursor:=crDefault;
     end;

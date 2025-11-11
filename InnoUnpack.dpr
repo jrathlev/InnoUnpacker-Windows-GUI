@@ -3,13 +3,14 @@ program InnoUnpack;
 {$R 'languages.res' 'languages.rc'}
 
 uses
-  GnuGetText in 'units\GnuGetText.pas',
-  LangUtils in 'units\LangUtils.pas',
+  GnuGetText in '..\..\Bibliotheken\Units\GnuGetText.pas',
+  LangUtils in '..\..\Bibliotheken\Units\LangUtils.pas',
   Vcl.Forms,
   Vcl.Graphics,
   UnpackMain in 'UnpackMain.pas' {MainForm},
-  ShellDirDlg in 'units\ShellDirDlg.pas' {ShellDirDialog},
-  SelectFromListDlg in 'units\SelectFromListDlg.pas' {SelectFromListDialog};
+  ShellDirDlg in '..\..\Bibliotheken\dialogs\ShellDirDlg.pas' {ShellDirDialog},
+  SelectFromListDlg in '..\..\Bibliotheken\Dialogs\SelectFromListDlg.pas' {SelectFromListDialog},
+  SelectListItems in '..\..\Bibliotheken\Dialogs\SelectListItems.pas' {SelectListItemsDialog};
 
 {$R *.res}
 
@@ -23,5 +24,7 @@ begin
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TShellDirDialog, ShellDirDialog);
   Application.CreateForm(TSelectFromListDialog, SelectFromListDialog);
+  Application.CreateForm(TSelectListItemsDialog, SelectListItemsDialog);
   Application.Run;
 end.
+
