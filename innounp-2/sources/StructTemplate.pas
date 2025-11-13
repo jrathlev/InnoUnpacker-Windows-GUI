@@ -200,8 +200,12 @@ const
     {$IF DEFVER>=5507}ord(structDEFVER_EXTSUF_.shForceCloseApplications)   {$ELSE}255{$IFEND},
     {$IF DEFVER>=6000}ord(structDEFVER_EXTSUF_.shAppNameHasConsts)         {$ELSE}255{$IFEND},
     {$IF DEFVER>=6000}ord(structDEFVER_EXTSUF_.shUsePreviousPrivileges)    {$ELSE}255{$IFEND},
-    {$IF DEFVER>=6000}ord(structDEFVER_EXTSUF_.shWizardResizable)          {$ELSE}255{$IFEND},
-    {$IF DEFVER>=6300}ord(structDEFVER_EXTSUF_.shUninstallLogging)         {$ELSE}255{$IFEND}
+    {$IF (DEFVER>=6000) AND (DEFVER<6600)}ord(structDEFVER_EXTSUF_.shWizardResizable) {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6300}ord(structDEFVER_EXTSUF_.shUninstallLogging)          {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6600}ord(structDEFVER_EXTSUF_.shWizardModern)              {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6600}ord(structDEFVER_EXTSUF_.shWizardBorderStyled)        {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6600}ord(structDEFVER_EXTSUF_.shWizardKeepAspectRatio)     {$ELSE}255{$IFEND},
+    {$IF DEFVER>=6600}ord(structDEFVER_EXTSUF_.shWizardLightButtonsUnstyled){$ELSE}255{$IFEND}
   );
 
   SetupRunOptionTable: array[0..MySetupRunOptionLast] of byte = (
@@ -1222,9 +1226,14 @@ begin
     Name                          :=ole.Name;
     LanguageName                  :=CopyStringVal(ole.LanguageName);
     DialogFontName                :=ole.DialogFontName;
+{$IF DEFVER<6600}
     TitleFontName                 :=ole.TitleFontName;
-    WelcomeFontName               :=ole.WelcomeFontName;
     CopyrightFontName             :=ole.CopyrightFontName;
+{$ELSE}
+    TitleFontName                 :='';
+    CopyrightFontName             :='';
+{$IFEND}
+    WelcomeFontName               :=ole.WelcomeFontName;
     Data                          :=ole.Data;
 {$IF DEFVER>=4001}
     LicenseText                   :=ole.LicenseText;
@@ -1242,9 +1251,18 @@ begin
 {$IFEND}
     LanguageID                    :=ole.LanguageID;
     DialogFontSize                :=ole.DialogFontSize;
-    TitleFontSize                 :=ole.TitleFontSize;
     WelcomeFontSize               :=ole.WelcomeFontSize;
+{$IF DEFVER<6600}
+    TitleFontSize                 :=ole.TitleFontSize;
     CopyrightFontSize             :=ole.CopyrightFontSize;
+    DialogFontBaseScaleHeight     :=0;
+    DialogFontBaseScaleWidth      :=0;
+{$ELSE}
+    TitleFontSize                 :=0;
+    CopyrightFontSize             :=0;
+    DialogFontBaseScaleHeight     :=ole.DialogFontBaseScaleHeight;
+    DialogFontBaseScaleWidth      :=ole.DialogFontBaseScaleWidth;
+{$IFEND}
     RightToLeft                   :={$IF DEFVER>=5203} ole.RightToLeft {$ELSE} false {$IFEND};
   end;
 {$ELSE}

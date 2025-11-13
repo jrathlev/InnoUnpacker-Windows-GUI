@@ -1,0 +1,130 @@
+Inno Setup Unpacker
+===================
+(c) 2004-2019 QuickeneR, 2009-2020 Ariman, 2020 - 2025 J. Rathlev
+
+Revision history:
+-----------------
+
+2.66.0 (2025-11-13)
+------
+  - Added support for IS up to 6.6.0
+
+2.65.4 (2025-11-09)
+------
+  - New command "-s": show a list of files without size and date
+
+2.65.3 (2025-11-06)
+------
+  - Display the default install directory in the general information
+  - Evaluation of custom messages in setup header added
+
+2.65.2 (2025-09-11)
+------
+  - Added support for IS up to 6.5.4
+
+2.65.1 (2025-08-25)
+------
+  - Unpacking of some older installers fixed
+
+2.65.0 (2025-08-24)
+------
+  - Added support for IS 6.5.1
+
+2.64.6 (2025-07-31)
+------
+  - Usage of root key HKA in setup script fixed
+
+2.64.5 (2025-05-06)
+------
+  - Renaming of files with comma character fixed
+
+2.64.4 (2025-05-06)
+------
+  - Added support for IS 6.4.3
+
+2.64.3 (2025-02-27)
+------
+  - Added support for IS 6.4.2
+
+2.64.2 (2025-02-27)
+------
+  - Reading a file list from command line fixed
+
+2.64.1 (2025-02-02)
+------
+  - Interactive entry of password fixed
+
+2.64.0 (2025-01-19)
+------
+  - New version numbering: The minor version number directly indicates the newest 
+    supported Inno Setup version
+  - Added support for IS 6.4
+
+1.77 (2024-12-01)
+----
+  - Modifications to support color display in Windows GUI for Inno Setup Unpacker
+
+1.76 (2024-11-05)
+----
+  - New command line option "-h" to suppress the headline on console output
+  - Colored console output (option "-o" to disable)
+  - Automatic switching of the console to UTF-8 (code page 65001) if required
+  - Encoding of standard console output fixed
+
+1.75 (2024-11-01)
+----
+  - New command line option "-l" to list all languages supported by the installation
+  - Changed command line option "-i" to list all supported Inno Setup versions (formerly "-l")
+
+1.74 (2024-10-30)
+----
+  - UTF-8 encoding in section [<tt>setup]</tt> of install_script.iss fixed
+
+1.73 (2024-10-09)
+----
+  - UTF-8 encoding in section <tt>[files]</tt> of install_script.iss fixed
+
+1.72 (2024-07-30)
+----
+  - Fixes issue on extracting zip compressed setups (2.0 - 4.1)
+  - Enhanced output on "extract" and "test" command
+
+1.71 (2024-06-23)
+----
+  - Adaption of script building to IS 6.3
+
+1.70 (2024-06-23)
+----
+  - Added support for IS 6.3
+
+1.67 (2024-01-10)
+----
+  - Fixes issue on encrypted setups
+
+1.66 (2023-08-11)
+----
+  - Fixes issue on building the small image list in the script
+
+1.64 (2022-11-29)
+----
+  - Supports UTF8 coded file lists
+
+1.63 (2022-06-14)
+----
+  - Fixes several issues on extracting embedded files
+  - Fixes an issue on reading custom setups (Inno Setup version 5.4 and 5.5)
+
+1.61 (2021-10-15)
+----
+  - Source code revised to use Unicode strings (native string type since Delphi 2009)
+  - Fixed issue with option oaSkip
+  - New command line option "-l" to list all supported Inno Setup versions
+  - New command line option "-u" to use UTF-8 for console output
+  - Exit codes added
+  - Compiled with "Delphi 10 Seattle"
+  - Modifications by J. Rathlev (kontakt(a)rathlev-home.de)
+
+0.50 (2020-12-18)
+----
+  - Added support for IS 6.1.
+  - last version provided on https://sourceforge.net/projects/innounp/

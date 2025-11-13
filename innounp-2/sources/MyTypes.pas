@@ -85,7 +85,8 @@ type
     shSignedUninstaller, shUsePreviousLanguage, shDisableWelcomePage,
     shCloseApplications, shRestartApplications, shAllowNetworkDrive,
     shForceCloseApplications, shAppNameHasConsts, shUsePreviousPrivileges,
-    shWizardResizable, shUninstallLogging);
+    shWizardResizable, shUninstallLogging, shWizardModern, shWizardBorderStyled,
+    shWizardKeepAspectRatio, shWizardLightButtonsUnstyled);
   const MySetupHeaderOptionLast = ord(High(TMySetupHeaderOption));
   type TMySetupHeaderOptions = set of TMySetupHeaderOption;  
 
@@ -269,7 +270,9 @@ type
       CopyrightFontName : String;
     Data, LicenseText, InfoBeforeText, InfoAfterText: AnsiString;
     LanguageID, LanguageCodePage: Cardinal;
-    DialogFontSize: Integer;
+    DialogFontSize,
+    DialogFontBaseScaleHeight,
+    DialogFontBaseScaleWidth : Integer;
     TitleFontSize: Integer;
     WelcomeFontSize: Integer;
     CopyrightFontSize: Integer;
