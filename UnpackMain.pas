@@ -1,6 +1,6 @@
-(* Unpack Inno setup files
-   =======================
-   GUI for "innounp.exe"
+(* Unpacker for Inno setup files
+   =============================
+   Windows GUI for "innounp.exe"
    see: https://sourceforge.net/projects/innounp/files/
    and https://github.com/jrathlev/InnoUnpacker-Windows-GUI
 
@@ -24,7 +24,7 @@
    Vers. 1.9.6 (October 2024):  using innounp up to version 0.50 and 1.75
    Vers. 2.0   (December 2024): new layout,
                                 colored display of innounp (v1.77 and up) output
-   Vers. 2.1   (November 2025): extract selected files
+   Vers. 2.1   (November 2025): extract selected files (requires innounp v2.65.4 and up)
 
    last modified: November 2025
 
@@ -54,7 +54,7 @@ const
   ProgName = 'InnoUnpacker';
   ProgVers = ' 2.1.0';
   CopRgt = '© 2014-2025 Dr. J. Rathlev, D-24222 Schwentinental';
-  EmailAdr = 'kontakt(a)rathlev-home.de';
+  EmailAdr = 'kontakt@rathlev-home.de';
 
   defPipeSize = 1024*1024;
   defTimeOut  = 10000;  // 10 s
@@ -147,12 +147,13 @@ type
     TempFile,SelFilesHint : string;
     SelectedFiles,
     ConsoleText           : TStringList;
-    NewUnp,UseFilelist    : boolean;
+    NewUnp,CanList,
+    UseFilelist    : boolean;
     LineHeight,VisibleLines,
     TextWdt               : integer;
     function StripColCtrls (const AText : string) : string;
     function LoadUnpacker : boolean;
-    function CheckUnpackVersion : boolean;
+    procedure CheckUnpackVersion;
     procedure ExtractFiles (const Filter : string);
     procedure ShowUnpackInfo (const Command,FileName,Filter,Comment : string; GoBottom : boolean = false);
     function Execute (const Command : string; OutText: TStringList) : boolean;
@@ -263,7 +264,7 @@ begin
   LoadHistory(Ininame,DirSekt,iniFName,cbDir.Items,mList);
   with cbDir do if Items.Count>0 then ItemIndex:=0;
   if not sd.IsEmpty then AddToHistory(cbDir,sd);
-  pnExtract.Visible:=false; NewUnp:=true;
+  pnExtract.Visible:=false; NewUnp:=true; CanList:=false;
   Caption:=ProgVersName+' - '+_('Inspect and unpack InnoSetup files');
   ConsoleText:=TStringList.Create;
   SelectedFiles:=TStringList.Create;
@@ -330,16 +331,19 @@ begin
   SaveHistory(Ininame,DirSekt,iniFName,true,cbDir.Items,mList);
   end;
 
-function TMainForm.CheckUnpackVersion : boolean;
+procedure TMainForm.CheckUnpackVersion;
 var
   uv : TVersion;
   vi : TFileVersionInfo;
 begin
-  Result:=false;
+  NewUnp:=false; CanList:=false;
   if GetFileVersion(UnpProg,vi) then with vi do begin
     UnpVersion:=ProductName+Space+_('Version')+Space+Version;
     uv:=FileVersionToNumber(vi.Version); //GetFileVersionAsNumber(UnpProg,UnpVers);
-    with uv do Result:=(Major>1) or ((Major>=1) and (Minor>=70));
+    with uv do begin
+      NewUnp:=(Major>1) or ((Major>=1) and (Minor>=70));
+      CanList:=(Major>=2) and ((Minor>=66) or (Minor=65) and (Release>=4));
+      end;
     end
   else UnpVersion:=_('Unknown unpacker');
   end;
@@ -350,7 +354,7 @@ begin
   if not FileExists(UnpProg) then begin
     if not LoadUnpacker then Close;
     end;
-  NewUnp:=CheckUnpackVersion;
+  CheckUnpackVersion;
   if FileExists(cbFile.Text) then bbSetupInfoClick(Sender)
   else bbFileClick(Sender);
   end;
@@ -403,7 +407,7 @@ begin
     Result:=Execute;
     if Result then begin
       UnpProg:=Filename;
-      NewUnp:=CheckUnpackVersion;
+      CheckUnpackVersion;
       end;
     end;
   end;
@@ -569,9 +573,14 @@ var
   s : string;
   i : integer;
 begin
+  if not CanList then begin
+    ErrorDialog(_('To use this feature at least version 2.65.4 of "innounp" is required!'));
+    Exit;
+    end;
   if not UseFilelist then begin
     SelectedFiles.Clear;
     s:=MakeQuotedStr(UnpProg)+' -s -b';
+    if NewUnp then s:=s+' -u';
     if cxEmbedded.Checked then s:=s+' -m';
     if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
     s:=s+Space+MakeQuotedStr(Erweiter(PrgPath,cbFile.Text,''));
@@ -671,7 +680,7 @@ begin
   InfoDialog (ProgVersName+' - '+ProgVersDate
     +sLineBreak+_('Inspect and unpack InnoSetup files')
     +sLineBreak+VersInfo.CopyRight
-    +sLineBreak+'E-Mail: '+EmailAdr+sLineBreak+sLineBreak+rsInfo
+    +sLineBreak+_('e-mail: ')+EmailAdr+sLineBreak+sLineBreak+rsInfo
     +sLineBreak+sLineBreak+_('Using: ')+UnpVersion);
   end;
 
@@ -685,7 +694,7 @@ var
   s,sw : string;
 const
   MaxCol = 5;
-  ColArray : array[0..5] of TColor = (clBlack,clred,clGreen,clBlue,clMaroon,clPurple);
+  ColArray : array[0..MaxCol] of TColor = (clBlack,clred,clGreen,clBlue,clMaroon,clPurple);
 begin
   with pbShowText do begin
     Canvas.Brush.Color:=clWhite;
@@ -702,7 +711,7 @@ begin
           Canvas.TextOut(w,5+LineHeight*i,sw);
           w:=w+Canvas.TextWidth(sw);
           n2:=PosEx('>',s,n1+1);
-          if (n2=n1+2) and TryStrToInt(copy(s,n1+1,1),k) and (k<>MaxCol) then begin
+          if (n2=n1+2) and TryStrToInt(copy(s,n1+1,1),k) and (k<=MaxCol) then begin
             Canvas.Font.Color:=ColArray[k];
             n0:=n2+1;
             end

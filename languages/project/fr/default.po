@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-11-10 14:01+0100\n"
-"PO-Revision-Date: 2025-11-10 14:02+0100\n"
+"POT-Creation-Date: 2025-11-16 12:13+0100\n"
+"PO-Revision-Date: 2025-11-16 12:15+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -170,21 +170,28 @@ msgstr "Nom du fichier: "
 msgid "Extract files matching:"
 msgstr "Extraire les fichiers correspondants :"
 
+#. Select files to be extracted
+#: UnpackMain.pas:577
+msgid ""
+"To use this feature at least version 2.65.4 of \"innounp\" is required!"
+msgstr ""
+"Pour utiliser cette fonctionnalité, la version 2.65.4 ou supérieure de "
+"« innounp » est requise !"
+
 msgid "Error: "
 msgstr "Erreur: "
 
 msgid "Select files to be extracted"
 msgstr "Sélectionnez les fichiers à extraire"
 
-#: UnpackMain.pas:596
-msgid "Files found in %s"
-msgstr "Fichiers trouvés dans %s"
-
 msgid "Extract files from setup ..."
 msgstr "Extraire les fichiers de l'installation ..."
 
 msgid "Destination directory: "
 msgstr "Répertoire de destination : "
+
+msgid "e-mail: "
+msgstr "Courriel : "
 
 msgid "Using: "
 msgstr "En utilisant : "

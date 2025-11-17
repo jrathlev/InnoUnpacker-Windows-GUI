@@ -6,10 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2025-11-10 14:01+0100\n"
-"PO-Revision-Date: 2025-11-10 14:07+0100\n"
-"Last-Translator: J. Rathlev <kontakt@rathlev-"
-"home.de>\n"
+"POT-Creation-Date: 2025-11-16 12:13+0100\n"
+"PO-Revision-Date: 2025-11-16 12:16+0100\n"
+"Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -20,8 +19,7 @@ msgstr ""
 
 #. MainForm.Caption
 #. UseFilelist:=ReadBool(CfgSekt,iniFileList,false);
-#: UnpackMain.dfm:4 UnpackMain.pas:267
-#: UnpackMain.pas:678
+#: UnpackMain.dfm:4 UnpackMain.pas:268 UnpackMain.pas:680
 msgid "Inspect and unpack InnoSetup files"
 msgstr "Überprüfen und Entpacken von InnoSetup-Dateien"
 
@@ -61,7 +59,7 @@ msgid "Verify setup"
 msgstr "Setup überprüfen"
 
 #. MainForm.pnTop.bbFile.Hint
-#: UnpackMain.dfm:612 UnpackMain.pas:436
+#: UnpackMain.dfm:612 UnpackMain.pas:440
 msgid "Select InnoSetup archive"
 msgstr "InnoSetup-Archiv auswählen"
 
@@ -88,9 +86,7 @@ msgstr "Kennwort:"
 #. MainForm.pnTop.bbVersion.Hint
 #: UnpackMain.dfm:859
 msgid "Show list of all supported Inno Setup versions"
-msgstr ""
-"Liste aller unterstützten Inno Setup-Versionen "
-"anzeigen"
+msgstr "Liste aller unterstützten Inno Setup-Versionen anzeigen"
 
 #. MainForm.pnTop.bbLang.Hint
 #: UnpackMain.dfm:950
@@ -153,7 +149,7 @@ msgid "Edit file filter"
 msgstr "Datei-Filter bearbeiten"
 
 #. MainForm.pnExtract.bbDir.Hint
-#: UnpackMain.dfm:1492 UnpackMain.pas:503
+#: UnpackMain.dfm:1492 UnpackMain.pas:507
 msgid "Select directory for extracted files"
 msgstr "Verzeichnis für zu extrahierende Dateien"
 
@@ -193,16 +189,14 @@ msgid "Scroll up"
 msgstr "Nach oben rollen"
 
 #. Programmer's name for it: rsInfo
-#: UnpackMain.pas:188
+#: UnpackMain.pas:189
 msgid ""
 "Command line options: [<name>] [options]\n"
 "\t<name>\t\t: name of setup file to be unpacked\n"
-"\t/d:<ddir>\t: destination directory for unpacked "
-"files\n"
+"\t/d:<ddir>\t: destination directory for unpacked files\n"
 "\t/f:<filter>\t: file filter\n"
 "\t/e:<pwd>\t: encryption password\n"
-"\t/l:<lg>\t\t: language selection (en, de, fr, it or "
-"hu)\n"
+"\t/l:<lg>\t\t: language selection (en, de, fr, it or hu)\n"
 "\t/m\t\t: process internal embedded files\n"
 "\t/s\t\t: extract files without paths\n"
 "\t/a\t\t: process all copies of duplicate files\n"
@@ -217,97 +211,102 @@ msgstr ""
 "\t/l:<lg>\t\t: Sprachauswahl (en, de, fr, it or hu)\n"
 "\t/m\t\t: interne eingebettete Dateien verarbeiten\n"
 "\t/s\t\t: Dateien ohne Pfade entpacken\n"
-"\t/a\t\t: alle Kopien von doppelten Dateien "
-"verarbeiten\n"
+"\t/a\t\t: alle Kopien von doppelten Dateien verarbeiten\n"
 "\t/o\t\t: Dateien überschreiben\n"
 "\t/p\t\t: als portables Programm starten"
 
-#: UnpackMain.pas:273
+#: UnpackMain.pas:274
 msgid "Selected files"
 msgstr "Ausgewählte Dateien"
 
-#: UnpackMain.pas:340
+#: UnpackMain.pas:341
 msgid "Version"
 msgstr "Version"
 
 #. GetFileVersionAsNumber(UnpProg,UnpVers);
-#: UnpackMain.pas:344
+#: UnpackMain.pas:348
 msgid "Unknown unpacker"
 msgstr "Unbekannter Entpacker"
 
-#: UnpackMain.pas:382
-msgid ""
-"This application only allows dropping of exe files!"
+#: UnpackMain.pas:386
+msgid "This application only allows dropping of exe files!"
 msgstr "Diese Anwendung akzeptiert nur Exe-Dateien!"
 
-#: UnpackMain.pas:401 UnpackMain.pas:435
+#: UnpackMain.pas:405 UnpackMain.pas:439
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programme|*.exe|alle Dateien|*.*"
 
-#: UnpackMain.pas:402
+#: UnpackMain.pas:406
 msgid "Search for \"innounp.exe\""
 msgstr "Suche nach \"innounp.exe\""
 
-#: UnpackMain.pas:494
+#: UnpackMain.pas:498
 msgid "Filename: "
 msgstr "Dateiname: "
 
-#: UnpackMain.pas:521
+#: UnpackMain.pas:525
 msgid "Extract files matching:"
 msgstr "Dateien extrahieren passend zu:"
 
 #. Select files to be extracted
+#: UnpackMain.pas:577
+msgid ""
+"To use this feature at least version 2.65.4 of \"innounp\" is "
+"required!"
+msgstr ""
+"Um diese Funktion nutzen zu können, ist mindestens die Version "
+"2.65.4 von „innounp“ erforderlich!"
+
 #. Convert Unix style output
-#: UnpackMain.pas:591 UnpackMain.pas:821
-#: UnpackMain.pas:894
+#: UnpackMain.pas:594 UnpackMain.pas:823 UnpackMain.pas:896
 msgid "Error: "
 msgstr "Fehler: "
 
-#: UnpackMain.pas:595
+#: UnpackMain.pas:598
 msgid "Select files to be extracted"
 msgstr "Zu extrahierende Dateien auswählen"
 
-#: UnpackMain.pas:596
-msgid "Files found in %s"
-msgstr "In %s gefundene Dateien"
-
-#: UnpackMain.pas:659
+#: UnpackMain.pas:661
 msgid "Extract files from setup ..."
 msgstr "Dateien aus dem Setup extrahieren ..."
 
-#: UnpackMain.pas:660
+#: UnpackMain.pas:662
 msgid "Destination directory: "
 msgstr "Zielverzeichnis: "
 
-#: UnpackMain.pas:681
+#: UnpackMain.pas:682
+msgid "e-mail: "
+msgstr "E-Mail: "
+
+#: UnpackMain.pas:683
 msgid "Using: "
 msgstr "Verwendet: "
 
-#: UnpackMain.pas:801
+#: UnpackMain.pas:803
 msgid "Name: "
 msgstr "Name: "
 
-#: UnpackMain.pas:802
+#: UnpackMain.pas:804
 msgid "Version: "
 msgstr "Version: "
 
-#: UnpackMain.pas:803
+#: UnpackMain.pas:805
 msgid "Date: "
 msgstr "Datum: "
 
-#: UnpackMain.pas:804
+#: UnpackMain.pas:806
 msgid "Copyright: "
 msgstr "Copyright: "
 
-#: UnpackMain.pas:805
+#: UnpackMain.pas:807
 msgid "Company: "
 msgstr "Firma: "
 
-#: UnpackMain.pas:806
+#: UnpackMain.pas:808
 msgid "Comment: "
 msgstr "Kommentar: "
 
 #. wait 10 s
-#: UnpackMain.pas:871
+#: UnpackMain.pas:873
 msgid "Timeout occured - continue anyway?"
 msgstr "Timeout aufgetreten - trotzdem weitermachen?"

@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2025-11-10 14:01+0100\n"
-"PO-Revision-Date: 2025-11-10 14:02+0100\n"
+"POT-Creation-Date: 2025-11-16 12:13+0100\n"
+"PO-Revision-Date: 2025-11-16 12:15+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -54,8 +54,7 @@ msgid "Password:"
 msgstr "Password:"
 
 msgid "Show list of all supported Inno Setup versions"
-msgstr ""
-"Mostra l'elenco di tutte le versioni di Inno Setup supportate"
+msgstr "Mostra l'elenco di tutte le versioni di Inno Setup supportate"
 
 msgid "Show list of all supported languages"
 msgstr "Mostra l'elenco di tutte le lingue supportate"
@@ -132,8 +131,7 @@ msgid ""
 msgstr ""
 "Opzioni della riga di comando: [<name>] [opzioni]\n"
 "\t<name>\t\t: nome file installer da scompattare\n"
-"\t/d:<ddir>\t: cartella destinazione per i file "
-"scompattati\n"
+"\t/d:<ddir>\t: cartella destinazione per i file scompattati\n"
 "\t/f:<filter>\t: filtro file\n"
 "\t/e:<pwd>\t: password crittografia\n"
 "\t/l:<lg>\t\t: selezione lingua (en, de, fr, it o hu)\n"
@@ -153,8 +151,7 @@ msgid "Unknown unpacker"
 msgstr "Unpacker sconosciuto"
 
 msgid "This application only allows dropping of exe files!"
-msgstr ""
-"Questa applicazione consente solo di rilasciare i file exe!"
+msgstr "Questa applicazione consente solo di rilasciare i file exe!"
 
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programmi|*.exe|Tutti i file|*.*"
@@ -168,21 +165,29 @@ msgstr "Nome file: "
 msgid "Extract files matching:"
 msgstr "Estrarre i file corrispondenti:"
 
+#. Select files to be extracted
+#: UnpackMain.pas:577
+msgid ""
+"To use this feature at least version 2.65.4 of \"innounp\" is "
+"required!"
+msgstr ""
+"Per utilizzare questa funzione è necessaria almeno la versione "
+"2.65.4 di \"innounp\"!"
+
 msgid "Error: "
 msgstr "Errore: "
 
 msgid "Select files to be extracted"
 msgstr "Selezionare i file da estrarre"
 
-#: UnpackMain.pas:596
-msgid "Files found in %s"
-msgstr "File trovati in %s"
-
 msgid "Extract files from setup ..."
 msgstr "Estrarre i file dal setup ..."
 
 msgid "Destination directory: "
 msgstr "Directory di destinazione: "
+
+msgid "e-mail: "
+msgstr "Email: "
 
 msgid "Using: "
 msgstr "Usando: "

@@ -1,0 +1,53 @@
+Windows Unpacker GUI for Inno setup files
+=========================================
+(c) 2013 - 2025 J. Rathlev
+
+Revision history:
+-----------------
+
+2.1.1 (2025-11-16)
+------------------
+  - fixed: Unicode characters in file selection list
+  - fixed: Italian translation
+
+2.1.0 (2025-11-11)
+------------------
+  - extract selected files (requires innounp v2.65.4 and up)
+
+2.0.0 (December 2024)
+---------------------
+  -  new layout: colored display of innounp output (v1.77 and up)
+
+1.9.6 (October 2024)
+-------------------
+  - using innounp up to version 0.50 and 1.75
+
+1.9.4 (August 2024)
+-------------------
+  - innounp updated to version 1.72
+  - timeout on calling innounp.exe with confirmation
+
+1.9.1 (August 2022)
+-------------------
+ - added: command line options
+
+1.8.0 (June 2022)
+-----------------
+  - added: "embedded option"
+
+1.7.0 (October 2021)
+--------------------
+  - console output uses UTF8
+
+1.6.0 (August 2020)
+-------------------
+  - added: Filter to extract single files
+
+1.3.0 (March 2014)
+-------------------
+  - added: Drag and drop fearure
+
+1.0.0 (August 2013)
+-------------------
+  - Basic version
+
