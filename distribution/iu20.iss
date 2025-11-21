@@ -89,11 +89,12 @@ Root: HKCR; Subkey: "{code:GetKey|EXE}\shell\InnoUnpack\Command"; ValueType: str
 [Files]
 Source: "..\Release\Win32\InnoUnpack.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
 Source: "..\innounp-2\Release\innounp.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
-Source: "..\innounp-2\docs\innounp.htm"; DestDir: "{app}"; Flags: ignoreversion restartreplace
+Source: "..\innounp-2\docs\innounp.htm"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\Release\Win32\locale\*.mo"; DestDir: "{app}\locale"; Flags: recursesubdirs ignoreversion restartreplace
 ;Source: "..\Release\Win32\language.cfg"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion restartreplace
-Source: "..\..\Common\license-*.rtf"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\InnoUnpack.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\changelog.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\Common\license-*.rtf"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\inno-unpacker-2.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\inno-unpacker-u-2.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files

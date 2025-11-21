@@ -1,4 +1,4 @@
-### Inno Setup Unpacker - Windows GUI v 2.1.1
+### Inno Setup Unpacker - Windows GUI v 2.1.2
 
 #### Inspect and unpack InnoSetup archives
 
@@ -7,7 +7,7 @@ for making software installations. To verify and get files out of the self-extra
 executable, these open source console applications are available:
 
 - Original version [Innounp](http://sourceforge.net/projects/innounp) (can be used up to InnoSetup 6.1)
-- Updated Unicode version [Innounp-2](innounp-2) (can be used up to InnoSetup 6.6.0)
+- Updated Unicode version [Innounp-2](innounp-2) (can be used up to InnoSetup 6.6.1)
 
 **InnoUnpacker** is a graphical user interface (GUI) for these console applications
 that makes the usage more comfortable.
