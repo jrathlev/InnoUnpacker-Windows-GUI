@@ -1,8 +1,8 @@
-### Inno Setup Unpacker 2.66.0 - Console version
+### Inno Setup Unpacker 2.66.1 - Console version
 
 #### Unpacker for installations made by Inno Setup
 
-#### Supports Inno Setup versions 2.0.7 to 6.6.0
+#### Supports Inno Setup versions 2.0.7 to 6.6.1
 
 ##### Branch of the project on [SourceForge](http://sourceforge.net/projects/innounp)
 
@@ -14,11 +14,12 @@ Since there have been no updates of the *SourceForge* project since 2020 and the
 source codes are not yet adapted to the current Delphi versions (Unicode strings are 
 the native type since *Delphi 2009*), I have modified them so that they can be 
 compiled with newer Delphi versions (tested with *Delphi 10 Seattle*).
+
+At the same time, the program was expanded to support all *Inno Setup* versions from 6.2 onwards.
+
 In addition, some errors have been fixed and new command line options (*-s*, *-l*, *-i* and *-u*) were added, as well as exit codes to support the use in batch files. 
 
 The install script is saved in UTF-8 format.
-
-The program has also been adapted to *Inno Setup* versions 6.2 and 6.6.0.
 
 [Application download](https://github.com/jrathlev/InnoUnpacker-Windows-GUI/tree/master/innounp-2/bin)
 
