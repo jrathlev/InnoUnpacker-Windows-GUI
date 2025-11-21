@@ -1211,7 +1211,7 @@ begin
               end;
           end;
         caVerboseList: begin
-            WriteNormalLine('Size        Time              ','Filename');
+            WriteNormalLine('Size        Date/Time         ','Filename');
             WriteNormalLine('----------------------------------------------');
             for i:=0 to Entries[seFile].Count-1 do
               with Struct.PSetupFileEntry(Entries[seFile][i])^ do begin
@@ -1225,7 +1225,7 @@ begin
                 else TimeStamp:=loc^.TimeStamp;
                 FileTimeToSystemTime(TimeStamp, systime);
                 str(loc^.OriginalSize:10,s);
-                WriteNormalLine(s+'  '+FormatDateTime('yyyy.mm.dd hh:mm', SystemTimeToDateTime(systime))+
+                WriteNormalLine(s+'  '+FormatDateTime('yyyy-mm-dd hh:mm', SystemTimeToDateTime(systime))+
                   '  ',SourceFileName);
               end;
             WriteNormalLine('----------------------------------------------');

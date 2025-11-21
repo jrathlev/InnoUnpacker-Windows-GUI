@@ -926,7 +926,7 @@ begin
 
 {$IF DEFVER<4010}
     TimeStamp                   :=ofl.Date;
-{$ELSEIF DEFVER<5507}
+{$ELSEIF (DEFVER<5507) OR (DEFVER>=6601)}
     TimeStamp                   :=ofl.TimeStamp;
 {$ELSE}
     TimeStamp                   :=ofl.SourceTimeStamp;

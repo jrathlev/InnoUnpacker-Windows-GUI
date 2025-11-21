@@ -5,6 +5,11 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.66.1 (2025-11-16)
+------
+  - Added support for IS up to 6.6.1
+  - File date/time format changed (ISO 8601)
+  
 2.66.0 (2025-11-13)
 ------
   - Added support for IS up to 6.6.0
