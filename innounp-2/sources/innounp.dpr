@@ -1,13 +1,13 @@
 (* innounp, the Inno Setup Unpacker
-   Version 2.64
-     Supports Inno Setup versions 2.0.7 through 6.4
+   Version 2.66
+     Supports Inno Setup versions 2.0.7 through 6.6
 
    based on:
      Version 0.50
      from
      https://sourceforge.net/projects/innounp/
 
-   J. Rathlev (kontakt(a)rathlev-home.de) - December 2020
+   J. Rathlev (kontakt(a)rathlev-home.de), 2020 - 2026
 
    changes required to compile innounp under Delphi 10 (Version 1.63 - August 2022):
    - Compiler conditional symbol UNICODE renamed to ISUNICODE
@@ -48,7 +48,8 @@
            1.76 - November 2024 : colored console output, optional suppressing header
            2.64 - January 2025  : new version numbering, support for Inno Setup 6.4
                                   EurekaLog directives removed
-           2.65 - November 2025 : support for Inno Setup 6.5
+           2.65 - August 2025   : support for Inno Setup 6.5
+           2.66 - November 2025 : support for Inno Setup 6.6
 *)
 
 program innounp;
@@ -1086,14 +1087,15 @@ begin
   else attr:=ConsoleBg or ConsoleFg;
   cp:=GetConsoleOutputCP;
   if UseUtf8 then SetConsoleOutputCP(65001) else SetConsoleOutputCP(850);
+  UpVersion:=Format('%u.%u.%u',[IUV_MAJOR, IUV_MINOR,IUV_RELEASE]);
   CreateEntryLists;
   n:=ParseCommandLine;
 
   if not NoHeader or (n<0) then begin
     writeln;
     if ColorMode>0 then s:='innounp' else s:='*innounp*';
-    WriteColorText(s,Format(' - the Inno Setup Unpacker, version %u.%u.%u (%s)',
-      [IUV_MAJOR, IUV_MINOR,IUV_RELEASE,DateToStr(FileDateToDateTime(FileAge(ParamStr(0))))]),clRed,clWhite);
+    WriteColorText(s,Format(' - the Inno Setup Unpacker, version %s (%s)',
+      [UpVersion,DateToStr(FileDateToDateTime(FileAge(ParamStr(0))))]),clRed,clWhite);
     end;
   writeln;
 

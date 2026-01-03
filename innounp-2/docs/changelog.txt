@@ -5,6 +5,13 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.66.2 (2026-01-03)
+------
+  - Fixed: conversion of special characters to UTF-8 (e.g. 3 byte Chinese)
+  - Added: information about inno unpacker in rebuilt script
+  - Added: character conversion using associated code pages for custom messages 
+    in the rebuilt script extracted from setup files that do not support Unicode
+    
 2.66.1 (2025-11-16)
 ------
   - Added support for IS up to 6.6.1

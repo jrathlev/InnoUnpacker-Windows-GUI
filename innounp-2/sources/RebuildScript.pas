@@ -107,10 +107,16 @@ var
   len : integer;
 begin
   len:=Length(s);
-  SetLength(sr,3*len);    // max. length of UTF8 string
+  SetLength(sr,3*len+1);    // max. length of UTF8 string
   len:=UnicodeToUtf8(PAnsiChar(sr),Length(sr),PWideChar(s),len);
   SetLength(sr,len-1);
   Result:=sr;
+  end;
+
+function ApplyCodepage (const s : string; cp : cardinal) : string;
+begin
+  if VerIsUnicode or (cp=1252) then Result:=s
+  else Result:=TEncoding.GetEncoding(cp).GetString(TEncoding.ANSI.GetBytes(s));
   end;
 
 function Hash2Str(Hash: TSetupHash) : string;
@@ -168,7 +174,7 @@ begin
   end;
 end;
 
-function GetInnoVersionStr() : string;
+function GetInnoVersionStr : string;
 var
   Ver1, Ver2, Ver3: Integer;
 begin
@@ -473,7 +479,10 @@ procedure TScriptBuilder.PrintSetupHeader(const sh: TSetupHeader);
   end;
 
 begin
-  StrConst(';InnoSetupVersion', GetInnoVersionStr());
+  PrintComment('Created by "innounp" version '+UpVersion);
+  PrintComment('Setup file: '+ExtractFilename(SetupLdrOriginalFilename));
+  PrintComment('Inno Setup Version: '+GetInnoVersionStr);
+//  StrConst(';InnoSetupVersion',GetInnoVersionStr());
 
   PrintSectionHeader('Setup');
   StrConst('AppName', GetCustomMessage(sh.AppName), True);
@@ -837,7 +846,9 @@ begin
     if (LangIndex >= 0) then
       s:=PSetupLanguageEntry(Entries[seLanguage][LangIndex])^.Name+'.'+s;
     v := StringReplace(Value, #13#10, '%n', [rfReplaceAll]);
-    StrConst(s,v);
+    if (LangIndex >= 0) then
+      StrConst(s,ApplyCodepage(v,PSetupLanguageEntry(Entries[seLanguage][LangIndex])^.LanguageCodePage))
+    else StrConst(s,v);
   end;
 end;
 

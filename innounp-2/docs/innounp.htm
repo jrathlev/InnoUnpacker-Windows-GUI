@@ -226,7 +226,14 @@ Exit codes: 0 no errors
   which is the code made by the RemObjects Pascal Script compiler.</p>
 
 <h2><a name="History"></a>What's new / History</h2>
-<p style="margin-bottom:-15px;"><b>2.66.0</b> <small>(2025-11-13)</small></p>
+<p style="margin-bottom:-15px;"><b>2.66.2</b> <small>(2026-01-03)</small></p>
+<ul>
+  <li>Fixed: conversion of special characters to UTF-8 (e.g. 3 byte Chinese)</li>
+  <li>Added: information about inno unpacker in rebuilt script</li>
+  <li>Added: character conversion using associated code pages for custom messages 
+    in the rebuilt script extracted from setup files that do not support Unicode</li>
+</ul>
+<p style="margin-bottom:-15px;"><b>2.66.1</b> <small>(2025-11-21)</small></p>
 <ul>
   <li>Added support for IS up to 6.6.1</li>
   <li>File date/time format changed (ISO 8601)</li>

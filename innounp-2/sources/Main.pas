@@ -39,6 +39,7 @@ var
   SetupLdrOffset1: int64;
   SetupLdrMode: Boolean = true;
   SetupLdrOriginalFilename: String;
+  UpVersion : string;
   Entries: array[TEntryType] of TList;
   SetupEncryptionHeader: TSetupEncryptionHeader;
   SetupHeader: TSetupHeader;
@@ -345,6 +346,19 @@ begin
   Result:=IntToStr(ver div 1000)+'.'+IntToStr(ver mod 1000 div 100)+'.'+IntToStr(ver mod 100);
   end;
 
+function DateTimeToFileTime (dt : TDateTime) : TFileTime;
+var
+  st : TSystemTime;
+  ft : TFileTime;
+begin
+  with st do begin
+    DecodeDate(dt,wYear,wMonth,wDay);
+    DecodeTime(dt,wHour,wMinute,wSecond,wMilliseconds);
+    end;
+  SystemTimeToFileTime(st,ft);
+  LocalFileTimeToFileTime(ft,Result);
+  end;
+
 function AddFakeFile(const FileName,FileContents : String;
                      RenameNow : boolean = false):integer;
 var
@@ -360,8 +374,7 @@ begin
   with pFileLocationEntry^ do begin
     Contents:=FileContents;
     OriginalSize:=length(FileContents);
-    DateTimeToSystemTime(Now,SystemTime);
-    SystemTimeToFileTime(SystemTime,TimeStamp);
+    TimeStamp:=DateTimeToFileTime(Now);
     PrimaryFileEntry:=-1;
   end;
   i:=Entries[seFileLocation].Add(pFileLocationEntry);
