@@ -60,6 +60,8 @@ const
   defTimeOut  = 10000;  // 10 s
 
 type
+  TViewMode = (vmNone,vmInfo,vmList,vmLang,vmVersion,vmVerify,vmExtract);
+
   TMainForm = class(TForm)
     pnTop: TPanel;
     Label2: TLabel;
@@ -138,6 +140,7 @@ type
     procedure edPasswordKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure bbSelFilesClick(Sender: TObject);
+    procedure cxEmbeddedClick(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -151,6 +154,7 @@ type
     UseFilelist    : boolean;
     LineHeight,VisibleLines,
     TextWdt               : integer;
+    ViewMode              : TViewMode;
     function StripColCtrls (const AText : string) : string;
     function LoadUnpacker : boolean;
     procedure CheckUnpackVersion;
@@ -272,6 +276,7 @@ begin
   LineHeight:=MulDiv(abs(pbShowText.Font.Height),12,10);
   TempFile:=TempDirectory+'FileList.txt';
   SelFilesHint:='==> '+_('Selected files');
+  ViewMode:=vmNone;
   end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -461,6 +466,11 @@ begin
     end;
   end;
 
+procedure TMainForm.cxEmbeddedClick(Sender: TObject);
+begin
+  if ViewMode=vmList then bbListClick(Sender);
+  end;
+
 procedure TMainForm.cxEncryptedClick(Sender: TObject);
 begin
   edPassword.Visible:=cxEncrypted.Checked;
@@ -530,6 +540,7 @@ begin
 
 procedure TMainForm.bbExtractClick(Sender: TObject);
 begin
+  ViewMode:=vmExtract;
   with pnExtract do Visible:=not Visible;
   end;
 
@@ -538,6 +549,7 @@ var
   s : string;
 begin
   if Visible then begin
+    ViewMode:=vmList;
     pnExtract.Visible:=false;
     s:=' -v -b -h';
     if cxEmbedded.Checked then s:=s+' -m';
@@ -550,6 +562,7 @@ procedure TMainForm.bbVerifyClick(Sender: TObject);
 var
   s : string;
 begin
+  ViewMode:=vmVerify;
   pnExtract.Visible:=false;
   s:=' -b -t -h';
   if cxEmbedded.Checked then s:=s+' -m';
@@ -559,11 +572,13 @@ begin
 
 procedure TMainForm.bbLangClick(Sender: TObject);
 begin
+  ViewMode:=vmLang;
   ShowUnpackInfo(' -l -h',cbFile.Text,'','');
   end;
 
 procedure TMainForm.bbVersionClick(Sender: TObject);
 begin
+  ViewMode:=vmVersion;
   ShowUnpackInfo(' -i','','','');
   end;
 
@@ -612,6 +627,7 @@ begin
 
 procedure TMainForm.bbSetupInfoClick(Sender: TObject);
 begin
+  ViewMode:=vmInfo;
   ShowUnpackInfo(' -h',cbFile.Text,'','');
   UseFilelist:=false;
   cbFilter.Hint:='';
@@ -652,7 +668,7 @@ begin
     until (length(s)=0);
   sf:=Trim(sf);
   if AnsiSameText(sf,'*.*') then sf:='';
-  cmd:=' -b';
+  cmd:=' -b -h';
   if cxStrip.Checked then cmd:=cmd+' -e' else cmd:=cmd+' -x';
   if cxOnlyApp.Checked then cmd:=cmd+' -c{app}';
   if cxEmbedded.Checked then cmd:=cmd+' -m';
