@@ -5,6 +5,11 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.66.3 (2026-01-05)
+------
+  - Fixed: UTF-8 encoding of the setup filename in the comment at the beginning 
+    of the script
+  
 2.66.2 (2026-01-03)
 ------
   - Fixed: conversion of special characters to UTF-8 (e.g. 3 byte Chinese)

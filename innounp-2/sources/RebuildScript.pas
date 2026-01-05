@@ -49,7 +49,7 @@ type
 
     procedure PrintLangOptions(const le:TSetupLanguageEntry);
   public
-    function RebuildScript() : String;
+    function RebuildScript : String;
     function GetLanguageFile(i: Integer) : String;
   end;
 
@@ -480,7 +480,7 @@ procedure TScriptBuilder.PrintSetupHeader(const sh: TSetupHeader);
 
 begin
   PrintComment('Created by "innounp" version '+UpVersion);
-  PrintComment('Setup file: '+ExtractFilename(SetupLdrOriginalFilename));
+  PrintComment('Setup file: '+MakeUtf8(ExtractFilename(SetupLdrOriginalFilename)));
   PrintComment('Inno Setup Version: '+GetInnoVersionStr);
 //  StrConst(';InnoSetupVersion',GetInnoVersionStr());
 

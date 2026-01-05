@@ -356,7 +356,8 @@ begin
     DecodeTime(dt,wHour,wMinute,wSecond,wMilliseconds);
     end;
   SystemTimeToFileTime(st,ft);
-  LocalFileTimeToFileTime(ft,Result);
+  if TimeStampsInUTC then LocalFileTimeToFileTime(ft,Result)
+  else Result:=ft;
   end;
 
 function AddFakeFile(const FileName,FileContents : String;

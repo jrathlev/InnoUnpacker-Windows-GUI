@@ -802,10 +802,11 @@ begin
         except
           on E:Exception do se:=E.Message;
           end;
-      end else begin
+        end
+      else begin
         s:=CurFileLocation^.Contents;
 //        len:=Length(s);
-        sr:=s;
+        sr:=s;      // copy only low bytes
 //        SetLength(sr,len*SizeOf(Char)+1);
 //        len:=UnicodeToUtf8(PAnsiChar(sr),Length(sr),PWideChar(s),len);
 //        SetLength(sr,len);
