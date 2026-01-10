@@ -1,9 +1,8 @@
-### Inno Setup Unpacker 2.66.4 - Console version
+### Inno Setup Unpacker 2.67.0 - Console version
 
 #### Unpacker for installations made by Inno Setup
 
-#### Supports Inno Setup versions 2.0.7 to 6.6.1
-
+#### Supports Inno Setup versions 2.0.7 to 6.7.0
 ##### Branch of the project on [SourceForge](http://sourceforge.net/projects/innounp)
 
 [Inno Setup](http://www.jrsoftware.org/isinfo.php) is a popular program
