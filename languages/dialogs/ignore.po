@@ -1,6 +1,6 @@
 #  Doesn't have any letters
 #. ShellDirDialog.PopupMenu.N1.Caption
-#: ShellDirDlg.dfm:2295
+#: ShellDirDlg.dfm:2302
 #. ShellFileDialog.PopupMenu.N1.Caption
 #: ShellFileDlg.dfm:2325
 msgid "-"
@@ -34,11 +34,11 @@ msgstr ""
 #. LogonDialog.PwdEdit.PasswordChar
 #: LogonDlg.dfm:288
 #. NewPwdDialog.paPwd.edtPwd.PasswordChar
-#: NewPwdDlg.dfm:107
+#: NewPwdDlg.dfm:108
 #. NewPwdDialog.paConfirm.edtRepPwd.PasswordChar
-#: NewPwdDlg.dfm:289
+#: NewPwdDlg.dfm:288
 #. PasswordDialog.pnInput.edtPwd.PasswordChar
-#: PwdDlg.dfm:112
+#: PwdDlg.dfm:110
 msgid "*"
 msgstr ""
 
@@ -321,19 +321,19 @@ msgstr ""
 #. InputNumberDialog.Descriptor2.Caption
 #: InpNumber.dfm:40
 #. InputTextDialog.Descriptor.Caption
-#: InpText.dfm:229
+#: InpText.dfm:231
 #. InputStringDialog.Descriptor.Caption
-#: InputString.dfm:214
+#: InputString.dfm:215
 #. MemoDialog.paTop.Descriptor.Caption
-#: MemoDlg.dfm:185
+#: MemoDlg.dfm:187
 #. InputNumber.Descriptor1.Caption
 #: NumDlg.dfm:32
 #. InputNumber.Descriptor2.Caption
 #: NumDlg.dfm:39
 #. TextEingabe.Descriptor1.Caption
-#: Textdlg.dfm:185
+#: Textdlg.dfm:187
 #. TextEingabe.Descriptor2.Caption
-#: Textdlg.dfm:194
+#: Textdlg.dfm:196
 msgid "Descriptor"
 msgstr ""
 
@@ -526,7 +526,7 @@ msgid "MsgText"
 msgstr ""
 
 #. StatusWindow.ProgLabel.Caption
-#: StatWind.dfm:42
+#: StatWind.dfm:44
 msgid "ProgLabel"
 msgstr ""
 
@@ -546,9 +546,9 @@ msgid "rfDesktop"
 msgstr ""
 
 #. ShellDirDialog.PanelLeft.ShellTreeView.Root
-#: ShellDirDlg.dfm:49
+#: ShellDirDlg.dfm:55
 #. ShellDirDialog.PanelRight.ShellListView.Root
-#: ShellDirDlg.dfm:2272
+#: ShellDirDlg.dfm:2279
 msgid "rfMyComputer"
 msgstr ""
 
@@ -560,7 +560,7 @@ msgstr ""
 #. ProgressWindow.StatusLabel.Caption
 #: ProgWind.dfm:26
 #. StatusWindow.StatusLabel.Caption
-#: StatWind.dfm:29
+#: StatWind.dfm:31
 #. TransferStatus.Panel2.StatusLabel.Caption
 #: TransferStat.dfm:77
 msgid "StatusLabel"
@@ -590,7 +590,7 @@ msgstr ""
 #. CharTableDialog.Font.Name
 #: CharTableDlg.dfm:11
 #. CharTableDialog.CharGrid.Font.Name
-#: CharTableDlg.dfm:160
+#: CharTableDlg.dfm:161
 #. CheckListDialog.Font.Name
 #: CheckListDlg.dfm:11
 #. ColumnDialog.Font.Name
@@ -658,7 +658,7 @@ msgstr ""
 #. InputTextDialog.Font.Name
 #: InpText.dfm:12
 #. InputStringDialog.Font.Name
-#: InputString.dfm:12
+#: InputString.dfm:11
 #. KalenderDlg.Font.Name
 #: Kalender.dfm:13
 #. LanguageDialog.Font.Name
@@ -696,9 +696,9 @@ msgstr ""
 #. PasswordDialog.Font.Name
 #: PwdDlg.dfm:12
 #. PasswordDialog.pnTop.lblPrompt.Font.Name
-#: PwdDlg.dfm:73
+#: PwdDlg.dfm:72
 #. PasswordDialog.pnInput.Label1.Font.Name
-#: PwdDlg.dfm:101
+#: PwdDlg.dfm:99
 #. RandDialog.Font.Name
 #: RandDlg.dfm:13
 #. SearchPathDialog.Font.Name
@@ -721,6 +721,8 @@ msgstr ""
 #: SelectListItemDlg.dfm:13
 #. SelectListItemsDialog.Font.Name
 #: SelectListItems.dfm:11
+#. SelectListItemsDialog.paCenter.clItems.Font.Name
+#: SelectListItems.dfm:332
 #. ShellDirDialog.Font.Name
 #: ShellDirDlg.dfm:12
 #. ShellFileDialog.Font.Name
@@ -748,7 +750,7 @@ msgstr ""
 #. ShowMsgDialog.Font.Name
 #: ShowMessageDlg.dfm:13
 #. ShowMsgDialog.stInfo.Font.Name
-#: ShowMessageDlg.dfm:211
+#: ShowMessageDlg.dfm:212
 #. ShowMsgDialog.Font.Name
 #: ShowMessageDlgST.dfm:14
 #. ShowMsgDialog.stInfo.Font.Name
@@ -762,9 +764,9 @@ msgstr ""
 #. StatusWindow.Font.Name
 #: StatWind.dfm:12
 #. StatusWindow.StatusLabel.Font.Name
-#: StatWind.dfm:33
+#: StatWind.dfm:35
 #. StatusWindow.btnCancel.Font.Name
-#: StatWind.dfm:54
+#: StatWind.dfm:56
 #. KeyboardDialog.Font.Name
 #: SynEdKeyDlg.dfm:13
 #. KeyboardDialog.Label1.Font.Name
@@ -849,13 +851,15 @@ msgid "x"
 msgstr ""
 
 #. EditHistListDialog.lbDesc.Caption
-#: EditHistListDlg.dfm:537
+#: EditHistListDlg.dfm:538
+#. InputStringDialog.SuffixText.Caption
+#: InputString.dfm:237
 #. SelectDialog.stCaption.Caption
-#: SelectDlg.dfm:172
+#: SelectDlg.dfm:102
 #. ShowMsgDialog.stInfo.Caption
 #: ShowMessageDlgST.dfm:209
 #. ShowStringListDialog.paBottom.laStatus.Caption
-#: ShowStringList.dfm:46
+#: ShowStringList.dfm:37
 msgid "xxx"
 msgstr ""
 

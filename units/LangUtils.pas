@@ -156,7 +156,7 @@ procedure InitTranslation (const Domains : array of string); overload;
 procedure InitTranslation (const CfgDir : string; const Domains : array of string); overload;
 procedure InitTranslation (const CfgDir,ConfigName : string; const Domains : array of string); overload;
 procedure SaveLanguage (NewLangCode : TLangCodeString);
-procedure ChangeLanguage (NewLangCode : TLangCodeString);
+function ChangeLanguage (const NewLangCode : TLangCodeString) : TLangCodeString;
 function GetLanguageHint : string;
 function LangIdToCode(id : integer) : TLangCodeString;
 
@@ -552,7 +552,6 @@ begin
 
 procedure SaveLanguage (NewLangCode : TLangCodeString);
 begin
-  SelectedLanguage:=NewLangCode;
   if LangFromCfg then begin
     with TMemIniFile.Create(CfgName) do begin
       WriteString(LangSekt,LangID,SelectedLanguage);
@@ -572,12 +571,17 @@ begin
 
 { ------------------------------------------------------------------- }
 // Spracheinstellung eines laufenden Programms ändern
-procedure ChangeLanguage (NewLangCode : TLangCodeString);
+function ChangeLanguage (const NewLangCode : TLangCodeString) : TLangCodeString;
 var
   i : integer;
 begin
+  SelectedLanguage:=NewLangCode;
+{$IFDEF RELEASE}
   SaveLanguage(NewLangCode);
+{$EndIf}
   UseLanguage(NewLangCode);
+  if length(NewLangCode)=0 then Result:=copy(GetCurrentLanguage,1,2)  // system default
+  else Result:=NewLangCode;
   with Application do for i:=0 to ComponentCount-1 do if (Components[i] is TForm) then begin
     try ReTranslateComponent(Components[i]); except; end;
     end;

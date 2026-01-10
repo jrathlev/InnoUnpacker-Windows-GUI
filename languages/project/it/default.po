@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2025-11-16 12:13+0100\n"
-"PO-Revision-Date: 2025-11-16 12:15+0100\n"
+"POT-Creation-Date: 2026-01-10 12:08+0100\n"
+"PO-Revision-Date: 2026-01-10 12:10+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -107,6 +107,15 @@ msgstr "Solo dal {app}"
 msgid "Select files"
 msgstr "Seleziona files"
 
+msgid "Encoding of install script"
+msgstr "Codifica dello script di installazione"
+
+msgid "Default"
+msgstr "Predefinito"
+
+msgid "UTF-8"
+msgstr "UTF-8"
+
 msgid "Copy output to clipboard"
 msgstr "Copia output negli Appunti"
 
@@ -115,6 +124,11 @@ msgstr "Scorri verso il basso"
 
 msgid "Scroll up"
 msgstr "Scorrere verso l'alto"
+
+#. MainForm.pmMain.pmiLanguage.Caption
+#: UnpackMain.dfm:2177
+msgid "Language"
+msgstr "Lingua"
 
 msgid ""
 "Command line options: [<name>] [options]\n"
@@ -165,14 +179,10 @@ msgstr "Nome file: "
 msgid "Extract files matching:"
 msgstr "Estrarre i file corrispondenti:"
 
-#. Select files to be extracted
-#: UnpackMain.pas:577
-msgid ""
-"To use this feature at least version 2.65.4 of \"innounp\" is "
-"required!"
+msgid "To use this feature at least version 2.65.4 of \"innounp\" is required!"
 msgstr ""
-"Per utilizzare questa funzione è necessaria almeno la versione "
-"2.65.4 di \"innounp\"!"
+"Per utilizzare questa funzione è necessaria almeno la versione 2.65.4 di "
+"\"innounp\"!"
 
 msgid "Error: "
 msgstr "Errore: "

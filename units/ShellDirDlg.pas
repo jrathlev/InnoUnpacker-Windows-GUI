@@ -673,7 +673,13 @@ begin
     sleep(500);    // new Feb. 2021
     if length(s)>0 then Path:=s
     else Selected:=nil;
-    if assigned(Selected) then try Selected.Expand(false); except end;
+    if assigned(Selected) then begin
+      try
+        Selected.Expand(false);
+        Selected.MakeVisible;
+      except
+        end;
+      end;
     end;
   end;
 

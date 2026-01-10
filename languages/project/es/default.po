@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-11-16 12:13+0100\n"
-"PO-Revision-Date: 2025-11-16 12:14+0100\n"
+"POT-Creation-Date: 2026-01-10 12:08+0100\n"
+"PO-Revision-Date: 2026-01-10 12:10+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: M.A.G. <xxxxx@gmail.com>\n"
 "Language: es\n"
@@ -110,6 +110,15 @@ msgstr "Sólo desde la ruta {app}"
 msgid "Select files"
 msgstr "Seleccionar archivos"
 
+msgid "Encoding of install script"
+msgstr "Codificación del script de instalación"
+
+msgid "Default"
+msgstr "Predefinido"
+
+msgid "UTF-8"
+msgstr "UTF-8"
+
 msgid "Copy output to clipboard"
 msgstr "Copiar resultado al portapapeles"
 
@@ -118,6 +127,11 @@ msgstr "Desplazarse hacia abajo"
 
 msgid "Scroll up"
 msgstr "Desplazarse hacia arriba"
+
+#. MainForm.pmMain.pmiLanguage.Caption
+#: UnpackMain.dfm:2177
+msgid "Language"
+msgstr "Lenguaje"
 
 msgid ""
 "Command line options: [<name>] [options]\n"
@@ -134,8 +148,7 @@ msgid ""
 msgstr ""
 "Opciones de la línea de comandos: [<nombre>] [opciones]\n"
 "\t<name>\t\t: nombre del fichero de instalación al descomprimir\n"
-"\t/d:<ddir>\t: directorio de destino de los ficheros "
-"descomprimidos\n"
+"\t/d:<ddir>\t: directorio de destino de los ficheros descomprimidos\n"
 "\t/f:<filter>\t: filtro de ficheros\n"
 "\t/e:<pwd>\t: contraseña de codificación\n"
 "\t/l:<lg>\t\t: selección de idioma (en, de, fr, it, es, hu)\n"
@@ -169,14 +182,10 @@ msgstr "Nombre de fichero: "
 msgid "Extract files matching:"
 msgstr "Extraer ficheros coincidentes:"
 
-#. Select files to be extracted
-#: UnpackMain.pas:577
-msgid ""
-"To use this feature at least version 2.65.4 of \"innounp\" is "
-"required!"
+msgid "To use this feature at least version 2.65.4 of \"innounp\" is required!"
 msgstr ""
-"Para utilizar esta función, se requiere al menos la versión 2.65.4 "
-"de «innounp»."
+"Para utilizar esta función, se requiere al menos la versión 2.65.4 de "
+"«innounp»."
 
 msgid "Error: "
 msgstr "Error: "

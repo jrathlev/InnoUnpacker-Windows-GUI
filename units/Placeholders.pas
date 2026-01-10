@@ -33,9 +33,9 @@ const
     ('%date%','%yaw%','%dow%','%ldow%','%dnw%','%day%','%week%','%dom%','%wom%',
      '%month%','%lmonth%','%year%','%user%','%computer%');
 
-  tphCount = 11;
+  tphCount = 12;
   TmPlaceHolder : array [0..tphCount-1] of string =
-    ('%time%','%hour%','%minute%','%d#?%','%w#?%','%m#?%','%v#?%','%username%',
+    ('%time%','%hour%','%minute%','%d#?%','%w#?%','%m#?%','%y#?%','%v#?%','%username%',
      '%computername%',VolPh,ModePh);
 
   pphCount = 11;
@@ -129,6 +129,7 @@ begin
           3 : s:=ZStrInt((DayOfTheYear(Date)-1) mod y +1,d);
           4 : s:=ZStrInt((WeekOfTheYear(Date)-1) mod y +1,d);
           5 : s:=ZStrInt((MonthOfTheYear(Date)-1) mod y +1,d);
+          6 : s:=ZStrInt((YearOf(Date)-1) mod y +1,d);
           else s:=ZStrInt((Count-1) mod y +1,d);
             end;
           end
@@ -143,8 +144,8 @@ begin
       0 : s:=FormatDateTime('hhnnss',Time);
       1 : s:=FormatDateTime('hh',Time);
       2 : s:=FormatDateTime('nn',Time);
-      7 : s:=UserName;
-      8 : s:=ComputerName;
+      8 : s:=UserName;
+      9 : s:=ComputerName;
       else s:=''; // %volume% and %mode& must have been replaced in calling program if supported
         end;
       Result:=AnsiReplaceText(Result,TmPlaceHolder[i],s);

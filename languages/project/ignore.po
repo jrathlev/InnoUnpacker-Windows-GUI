@@ -1,6 +1,6 @@
 #  Seems like a Font.Name extract
 #. MainForm.pnBottom.paShowText.pbShowText.Font.Name
-#: UnpackMain.dfm:2119
+#: UnpackMain.dfm:2132
 msgid "Courier New"
 msgstr ""
 

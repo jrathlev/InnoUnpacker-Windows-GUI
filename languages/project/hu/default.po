@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2025-11-16 12:13+0100\n"
-"PO-Revision-Date: 2025-11-16 12:15+0100\n"
+"POT-Creation-Date: 2026-01-10 12:08+0100\n"
+"PO-Revision-Date: 2026-01-10 12:10+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: hu\n"
@@ -111,6 +111,15 @@ msgstr "Csak a {app} útvonalról"
 msgid "Select files"
 msgstr "Fájlok kiválasztása"
 
+msgid "Encoding of install script"
+msgstr "Telepítő szkript kódolása"
+
+msgid "Default"
+msgstr "Alapeset"
+
+msgid "UTF-8"
+msgstr "UTF-8"
+
 msgid "Copy output to clipboard"
 msgstr "Másolás vágólapra"
 
@@ -119,6 +128,11 @@ msgstr "Görgetés le"
 
 msgid "Scroll up"
 msgstr "Görgetés fel"
+
+#. MainForm.pmMain.pmiLanguage.Caption
+#: UnpackMain.dfm:2177
+msgid "Language"
+msgstr "Nyelvezet"
 
 msgid ""
 "Command line options: [<name>] [options]\n"
@@ -169,8 +183,6 @@ msgstr "Fájlnév: "
 msgid "Extract files matching:"
 msgstr "A megfelelő fájlok kivonása:"
 
-#. Select files to be extracted
-#: UnpackMain.pas:577
 msgid ""
 "To use this feature at least version 2.65.4 of \"innounp\" is "
 "required!"

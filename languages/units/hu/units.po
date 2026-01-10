@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Delphi-Units\n"
-"POT-Creation-Date: 2024-10-20 12:58+0200\n"
-"PO-Revision-Date: 2024-10-20 13:35+0200\n"
+"POT-Creation-Date: 2025-10-10 13:34+0200\n"
+"PO-Revision-Date: 2025-12-04 17:09+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: Robert Kovacs <info@korosoft.hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 
 msgid "No errors on COM connection"
@@ -212,6 +212,9 @@ msgstr "Hiba történt a fájl törlése közben"
 
 msgid "Error renaming file"
 msgstr "Hiba a fájl átnevezésében"
+
+msgid "Invalid zip format"
+msgstr "Érvénytelen zip formátum"
 
 msgid "Terminated by user"
 msgstr "Felhasználónál bejelentkezve"
@@ -589,22 +592,63 @@ msgid "Closing handle failed"
 msgstr "Bezárás sikertelen"
 
 msgid "%s%s (Version %s, Build %d, %s)"
-msgstr "%s%s (Version %s, Build %d, %s)"
+msgstr "%s%s (Verzió %s, Build %d, %s)"
 
 msgid "%s (Version %s, %s)"
-msgstr "%s (Version %s, %s)"
+msgstr "%s (Verzió %s, %s)"
 
 msgid "Windows 11"
 msgstr "Windows 11"
+
+#. Programmer's name for it: rsVersionText
+#: UnitConsts.pas:82
+msgid ""
+"Product name        : %s%s\n"
+"Version             : %d.%d\n"
+"Build               : %d\n"
+"Edition             : %6:s"
+msgstr ""
+"Termék neve         : %s%s\n"
+"Verzió              : %d.%d\n"
+"Build               : %d\n"
+"Kiadás              : %6:s"
+
+#. Programmer's name for it: rsSPVersionText
+#: UnitConsts.pas:87
+msgid ""
+"Product name        : %s%s\n"
+"Service Pack        : %5:d\n"
+"Version             : %2:d.%3:d\n"
+"Build               : %4:d\n"
+"Edition             : %6:s"
+msgstr ""
+"Termék neve         : %s%s\n"
+"Service Pack        : %5:d\n"
+"Verzió              : %2:d.%3:d\n"
+"Build               : %4:d\n"
+"Kiadás              : %6:s"
+
+#. Programmer's name for it: rsVersion10Text
+#: UnitConsts.pas:91
+msgid ""
+"Product name        : %s%s\n"
+"Version             : %s\n"
+"Build               : %d\n"
+"Edition             : %s"
+msgstr ""
+"Termék neve         : %s%s\n"
+"Verzió              : %s\n"
+"Build               : %d\n"
+"Kiadás              : %s"
 
 msgid "Professional with Media Center"
 msgstr "Professional with Media Center"
 
 msgid "Server Enterprise for Itanium-based Systems"
-msgstr "Server Enterprise for Itanium-based Systems"
+msgstr "Server Enterprise számára Itanium-based Systems"
 
 msgid "Essential Server without Hyper-V"
-msgstr "Essential Server without Hyper-V"
+msgstr "Essential Server nélkül Hyper-V"
 
 msgid "Unlicensed product"
 msgstr "Unlicensed product"
@@ -621,29 +665,18 @@ msgstr "Ősz eleje"
 msgid "Beginning of winter"
 msgstr "A tél kezdete"
 
-#. Strings from PasswordStrength
-#. Programmer's name for it: rsVeryWeak
-#: UnitConsts.pas:123
 msgid "very weak"
 msgstr "nagyon gyenge"
 
-#. Programmer's name for it: rsWeak
-#: UnitConsts.pas:124
 msgid "weak"
 msgstr "gyenge"
 
-#. Programmer's name for it: rsGood
-#: UnitConsts.pas:125
 msgid "good"
 msgstr "jó"
 
-#. Programmer's name for it: rsStrong
-#: UnitConsts.pas:126
 msgid "strong"
 msgstr "erős"
 
-#. Programmer's name for it: rsVeryStrong
-#: UnitConsts.pas:127
 msgid "very strong"
 msgstr "nagyon erős"
 

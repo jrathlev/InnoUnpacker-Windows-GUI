@@ -7,13 +7,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-10-20 12:58+0200\n"
-"PO-Revision-Date: 2024-10-20 12:58+0200\n"
+"POT-Creation-Date: 2025-12-05 12:09+0100\n"
+"PO-Revision-Date: 2025-12-05 12:09+0100\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: GgtTranslate 3.3.1\n"
+"X-Generator: GgtTranslate 3.3.4\n"
 
 #. Strings from ComPort
 #. Programmer's name for it: rsComNoError
@@ -363,83 +363,88 @@ msgstr ""
 msgid "Error renaming file"
 msgstr ""
 
+#. Programmer's name for it: rsZipFormat
+#: FileConsts.pas:85
+msgid "Invalid zip format"
+msgstr ""
+
 #. Programmer's name for it: rsUserBreak
-#: FileConsts.pas:86
+#: FileConsts.pas:87
 msgid "Terminated by user"
 msgstr ""
 
 #. Programmer's name for it: rsUnknownErrCode
-#: FileConsts.pas:87
+#: FileConsts.pas:88
 msgid "Unknown error code ($%.8x)"
 msgstr ""
 
 #. Programmer's name for it: rsCopy
-#: FileConsts.pas:88
+#: FileConsts.pas:89
 msgid "Copy"
 msgstr ""
 
 #. Programmer's name for it: rsGZip
-#: FileConsts.pas:89
+#: FileConsts.pas:90
 msgid "gzip"
 msgstr ""
 
 #. Programmer's name for it: rsGUnzip
-#: FileConsts.pas:90
+#: FileConsts.pas:91
 msgid "gunzip"
 msgstr ""
 
 #. Programmer's name for it: rsZip
-#: FileConsts.pas:91
+#: FileConsts.pas:92
 msgid "Zip"
 msgstr ""
 
 #. Programmer's name for it: rsUnzip
-#: FileConsts.pas:92
+#: FileConsts.pas:93
 msgid "Unzip"
 msgstr ""
 
 #. Programmer's name for it: rsEnCrypt
-#: FileConsts.pas:93
+#: FileConsts.pas:94
 msgid "Encrypt"
 msgstr ""
 
 #. Programmer's name for it: rsDeCrypt
-#: FileConsts.pas:94
+#: FileConsts.pas:95
 msgid "Decrypt"
 msgstr ""
 
 #. Programmer's name for it: rsNoFileInfo
-#: FileConsts.pas:96
+#: FileConsts.pas:97
 msgid "File information not available"
 msgstr ""
 
 #. Programmer's name for it: rsDescription
-#: FileConsts.pas:97
+#: FileConsts.pas:98
 msgid "Description: "
 msgstr ""
 
 #. Programmer's name for it: rsCompany
-#: FileConsts.pas:98
+#: FileConsts.pas:99
 msgid "Company: "
 msgstr ""
 
 #. Programmer's name for it: rsCopyright
-#: FileConsts.pas:99
+#: FileConsts.pas:100
 msgid "Copyright: "
 msgstr ""
 
 #. Programmer's name for it: rsVersion
-#: FileConsts.pas:100
+#: FileConsts.pas:101
 msgid "File version: "
 msgstr ""
 
 #. Programmer's name for it: rsFileDate
-#: FileConsts.pas:101
+#: FileConsts.pas:102
 msgid "Last modified: "
 msgstr ""
 
 #. Programmer's name for it: rsStrFormatError
-#: FileConsts.pas:103
+#: FileConsts.pas:104
 #. Strings from ExtSysUtils
 #. Programmer's name for it: rsFormatError
 #: UnitConsts.pas:26
@@ -646,7 +651,7 @@ msgid "Clips"
 msgstr ""
 
 #. Skalierung
-#. Programmer's name for it: esScale
+#. Programmer's name for it: rsScale
 #: FilePropConsts.pas:59
 msgid "Scale"
 msgstr ""
@@ -796,7 +801,7 @@ msgstr ""
 #: FtpConsts.pas:44
 #. Misc.
 #. Programmer's name for it: rsVersion
-#: UnitConsts.pas:131
+#: UnitConsts.pas:145
 msgid "Version"
 msgstr ""
 
@@ -1058,107 +1063,132 @@ msgstr ""
 msgid "Windows 11"
 msgstr ""
 
+#. Programmer's name for it: rsVersionText
+#: UnitConsts.pas:82
+msgid "Product name        : %s%s\n"
+"Version             : %d.%d\n"
+"Build               : %d\n"
+"Edition             : %6:s"
+msgstr ""
+
+#. Programmer's name for it: rsSPVersionText
+#: UnitConsts.pas:87
+msgid "Product name        : %s%s\n"
+"Service Pack        : %5:d\n"
+"Version             : %2:d.%3:d\n"
+"Build               : %4:d\n"
+"Edition             : %6:s"
+msgstr ""
+
+#. Programmer's name for it: rsVersion10Text
+#: UnitConsts.pas:91
+msgid "Product name        : %s%s\n"
+"Version             : %s\n"
+"Build               : %d\n"
+"Edition             : %s"
+msgstr ""
+
 #. Programmer's name for it: rsProfessionalMC
-#: UnitConsts.pas:80
+#: UnitConsts.pas:94
 msgid "Professional with Media Center"
 msgstr ""
 
 #. Programmer's name for it: rsEnterpriseServerIT
-#: UnitConsts.pas:88
+#: UnitConsts.pas:102
 msgid "Server Enterprise for Itanium-based "
 "Systems"
 msgstr ""
 
 #. Programmer's name for it: rsEssServerV
-#: UnitConsts.pas:98
+#: UnitConsts.pas:112
 msgid "Essential Server without Hyper-V"
 msgstr ""
 
 #. Programmer's name for it: rsUnlicensed
-#: UnitConsts.pas:112
+#: UnitConsts.pas:126
 msgid "Unlicensed product"
 msgstr ""
 
 #. Strings from DateUtilEx
 #. Programmer's name for it: rsBegSpring
-#: UnitConsts.pas:116
+#: UnitConsts.pas:130
 msgid "Beginning of spring"
 msgstr ""
 
 #. Programmer's name for it: rsBegSummer
-#: UnitConsts.pas:117
+#: UnitConsts.pas:131
 msgid "Beginning of summer"
 msgstr ""
 
 #. Programmer's name for it: rsBegAutumn
-#: UnitConsts.pas:118
+#: UnitConsts.pas:132
 msgid "Beginning of autumn"
 msgstr ""
 
 #. Programmer's name for it: rsBegWinter
-#: UnitConsts.pas:119
+#: UnitConsts.pas:133
 msgid "Beginning of winter"
 msgstr ""
 
 #. Strings from PasswordStrength
 #. Programmer's name for it: rsVeryWeak
-#: UnitConsts.pas:123
+#: UnitConsts.pas:137
 msgid "very weak"
 msgstr ""
 
 #. Programmer's name for it: rsWeak
-#: UnitConsts.pas:124
+#: UnitConsts.pas:138
 msgid "weak"
 msgstr ""
 
 #. Programmer's name for it: rsGood
-#: UnitConsts.pas:125
+#: UnitConsts.pas:139
 msgid "good"
 msgstr ""
 
 #. Programmer's name for it: rsStrong
-#: UnitConsts.pas:126
+#: UnitConsts.pas:140
 msgid "strong"
 msgstr ""
 
 #. Programmer's name for it: rsVeryStrong
-#: UnitConsts.pas:127
+#: UnitConsts.pas:141
 msgid "very strong"
 msgstr ""
 
 #. Programmer's name for it: rsLongCopyRight
-#: UnitConsts.pas:132
+#: UnitConsts.pas:146
 msgid "%s Dr. J. Rathlev\n"
 " 24222 Schwentinental, Germany"
 msgstr ""
 
 #. Programmer's name for it: rsCopyRight
-#: UnitConsts.pas:133
+#: UnitConsts.pas:147
 msgid "%s Dr. J. Rathlev"
 msgstr ""
 
 #. Programmer's name for it: rsNotAvail
-#: UnitConsts.pas:134
+#: UnitConsts.pas:148
 msgid "not available"
 msgstr ""
 
 #. Programmer's name for it: rsNoName
-#: UnitConsts.pas:135
+#: UnitConsts.pas:149
 msgid "unlabeled"
 msgstr ""
 
 #. Programmer's name for it: rsConnectTo
-#: UnitConsts.pas:136
+#: UnitConsts.pas:150
 msgid "Connect to .."
 msgstr ""
 
 #. Programmer's name for it: rsUnknown
-#: UnitConsts.pas:137
+#: UnitConsts.pas:151
 msgid "<Unknown>"
 msgstr ""
 
 #. Programmer's name for it: rsAnyKey
-#: UnitConsts.pas:138
+#: UnitConsts.pas:152
 msgid "Strike any key to continue ..."
 msgstr ""
 

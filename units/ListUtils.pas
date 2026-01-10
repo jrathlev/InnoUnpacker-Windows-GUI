@@ -27,7 +27,8 @@ uses System.SysUtils, System.Classes, System.IniFiles, Vcl.StdCtrls, Vcl.ComCtrl
 type
   TItemInfo = class (TObject)
     InfoString     : string;
-    constructor Create (FInfo : string);
+    Tag            : integer;
+    constructor Create (const AInfo : string; ATag : integer = 0);
     end;
 
 const
@@ -92,8 +93,10 @@ procedure LoadInfoList (IniFile : TCustomIniFile; const Section,ItemId,InfoId : 
 procedure SaveInfoList (IniFile : TCustomIniFile; const Section,ItemId,InfoId : string;
                         Erase : boolean; ACombo : TComboBox; MaxItems : integer = -1);
 procedure AddToInfoList (ACombo : TComboBox; const s : string; MaxItems : integer = -1);
-procedure ChangeInfoInList (ACombo : TComboBox; const s : string);
+procedure ChangeInfoInList (ACombo : TComboBox; const s : string; ATag : integer); overload;
+procedure ChangeInfoInList (ACombo : TComboBox; const s : string); overload;
 function GetInfoFromList (ACombo : TComboBox) : string;
+function GetTagFromList (ACombo : TComboBox) : integer;
 
 { ---------------------------------------------------------------- }
 // Entferne alle Objekte einer String-Liste oder einer ListView-Liste aus dem Speicher
@@ -113,7 +116,8 @@ procedure TrimEndOfList (AList : TStrings);
 
 { ---------------------------------------------------------------- }
 // Listview-Index aus Caption ermitteln (wie IndexOf bei TListBox)
-function GetListViewIndex (lv : TListView; const ACaption : string): integer;
+function GetListViewIndex (lv : TListView; const ACaption : string): integer; overload;
+function GetListViewIndex (lvi : TListItems; const ACaption : string): integer; overload;
 
 // Subitem-Index aus der Mausposition ermitteln (nur vsReport)
 function GetColumnIndexAt (ListView : TListView; Pos : integer) : integer;
@@ -394,10 +398,10 @@ begin
   end;
 
 { ------------------------------------------------------------------- }
-constructor TItemInfo.Create (FInfo : string);
+constructor TItemInfo.Create (const AInfo : string; ATag : integer);
 begin
   inherited Create;
-  InfoString:=FInfo;
+  InfoString:=AInfo; Tag:=Atag;
   end;
 
 { ------------------------------------------------------------------- }
@@ -405,8 +409,8 @@ begin
 procedure LoadInfoList (IniFile : TCustomIniFile; const Section,ItemId,InfoId : string;
                         ACombo : TComboBox; MaxItems : integer);
 var
-  i   : integer;
-  s,t : string;
+  i,n    : integer;
+  s,t,ti : string;
 begin
   with IniFile do begin
     if SectionExists(Section) then with ACombo do begin
@@ -415,7 +419,11 @@ begin
       for i:=0 to MaxItems-1 do begin
         s:=ReadString(Section,Format(ItemId+'%.2u',[i]),'');
         t:=ReadString(Section,Format(InfoId+'%.2u',[i]),'');
-        if length(s)>0 then Items.AddObject(s,TItemInfo.Create(t));
+        if length(s)>0 then begin
+          ti:=ReadNxtStr(t,',');
+          if t.IsEmpty or not TryStrToInt(t,n) then n:=0;
+          Items.AddObject(s,TItemInfo.Create(ti,n));
+          end;
         end;
       end;
     end;
@@ -436,7 +444,7 @@ begin
         WriteString(Section,Format(ItemId+'%.2u',[i]),Items[i]);
         di:=Items.Objects[i] as TItemInfo;
         if assigned(di) then if not di.InfoString.IsEmpty then
-           WriteString(Section,Format(InfoId+'%.2u',[i]),di.InfoString);
+           WriteString(Section,Format(InfoId+'%.2u',[i]),di.InfoString+','+IntToStr(di.Tag));
         end;
       end;
     end;
@@ -461,16 +469,34 @@ begin
     end;
   end;
 
+procedure ChangeInfoInList (ACombo : TComboBox; const s : string; ATag : integer);
+begin
+  with ACombo do if ItemIndex>=0 then begin
+    if assigned(Items.Objects[ItemIndex]) then with (Items.Objects[ItemIndex] as TItemInfo) do begin
+      InfoString:=s; Tag:=ATag;
+      end;
+    end;
+  end;
+
 procedure ChangeInfoInList (ACombo : TComboBox; const s : string);
 begin
-  with ACombo do if ItemIndex>=0 then (Items.Objects[ItemIndex] as TItemInfo).InfoString:=s;
+  with ACombo do if ItemIndex>=0 then begin
+    if assigned(Items.Objects[ItemIndex]) then (Items.Objects[ItemIndex] as TItemInfo).InfoString:=s;
+    end;
   end;
 
 function GetInfoFromList (ACombo : TComboBox) : string;
 begin
-  with ACombo do if (Items.Count>0) and (ItemIndex>=0) then
+  with ACombo do if (Items.Count>0) and (ItemIndex>=0) and assigned(Items.Objects[ItemIndex])then
     Result:=(Items.Objects[ItemIndex] as TItemInfo).InfoString
   else Result:='';
+  end;
+
+function GetTagFromList (ACombo : TComboBox) : integer;
+begin
+  with ACombo do if (Items.Count>0) and (ItemIndex>=0) and assigned(Items.Objects[ItemIndex]) then
+    Result:=(Items.Objects[ItemIndex] as TItemInfo).Tag
+  else Result:=0;
   end;
 
 //-----------------------------------------------------------------------------
@@ -561,6 +587,13 @@ begin
 function GetListViewIndex (lv : TListView; const ACaption : string): integer;
 begin
   with lv.Items do for Result:=0 to Count-1 do
+    if AnsiSameText(Item[Result].Caption,ACaption) then Exit;
+  Result:=-1;
+  end;
+
+function GetListViewIndex (lvi : TListItems; const ACaption : string): integer;
+begin
+  with lvi do for Result:=0 to Count-1 do
     if AnsiSameText(Item[Result].Caption,ACaption) then Exit;
   Result:=-1;
   end;

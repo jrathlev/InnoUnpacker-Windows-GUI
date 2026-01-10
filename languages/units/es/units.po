@@ -4,27 +4,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Delphi units\n"
-"POT-Creation-Date: 2024-10-20 12:58+0200\n"
-"PO-Revision-Date: 2024-10-20 13:32+0200\n"
+"POT-Creation-Date: 2025-10-10 13:34+0200\n"
+"PO-Revision-Date: 2025-12-04 16:55+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: M.A.G. <xxxxx@gmail.com>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 
 msgid "No errors on COM connection"
-msgstr "Ningún error en la conexión al puerto "
-"COM"
+msgstr "Ningún error en la conexión al puerto COM"
 
 msgid "Error opening COM port"
 msgstr "Error al abrir el puerto COM"
 
 msgid "Error setting COM port state"
-msgstr "Error al establecer el estado del puerto "
-"COM"
+msgstr "Error al establecer el estado del puerto COM"
 
 msgid "Error flushing COM buffers"
 msgstr "Error al vaciar los búferes COM"
@@ -54,20 +52,16 @@ msgid "Error closing \"%s\""
 msgstr "Error al cerrar \"%s\""
 
 msgid "Error setting attributes of \"%s\""
-msgstr "Error al establecer los atributos de "
-"\"%s\""
+msgstr "Error al establecer los atributos de \"%s\""
 
 msgid "Error setting timestamps of \"%s\""
-msgstr "Error al establecer marcas de tiempo de "
-"\"%s\""
+msgstr "Error al establecer marcas de tiempo de \"%s\""
 
 msgid "Error setting permissions of \"%s\""
-msgstr "Error al establecer los permisos de "
-"\"%s\""
+msgstr "Error al establecer los permisos de \"%s\""
 
 msgid "Error writing directory entry: \"%s\""
-msgstr "Error al escribir la entrada del directorio: "
-"\"%s\""
+msgstr "Error al escribir la entrada del directorio: \"%s\""
 
 msgid "Error adding directory to \"%s\""
 msgstr "Error al añadir un directorio en \" %s\""
@@ -79,8 +73,7 @@ msgid "Error adding stream to \"%s\""
 msgstr "Error al añadir flujo a \" %s\""
 
 msgid "Error comparing file from \"%s\" to \"%s\""
-msgstr "Error al comparar el fichero de \" %s\" a \" "
-"%s\""
+msgstr "Error al comparar el fichero de \" %s\" a \" %s\""
 
 msgid "Error writing end record"
 msgstr "Error al escribir el registro final"
@@ -122,8 +115,7 @@ msgid "Could not write to file"
 msgstr "No se puede escribir en el fichero"
 
 msgid "Attributes could not be set"
-msgstr "No se pueden definir los atributos del "
-"fichero"
+msgstr "No se pueden definir los atributos del fichero"
 
 msgid "Low disk space"
 msgstr "Poco espacio en disco"
@@ -170,10 +162,8 @@ msgstr "El fichero ya existe"
 msgid "Size mismatch"
 msgstr "Tamaño incorrecto"
 
-msgid "Could not open destination file for "
-"verification"
-msgstr "No se puede abrir el fichero de destino para "
-"verificarlo"
+msgid "Could not open destination file for verification"
+msgstr "No se puede abrir el fichero de destino para verificarlo"
 
 msgid "Could not create directory"
 msgstr "No se puede crear el directorio"
@@ -191,12 +181,10 @@ msgid "FTP connection was closed by server"
 msgstr "Conexión FTP terminada"
 
 msgid "Could not open FTP data connection"
-msgstr "No se puede abrir la conexión de datos "
-"FTP"
+msgstr "No se puede abrir la conexión de datos FTP"
 
 msgid "Timeout error on copying file via FTP"
-msgstr "Error de demora al copiar un fichero por "
-"FTP"
+msgstr "Error de demora al copiar un fichero por FTP"
 
 msgid "Different content"
 msgstr "Contenido diferente"
@@ -217,18 +205,19 @@ msgid "Could not rename temporary file"
 msgstr "No se puede renombrar el fichero temporal"
 
 msgid "Error reading next zip segment"
-msgstr "Error al leer el siguiente segmento "
-"zip"
+msgstr "Error al leer el siguiente segmento zip"
 
 msgid "Error copying alternate data streams"
-msgstr "Error al copiar otros flujos de datos "
-"alternativos"
+msgstr "Error al copiar otros flujos de datos alternativos"
 
 msgid "Error deleting file"
 msgstr "Error al eliminar el fichero"
 
 msgid "Error renaming file"
 msgstr "Error al renombrar el fichero"
+
+msgid "Invalid zip format"
+msgstr "Formato zip no válido"
 
 msgid "Terminated by user"
 msgstr "Finalizado por el usuario"
@@ -411,8 +400,7 @@ msgid "Trying to connect to FTP server"
 msgstr "Intentando conectar al servidor FTP"
 
 msgid "Connection to FTP server established"
-msgstr "Establecida la conexión con el servidor "
-"FTP"
+msgstr "Establecida la conexión con el servidor FTP"
 
 msgid "Connection to FTP server failed"
 msgstr "Error de conexión al servidor FTP"
@@ -420,17 +408,21 @@ msgstr "Error de conexión al servidor FTP"
 msgid "Connection to FTP server: %s:%u"
 msgstr "Conexión al servidor FTP : %s:%u"
 
-msgid "Connection to FTP server: %s:%u\n"
+msgid ""
+"Connection to FTP server: %s:%u\n"
 "for user: %s\n"
 "requires a password!"
-msgstr "Conexión a FTP servidor: %s:%u\n"
+msgstr ""
+"Conexión a FTP servidor: %s:%u\n"
 "por usuario: %s\n"
 "requiere una clave!"
 
-msgid "Connection to FTP proxy server: %s:%u\n"
+msgid ""
+"Connection to FTP proxy server: %s:%u\n"
 "for user: %s\n"
 "requires a password!"
-msgstr "Conexión a servidor proxy FTP : %s:%u\n"
+msgstr ""
+"Conexión a servidor proxy FTP : %s:%u\n"
 "por usuario: %s\n"
 "requiere una clave!"
 
@@ -486,15 +478,13 @@ msgid "Fingerprint"
 msgstr "Huella digital"
 
 msgid "Error verifying server certificate"
-msgstr "Error al verificar el certificado del "
-"servidor"
+msgstr "Error al verificar el certificado del servidor"
 
 msgid "Error (left/right parenthesis)"
 msgstr "Error (paréntesis izquierda/derecha)"
 
 msgid "Input error (missing left parenthesis)"
-msgstr "Error de entrada (falta el paréntesis "
-"izquierdo)"
+msgstr "Error de entrada (falta el paréntesis izquierdo)"
 
 msgid "Input error (empty parentheses)"
 msgstr "Error de entrada (paréntesis vacios)"
@@ -533,16 +523,13 @@ msgid "Invalid character"
 msgstr "Caracter no válido"
 
 msgid "Invalid argument (potential overflow)"
-msgstr "Argumento no válido (desbordamiento "
-"potencial)"
+msgstr "Argumento no válido (desbordamiento potencial)"
 
 msgid "Low memory (\"stack overflow\")"
-msgstr "Memoria insuficiente (\"desbordamiento de "
-"pila\")"
+msgstr "Memoria insuficiente (\"desbordamiento de pila\")"
 
 msgid "Low memory (\"string overflow\")"
-msgstr "Memoria insuficiente (\"desbordamiento de "
-"cadena\")"
+msgstr "Memoria insuficiente (\"desbordamiento de cadena\")"
 
 msgid "Unknown error"
 msgstr "Error desconocido"
@@ -586,10 +573,8 @@ msgstr "%s no es un valor binario válido"
 msgid "&System default"
 msgstr "&Sistema prefedinido"
 
-msgid "Changing language requires the program to be "
-"restarted!"
-msgstr "Para cambiar el lenguaje es necesario "
-"reiniciar!"
+msgid "Changing language requires the program to be restarted!"
+msgstr "Para cambiar el lenguaje es necesario reiniciar!"
 
 msgid "Illegal regular expression!"
 msgstr "Expresión regular ilegal!"
@@ -601,8 +586,7 @@ msgid "Error executing process"
 msgstr "Error al ejecutar el proceso"
 
 msgid "Stdout pipe creation failed"
-msgstr "Fallo al crear la conexión de salida "
-"estándar"
+msgstr "Fallo al crear la conexión de salida estándar"
 
 msgid "DuplicateHandle failed"
 msgstr "Fallo al duplicar el controlador"
@@ -619,13 +603,51 @@ msgstr "%s (Versión %s, %s)"
 msgid "Windows 11"
 msgstr "Windows 11"
 
+#. Programmer's name for it: rsVersionText
+#: UnitConsts.pas:82
+msgid ""
+"Product name        : %s%s\n"
+"Version             : %d.%d\n"
+"Build               : %d\n"
+"Edition             : %6:s"
+msgstr ""
+"Nombre del producto : %s%s\n"
+"Versión             : %d.%d\n"
+"Build               : %d\n"
+"Edición             : %6:s"
+
+#. Programmer's name for it: rsSPVersionText
+#: UnitConsts.pas:87
+msgid ""
+"Product name        : %s%s\n"
+"Service Pack        : %5:d\n"
+"Version             : %2:d.%3:d\n"
+"Build               : %4:d\n"
+"Edition             : %6:s"
+msgstr ""
+"Nombre del producto : %s%s\n"
+"Service Pack        : %5:d\n"
+"Versión             : %2:d.%3:d\n"
+"Build               : %4:d\n"
+"Edición             : %6:s"
+
+#. Programmer's name for it: rsVersion10Text
+#: UnitConsts.pas:91
+msgid ""
+"Product name        : %s%s\n""Version             : %s\n"
+"Build               : %d\n"
+"Edition             : %s"
+msgstr ""
+"Nombre del producto : %s%s\n"
+"Versión             : %s\n"
+"Build               : %d\n"
+"Edición             : %s"
+
 msgid "Professional with Media Center"
 msgstr "Professional con Media Center"
 
-msgid "Server Enterprise for Itanium-based "
-"Systems"
-msgstr "Server Enterprise para sistemas basados en "
-"Itanium"
+msgid "Server Enterprise for Itanium-based Systems"
+msgstr "Server Enterprise para sistemas basados en Itanium"
 
 msgid "Essential Server without Hyper-V"
 msgstr "Essential Server sin Hyper-V"
@@ -645,35 +667,26 @@ msgstr "Principio de otoño"
 msgid "Beginning of winter"
 msgstr "Principio de invierno"
 
-#. Strings from PasswordStrength
-#. Programmer's name for it: rsVeryWeak
-#: UnitConsts.pas:123
 msgid "very weak"
 msgstr "muy fiable"
 
-#. Programmer's name for it: rsWeak
-#: UnitConsts.pas:124
 msgid "weak"
 msgstr "fiable"
 
-#. Programmer's name for it: rsGood
-#: UnitConsts.pas:125
 msgid "good"
 msgstr "bueno"
 
-#. Programmer's name for it: rsStrong
-#: UnitConsts.pas:126
 msgid "strong"
 msgstr "fuerte"
 
-#. Programmer's name for it: rsVeryStrong
-#: UnitConsts.pas:127
 msgid "very strong"
 msgstr "muy fuerte"
 
-msgid "%s Dr. J. Rathlev\n"
+msgid ""
+"%s Dr. J. Rathlev\n"
 " 24222 Schwentinental, Germany"
-msgstr "%s Dr. J. Rathlev\n"
+msgstr ""
+"%s Dr. J. Rathlev\n"
 " 24222 Schwentinental, Alemania"
 
 msgid "%s Dr. J. Rathlev"
@@ -694,36 +707,27 @@ msgstr "<Desconocido>"
 msgid "Strike any key to continue ..."
 msgstr "Pulsar una tecla para continuar ..."
 
-msgid "Volume Shadow Copy could not be initialized on this "
-"system!"
-msgstr "Volume Shadow Copies no puede ser iniciado en este "
-"sistema!"
+msgid "Volume Shadow Copy could not be initialized on this system!"
+msgstr "Volume Shadow Copies no puede ser iniciado en este sistema!"
 
-msgid "Initializing IVssBackupComponents Interface "
-"..."
-msgstr "Iniciando la interfaz IVssBackupComponents "
-"..."
+msgid "Initializing IVssBackupComponents Interface ..."
+msgstr "Iniciando la interfaz IVssBackupComponents ..."
 
 msgid "Initialize writer metadata ..."
 msgstr "Iniciar los metadatos del escritor ..."
 
 msgid "Gathering writer metadata ..."
-msgstr "Recopilación de metadatos del escritor "
-"..."
+msgstr "Recopilación de metadatos del escritor ..."
 
 msgid "Gathering writer status ..."
-msgstr "Recopilación del estado del escritor "
-"..."
+msgstr "Recopilación del estado del escritor ..."
 
-msgid "Discover directly excluded components "
-"..."
-msgstr "Descubrir componentes excluidos directamente "
-"..."
+msgid "Discover directly excluded components ..."
+msgstr "Descubrir componentes excluidos directamente ..."
 
-msgid "Discover components that reside outside the shadow set "
-"..."
-msgstr "Descubrir componentes que residen fuera del conjunto de ocultos  "
-"..."
+msgid "Discover components that reside outside the shadow set ..."
+msgstr ""
+"Descubrir componentes que residen fuera del conjunto de ocultos  ..."
 
 msgid "Discover all excluded components ..."
 msgstr "Descubrir todos los componentes excluidos..."
@@ -731,24 +735,17 @@ msgstr "Descubrir todos los componentes excluidos..."
 msgid "Discover excluded writers ..."
 msgstr "Descubrir los escritores excluidos..."
 
-msgid "Discover explicitly included components "
-"..."
-msgstr "Descubrir los componentes incluidos explícitamente "
-"..."
+msgid "Discover explicitly included components ..."
+msgstr "Descubrir los componentes incluidos explícitamente ..."
 
-msgid "Select explicitly included components "
-"..."
-msgstr "Seleccionar los componentes explícitamente "
-"incluidos..."
+msgid "Select explicitly included components ..."
+msgstr "Seleccionar los componentes explícitamente incluidos..."
 
-msgid "Saving the backup components document "
-"..."
-msgstr "Guardar el documento de componentes de copia de seguridad "
-"..."
+msgid "Saving the backup components document ..."
+msgstr "Guardar el documento de componentes de copia de seguridad ..."
 
 msgid "Add volumes to snapshot set ..."
-msgstr "Añadir volúmenes al conjunto de instantáneas "
-"..."
+msgstr "Añadir volúmenes al conjunto de instantáneas ..."
 
 msgid "Preparing for backup ..."
 msgstr "Preparando la copia de seguridad ..."
@@ -759,15 +756,11 @@ msgstr "Creando la copia oculta ..."
 msgid "Shadow copy set successfully created"
 msgstr "Conjunto de copias ocultas creadas correctamente"
 
-msgid "Querying all shadow copies in the system "
-"..."
-msgstr "Consultando las copias ocultas del sistema "
-"..."
+msgid "Querying all shadow copies in the system ..."
+msgstr "Consultando las copias ocultas del sistema ..."
 
-msgid "Querying all shadow copies with the SnapshotSetID %s "
-"..."
-msgstr "Consultando las copias ocultas con el SnapshotSetID %s "
-"..."
+msgid "Querying all shadow copies with the SnapshotSetID %s ..."
+msgstr "Consultando las copias ocultas con el SnapshotSetID %s ..."
 
 msgid "Creating shadow set {%s} ..."
 msgstr "Creando el conjunto oculto {%s} ..."
@@ -910,24 +903,17 @@ msgstr "A las %s de cada día"
 msgid "At %0:s every %1:u days"
 msgstr "A las %0:s cada %1:u día(s)"
 
-msgid "At %0:s every %1:s of every week, starting "
-"%2:s"
-msgstr "A las %0:s cada %1:s semana, a partir de "
-"%2:s"
+msgid "At %0:s every %1:s of every week, starting %2:s"
+msgstr "A las %0:s cada %1:s semana, a partir de %2:s"
 
-msgid "At %0:s every %1:s of every %2:u weeks, starting "
-"%3:s"
-msgstr "A las %0:s cada %1:de cada %2:u semana, a partir de "
-"%3:s"
+msgid "At %0:s every %1:s of every %2:u weeks, starting %3:s"
+msgstr "A las %0:s cada %1:de cada %2:u semana, a partir de %3:s"
 
 msgid "At %0:s on %1:s of %2:s, starting %3:s"
-msgstr "A las %0:s el %1:s de %2:s, a partir de "
-"%3:s"
+msgstr "A las %0:s el %1:s de %2:s, a partir de %3:s"
 
-msgid "Runs on the %0:s %1:s, each %2:s starting "
-"%3:s"
-msgstr "Se ejecuta el %0:s %1:s, cada %2:s  a partir de "
-"%3:s"
+msgid "Runs on the %0:s %1:s, each %2:s starting %3:s"
+msgstr "Se ejecuta el %0:s %1:s, cada %2:s  a partir de %3:s"
 
 msgid "At logon of any user"
 msgstr "Al iniciar sesión de cualquier usuario"
@@ -947,10 +933,8 @@ msgstr ", a partir de %0:s del %1:s"
 msgid "When task is created or modified"
 msgstr "Al crear o modificar una tarea"
 
-msgid " - After triggered, repeat every %0:s for a duration of "
-"%1:s"
-msgstr " - Tras activarse, repetir cada %0:s durante "
-"%1:s"
+msgid " - After triggered, repeat every %0:s for a duration of %1:s"
+msgstr " - Tras activarse, repetir cada %0:s durante %1:s"
 
 msgid "deprecated"
 msgstr "obsoleto"
@@ -966,4 +950,3 @@ msgstr "Windows 7"
 
 msgid "Windows 10"
 msgstr "Windows 10"
-

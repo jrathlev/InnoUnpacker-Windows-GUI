@@ -4,15 +4,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dialogs\n"
-"POT-Creation-Date: 2024-10-25 12:38+0200\n"
-"PO-Revision-Date: 2025-02-10 17:54+0100\n"
+"POT-Creation-Date: 2025-12-04 16:30+0100\n"
+"PO-Revision-Date: 2025-12-04 16:33+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: M.A.G. <xxxxx@gmail.com>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 
 msgid "Show password"
@@ -306,23 +306,14 @@ msgstr "Marco de la etiqueta"
 msgid "Import/export format"
 msgstr "Formato de importación/exportación"
 
-msgid "Character between columns"
-msgstr "Caracter entre columnas"
-
-msgid "other"
-msgstr "otros(s)"
-
 msgid "Column width"
 msgstr "Largura de columna"
-
-msgid "fixed"
-msgstr "corregido"
 
 msgid "variable"
 msgstr "variable"
 
-msgid "Use embrace characters  (\")"
-msgstr "Usar caracteres de abrazo (\")"
+msgid "fixed"
+msgstr "corregido"
 
 msgid "Description:"
 msgstr "Descripción:"
@@ -699,6 +690,9 @@ msgstr "Selección LPT"
 msgid "Printer (Port/Irq)"
 msgstr "Imprimir (Puerto/IRQ)"
 
+msgid "other"
+msgstr "otros(s)"
+
 msgid "Port addr.:"
 msgstr "Puerto:"
 
@@ -767,6 +761,18 @@ msgstr "Seleccionar todo"
 
 msgid "Select none"
 msgstr "Sin selección"
+
+msgid "All files (*.*)|*.*"
+msgstr "Todos los ficheros (*.*)|*.*"
+
+msgid "Add selected files"
+msgstr "Añadir archivos seleccionados"
+
+msgid "Add selected filter"
+msgstr "Añadir filtro seleccionado"
+
+msgid "Subdirectory:"
+msgstr "Subdirectorio:"
 
 msgid "Printer settings"
 msgstr "Ajustes de la impresora"
@@ -858,8 +864,6 @@ msgstr "Seleccionar color"
 msgid "Additional colors:"
 msgstr "Otros colores:"
 
-#. SelectColorDialog.Label2.Caption
-#: SelectColorDlg.dfm:32
 msgid "Basic colors:"
 msgstr "Colores básicos:"
 
@@ -967,9 +971,6 @@ msgstr "Nombre de fichero:"
 
 msgid "File type:"
 msgstr "Tipo de fichero:"
-
-msgid "All files (*.*)|*.*"
-msgstr "Todos los ficheros (*.*)|*.*"
 
 msgid "Show text"
 msgstr "Mostrar texto"
@@ -1250,6 +1251,15 @@ msgstr ""
 
 msgid "Edit mail recipient"
 msgstr "Editar destinatario de correo"
+
+msgid "No files selected - close anyway?"
+msgstr "No hay archivos seleccionados. ¿Desea cerrar de todos modos?"
+
+msgid "all"
+msgstr "todo"
+
+msgid " files"
+msgstr " archivos"
 
 msgid "Canceled by user"
 msgstr "Cancelado por el usuario"

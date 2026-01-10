@@ -7,19 +7,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-11-16 12:13+0100\n"
-"PO-Revision-Date: 2025-11-16 12:13+0100\n"
+"POT-Creation-Date: 2026-01-10 12:08+0100\n"
+"PO-Revision-Date: 2026-01-10 12:08+0100\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: GgtTranslate 3.3.4\n"
+"X-Generator: GgtTranslate 3.4.1\n"
 
 #. MainForm.Caption
 #: UnpackMain.dfm:4
 #. UseFilelist:=ReadBool(CfgSekt,iniFileList,false);
-#: UnpackMain.pas:268
-#: UnpackMain.pas:680
+#: UnpackMain.pas:286
+#: UnpackMain.pas:360
+#: UnpackMain.pas:738
 msgid "Inspect and unpack InnoSetup files"
 msgstr ""
 
@@ -60,7 +61,7 @@ msgstr ""
 
 #. MainForm.pnTop.bbFile.Hint
 #: UnpackMain.dfm:612
-#: UnpackMain.pas:440
+#: UnpackMain.pas:476
 msgid "Select InnoSetup archive"
 msgstr ""
 
@@ -71,6 +72,8 @@ msgstr ""
 
 #. MainForm.pnTop.bbInfo.Hint
 #: UnpackMain.dfm:746
+#. MainForm.pmMain.pmiAbout.Caption
+#: UnpackMain.dfm:2180
 msgid "About the program"
 msgstr ""
 
@@ -152,7 +155,7 @@ msgstr ""
 
 #. MainForm.pnExtract.bbDir.Hint
 #: UnpackMain.dfm:1492
-#: UnpackMain.pas:507
+#: UnpackMain.pas:548
 msgid "Select directory for extracted files"
 msgstr ""
 
@@ -176,23 +179,43 @@ msgstr ""
 msgid "Select files"
 msgstr ""
 
+#. MainForm.pnExtract.rgEncoding.Caption
+#: UnpackMain.dfm:1810
+msgid "Encoding of install script"
+msgstr ""
+
+#. MainForm.pnExtract.rgEncoding.Items.Strings
+#: UnpackMain.dfm:1814
+msgid "Default"
+msgstr ""
+
+#. MainForm.pnExtract.rgEncoding.Items.Strings
+#: UnpackMain.dfm:1815
+msgid "UTF-8"
+msgstr ""
+
 #. MainForm.pnBottom.pnTools.bbCopyResult.Hint
-#: UnpackMain.dfm:1830
+#: UnpackMain.dfm:1843
 msgid "Copy output to clipboard"
 msgstr ""
 
 #. MainForm.pnBottom.pnTools.bbDown.Hint
-#: UnpackMain.dfm:1921
+#: UnpackMain.dfm:1934
 msgid "Scroll down"
 msgstr ""
 
 #. MainForm.pnBottom.pnTools.bbUp.Hint
-#: UnpackMain.dfm:2012
+#: UnpackMain.dfm:2025
 msgid "Scroll up"
 msgstr ""
 
+#. MainForm.pmMain.pmiLanguage.Caption
+#: UnpackMain.dfm:2177
+msgid "Language"
+msgstr ""
+
 #. Programmer's name for it: rsInfo
-#: UnpackMain.pas:189
+#: UnpackMain.pas:201
 msgid "Command line options: [<name>] [options]\n"
 "\t<name>\t\t: name of setup file to be unpacked\n"
 "\t/d:<ddir>\t: destination directory for unpacked files\n"
@@ -206,100 +229,100 @@ msgid "Command line options: [<name>] [options]\n"
 "\t/p\t\t: run as portable program"
 msgstr ""
 
-#: UnpackMain.pas:274
+#: UnpackMain.pas:292
 msgid "Selected files"
 msgstr ""
 
-#: UnpackMain.pas:341
+#: UnpackMain.pas:371
 msgid "Version"
 msgstr ""
 
 #. GetFileVersionAsNumber(UnpProg,UnpVers);
-#: UnpackMain.pas:348
+#: UnpackMain.pas:378
 msgid "Unknown unpacker"
 msgstr ""
 
-#: UnpackMain.pas:386
+#: UnpackMain.pas:422
 msgid "This application only allows dropping of exe "
 "files!"
 msgstr ""
 
-#: UnpackMain.pas:405
-#: UnpackMain.pas:439
+#: UnpackMain.pas:441
+#: UnpackMain.pas:475
 msgid "Programs|*.exe|All files|*.*"
 msgstr ""
 
-#: UnpackMain.pas:406
+#: UnpackMain.pas:442
 msgid "Search for \"innounp.exe\""
 msgstr ""
 
-#: UnpackMain.pas:498
+#: UnpackMain.pas:539
 msgid "Filename: "
 msgstr ""
 
-#: UnpackMain.pas:525
+#: UnpackMain.pas:566
 msgid "Extract files matching:"
 msgstr ""
 
 #. Select files to be extracted
-#: UnpackMain.pas:577
+#: UnpackMain.pas:628
 msgid "To use this feature at least version 2.65.4 of \"innounp\" is "
 "required!"
 msgstr ""
 
-#: UnpackMain.pas:594
-#: UnpackMain.pas:823
+#: UnpackMain.pas:646
+#: UnpackMain.pas:881
 #. Convert Unix style output
-#: UnpackMain.pas:896
+#: UnpackMain.pas:954
 msgid "Error: "
 msgstr ""
 
-#: UnpackMain.pas:598
+#: UnpackMain.pas:650
 msgid "Select files to be extracted"
 msgstr ""
 
-#: UnpackMain.pas:661
+#: UnpackMain.pas:719
 msgid "Extract files from setup ..."
 msgstr ""
 
-#: UnpackMain.pas:662
+#: UnpackMain.pas:720
 msgid "Destination directory: "
 msgstr ""
 
-#: UnpackMain.pas:682
+#: UnpackMain.pas:740
 msgid "e-mail: "
 msgstr ""
 
-#: UnpackMain.pas:683
+#: UnpackMain.pas:741
 msgid "Using: "
 msgstr ""
 
-#: UnpackMain.pas:803
+#: UnpackMain.pas:861
 msgid "Name: "
 msgstr ""
 
-#: UnpackMain.pas:804
+#: UnpackMain.pas:862
 msgid "Version: "
 msgstr ""
 
-#: UnpackMain.pas:805
+#: UnpackMain.pas:863
 msgid "Date: "
 msgstr ""
 
-#: UnpackMain.pas:806
+#: UnpackMain.pas:864
 msgid "Copyright: "
 msgstr ""
 
-#: UnpackMain.pas:807
+#: UnpackMain.pas:865
 msgid "Company: "
 msgstr ""
 
-#: UnpackMain.pas:808
+#: UnpackMain.pas:866
 msgid "Comment: "
 msgstr ""
 
 #. wait 10 s
-#: UnpackMain.pas:873
+#: UnpackMain.pas:931
 msgid "Timeout occured - continue anyway?"
 msgstr ""
 

@@ -96,7 +96,7 @@ type
   {$ELSE}
   RawUtf8String=RawByteString;
   {$ENDIF}
-DomainString=string;
+  DomainString=string;
   LanguageString=string;
   ComponentNameString=string;
   FilenameString=string;
@@ -118,7 +118,7 @@ function getcurrenttextdomain: DomainString;
 procedure bindtextdomain(const szDomain: DomainString; const szDirectory: FilenameString);
 
 // Set language to use
-procedure UseLanguage (LanguageCode : LanguageString);
+procedure UseLanguage (const LanguageCode : LanguageString);
 function GetCurrentLanguage : LanguageString;
 
 // Translates a component (form, frame etc.) to the currently selected language.
@@ -949,9 +949,14 @@ begin
   Result:=DefaultInstance.GetTranslatorNameAndEmail;
 end;
 
-procedure UseLanguage(LanguageCode: LanguageString);
+procedure UseLanguage (const LanguageCode : LanguageString);
 begin
-  DefaultInstance.UseLanguage(LanguageCode);
+  DefaultInstance.UseLanguage(LanguageCode)
+end;
+
+function GetCurrentLanguage : LanguageString;
+begin
+  Result:=DefaultInstance.GetCurrentLanguage;
 end;
 
 type
@@ -960,7 +965,7 @@ type
     Ident: Integer;
     Str: String;
   end;
-  
+
 function SysUtilsEnumStringModules(Instance: HINST; Data: Pointer): Boolean;
 {$IFDEF MSWINDOWS}
 var
@@ -1022,11 +1027,6 @@ end;
 function LoadResStringW(ResStringRec: PResStringRec): UnicodeString;
 begin
   Result:=DefaultInstance.LoadResString(ResStringRec);
-end;
-
-function GetCurrentLanguage:LanguageString;
-begin
-  Result:=DefaultInstance.GetCurrentLanguage;
 end;
 
 { TDomain }

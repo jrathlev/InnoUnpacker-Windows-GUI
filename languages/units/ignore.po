@@ -36,62 +36,62 @@ msgid "%s%s (Version %d.%d, Build %d, %6:s)"
 msgstr ""
 
 #. Programmer's name for it: rsBusiness
-#: UnitConsts.pas:81
+#: UnitConsts.pas:95
 msgid "Business"
 msgstr ""
 
 #. Programmer's name for it: rsClusterServer
-#: UnitConsts.pas:82
+#: UnitConsts.pas:96
 msgid "Cluster Server"
 msgstr ""
 
 #. Programmer's name for it: rsEnterprise
-#: UnitConsts.pas:85
+#: UnitConsts.pas:99
 msgid "Enterprise"
 msgstr ""
 
 #. Programmer's name for it: rsEssBusinessMan
-#: UnitConsts.pas:94
+#: UnitConsts.pas:108
 msgid "Essential Business Management Server"
 msgstr ""
 
 #. Programmer's name for it: rsEssBusinessMess
-#: UnitConsts.pas:96
+#: UnitConsts.pas:110
 msgid "Essential Business Messaging Server"
 msgstr ""
 
 #. Programmer's name for it: rsEssBusinessSec
-#: UnitConsts.pas:95
+#: UnitConsts.pas:109
 msgid "Essential Business Security Server"
 msgstr ""
 
 #. Programmer's name for it: rsEssServer
-#: UnitConsts.pas:97
+#: UnitConsts.pas:111
 msgid "Essential Server"
 msgstr ""
 
 #. Programmer's name for it: rsHomeBasic
-#: UnitConsts.pas:89
+#: UnitConsts.pas:103
 msgid "Home Basic"
 msgstr ""
 
 #. Programmer's name for it: rsHomePremium
-#: UnitConsts.pas:90
+#: UnitConsts.pas:104
 msgid "Home Premium"
 msgstr ""
 
 #. Programmer's name for it: rsHomePremiumS
-#: UnitConsts.pas:91
+#: UnitConsts.pas:105
 msgid "Home Premium Server"
 msgstr ""
 
 #. Programmer's name for it: rsHomeServer
-#: UnitConsts.pas:92
+#: UnitConsts.pas:106
 msgid "Home Server"
 msgstr ""
 
 #. Programmer's name for it: rsHyperV
-#: UnitConsts.pas:93
+#: UnitConsts.pas:107
 msgid "Hyper-V Server"
 msgstr ""
 
@@ -101,92 +101,92 @@ msgid "preWin32-Error"
 msgstr ""
 
 #. Programmer's name for it: rsProfessionalN
-#: UnitConsts.pas:79
+#: UnitConsts.pas:93
 msgid "Professional"
 msgstr ""
 
 #. Programmer's name for it: rsDataCenterCode
-#: UnitConsts.pas:84
+#: UnitConsts.pas:98
 msgid "Server Datacenter (core)"
 msgstr ""
 
 #. Programmer's name for it: rsDataCenterFull
-#: UnitConsts.pas:83
+#: UnitConsts.pas:97
 msgid "Server Datacenter (full)"
 msgstr ""
 
 #. Programmer's name for it: rsEnterpriseServerC
-#: UnitConsts.pas:87
+#: UnitConsts.pas:101
 msgid "Server Enterprise (core)"
 msgstr ""
 
 #. Programmer's name for it: rsEnterpriseServerF
-#: UnitConsts.pas:86
+#: UnitConsts.pas:100
 msgid "Server Enterprise (full)"
 msgstr ""
 
 #. Programmer's name for it: rsServerFound
-#: UnitConsts.pas:99
+#: UnitConsts.pas:113
 msgid "Server Foundation"
 msgstr ""
 
 #. Programmer's name for it: rsStandardServerC
-#: UnitConsts.pas:103
+#: UnitConsts.pas:117
 msgid "Server Standard Edition (core)"
 msgstr ""
 
 #. Programmer's name for it: rsStandardServer
-#: UnitConsts.pas:102
+#: UnitConsts.pas:116
 msgid "Server Standard Edition (full)"
 msgstr ""
 
 #. Programmer's name for it: rsSmallBusiness
-#: UnitConsts.pas:100
+#: UnitConsts.pas:114
 msgid "Small Business Server"
 msgstr ""
 
 #. Programmer's name for it: rsSmallBusinessP
-#: UnitConsts.pas:101
+#: UnitConsts.pas:115
 msgid "Small Business Server Premium"
 msgstr ""
 
 #. Programmer's name for it: rsStarter
-#: UnitConsts.pas:104
+#: UnitConsts.pas:118
 msgid "Starter Edition"
 msgstr ""
 
 #. Programmer's name for it: rsStgEnterprise
-#: UnitConsts.pas:105
+#: UnitConsts.pas:119
 msgid "Storage Server Enterprise"
 msgstr ""
 
 #. Programmer's name for it: rsStgExpress
-#: UnitConsts.pas:106
+#: UnitConsts.pas:120
 msgid "Storage Server Express"
 msgstr ""
 
 #. Programmer's name for it: rsStgStandard
-#: UnitConsts.pas:107
+#: UnitConsts.pas:121
 msgid "Storage Server Standard"
 msgstr ""
 
 #. Programmer's name for it: rsStgWorkgroup
-#: UnitConsts.pas:108
+#: UnitConsts.pas:122
 msgid "Storage Server Workgroup"
 msgstr ""
 
 #. Programmer's name for it: rsUltimate
-#: UnitConsts.pas:109
+#: UnitConsts.pas:123
 msgid "Ultimate Edition"
 msgstr ""
 
 #. Programmer's name for it: rsWebServer
-#: UnitConsts.pas:110
+#: UnitConsts.pas:124
 msgid "Web Server Edition"
 msgstr ""
 
 #. Programmer's name for it: rsWebServerC
-#: UnitConsts.pas:111
+#: UnitConsts.pas:125
 msgid "Web Server Edition (core)"
 msgstr ""
 

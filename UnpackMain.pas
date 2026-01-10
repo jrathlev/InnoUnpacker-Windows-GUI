@@ -26,7 +26,7 @@
                                 colored display of innounp (v1.77 and up) output
    Vers. 2.1   (November 2025): extract selected files (requires innounp v2.65.4 and up)
 
-   last modified: November 2025
+   last modified: January 2026
 
    Command line options: [<setupname>] [options]
      <setupname>  : name of setup file to be unpacked
@@ -48,12 +48,12 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, WinApiUtils, Vcl.ComCtrls;
+  Vcl.ExtCtrls, WinApiUtils, Vcl.ComCtrls, Vcl.Menus, LangUtils;
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 2.1.0';
-  CopRgt = '© 2014-2025 Dr. J. Rathlev, D-24222 Schwentinental';
+  ProgVers = ' 2.2.0';
+  CopRgt = '© 2014-2026 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt@rathlev-home.de';
 
   defPipeSize = 1024*1024;
@@ -104,8 +104,12 @@ type
     sbHorz: TScrollBar;
     cxOnlyApp: TCheckBox;
     bbSelFiles: TBitBtn;
+    rgEncoding: TRadioGroup;
+    pmMain: TPopupMenu;
+    pmiLanguage: TMenuItem;
+    pmiAbout: TMenuItem;
     procedure FormCreate(Sender: TObject);
-    procedure bbInfoClick(Sender: TObject);
+    procedure pmiInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure bbOptionsClick(Sender: TObject);
@@ -141,6 +145,8 @@ type
       Shift: TShiftState);
     procedure bbSelFilesClick(Sender: TObject);
     procedure cxEmbeddedClick(Sender: TObject);
+    procedure bbInfoClick(Sender: TObject);
+    procedure SetLanguageClick(Sender : TObject; Language : TLangCodeString);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -155,9 +161,11 @@ type
     LineHeight,VisibleLines,
     TextWdt               : integer;
     ViewMode              : TViewMode;
+    Languages             : TLanguageList;
     function StripColCtrls (const AText : string) : string;
     function LoadUnpacker : boolean;
     procedure CheckUnpackVersion;
+    function IsUnicodeSetup : boolean;
     procedure ExtractFiles (const Filter : string);
     procedure ShowUnpackInfo (const Command,FileName,Filter,Comment : string; GoBottom : boolean = false);
     function Execute (const Command : string; OutText: TStringList) : boolean;
@@ -242,6 +250,12 @@ begin
     else sa:=s;
     end;
   if port or IsEmptyStr(AppPath) or IsRemovableDrive(PrgPath) then s:=PrgPath else s:=AppPath;
+  Languages:=TLanguageList.Create(PrgPath);
+  with Languages do begin
+    Menu:=pmiLanguage;
+    LoadLanguageNames(SelectedLanguage);
+    OnLanguageItemClick:=SetLanguageClick;
+    end;
   IniName:=Erweiter(s,PrgName,IniExt);
   with TUnicodeIniFile.CreateForRead(IniName) do begin
     Left:=ReadInteger(CfgSekt,iniLeft,Left);
@@ -282,7 +296,7 @@ begin
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
   if FileExists(TempFile) then DeleteFile(TempFile);
-  ConsoleText.Free; SelectedFiles.Free;
+  ConsoleText.Free; SelectedFiles.Free; Languages.Free;
   end;
 
 procedure TMainForm.FormMouseWheel(Sender: TObject; Shift: TShiftState;
@@ -336,6 +350,17 @@ begin
   SaveHistory(Ininame,DirSekt,iniFName,true,cbDir.Items,mList);
   end;
 
+procedure TMainForm.SetLanguageClick(Sender : TObject; Language : TLangCodeString);
+var
+  sl : TLangCodeString;
+begin
+  if not AnsiSameStr(SelectedLanguage,Language) then begin
+    sl:=ChangeLanguage(Language);
+    Languages.LoadLanguageNames(sl);
+    Caption:=ProgVersName+' - '+_('Inspect and unpack InnoSetup files');
+    end;
+  end;
+
 procedure TMainForm.CheckUnpackVersion;
 var
   uv : TVersion;
@@ -351,6 +376,12 @@ begin
       end;
     end
   else UnpVersion:=_('Unknown unpacker');
+  end;
+
+function TMainForm.IsUnicodeSetup : boolean;
+begin
+  with ConsoleText do if Count>0 then Result:=AnsiContainsText(Text,'(Unicode)')
+  else Result:=false;
   end;
 
 procedure TMainForm.FormShow(Sender: TObject);
@@ -538,6 +569,11 @@ begin
   ml.Free;
   end;
 
+procedure TMainForm.bbInfoClick(Sender: TObject);
+begin
+  with BottomRightPos(Sender as TControl) do pmMain.Popup(x,y);
+  end;
+
 procedure TMainForm.bbExtractClick(Sender: TObject);
 begin
   ViewMode:=vmExtract;
@@ -633,6 +669,10 @@ begin
   cbFilter.Hint:='';
   RemoveFromHistory(cbFilter.Items,SelFilesHint);
   AddToHistory(cbFilter,'*.*');
+  with rgEncoding do begin
+    Enabled:=not IsUnicodeSetup;
+    if not Enabled then ItemIndex:=1;
+    end;
   end;
 
 procedure TMainForm.bbOptionsClick(Sender: TObject);
@@ -674,6 +714,7 @@ begin
   if cxEmbedded.Checked then cmd:=cmd+' -m';
   if cxEncrypted.Checked then cmd:=cmd+' -p'+edPassword.Text;
   if cxOverwrite.Checked then cmd:=cmd+' -y';
+  if rgEncoding.ItemIndex=0 then cmd:=cmd+' -w';
   if cxDupl.Checked then cmd:=cmd+' -a';
   ShowUnpackInfo(cmd+' -d'+sd,cbFile.Text,sf,'<0>*** '+_('Extract files from setup ...')+sLineBreak
     +_('Destination directory: ')+'<2>'+sd,true);
@@ -691,7 +732,7 @@ begin
   pbShowText.Invalidate;
   end;
 
-procedure TMainForm.bbInfoClick(Sender: TObject);
+procedure TMainForm.pmiInfoClick(Sender: TObject);
 begin
   InfoDialog (ProgVersName+' - '+ProgVersDate
     +sLineBreak+_('Inspect and unpack InnoSetup files')

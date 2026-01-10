@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-11-16 12:13+0100\n"
-"PO-Revision-Date: 2025-11-16 12:15+0100\n"
+"POT-Creation-Date: 2026-01-10 12:08+0100\n"
+"PO-Revision-Date: 2026-01-10 12:10+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -112,6 +112,15 @@ msgstr "Uniquement du {app}"
 msgid "Select files"
 msgstr "Sélectionner fichiers:"
 
+msgid "Encoding of install script"
+msgstr "Encodage du script d'installation"
+
+msgid "Default"
+msgstr "Par défaut"
+
+msgid "UTF-8"
+msgstr "UTF-8"
+
 msgid "Copy output to clipboard"
 msgstr "Copier dans le presse-papiers"
 
@@ -120,6 +129,11 @@ msgstr "Défilez vers le bas"
 
 msgid "Scroll up"
 msgstr "Haut de page"
+
+#. MainForm.pmMain.pmiLanguage.Caption
+#: UnpackMain.dfm:2177
+msgid "Language"
+msgstr "Langue"
 
 msgid ""
 "Command line options: [<name>] [options]\n"
@@ -170,8 +184,6 @@ msgstr "Nom du fichier: "
 msgid "Extract files matching:"
 msgstr "Extraire les fichiers correspondants :"
 
-#. Select files to be extracted
-#: UnpackMain.pas:577
 msgid ""
 "To use this feature at least version 2.65.4 of \"innounp\" is required!"
 msgstr ""

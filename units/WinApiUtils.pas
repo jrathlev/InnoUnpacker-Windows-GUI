@@ -586,6 +586,7 @@ function IsPowerUserLoggedOn : boolean;
 { ---------------------------------------------------------------- }
 // prüfe, ob eine Exe-Datei gerade läuft
 function IsExeRunning(const AExeName: string; FullPath : boolean = false): boolean;
+function CountInstances(const AExeName: string) : integer;
 
 // Liste aller laufenden und sichtbaren Programme
 function GetProgramList(const List: TStrings): Boolean;
@@ -1337,7 +1338,7 @@ begin
   end;
 
 { ---------------------------------------------------------------- }
-// prüfe, ob eine Exe-Datei gerade läuft (optional mit vollst. Pfad)
+// check if an Exe file is running (optional with full path)
 function IsExeRunning(const AExeName: string; FullPath : boolean) : boolean;
 var
   h: THandle;
@@ -1396,6 +1397,27 @@ begin
       else sp:=p.szExeFile;
       if length(sp)>0 then Result:=AnsiSameText(AExeName,sp);
     until Result or (not Process32Next(h, p));
+  finally
+    CloseHandle(h);
+    end;
+  end;
+
+{ ---------------------------------------------------------------- }
+// count how many instances of an exe are running
+function CountInstances(const AExeName: string) : integer;
+var
+  h: THandle;
+  p: TProcessEntry32;
+  sp : string;
+begin
+  Result:=0;
+  p.dwSize:=SizeOf(p);
+  h:=CreateToolHelp32Snapshot(TH32CS_SnapProcess, 0);
+  try
+    if Process32First(h, p) then repeat
+      sp:=p.szExeFile;
+      if (length(sp)>0) and AnsiSameText(AExeName,sp) then inc(Result);
+    until (not Process32Next(h, p));
   finally
     CloseHandle(h);
     end;
