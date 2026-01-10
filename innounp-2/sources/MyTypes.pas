@@ -86,7 +86,8 @@ type
     shCloseApplications, shRestartApplications, shAllowNetworkDrive,
     shForceCloseApplications, shAppNameHasConsts, shUsePreviousPrivileges,
     shWizardResizable, shUninstallLogging, shWizardModern, shWizardBorderStyled,
-    shWizardKeepAspectRatio, shWizardLightButtonsUnstyled);
+    shWizardKeepAspectRatio, shWizardLightButtonsUnstyled,
+    shRedirectionGuard, shWizardBevelsHidden,shUnusedPadding);
   const MySetupHeaderOptionLast = ord(High(TMySetupHeaderOption));
   type TMySetupHeaderOptions = set of TMySetupHeaderOption;  
 

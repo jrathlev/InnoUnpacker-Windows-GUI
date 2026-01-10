@@ -1,6 +1,6 @@
 (* innounp, the Inno Setup Unpacker
-   Version 2.66
-     Supports Inno Setup versions 2.0.7 through 6.6
+   Version 2.67
+     Supports Inno Setup versions 2.0.7 through 6.7
 
    based on:
      Version 0.50
@@ -50,6 +50,7 @@
                                   EurekaLog directives removed
            2.65 - August 2025   : support for Inno Setup 6.5
            2.66 - November 2025 : support for Inno Setup 6.6
+           2.67 - January 2026  : support for Inno Setup 6.7
 *)
 
 program innounp;
@@ -61,7 +62,11 @@ program innounp;
 {$ENDIF}
 
 uses
-  Winapi.Windows, System.SysUtils, System.Classes, System.StrUtils, System.Math,
+  Winapi.Windows,
+  System.SysUtils,
+  System.Classes,
+  System.StrUtils,
+  System.Math,
   MyTypes in 'MyTypes.pas',
   StructJoin in 'StructJoin.pas',
   Struct in 'Struct.pas',
@@ -76,11 +81,12 @@ uses
   Main in 'Main.pas',
   Int64Em in 'Int64Em.pas',
   InstFunc in 'InstFunc.pas',
-  ZLib in 'zlib.pas',
-  BZlib in 'bzlib.pas',
+  zlib in 'zlib.pas',
+  bzlib in 'bzlib.pas',
   Compression.LZMADecompressor in 'Compression.LZMADecompressor.pas',
   Compression.LZMA1SmallDecompressor in 'Compression.LZMA1SmallDecompressor.pas',
   Compress in 'Compress.pas',
+  Compress67 in 'Compress67.pas',
   RebuildScript in 'RebuildScript.pas',
   FileClass in 'FileClass.pas',
   CallOptimizer in 'CallOptimizer.pas',
@@ -201,7 +207,8 @@ begin
   if (InnoVer <= 4008) then Result := TZlibBlockReader4008
   else if (InnoVer >= 4009) and (InnoVer <= 4105) then Result := TZlibBlockReader4107
   // version mismatch (4105 vs. 4107) is ok
-  else if (InnoVer > 4105) then Result := Compress.TCompressedBlockReader;
+  else if (InnoVer > 4105) and (InnoVer < 6700) then Result := Compress.TCompressedBlockReader
+  else Result := Compress67.TCompressedBlockReader;
 end;
 
 procedure CreateEntryLists;
@@ -968,6 +975,7 @@ begin
   writeln('  -y     assume Yes on all queries (e.g. overwrite files)');
   writeln('  -o     no colored console output');
   writeln('  -h     do not display headline with program info');
+  writeln('  -w     generate install script without UTF-8 conversion (use default encoding)');
   writeln('  -u     use UTF-8 for console output');
 end;
 
@@ -1002,6 +1010,7 @@ begin
         'T': begin CommandAction:=caExtractFiles; ExtractTestOnly:=true; AutoYes:=true; end;
         'U': UseUtf8:=true;   // console output
         'V': CommandAction:=caVerboseList;
+        'W': ScriptAsUtf8:=false;
         'X': CommandAction:=caExtractFiles;
         'Y': AutoYes:=true;
         'Z': ColorMode:=2;    // used for InnoUnpacker GUI
@@ -1087,10 +1096,10 @@ begin
     end
   else attr:=ConsoleBg or ConsoleFg;
   cp:=GetConsoleOutputCP;
-  if UseUtf8 then SetConsoleOutputCP(65001) else SetConsoleOutputCP(850);
   UpVersion:=Format('%u.%u.%u',[IUV_MAJOR, IUV_MINOR,IUV_RELEASE]);
   CreateEntryLists;
   n:=ParseCommandLine;
+  if UseUtf8 then SetConsoleOutputCP(CP_UTF8);
 
   if not NoHeader or (n<0) then begin
     writeln;
@@ -1154,6 +1163,8 @@ begin
         if ExtractEmbedded then AddEmbeddedFiles;
 
         if CommandAction<>caInstallInfo then begin // save some time
+          if VerIsUnicode then ScriptAsUtf8:=true;
+
           RenameFiles(ExtractAllCopies); // all the fake files must be added before this
 
           ReconstructedScript := GetInstallScript;

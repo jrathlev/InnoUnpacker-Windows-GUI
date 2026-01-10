@@ -1,10 +1,15 @@
 Inno Setup Unpacker
 ===================
-(c) 2004-2019 QuickeneR, 2009-2020 Ariman, 2020 - 2025 J. Rathlev
+(c) 2004-2019 QuickeneR, 2009-2020 Ariman, 2020 - 2026 J. Rathlev
 
 Revision history:
 -----------------
 
+2.67.0 (2026-01-10)
+------
+  - Added support for IS up to 6.7.0
+  - Added: option to disable UTF-8 encoding of the script
+  
 2.66.3 (2026-01-05)
 ------
   - Fixed: UTF-8 encoding of the setup filename in the comment at the beginning 

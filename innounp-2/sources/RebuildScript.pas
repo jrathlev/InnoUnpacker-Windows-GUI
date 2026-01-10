@@ -101,16 +101,19 @@ begin
   Result:=s;
 end;
 
-function MakeUtf8(s : string) : AnsiString;
+function MakeUtf8(const s : string) : AnsiString;
 var
   sr  : RawByteString;
   len : integer;
 begin
-  len:=Length(s);
-  SetLength(sr,3*len+1);    // max. length of UTF8 string
-  len:=UnicodeToUtf8(PAnsiChar(sr),Length(sr),PWideChar(s),len);
-  SetLength(sr,len-1);
-  Result:=sr;
+  if ScriptAsUtf8 then begin
+    len:=Length(s);
+    SetLength(sr,3*len+1);    // max. length of UTF8 string
+    len:=UnicodeToUtf8(PAnsiChar(sr),Length(sr),PWideChar(s),len);
+    SetLength(sr,len-1);
+    Result:=sr;
+    end
+  else Result:=s;
   end;
 
 function ApplyCodepage (const s : string; cp : cardinal) : string;
@@ -251,7 +254,7 @@ var
 begin
   Builder := TScriptBuilder.Create;
   try
-    Result := Builder.RebuildScript();
+    Result := Builder.RebuildScript;
   finally
     Builder.Free;
   end;    
@@ -360,7 +363,7 @@ begin
   Res:='';
 
 // Add UTF-8 BOM to script start for Unicode versions.
-  if (VerIsUnicode) then Print(#$EF#$BB#$BF);
+  if ScriptAsUtf8 then Print(#$EF#$BB#$BF);
 
   PrintSetupHeader(SetupHeader);
 
@@ -846,11 +849,14 @@ begin
     if (LangIndex >= 0) then
       s:=PSetupLanguageEntry(Entries[seLanguage][LangIndex])^.Name+'.'+s;
     v := StringReplace(Value, #13#10, '%n', [rfReplaceAll]);
-    if (LangIndex >= 0) then
-      StrConst(s,ApplyCodepage(v,PSetupLanguageEntry(Entries[seLanguage][LangIndex])^.LanguageCodePage))
-    else StrConst(s,v);
+    if ScriptAsUtf8 then begin
+      if (LangIndex >= 0) then
+        StrConst(s,ApplyCodepage(v,PSetupLanguageEntry(Entries[seLanguage][LangIndex])^.LanguageCodePage))
+      else StrConst(s,v);
+      end
+    else StrConst(s,v)
+    end;
   end;
-end;
 
 procedure TScriptBuilder.PrintIconEntry(const ie:TSetupIconEntry);
 var

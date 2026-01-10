@@ -35,20 +35,20 @@ const
 
 
 var
-  SetupLdrOffset0: int64;
-  SetupLdrOffset1: int64;
-  SetupLdrMode: Boolean = true;
-  SetupLdrOriginalFilename: String;
+  SetupLdrOffset0 : int64;
+  SetupLdrOffset1 : int64;
+  SetupLdrMode : Boolean = true;
+  SetupLdrOriginalFilename : String;
   UpVersion : string;
-  Entries: array[TEntryType] of TList;
-  SetupEncryptionHeader: TSetupEncryptionHeader;
-  SetupHeader: TSetupHeader;
-  TimeStampsInUTC:boolean;
+  Entries : array[TEntryType] of TList;
+  SetupEncryptionHeader : TSetupEncryptionHeader;
+  SetupHeader : TSetupHeader;
+  TimeStampsInUTC : boolean;
   SetUpMinVersion : TSetupVersionData;
-  Ver: integer = 0;
-  VerIsUnicode: boolean = false;
-  VerIsRT: boolean = false; // For ResTools custom versions
-  VerIsISX: Boolean = false;
+  Ver : integer = 0;
+  VerIsUnicode : boolean = false;
+  VerIsRT : boolean = false; // For ResTools custom versions
+  VerIsISX : Boolean = false;
 
   StdOutputHandle: THandle;
   ConsoleFg : word = 7;
@@ -57,6 +57,7 @@ var
   WizardImages, WizardSmallImages: TStringList;
   DecompDll:Ansistring;
 
+  ScriptAsUtf8 : boolean = true;
   UseUtf8 : boolean=false;
   ColorMode : integer = 1;
 

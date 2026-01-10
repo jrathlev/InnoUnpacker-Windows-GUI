@@ -16,6 +16,10 @@ interface
 uses
   System.SysUtils, Int64Em, FileClass;
 
+const
+  SStoredDataError = 'Unexpected end of stream';
+  SCompressedBlockDataError = 'Compressed block is corrupted';
+
 type
   ECompressError = class(Exception);
   ECompressDataError = class(ECompressError);
@@ -91,10 +95,6 @@ function UpdateCRC32(CurCRC: Longint; const Buf; BufSize: Cardinal): Longint;
 
 implementation
 
-const
-  SStoredDataError = 'Unexpected end of stream';
-  SCompressedBlockDataError = 'Compressed block is corrupted';
-
 var
   CRC32TableInited: Boolean;
   CRC32Table: array[Byte] of Longint;
@@ -138,6 +138,12 @@ begin
   Result := UpdateCRC32(Longint($FFFFFFFF), Buf, BufSize) xor Longint($FFFFFFFF);
 end;
 
+type
+  TCompressedBlockHeader = packed record
+    StoredSize: LongWord;   { Total bytes written, including the CRCs }
+    Compressed: Boolean;    { True if data is compressed, False if not }
+  end;
+
 { TCustomDecompressor }
 
 constructor TCustomDecompressor.Create(AReadProc: TDecompressorReadProc);
@@ -145,14 +151,6 @@ begin
   inherited Create;
   FReadProc := AReadProc;
 end;
-
-{ TCompressedBlockWriter }
-
-type
-  TCompressedBlockHeader = packed record
-    StoredSize: LongWord;   { Total bytes written, including the CRCs }
-    Compressed: Boolean;    { True if data is compressed, False if not }
-  end;
 
 { TStoredDecompressor }
 

@@ -1,0 +1,119 @@
+body { font-family: Verdana, Myriad Web, Syntax, sans-serif; font-size: 90%; }
+h1{
+font-family:Georgia, Minion Web, Palatino, Book Antiqua, Utopia, Times New Roman, serif;
+font-size-adjust:.4;
+font-size:2.0em;
+font-weight:600;
+font-style:normal;
+text-decoration:none;
+word-spacing:normal;
+letter-spacing:normal;
+text-transform:none;
+}
+
+h2{
+font-family:Georgia, Minion Web, Palatino, Book Antiqua, Utopia, Times New Roman, serif;
+font-size-adjust:.4;
+font-size:1.75em;
+font-weight:500;
+font-style:normal;
+text-decoration:none;
+word-spacing:normal;
+letter-spacing:normal;
+text-transform:none;
+}
+
+h3{
+font-family:Georgia, Minion Web, Palatino, Book Antiqua, Utopia, Times New Roman, serif;
+font-size-adjust:.4;
+font-size:1.58em;
+font-weight:600;
+font-style:italic;
+text-decoration:none;
+word-spacing:normal;
+letter-spacing:normal;
+text-transform:none;
+}
+
+h4{
+font-family:Georgia, Minion Web, Palatino, Book Antiqua, Utopia, Times New Roman, serif;
+font-size-adjust:.4;
+font-size:1.33em;
+font-weight:600;
+font-style:normal;
+text-decoration:none;
+word-spacing:normal;
+letter-spacing:normal;
+text-transform:none;
+}
+
+h5, dt{
+font-family:Georgia, Minion Web, Palatino, Book Antiqua, Utopia, Times New Roman, serif;
+font-size-adjust:.4;
+font-size:1.17em;
+font-weight:600;
+font-style:italic;
+text-decoration:none;
+word-spacing:normal;
+letter-spacing:normal;
+text-transform:none;
+}
+
+h6{
+font-family:Georgia, Minion Web, Palatino, Book Antiqua, Utopia, Times New Roman, serif;
+font-size-adjust:.4;
+font-size:1em;
+font-weight:700;
+font-style:normal;
+text-decoration:none;
+word-spacing:normal;
+letter-spacing:.1em;
+font-variant:small-caps
+}
+
+h1, h2, h3, h4, h5, h6, dt, th, thead, tfoot{
+color:#C00;
+}
+
+body{
+line-height:1.58em;
+margin-top:1.58em;
+margin-left:5%;
+margin-right:5%;
+margin-bottom:1.58em;
+padding-top:0;
+padding-left:0;
+padding-right:0;
+padding-bottom:0;
+border-top:0;
+border-left:0;
+border-bottom:0;
+border-right:0;
+width:auto;
+}
+
+pre { line-height: 1.2em; font-size: 110%; }
+tt { font-size: 110%; }
+
+.boxed { border: 1px solid black; background-color: #eeeeee; color: blue; }
+
+.quicklink :link, .quicklink :visited {
+  text-decoration: none;
+  background-color: #eeeeee;
+  border-top: 1px dashed #222222;
+  border-bottom: 1px dashed #222222;
+  color: blue;
+}
+.quicklink :hover {
+  text-decoration: none;
+  border-top: 1px dashed #222222;
+  border-bottom: 1px dashed #222222;
+  background-color: #aadddd;
+}
+
+.nav :link, .nav :visited { text-decoration: none; }
+.nav :visited { color: blue; }
+.nav :hover { text-decoration: underline; color: red; }
+
+:link { color: blue; }
+:hover { color: red; }
