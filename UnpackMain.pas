@@ -39,6 +39,7 @@
      /a           : process all copies of duplicate files
      /o           : overwrite files
      /p           : run as portable program
+     /k           : use dark mode
    *)
 
 unit UnpackMain;
@@ -48,7 +49,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, WinApiUtils, Vcl.ComCtrls, Vcl.Menus, LangUtils;
+  Vcl.ExtCtrls, WinApiUtils, Vcl.ComCtrls, Vcl.Menus, LangUtils,
+  System.ImageList, Vcl.ImgList;
 
 const
   ProgName = 'InnoUnpacker';
@@ -108,6 +110,7 @@ type
     pmMain: TPopupMenu;
     pmiLanguage: TMenuItem;
     pmiAbout: TMenuItem;
+    ilStat: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure pmiInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -182,8 +185,8 @@ implementation
 {$R *.dfm}
 
 uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes, Vcl.ClipBrd,
-  System.Math, GnuGetText, InitProg,WinUtils, MsgDialogs,IniFileUtils, PathUtils,
-  ListUtils, WinDevUtils, StringUtils, ShellDirDlg, SelectFromListDlg,
+  Vcl.Themes, System.Math, GnuGetText, InitProg,WinUtils, MsgDialogs,IniFileUtils, PathUtils,
+  ListUtils, WinDevUtils, StringUtils, StyleUtils, ShellDirDlg, SelectFromListDlg,
   SelectListItems;
 
 { ------------------------------------------------------------------- }
@@ -198,7 +201,8 @@ resourcestring
      #9'/s'#9#9': extract files without paths'+sLineBreak+
      #9'/a'#9#9': process all copies of duplicate files'+sLineBreak+
      #9'/o'#9#9': overwrite files'+sLineBreak+
-     #9'/p'#9#9': run as portable program';
+     #9'/p'#9#9': run as portable program'+sLineBreak+
+     #9'/k'#9#9': run in dark mode';
 
 const
   mList = 20;
@@ -217,26 +221,30 @@ const
   iniTop  = 'Top';
   iniWdt  = 'Width';
   iniHgt  = 'Height';
+  IniDarkMode = 'DarkMode';
   iniUnp = 'Unpacker';
   iniFName = 'Name';
   iniFileList = 'UseFilelist';
 
+  DarkStyle = 'Windows10 Dark';
+
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   i : integer;
-  port : boolean;
+  port,UseDarkMode : boolean;
   s,sa,sd,sf : string;
 begin
   TranslateComponent(self);
   DragAcceptFiles(MainForm.Handle, true);
   InitPaths(AppPath,UserPath,ProgPath);
   InitVersion(ProgName,ProgVers,CopRgt,3,3,ProgVersName,ProgVersDate);
-  port:=false; sd:=''; sf:=''; sa:=''; UseFilelist:=false;
+  port:=false; sd:=''; sf:=''; sa:=''; UseFilelist:=false; UseDarkMode:=false;
   if ParamCount>0 then for i:=1 to ParamCount do begin
     s:=ParamStr(i);
     if (s[1]='/') or (s[1]='-') then begin
       Delete(s,1,1);
-      if CompareOption(s,'m') then cxEmbedded.Checked:=true
+      if CompareOption(s,'k') then UseDarkMode:=true
+      else if CompareOption(s,'m') then cxEmbedded.Checked:=true
       else if CompareOption(s,'c') then cxOnlyApp.Checked:=true
       else if CompareOption(s,'s') then cxStrip.Checked:=true
       else if CompareOption(s,'a') then cxDupl.Checked:=true
@@ -260,6 +268,7 @@ begin
   with TUnicodeIniFile.CreateForRead(IniName) do begin
     Left:=ReadInteger(CfgSekt,iniLeft,Left);
     Top:=ReadInteger(CfgSekt,iniTop,Top);
+//    dm:=ReadBool(CfgSekt,IniDarkMode,false);
     ClientWidth:=ReadInteger(CfgSekt,iniWdt,ClientWidth);
     ClientHeight:=ReadInteger(CfgSekt,iniHgt,ClientHeight);
     UnpProg:=ReadString(CfgSekt,iniUnp,'');
@@ -291,6 +300,10 @@ begin
   TempFile:=TempDirectory+'FileList.txt';
   SelFilesHint:='==> '+_('Selected files');
   ViewMode:=vmNone;
+// set style for Windows dark mode
+  SetDefaultStyles(DarkStyle);
+  if UseDarkMode then SelectStyle(true)
+  else SetSystemStyle;
   end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -314,6 +327,21 @@ with pbShowText do if sbVert.Visible and ClientRect.Contains(ScreenToClient(Mous
     pbShowText.Invalidate;
     Handled:=true;
     end;
+  end;
+
+procedure TMainForm.FormShow(Sender: TObject);
+begin
+  with bbInfo do begin
+    Glyph:=nil;
+    ilStat.GetBitmap(integer(StylesEnabled),Glyph);
+    end;
+  if not FileExists(UnpProg) then UnpProg:=SetDirName(PrgPath)+InnoUnp;
+  if not FileExists(UnpProg) then begin
+    if not LoadUnpacker then Close;
+    end;
+  CheckUnpackVersion;
+  if FileExists(cbFile.Text) then bbSetupInfoClick(Sender)
+  else bbFileClick(Sender);
   end;
 
 procedure TMainForm.FormResize(Sender: TObject);
@@ -382,17 +410,6 @@ function TMainForm.IsUnicodeSetup : boolean;
 begin
   with ConsoleText do if Count>0 then Result:=AnsiContainsText(Text,'(Unicode)')
   else Result:=false;
-  end;
-
-procedure TMainForm.FormShow(Sender: TObject);
-begin
-  if not FileExists(UnpProg) then UnpProg:=SetDirName(PrgPath)+InnoUnp;
-  if not FileExists(UnpProg) then begin
-    if not LoadUnpacker then Close;
-    end;
-  CheckUnpackVersion;
-  if FileExists(cbFile.Text) then bbSetupInfoClick(Sender)
-  else bbFileClick(Sender);
   end;
 
 procedure TMainForm.bbExitClick(Sender: TObject);
@@ -751,10 +768,12 @@ var
   s,sw : string;
 const
   MaxCol = 5;
-  ColArray : array[0..MaxCol] of TColor = (clBlack,clred,clGreen,clBlue,clMaroon,clPurple);
+  ColArray : array[0..MaxCol] of TColor = (clBlack,clRed,clGreen,clBlue,clMaroon,clPurple);
+  ColArrayDark : array[0..MaxCol] of TColor = (clWhite,TColors.Tomato,TColors.LightGreen,
+      clSkyblue,TColors.Peru,TColors.Orchid);
 begin
   with pbShowText do begin
-    Canvas.Brush.Color:=clWhite;
+    Canvas.Brush.Color:=GetColor(scListView,clWhite);
     Canvas.FillRect(Rect(0,0,Width-1,Height-1));
     with ConsoleText do if Count<VisibleLines then n:=Count else n:=VisibleLines;
     for i:=0 to n-1 do begin
@@ -769,7 +788,8 @@ begin
           w:=w+Canvas.TextWidth(sw);
           n2:=PosEx('>',s,n1+1);
           if (n2=n1+2) and TryStrToInt(copy(s,n1+1,1),k) and (k<=MaxCol) then begin
-            Canvas.Font.Color:=ColArray[k];
+            with Canvas.Font do if StylesEnabled then Color:=ColArrayDark[k]
+            else Color:=ColArray[k];
             n0:=n2+1;
             end
           else begin

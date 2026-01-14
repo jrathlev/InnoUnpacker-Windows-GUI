@@ -1,4 +1,4 @@
-### Inno Setup Unpacker - Windows GUI v 2.2.0
+### Inno Setup Unpacker - Windows GUI v 2.2.1
 
 #### Inspect and unpack InnoSetup archives
 
@@ -22,9 +22,9 @@ Immediately after opening, the basic file info of the setup is displayed. All ot
 - Select destination directory for extracted files
 - Start file extraction
 
-Optionally, you can specify whether only the installation script or the files matching a filter are to be extracted.
+Optionally, you can specify whether only the installation script, the files matching a filter, or the files selected by the user should to be extracted.
 
-**New:** optional selection of single files for extraction
+**New:** Support of Windows Dark Mode
 
 **Note on execution as portable program:** 
 The program settings are normally stored in the InnoUnpack.ini file in the 
