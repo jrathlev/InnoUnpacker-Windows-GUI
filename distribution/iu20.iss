@@ -44,6 +44,7 @@ ChangesAssociations=yes
 ShowLanguageDialog=yes
 DisableDirPage=auto
 DisableProgramGroupPage=auto
+WizardStyle=modern
 
 [Languages]
 Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"license-en.rtf";
@@ -68,7 +69,7 @@ de.InnoUnpack=&Inno Setup entpacken ..
 
 it.FileAssoc=Associazione file:
 it.DescContext=Aggiungi "InnoUnpacker" al menu contestuale dei file exe
-it.InnoUnpack=Decomprimi file creati con &Inno Setup ..
+it.InnoUnpack=Decomprimi file creati con &Inno Setup..
 
 es.FileAssoc=Asociaciones de fichero:
 es.DescContext=Añadir "InnoUnpacker" al menú contextual de ficheros exe
