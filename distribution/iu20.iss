@@ -12,7 +12,8 @@
 
 ;  Compiles with Inno Setup 6.3.3
 
-#define ApplicationVersion GetVersionNumbersString('..\Release\Win32\InnoUnpack.exe')
+#define DeleteLastDigitFromVersion(version) Copy(version, 1, (RPos(".", version)) - 1)
+#define ApplicationVersion DeleteLastDigitFromVersion(GetVersionNumbersString('..\Release\Win32\InnoUnpack.exe'))
 #define Year GetDateTimeString('yyyy','','')
 #define ProgramName "InnoUnpacker"
 #define ProgramAuthor "Dr. J. Rathlev"
@@ -44,6 +45,7 @@ ChangesAssociations=yes
 ShowLanguageDialog=yes
 DisableDirPage=auto
 DisableProgramGroupPage=auto
+WizardStyle=modern
 
 [Languages]
 Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"license-en.rtf";
@@ -56,27 +58,27 @@ Name: "zh"; MessagesFile: compiler:Languages\ChineseSimplified.isl; LicenseFile:
 [CustomMessages]
 en.FileAssoc=File associations:
 en.DescContext=Add "InnoUnpacker" to context menu of exe files
-en.InnoUnpack=Unpack &Inno Setup ..
+en.InnoUnpack=Open &Inno Setup installer with InnoUnpacker
 
 fr.FileAssoc=Associations de fichiers:
 fr.DescContext=Ajouter "InnoUnpacker" au menu contextuel des fichiers exe
-fr.InnoUnpack=Déballer &Inno Setup ..
+fr.InnoUnpack=Ouvrez le programme d'installation &Inno Setup avec InnoUnpacker
 
 de.FileAssoc=Dateizuordnungen:
 de.DescContext=Füge "InnoUnpacker" zum Kontext-Menü für exe-Dateien hinzu
-de.InnoUnpack=&Inno Setup entpacken ..
+de.InnoUnpack=Öffne &Inno Setup Installer mit InnoUnpacker
 
 it.FileAssoc=Associazione file:
 it.DescContext=Aggiungi "InnoUnpacker" al menu contestuale dei file exe
-it.InnoUnpack=Decomprimi file creati con &Inno Setup ..
+it.InnoUnpack=Apri installer &Inno Setup con InnoUnpacker
 
 es.FileAssoc=Asociaciones de fichero:
 es.DescContext=Añadir "InnoUnpacker" al menú contextual de ficheros exe
-es.InnoUnpack=Descomprimir &Inno Setup ..
+es.InnoUnpack=Abre el instalador de &Inno Setup con InnoUnpacker
 
 zh.FileAssoc=文件关联:
 zh.DescContext=将 "InnoUnpacker" ”添加到exe文件的右键菜单中
-zh.InnoUnpack=检查并解包 &Inno Setup ..
+zh.InnoUnpack=使用InnoUnpacker打开Inno Setup安装程序
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
