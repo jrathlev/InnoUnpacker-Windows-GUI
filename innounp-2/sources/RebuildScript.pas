@@ -446,6 +446,7 @@ begin
 end;
 
 procedure TScriptBuilder.PrintSetupHeader(const sh: TSetupHeader);
+
   function Priv2Str(Priv: TMySetupPrivileges) : string;
   begin
     case Priv of
@@ -549,6 +550,8 @@ begin
     if InfoBeforeText<>'' then StrConst('InfoBeforeFile', MaybeToRtf('embedded\InfoBefore.txt', InfoBeforeText));
     if InfoAfterText<>'' then StrConst('InfoAfterFile', MaybeToRtf('embedded\InfoAfter.txt', InfoAfterText));
   end;
+  if (shWizardModern in sh.Options) then
+    StrConst('WizardStyle', 'modern');
   StrConst('WizardImageFile', GetImageFileList(WizardImages.Count, false));
   StrConst('WizardSmallImageFile', GetImageFileList(WizardSmallImages.Count, true));
   if TimeStampsInUTC then StrConst(';TimeStampsInUTC', 'yes');
