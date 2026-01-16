@@ -92,6 +92,7 @@ Root: HKCR; Subkey: "{code:GetKey|EXE}\shell\InnoUnpack\Command"; ValueType: str
 Source: "..\Release\Win32\InnoUnpack.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
 Source: "..\innounp-2\Release\innounp.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
 Source: "..\innounp-2\docs\innounp.htm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\innounp-2\docs\innounp.css"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\Release\Win32\locale\*.mo"; DestDir: "{app}\locale"; Flags: recursesubdirs ignoreversion restartreplace
 ;Source: "..\Release\Win32\language.cfg"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion restartreplace
 Source: "..\InnoUnpack.txt"; DestDir: "{app}"; Flags: ignoreversion
