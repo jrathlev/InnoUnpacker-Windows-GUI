@@ -1,4 +1,4 @@
-### Inno Setup Unpacker 2.67.1 - Console version
+### Inno Setup Unpacker 2.67.2 - Console version
 
 #### Unpacker for installations made by Inno Setup
 

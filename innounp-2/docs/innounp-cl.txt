@@ -5,6 +5,10 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.67.2 (2026-01-18)
+------
+  - Added: support of Dark Mode for "WizardStyle" in install script
+
 2.67.1 (2026-01-14)
 ------
   - Added: "WizardStyle" in install script

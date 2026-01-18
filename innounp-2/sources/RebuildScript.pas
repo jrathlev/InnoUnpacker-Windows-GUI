@@ -446,6 +446,8 @@ begin
 end;
 
 procedure TScriptBuilder.PrintSetupHeader(const sh: TSetupHeader);
+var
+  s : string;
 
   function Priv2Str(Priv: TMySetupPrivileges) : string;
   begin
@@ -550,11 +552,21 @@ begin
     if InfoBeforeText<>'' then StrConst('InfoBeforeFile', MaybeToRtf('embedded\InfoBefore.txt', InfoBeforeText));
     if InfoAfterText<>'' then StrConst('InfoAfterFile', MaybeToRtf('embedded\InfoAfter.txt', InfoAfterText));
   end;
-  if (shWizardModern in sh.Options) then
-    StrConst('WizardStyle', 'modern');
+  if (Ver >= 6000) then begin
+    if (Ver >= 6600) then begin // support of WizardStyle
+      if (shWizardModern in sh.Options) then s:='modern' else s:='classic';
+      case sh.WizardDarkStyle of
+      wdsDark    : s:=s+' dark';
+      wdsDynamic : s:=s+' dynamic';
+      else s:=s+' light'
+        end;
+      end
+    else if sh.WizardStyle=wsModern then s:='modern' else s:='classic';
+    StrConst('WizardStyle',s);
+    end;
   StrConst('WizardImageFile', GetImageFileList(WizardImages.Count, false));
   StrConst('WizardSmallImageFile', GetImageFileList(WizardSmallImages.Count, true));
-  if TimeStampsInUTC then StrConst(';TimeStampsInUTC', 'yes');
+  if TimeStampsInUTC then StrConst(';TimeStampsInUTC','yes');
 end;
 
 procedure TScriptBuilder.PrintRegistryEntry(const re: TSetupRegistryEntry);

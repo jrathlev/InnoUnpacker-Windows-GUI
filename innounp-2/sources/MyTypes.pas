@@ -89,7 +89,10 @@ type
     shWizardKeepAspectRatio, shWizardLightButtonsUnstyled,
     shRedirectionGuard, shWizardBevelsHidden,shUnusedPadding);
   const MySetupHeaderOptionLast = ord(High(TMySetupHeaderOption));
-  type TMySetupHeaderOptions = set of TMySetupHeaderOption;  
+  type TMySetupHeaderOptions = set of TMySetupHeaderOption;
+
+  TMySetupWizardStyle = (wsClassic, wsModern);
+  TMySetupWizardDarkStyle = (wdsLight, wdsDark, wdsDynamic);
 
   TMySetupHeader = record // in-memory only
     AppName, AppVerName, AppId, AppCopyright, AppPublisher, AppPublisherURL,
@@ -108,6 +111,8 @@ type
       NumRunEntries, NumUninstallRunEntries: Integer;
     MinVersion, OnlyBelowVersion: TMySetupVersionData;
     BackColor, BackColor2: Longint;
+    WizardStyle: TMySetupWizardStyle;
+    WizardDarkStyle: TMySetupWizardDarkStyle;
     EncryptionUsed: Boolean;
     PasswordHash: TSetupHash;
     PasswordSalt: TSetupSalt;

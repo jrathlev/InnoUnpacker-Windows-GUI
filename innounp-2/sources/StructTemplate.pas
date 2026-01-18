@@ -615,6 +615,16 @@ begin
     BackColor                   :=0;
     BackColor2                  :=0;
 {$IFEND}
+{$IF (DEFVER>=6000) AND (DEFVER<6600)}
+    WizardStyle                 :=TMySetupWizardStyle(osh.WizardStyle);
+{$ELSE}
+    WizardStyle                 :=wsClassic;
+{$IFEND}
+{$IF DEFVER>=6600}
+    WizardDarkStyle             :=TMySetupWizardDarkStyle(osh.WizardDarkStyle);
+{$ELSE}
+    WizardDarkStyle             :=wdsLight;
+{$IFEND}
 {$IF DEFVER>=4000}
     SlicesPerDisk               :=osh.SlicesPerDisk;
 {$ELSE}
