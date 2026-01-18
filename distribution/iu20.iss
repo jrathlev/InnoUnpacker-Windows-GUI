@@ -10,7 +10,7 @@
 ;  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
 ;  the specific language governing rights and limitations under the License.
 
-;  Compiles with Inno Setup 6.3.3
+;  Compiles with Inno Setup 6.7.0
 
 #define DeleteLastDigitFromVersion(version) Copy(version, 1, (RPos(".", version)) - 1)
 #define ApplicationVersion DeleteLastDigitFromVersion(GetVersionNumbersString('..\Release\Win32\InnoUnpack.exe'))
@@ -21,7 +21,9 @@
 #define OutputFile "InnoUnpacker-setup"
 
 [Setup]
-PrivilegesRequired=admin
+PrivilegesRequired=lowest
+PrivilegesRequiredOverridesAllowed=dialog
+UsePreviousPrivileges=no
 AppName={#ProgramName}
 AppVersion={#ApplicationVersion}
 AppVerName={#ProgramName} {#ApplicationVersion}
@@ -31,7 +33,8 @@ AppSupportURL={#ProgramWebURL}
 AppUpdatesURL={#ProgramWebURL}
 AppCopyright=2014-{#Year} {#ProgramAuthor}
 VersionInfoVersion={#ApplicationVersion}
-DefaultDirName={commonpf}\{#ProgramName}
+VersionInfoDescription={#ProgramName} Setup
+DefaultDirName={autopf}\{#ProgramName}
 DefaultGroupName={#ProgramName}
 OutputDir=.
 OutputBaseFilename={#OutputFile}
@@ -45,7 +48,7 @@ ChangesAssociations=yes
 ShowLanguageDialog=yes
 DisableDirPage=auto
 DisableProgramGroupPage=auto
-WizardStyle=modern
+WizardStyle=modern dynamic 
 
 [Languages]
 Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"license-en.rtf";

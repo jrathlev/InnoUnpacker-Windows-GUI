@@ -5,9 +5,19 @@ Windows Unpacker GUI for Inno setup files
 Revision history:
 -----------------
 
+2.2.2 (2026-01-18)
+------------------
+  - Update of "innounp.exe" to 2.67.2
+  - Fíxed: dark mode display
+
+2.2.1 (2026-01-14)
+------------------
+  - Support of Windows Dark Mode
+  - Update of "innounp.exe" to 2.67.1
+
 2.2.0 (2026-01-10)
 ------------------
-  - new "innounp.exe" (v2.67.0) with support for IS up to 6.7.0
+  - New "innounp.exe" (v2.67.0) with support for IS up to 6.7.0
   - User selection of language
   - Codepage for install script
   - Several minor changes

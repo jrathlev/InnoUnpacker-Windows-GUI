@@ -2173,8 +2173,35 @@ object MainForm: TMainForm
     object pmiLanguage: TMenuItem
       Caption = 'Language'
     end
+    object pmiDisplay: TMenuItem
+      Caption = 'Display mode'
+      object pmiDmDefault: TMenuItem
+        Caption = 'Default'
+        Checked = True
+        GroupIndex = 1
+        RadioItem = True
+        OnClick = pmiDmDefaultClick
+      end
+      object pmiDmLight: TMenuItem
+        Caption = 'Light'
+        GroupIndex = 1
+        RadioItem = True
+        OnClick = pmiDmLightClick
+      end
+      object pmiDmDark: TMenuItem
+        Caption = 'Dark'
+        GroupIndex = 1
+        RadioItem = True
+        OnClick = pmiDmDarkClick
+      end
+    end
+    object N1: TMenuItem
+      Caption = '-'
+      GroupIndex = 1
+    end
     object pmiAbout: TMenuItem
       Caption = 'About the program'
+      GroupIndex = 1
       OnClick = pmiInfoClick
     end
   end
@@ -2184,7 +2211,7 @@ object MainForm: TMainForm
     Left = 505
     Top = 327
     Bitmap = {
-      494C010102000800180014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102000800200014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000001400000001002000000000000019
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

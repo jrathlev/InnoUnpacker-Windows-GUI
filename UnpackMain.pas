@@ -39,7 +39,7 @@
      /a           : process all copies of duplicate files
      /o           : overwrite files
      /p           : run as portable program
-     /k           : use dark mode
+     /k           : run in dark mode
    *)
 
 unit UnpackMain;
@@ -62,6 +62,7 @@ const
   defTimeOut  = 10000;  // 10 s
 
 type
+  TDisplayMode = (dmDefault,dmLight,dmDark);
   TViewMode = (vmNone,vmInfo,vmList,vmLang,vmVersion,vmVerify,vmExtract);
 
   TMainForm = class(TForm)
@@ -111,6 +112,11 @@ type
     pmiLanguage: TMenuItem;
     pmiAbout: TMenuItem;
     ilStat: TImageList;
+    N1: TMenuItem;
+    pmiDisplay: TMenuItem;
+    pmiDmDefault: TMenuItem;
+    pmiDmLight: TMenuItem;
+    pmiDmDark: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure pmiInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -150,6 +156,9 @@ type
     procedure cxEmbeddedClick(Sender: TObject);
     procedure bbInfoClick(Sender: TObject);
     procedure SetLanguageClick(Sender : TObject; Language : TLangCodeString);
+    procedure pmiDmDefaultClick(Sender: TObject);
+    procedure pmiDmLightClick(Sender: TObject);
+    procedure pmiDmDarkClick(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -163,8 +172,10 @@ type
     UseFilelist    : boolean;
     LineHeight,VisibleLines,
     TextWdt               : integer;
+    DisplayMode           : TDisplayMode;
     ViewMode              : TViewMode;
     Languages             : TLanguageList;
+    procedure ChangeStyle (dm : TDisplayMode);
     function StripColCtrls (const AText : string) : string;
     function LoadUnpacker : boolean;
     procedure CheckUnpackVersion;
@@ -196,7 +207,7 @@ resourcestring
      #9'/d:<ddir>'#9': destination directory for unpacked files'+sLineBreak+
      #9'/f:<filter>'#9': file filter'+sLineBreak+
      #9'/e:<pwd>'#9': encryption password'+sLineBreak+
-     #9'/l:<lg>'#9#9': language selection (en, de, fr, it or hu)'+sLineBreak+
+     #9'/l:<la>'#9#9': language selection (en, de, fr, it or hu)'+sLineBreak+
      #9'/m'#9#9': process internal embedded files'+sLineBreak+
      #9'/s'#9#9': extract files without paths'+sLineBreak+
      #9'/a'#9#9': process all copies of duplicate files'+sLineBreak+
@@ -221,7 +232,7 @@ const
   iniTop  = 'Top';
   iniWdt  = 'Width';
   iniHgt  = 'Height';
-  IniDarkMode = 'DarkMode';
+  IniDispMode = 'DisplayMode';
   iniUnp = 'Unpacker';
   iniFName = 'Name';
   iniFileList = 'UseFilelist';
@@ -268,7 +279,7 @@ begin
   with TUnicodeIniFile.CreateForRead(IniName) do begin
     Left:=ReadInteger(CfgSekt,iniLeft,Left);
     Top:=ReadInteger(CfgSekt,iniTop,Top);
-//    dm:=ReadBool(CfgSekt,IniDarkMode,false);
+    DisplayMode:=TDisplayMode(ReadInteger(CfgSekt,IniDispMode,0));
     ClientWidth:=ReadInteger(CfgSekt,iniWdt,ClientWidth);
     ClientHeight:=ReadInteger(CfgSekt,iniHgt,ClientHeight);
     UnpProg:=ReadString(CfgSekt,iniUnp,'');
@@ -303,7 +314,8 @@ begin
 // set style for Windows dark mode
   SetDefaultStyles(DarkStyle);
   if UseDarkMode then SelectStyle(true)
-  else SetSystemStyle;
+  else ChangeStyle(DisplayMode);
+  pmiDisplay.Items[integer(DisplayMode)].Checked:=true;
   end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -368,6 +380,7 @@ begin
   with TUnicodeIniFile.CreateForWrite(IniName) do begin
     WriteInteger(CfgSekt,iniLeft,Left);
     WriteInteger(CfgSekt,iniTop,Top);
+    WriteInteger(CfgSekt,IniDispMode,integer(DisplayMode));
     WriteInteger(CfgSekt,iniWdt,ClientWidth);
     WriteInteger(CfgSekt,iniHgt,ClientHeight);
     WriteString(CfgSekt,iniUnp,UnpProg);
@@ -749,6 +762,32 @@ begin
   pbShowText.Invalidate;
   end;
 
+procedure TMainForm.ChangeStyle (dm : TDisplayMode);
+begin
+  DisplayMode:=dm;
+  pmiDisplay.Items[integer(DisplayMode)].Checked:=true;
+  case DisplayMode of
+  dmLight : SelectStyle(false);
+  dmDark  : SelectStyle(true);
+  else SetSystemStyle;
+    end;
+  end;
+
+procedure TMainForm.pmiDmDarkClick(Sender: TObject);
+begin
+  ChangeStyle(dmDark);
+  end;
+
+procedure TMainForm.pmiDmDefaultClick(Sender: TObject);
+begin
+  ChangeStyle(dmDefault);
+  end;
+
+procedure TMainForm.pmiDmLightClick(Sender: TObject);
+begin
+  ChangeStyle(dmLight);
+  end;
+
 procedure TMainForm.pmiInfoClick(Sender: TObject);
 begin
   InfoDialog (ProgVersName+' - '+ProgVersDate
@@ -780,6 +819,8 @@ begin
       k:=sbVert.Position+i;
       if k<ConsoleText.Count then s:=ConsoleText[k] else s:='';
       n0:=1; w:=5-sbHorz.Position;
+      with Canvas.Font do if StylesEnabled then Color:=ColArrayDark[0]
+      else Color:=ColArray[0];
       repeat
         n1:=PosEx('<',s,n0);
         if n1>0 then begin
@@ -796,7 +837,7 @@ begin
             if n2=0 then n2:=n1;
             n0:=n2+1;
             end;
-          end;
+          end
         until n1=0;
       Canvas.TextOut(w,5+LineHeight*i,copy(s,n0,length(s)-n0+1));
       end;
