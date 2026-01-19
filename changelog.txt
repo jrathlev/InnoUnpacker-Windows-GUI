@@ -5,6 +5,10 @@ Windows Unpacker GUI for Inno setup files
 Revision history:
 -----------------
 
+2.2.3 (2026-01-19)
+------------------
+  - Fíxed: install script for non administrative mode
+
 2.2.2 (2026-01-18)
 ------------------
   - Update of "innounp.exe" to 2.67.2
