@@ -71,14 +71,21 @@ const
 
 { ---------------------------------------------------------------- }
 // Erase all section values, retain empty section
+// Note: accessing private fields via helper class does not work on Delphi 10.1 (Berlin) and newer
+// see: https://blogs.embarcadero.com/closing-the-class-helpers-private-access-loophole/
 procedure TExtIniFile.EraseSectionValues (const Section: string);
 var
   i : integer;
+  sl : TStringList;
 begin
-  with self.FSections do begin
-    i:=IndexOf(Section);
-    if i>=0 then (Objects[i] as TStringList).Clear;
-    end;
+  sl:=TStringList.Create;
+  ReadSection(Section,sl);
+  for i:=0 to sl.Count-1 do DeleteKey(Section,sl[i]);
+  sl.Free;
+//  with self.FSections do begin
+//    i:=IndexOf(Section);
+//    if i>=0 then (Objects[i] as TStringList).Clear;
+//    end;
   end;
 
 { ---------------------------------------------------------------- }
