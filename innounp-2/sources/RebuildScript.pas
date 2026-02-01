@@ -449,7 +449,7 @@ procedure TScriptBuilder.PrintSetupHeader(const sh: TSetupHeader);
 var
   s : string;
 
-  function Priv2Str(Priv: TMySetupPrivileges) : string;
+  function Priv2Str (Priv : TMySetupPrivileges) : string;
   begin
     case Priv of
       prNone        : Result:='none';
@@ -459,12 +459,22 @@ var
     end;
   end;
 
-  function DisPage2Str(a: TMySetupDisablePage):string;
+  function DisPage2Str (a : TMySetupDisablePage) : string;
   begin
     case a of
       dpAuto   : Result:='auto';
       dpNo     : Result:='no';
       dpYes    : Result:='yes';
+    else Result:='';
+    end;
+  end;
+
+  function LangDlg2Str (a : TMySetupShowLanguageDialog) : string;
+  begin
+    case a of
+    slYes    : Result:='yes';
+    slNo     : Result:='no';
+    slAuto   : Result:='auto';
     else Result:='';
     end;
   end;
@@ -498,6 +508,7 @@ begin
   StrConst('AppPublisher', sh.AppPublisher);
   StrConst('AppPublisherURL', sh.AppPublisherURL);
   StrConst('AppSupportPhone', sh.AppSupportPhone);
+  StrConst('AppCopyright', sh.AppCopyright);
   StrConst('AppSupportURL', sh.AppSupportURL);
   StrConst('AppUpdatesURL', sh.AppUpdatesURL);
   StrConst('AppMutex', sh.AppMutex);
@@ -509,11 +520,11 @@ begin
     StrConst('CreateAppDir', 'no');
   if (sh.DefaultGroupName <> '(Default)') then
     StrConst('DefaultGroupName', sh.DefaultGroupName);
+  StrConst('OutputBaseFilename',  GetBaseFilename());
   StrConst('UninstallDisplayIcon', sh.UninstallDisplayIcon);
   StrConst('UninstallDisplayName', sh.UninstallDisplayName);
   if (sh.UninstallFilesDir <> '{app}') then
     StrConst('UninstallFilesDir', sh.UninstallFilesDir);
-  StrConst('OutputBaseFilename',  GetBaseFilename());
   StrConst('Compression', GetCompressMethodName(sh.CompressMethod));
   if sh.EncryptionUsed then StrConst('; Encryption', 'yes');
   if (Ver > 4202) and (sh.EncryptionUsed or (shPassword in sh.Options)) then begin
@@ -536,14 +547,24 @@ begin
     StrConst('Uninstallable', sh.Uninstallable);
   if (sh.PrivilegesRequired <> prAdmin) then
     StrConst('PrivilegesRequired', Priv2Str(sh.PrivilegesRequired));
+  if (Ver>=6000) then begin
+    s:='';
+    if proDialog in sh.PrivilegesRequiredOverridesAllowed then s:=s+'dialog'
+    else if (proCommandLine in sh.PrivilegesRequiredOverridesAllowed) then s:='commandline';
+    StrConst('PrivilegesRequiredOverridesAllowed',s);
+    if not (shUsePreviousPrivileges in sh.Options) then StrConst('UsePreviousPrivileges','no');
+    end;
   if (sh.ExtraDiskSpaceRequired > 0) then
     IntConst('ExtraDiskSpaceRequired', sh.ExtraDiskSpaceRequired);
   if (sh.DisableDirPage <> dpNo) then
     StrConst('DisableDirPage', DisPage2Str(sh.DisableDirPage));
   if (sh.DisableProgramGroupPage<> dpNo) then
     StrConst('DisableProgramGroupPage', DisPage2Str(sh.DisableProgramGroupPage));
-  if (shChangesAssociations in sh.Options) then
-    StrConst('ChangesAssociations', 'yes');
+//  if (shChangesAssociations in sh.Options) then
+//    StrConst('ChangesAssociations', 'yes');
+  StrConst('ChangesAssociations', sh.ChangesAssociations);
+  if (Ver>=4000) then
+    StrConst('ShowLanguageDialog', LangDlg2Str(sh.ShowLanguageDialog));
   if (shAllowNoIcons in sh.Options) then
     StrConst('AllowNoIcons', 'yes');
   // mirror these filenames in AddEmbeddedFiles()

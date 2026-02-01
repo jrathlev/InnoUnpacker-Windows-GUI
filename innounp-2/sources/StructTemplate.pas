@@ -722,6 +722,11 @@ begin
     else
       PrivilegesRequired := MyTypes.prNone;
 {$IFEND}
+    PrivilegesRequiredOverridesAllowed := [];
+{$IF DEFVER>=6000}
+    if proCommandLine in osh.PrivilegesRequiredOverridesAllowed then Include(PrivilegesRequiredOverridesAllowed,MyTypes.proCommandLine);
+    if proDialog in osh.PrivilegesRequiredOverridesAllowed then Include(PrivilegesRequiredOverridesAllowed,MyTypes.proDialog);
+{$IFEND}
     UninstallFilesDir     := osh.UninstallFilesDir;
     UninstallDisplayName  := osh.UninstallDisplayName;
     UninstallDisplayIcon  := osh.UninstallDisplayIcon;
@@ -789,6 +794,14 @@ begin
       ChangesAssociations := 'no';
 {$ELSE}
     ChangesAssociations := osh.ChangesAssociations;
+{$IFEND}
+{$IF DEFVER>=4010}
+    ShowLanguageDialog := TMySetupShowLanguageDialog(osh.ShowLanguageDialog);
+{$ELSEIF DEFVER>=4000}
+    if shShowLanguageDialog in osh.Options then ShowLanguageDialog := MyTypes.slYes
+    else ShowLanguageDialog := MyTypes.slNo;
+{$ELSE}
+    ShowLanguageDialog := MyTypes.slNo;
 {$IFEND}
 {$IF DEFVER>=5303}
     case osh.DisableDirPage of

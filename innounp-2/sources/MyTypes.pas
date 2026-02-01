@@ -39,6 +39,7 @@ type
   TMySetupPrivilegesRequiredOverride = (proCommandLine, proDialog);
   TMySetupPrivilegesRequiredOverrides = set of TMySetupPrivilegesRequiredOverride;
   TMySetupDisablePage = (dpAuto, dpNo, dpYes);
+  TMySetupShowLanguageDialog =(slYes, slNo, slAuto);
   TMySetupLanguageDetectionMethod = (ldUILanguage, ldLocale, ldNone);
 
   TFileHashType = (htAdler, htCRC32, htMD5, htSHA1, htSHA256);
@@ -123,7 +124,7 @@ type
     DirExistsWarning: (ddAuto, ddNo, ddYes);
     PrivilegesRequired: TMySetupPrivileges;
     PrivilegesRequiredOverridesAllowed: TMySetupPrivilegesRequiredOverrides;
-    ShowLanguageDialog: (slYes, slNo, slAuto);
+    ShowLanguageDialog: TMySetupShowLanguageDialog;
     LanguageDetectionMethod: TMySetupLanguageDetectionMethod;
     CompressMethod: TSetupCompressMethod;
     DisableDirPage, DisableProgramGroupPage: TMySetupDisablePage;
