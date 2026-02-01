@@ -196,7 +196,7 @@ implementation
 {$R *.dfm}
 
 uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes, Vcl.ClipBrd,
-  Vcl.Themes, System.Math, GnuGetText, InitProg,WinUtils, MsgDialogs,IniFileUtils, PathUtils,
+  Vcl.Themes, System.Math, GnuGetText, InitProg, WinUtils, MsgDialogs, IniFileUtils, PathUtils,
   ListUtils, WinDevUtils, StringUtils, StyleUtils, ShellDirDlg, SelectFromListDlg,
   SelectListItems;
 
@@ -378,6 +378,7 @@ begin
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   with TUnicodeIniFile.CreateForWrite(IniName) do begin
+    EraseSectionValues(CfgSekt);
     WriteInteger(CfgSekt,iniLeft,Left);
     WriteInteger(CfgSekt,iniTop,Top);
     WriteInteger(CfgSekt,IniDispMode,integer(DisplayMode));
@@ -977,7 +978,7 @@ begin
 //    hStdError:=hChildStdoutWr;
     end;
   try
-     if CreateProcess(nil,                // Anwendungsname
+     if CreateProcess(nil,               // Anwendungsname
                      pchar(Command),
                      nil,                // Security
                      nil,                // Security
