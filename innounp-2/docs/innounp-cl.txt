@@ -19,7 +19,7 @@ Revision history:
 
 2.67.0 (2026-01-10)
 ------
-  - Added support for IS up to 6.7.0
+  - Added support for IS up to 6.7.1
   - Added: option to disable UTF-8 encoding of the script
   - Fixed: UTF-8 encoding of the setup filename in the comment at the beginning 
     of the script
