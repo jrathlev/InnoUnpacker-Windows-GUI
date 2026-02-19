@@ -50,11 +50,11 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
   Vcl.ExtCtrls, WinApiUtils, Vcl.ComCtrls, Vcl.Menus, LangUtils,
-  System.ImageList, Vcl.ImgList;
+  System.ImageList, Vcl.ImgList, StyleUtils;
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 2.2.0';
+  ProgVers = ' 2.2.4';
   CopRgt = '© 2014-2026 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt@rathlev-home.de';
 
@@ -62,7 +62,6 @@ const
   defTimeOut  = 10000;  // 10 s
 
 type
-  TDisplayMode = (dmDefault,dmLight,dmDark);
   TViewMode = (vmNone,vmInfo,vmList,vmLang,vmVersion,vmVerify,vmExtract);
 
   TMainForm = class(TForm)
@@ -117,6 +116,9 @@ type
     pmiDmDefault: TMenuItem;
     pmiDmLight: TMenuItem;
     pmiDmDark: TMenuItem;
+    pmiReginal: TMenuItem;
+    pmiInternational: TMenuItem;
+    pmiLocalized: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure pmiInfoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -159,6 +161,8 @@ type
     procedure pmiDmDefaultClick(Sender: TObject);
     procedure pmiDmLightClick(Sender: TObject);
     procedure pmiDmDarkClick(Sender: TObject);
+    procedure pmiInternationalClick(Sender: TObject);
+    procedure pmiLocalizedClick(Sender: TObject);
   private
     { Private-Deklarationen }
     AppPath,UserPath,
@@ -168,14 +172,16 @@ type
     TempFile,SelFilesHint : string;
     SelectedFiles,
     ConsoleText           : TStringList;
+    UseReg,
     NewUnp,CanList,
     UseFilelist    : boolean;
     LineHeight,VisibleLines,
-    TextWdt               : integer;
+    TextWdt,CtHd          : integer;
     DisplayMode           : TDisplayMode;
     ViewMode              : TViewMode;
     Languages             : TLanguageList;
     procedure ChangeStyle (dm : TDisplayMode);
+    procedure UpdateView;
     function StripColCtrls (const AText : string) : string;
     function LoadUnpacker : boolean;
     procedure CheckUnpackVersion;
@@ -197,7 +203,7 @@ implementation
 
 uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes, Vcl.ClipBrd,
   Vcl.Themes, System.Math, GnuGetText, InitProg, WinUtils, MsgDialogs, IniFileUtils, PathUtils,
-  ListUtils, WinDevUtils, StringUtils, StyleUtils, ShellDirDlg, SelectFromListDlg,
+  ListUtils, WinDevUtils, StringUtils, ShellDirDlg, SelectFromListDlg,
   SelectListItems;
 
 { ------------------------------------------------------------------- }
@@ -233,11 +239,13 @@ const
   iniWdt  = 'Width';
   iniHgt  = 'Height';
   IniDispMode = 'DisplayMode';
+  IniRegional = 'Regional';
   iniUnp = 'Unpacker';
   iniFName = 'Name';
   iniFileList = 'UseFilelist';
 
-  DarkStyle = 'Windows10 Dark';
+//  DarkStyle = 'Windows10 Dark';
+  DarkStyle = 'JR Dark';
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var
@@ -280,6 +288,7 @@ begin
     Left:=ReadInteger(CfgSekt,iniLeft,Left);
     Top:=ReadInteger(CfgSekt,iniTop,Top);
     DisplayMode:=TDisplayMode(ReadInteger(CfgSekt,IniDispMode,0));
+    UseReg:=ReadBool(CfgSekt,IniRegional,false);
     ClientWidth:=ReadInteger(CfgSekt,iniWdt,ClientWidth);
     ClientHeight:=ReadInteger(CfgSekt,iniHgt,ClientHeight);
     UnpProg:=ReadString(CfgSekt,iniUnp,'');
@@ -311,6 +320,8 @@ begin
   TempFile:=TempDirectory+'FileList.txt';
   SelFilesHint:='==> '+_('Selected files');
   ViewMode:=vmNone;
+  if UseReg then pmiLocalized.Checked:=true
+  else pmiInternational.Checked:=true;
 // set style for Windows dark mode
   SetDefaultStyles(DarkStyle);
   if UseDarkMode then SelectStyle(true)
@@ -382,6 +393,7 @@ begin
     WriteInteger(CfgSekt,iniLeft,Left);
     WriteInteger(CfgSekt,iniTop,Top);
     WriteInteger(CfgSekt,IniDispMode,integer(DisplayMode));
+    WriteBool(CfgSekt,IniRegional,UseReg);
     WriteInteger(CfgSekt,iniWdt,ClientWidth);
     WriteInteger(CfgSekt,iniHgt,ClientHeight);
     WriteString(CfgSekt,iniUnp,UnpProg);
@@ -663,6 +675,7 @@ begin
     SelectedFiles.Clear;
     s:=MakeQuotedStr(UnpProg)+' -s -b';
     if NewUnp then s:=s+' -u';
+    if UseReg then s:=s+' -r';
     if cxEmbedded.Checked then s:=s+' -m';
     if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
     s:=s+Space+MakeQuotedStr(Erweiter(PrgPath,cbFile.Text,''));
@@ -767,11 +780,7 @@ procedure TMainForm.ChangeStyle (dm : TDisplayMode);
 begin
   DisplayMode:=dm;
   pmiDisplay.Items[integer(DisplayMode)].Checked:=true;
-  case DisplayMode of
-  dmLight : SelectStyle(false);
-  dmDark  : SelectStyle(true);
-  else SetSystemStyle;
-    end;
+  SetDisplayMode(DisplayMode);
   end;
 
 procedure TMainForm.pmiDmDarkClick(Sender: TObject);
@@ -787,6 +796,31 @@ begin
 procedure TMainForm.pmiDmLightClick(Sender: TObject);
 begin
   ChangeStyle(dmLight);
+  end;
+
+procedure TMainForm.UpdateView;
+begin
+  if UseReg then pmiLocalized.Checked:=true
+  else pmiInternational.Checked:=true;
+  case ViewMode of
+  vmList : bbList.Click;
+  vmLang : bbLang.Click;
+  vmVersion : bbVersion.Click;
+//  vmVerify,vmExtract
+  else bbSetupInfo.Click;
+    end;
+  end;
+
+procedure TMainForm.pmiInternationalClick(Sender: TObject);
+begin
+  UseReg:=false;
+  UpdateView;
+  end;
+
+procedure TMainForm.pmiLocalizedClick(Sender: TObject);
+begin
+  UseReg:=true;
+  UpdateView;
   end;
 
 procedure TMainForm.pmiInfoClick(Sender: TObject);
@@ -806,6 +840,7 @@ procedure TMainForm.pbShowTextPaint(Sender: TObject);
 var
   i,n,n0,n1,n2,w,k : integer;
   s,sw : string;
+  bg : TColor;
 const
   MaxCol = 5;
   ColArray : array[0..MaxCol] of TColor = (clBlack,clRed,clGreen,clBlue,clMaroon,clPurple);
@@ -813,11 +848,17 @@ const
       clSkyblue,TColors.Peru,TColors.Orchid);
 begin
   with pbShowText do begin
-    Canvas.Brush.Color:=GetColor(scListView,clWhite);
+    bg:=GetColor(scButtonFocused,TColors.Aliceblue);
+    with Canvas.Brush do if sbVert.Position<CtHd then Color:=GetColor(scListView,clWhite)
+    else Color:=bg;
     Canvas.FillRect(Rect(0,0,Width-1,Height-1));
     with ConsoleText do if Count<VisibleLines then n:=Count else n:=VisibleLines;
     for i:=0 to n-1 do begin
       k:=sbVert.Position+i;
+      if k=CtHd+1 then begin
+        Canvas.Brush.Color:=bg;
+        Canvas.FillRect(Rect(0,LineHeight*i,Width-1,Height-1));
+        end;
       if k<ConsoleText.Count then s:=ConsoleText[k] else s:='';
       n0:=1; w:=5-sbHorz.Position;
       with Canvas.Font do if StylesEnabled then Color:=ColArrayDark[0]
@@ -905,6 +946,12 @@ var
     Result:='<0>'+ExtSp(Text1,TextAlign)+'<2>'+Text2;
     end;
 
+  function DateString (dt : TDateTime) : string;
+  begin
+    if UseReg then Result:=DateToStr(dt)
+    else Result:=FormatDateTime('yyyy-mm-dd',dt);
+    end;
+
 begin
   ConsoleText.Clear;
   InitShowText;
@@ -915,6 +962,7 @@ begin
     end;
   s:=MakeQuotedStr(UnpProg)+Command;
   if NewUnp then s:=s+' -u -z';
+  if UseReg then s:=s+' -r';
   if length(Filename)>0 then begin
     s:=s+Space+MakeQuotedStr(Erweiter(PrgPath,Filename,''));
     FileAge(Filename,dt);
@@ -922,7 +970,7 @@ begin
       if GetFileVersion (Filename,vi) then begin
         Add(AddColString(_('Name: '),vi.Description));
         Add(AddColString(_('Version: '),vi.Version));
-        Add(AddColString(_('Date: '),DateToStr(dt)));
+        Add(AddColString(_('Date: '),DateString(dt)));
         Add(AddColString(_('Copyright: '),Trim(vi.Copyright)));
         Add(AddColString(_('Company: '),vi.Company));
         Add(AddColString(_('Comment: '),vi.Comments));
@@ -933,6 +981,7 @@ begin
         end;
       end;
     end;
+  CtHd:=ConsoleText.Count;
   InitShowText;
   if length(Filter)>0 then s:=s+Space+Filter;
   Application.ProcessMessages;

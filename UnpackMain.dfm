@@ -2176,7 +2176,7 @@ object MainForm: TMainForm
     object pmiDisplay: TMenuItem
       Caption = 'Display mode'
       object pmiDmDefault: TMenuItem
-        Caption = 'Default'
+        Caption = 'System default'
         Checked = True
         GroupIndex = 1
         RadioItem = True
@@ -2195,6 +2195,22 @@ object MainForm: TMainForm
         OnClick = pmiDmDarkClick
       end
     end
+    object pmiReginal: TMenuItem
+      Caption = 'Numbers and date'
+      object pmiInternational: TMenuItem
+        Caption = 'International'
+        Checked = True
+        GroupIndex = 2
+        RadioItem = True
+        OnClick = pmiInternationalClick
+      end
+      object pmiLocalized: TMenuItem
+        Caption = 'Local'
+        GroupIndex = 2
+        RadioItem = True
+        OnClick = pmiLocalizedClick
+      end
+    end
     object N1: TMenuItem
       Caption = '-'
       GroupIndex = 1
@@ -2211,7 +2227,7 @@ object MainForm: TMainForm
     Left = 505
     Top = 327
     Bitmap = {
-      494C010102000800200014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102000800300014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000001400000001002000000000000019
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
