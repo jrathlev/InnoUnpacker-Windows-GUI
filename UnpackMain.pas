@@ -15,9 +15,9 @@
    the specific language governing rights and limitations under the License.
 
    J. Rathlev, Jan. 2008
-   Vers. 1.6 (August 2020):     added filter to extract single files
-   Vers. 1.7 (October 2021):    console output uses UTF8
-   Vers. 1.8 (June 2022):       "embedded option" added
+   Vers. 1.6   (August 2020):   added filter to extract single files
+   Vers. 1.7   (October 2021):  onsole output uses UTF8
+   Vers. 1.8   (June 2022):     "embedded option" added
    Vers. 1.9.1 (August 2022):   command line options added
    Vers. 1.9.4 (August 2024):   innounp updated to version 1.72
                                 timeout on calling innounp.exe with confirmation
@@ -25,8 +25,9 @@
    Vers. 2.0   (December 2024): new layout,
                                 colored display of innounp (v1.77 and up) output
    Vers. 2.1   (November 2025): extract selected files (requires innounp v2.65.4 and up)
+   Vers. 2.2   (January 2026);  uer selectable language
 
-   last modified: January 2026
+   last modified: February 2026
 
    Command line options: [<setupname>] [options]
      <setupname>  : name of setup file to be unpacked
