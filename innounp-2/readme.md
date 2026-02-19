@@ -1,4 +1,4 @@
-### Inno Setup Unpacker 2.67.3 - Console version
+### Inno Setup Unpacker 2.67.4 - Console version
 
 #### Unpacker for installations made by Inno Setup
 
@@ -17,7 +17,7 @@ compiled with newer Delphi versions (tested with *Delphi 10 Seattle*).
 At the same time, the program was expanded to support all *Inno Setup* versions from 6.2 onwards.
 
 In addition, some errors have been fixed and new command line options (*-s*, *-l*, 
-*-i*, *-h*, *-o*, *-w* and *-u*)
+*-i*, *-h*, *-o*, *-w* , *-r* and *-u*)
 were added, as well as exit codes to support the use in batch files. 
 
 The install script is saved in UTF-8 format, optionally in default encoding.
