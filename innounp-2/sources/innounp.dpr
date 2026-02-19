@@ -976,6 +976,7 @@ begin
   writeln('  -o     no colored console output');
   writeln('  -h     do not display headline with program info');
   writeln('  -w     generate install script without UTF-8 conversion (use default encoding)');
+  writeln('  -r     use Windows regional settings for separators and date/time format');
   writeln('  -u     use UTF-8 for console output');
 end;
 
@@ -1006,6 +1007,7 @@ begin
         'O': ColorMode:=0;
         'P': Password:=copy(ParamStr(i),3,length(ParamStr(i))-2);
         'Q': QuietExtract:=true;
+        'R': UseReg:=true;
         'S': CommandAction:=caShortList;
         'T': begin CommandAction:=caExtractFiles; ExtractTestOnly:=true; AutoYes:=true; end;
         'U': UseUtf8:=true;   // console output
@@ -1105,7 +1107,7 @@ begin
     writeln;
     if ColorMode>0 then s:='innounp' else s:='*innounp*';
     WriteColorText(s,Format(' - the Inno Setup Unpacker, version %s (%s)',
-      [UpVersion,DateToStr(FileDateToDateTime(FileAge(ParamStr(0))))]),clRed,clWhite);
+      [UpVersion,DateString(FileDateToDateTime(FileAge(ParamStr(0))))]),clRed,clWhite);
     end;
   writeln;
 
@@ -1203,6 +1205,7 @@ begin
                 end;
                 Inc(TotalFiles);
               end;
+
             WriteNormalLine(ExtSp('Number of files:',TextAlign),GroupDigits(IntToStr(TotalFiles)));
             WriteNormalLine(ExtSp('Total size of files:',TextAlign),GroupDigits(IntToStr(TotalFileSize))+' bytes');
             if MaxSlice>0 then WriteNormalLine(ExtSp('Disk slices: ',TextAlign),IntToStr(MaxSlice+1));
@@ -1225,8 +1228,8 @@ begin
               end;
           end;
         caVerboseList: begin
-            WriteNormalLine('Size        Date/Time         ','Filename');
-            WriteNormalLine('----------------------------------------------');
+            WriteNormalLine('Size        Date/Time            ','Filename');
+            WriteNormalLine('-------------------------------------------------');
             for i:=0 to Entries[seFile].Count-1 do
               with Struct.PSetupFileEntry(Entries[seFile][i])^ do begin
     //            if not (FileType in [ftUserFile,ftFakeFile]) and not ExtractEmbedded then continue;
@@ -1239,10 +1242,10 @@ begin
                 else TimeStamp:=loc^.TimeStamp;
                 FileTimeToSystemTime(TimeStamp, systime);
                 str(loc^.OriginalSize:10,s);
-                WriteNormalLine(s+'  '+FormatDateTime('yyyy-mm-dd hh:mm', SystemTimeToDateTime(systime))+
+                WriteNormalLine(s+'  '+ExtSp(DateTimeString(SystemTimeToDateTime(systime)),19)+
                   '  ',SourceFileName);
               end;
-            WriteNormalLine('----------------------------------------------');
+            WriteNormalLine('-------------------------------------------------');
           end;
         caExtractFiles: begin
             QuietExtract:=false; CopyFiles;

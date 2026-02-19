@@ -58,6 +58,8 @@ var
   DecompDll:Ansistring;
 
   ScriptAsUtf8 : boolean = true;
+  UseReg : boolean = false;  // use regional settings instead of default,
+                             // e.g. for thousands separator and date/time format
   UseUtf8 : boolean=false;
   ColorMode : integer = 1;
 
@@ -81,8 +83,11 @@ procedure WriteErrorLine (const Text2 : string); overload;
 procedure WriteFormatLine (const Text1,Text2 : string; Color1,Color2 : TColor);
 
 function ExtSp (const S : string; len : integer) : string;
-function GroupDigits (const s : string; Sep : char = ' ') : string;
+function GroupDigits (const s : string) : string;
 function VersionToString (ver : integer) : string;
+
+function DateString (dt : TDateTime) : string;
+function DateTimeString (dt : TDateTime) : string;
 
 function AddFakeFile(const FileName,FileContents : String;
                      RenameNow:boolean=false):integer;
@@ -327,24 +332,36 @@ begin
   for i:=succ(length(Result)) to len do Result:=Result+' ';
   end;
 
-function GroupDigits (const s : string; Sep : char) : string;
+function GroupDigits (const s : string) : string;
 var
   i : integer;
+  Sep : char;
 const
   Group = 3;
 begin
   Result:=s;
-  if (Group>0) then begin
-    i:=length(Result);
-    while (i>Group) do begin
-      dec(i,Group); Insert(Sep,Result,i+1);
-      end;
+  if UseReg then Sep:=FormatSettings.ThousandSeparator else Sep:=#$A0;
+  i:=length(Result);
+  while (i>Group) do begin
+    dec(i,Group); Insert(Sep,Result,i+1);
     end;
   end;
 
 function VersionToString (ver : integer) : string;
 begin
   Result:=IntToStr(ver div 1000)+'.'+IntToStr(ver mod 1000 div 100)+'.'+IntToStr(ver mod 100);
+  end;
+
+function DateString (dt : TDateTime) : string;
+begin
+  if UseReg then Result:=DateToStr(dt)
+  else Result:=FormatDateTime('yyyy-mm-dd',dt);
+  end;
+
+function DateTimeString (dt : TDateTime) : string;
+begin
+  if UseReg then DateTimeToString(Result,'ddddd t',dt)
+  else Result:=FormatDateTime('yyyy-mm-dd hh:mm',dt);
   end;
 
 function DateTimeToFileTime (dt : TDateTime) : TFileTime;

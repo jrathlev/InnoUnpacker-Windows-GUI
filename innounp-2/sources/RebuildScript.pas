@@ -272,11 +272,40 @@ begin
   end;
 end;
 
+// Version descriptor in plain text
 function GetVersionText(MinVersion : TMySetupVersionData) : string;
+const
+  sWindows = 'Windows';
+var
+  sv : string;
+  nv : integer;
 begin
   with MinVersion do begin
     if WinVersion<>0 then Result:=VerToStr(WinVersion,0)
-    else Result:=VerToStr(NTVersion,NTServicePack);
+    else begin   // version 6 and up
+      sv:=VerToStr(NTVersion,NTServicePack);
+      if TSetupVersionDataVersion(NtVersion).Major=5 then begin
+        case TSetupVersionDataVersion(NtVersion).Minor of
+        0 : Result:='Windows 2000';
+        1 : Result:='Windows XP';
+        2 : Result:='Windows Server 2003';
+        else Result:='Unkown version';
+          end;
+        end
+      else if TSetupVersionDataVersion(NtVersion).Major=6 then begin  // Windows 7 and 8
+        case TSetupVersionDataVersion(NtVersion).Minor of
+        1 : Result:='Windows 7';
+        2 : Result:='Windows 8';
+        3 : Result:='Windows 8.1';
+        else Result:='Unkown version';
+          end;
+        end
+      else begin // Windows 10 and 11
+        if TSetupVersionDataVersion(NtVersion).Build<22000 then Result:='Windows 10'
+        else Result:='Windows 11';
+        end;
+      Result:=Result+' ('+sv+')';
+      end;
     end;
   end;
 

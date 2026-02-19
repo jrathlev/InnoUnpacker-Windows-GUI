@@ -5,6 +5,11 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.67.4 (2026-02-19)
+------
+  - Added: Optional formatting of numbers and date/time with regional settings
+  - Added: Improved display of required Windows version
+
 2.67.3 (2026-02-01)
 ------
   - Added to install rebuilt script: more settings from the setup section
