@@ -162,6 +162,7 @@ function LangIdToCode(id : integer) : TLangCodeString;
 
 var
   SelectedLanguage   : TLangCodeString;
+  UserLangID         : TLocaleID;
   LangFromCfg        : boolean;
 
 implementation
@@ -176,6 +177,32 @@ function ContainsFullPath (const Name : string) : boolean;
 begin
   if length(Name)>0 then Result:=(Name[1]=PathDelim) or (pos(DriveDelim,Name)>0)
   else Result:=false;
+  end;
+
+{ ------------------------------------------------------------------- }
+function GetLanguageName (LangId : TLocaleID) : string;
+var
+  nc : cardinal;
+  buf : array of Char;
+begin
+  Result:=''; nc:=0;
+  nc:=GetLocaleInfo(LangId,LOCALE_SNAME,nil,nc);
+  if nc>0 then begin
+    SetLength(buf,nc);
+    if GetLocaleInfo(LangId,LOCALE_SNAME,@buf[0],nc)>0 then
+      Result:=PChar(@buf[0]);
+    buf:=nil;
+    end;
+  end;
+
+function GetLanguageID (const LangName : string) : TLocaleID;
+var
+  nc : cardinal;
+begin
+  Result:=0; nc:=0;
+  if GetLocaleInfoEx(pchar(LangName),LOCALE_RETURN_NUMBER or LOCALE_ILANGUAGE,@nc,4)>0 then begin
+    Result:=nc;
+    end;
   end;
 
 { ------------------------------------------------------------------- }
@@ -369,11 +396,10 @@ begin
 
 { ------------------------------------------------------------------- }
 // GnuGetText ermittelt als System-Standard nicht die Sprache sondern die lokale
-// Einstellung (GetLocaleInfo) (korrigiert Sept. 2023)
 // Bsp: engl. System mit lokaler Einstellung "German" gibt:
-//    GetLocaleInfo oder GetUserDefaultLangID   ==> de_DE
-//    GetUserDefaultUILanguage                  ==> 1033 = $409 = "English (US)"
-// Die nachfolgenden Routinen umgehen diesen Fehler
+//    GetSystemDefaultUILanguage                ==> 1033 = $409 = "English (US)"
+//    GetUserDefaultLangID                      ==> 1031 from regional user settings
+//    GetUserDefaultUILanguage                  ==> 1031 = $407 = "German (DE)"
 function GetUserLang : TLangCodeString;
 var
   pli : integer;
@@ -545,8 +571,9 @@ begin
 
 function GetLanguage : TLangCodeString;
 begin
-  Result:=ReadLanguageCode;
-  if length(Result)=0 then Result:=GetUserLang;
+  Result:=ReadLanguageCode;     // from cfg file or command line
+  if length(Result)=0 then Result:=GetUserLang;  // from system setting
+  UserLangID:=GetLanguageID(Result);
   SelectedLanguage:=Result;
   end;
 
@@ -582,6 +609,7 @@ begin
   UseLanguage(NewLangCode);
   if length(NewLangCode)=0 then Result:=copy(GetCurrentLanguage,1,2)  // system default
   else Result:=NewLangCode;
+  UserLangID:=GetLanguageID(Result);
   with Application do for i:=0 to ComponentCount-1 do if (Components[i] is TForm) then begin
     try ReTranslateComponent(Components[i]); except; end;
     end;

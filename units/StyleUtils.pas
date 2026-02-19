@@ -22,10 +22,17 @@ interface
 
 uses  System.Sysutils, System.Classes, System.UITypes, Vcl.Themes;
 
+type
+  TDisplayMode = (dmDefault,dmLight,dmDark);
+
+const
+  IniDispMode = 'DisplayMode';
+
 function ColorDistanceRGBLinear(Old, New: TColor): Integer;
 
-function ReadStyle (const CfgName,CfgSekt : string) : string;
-procedure WriteStyle (const CfgName,CfgSekt,AStyle : string);
+function ReadStyleName (const IniName,CfgSekt : string) : string;
+procedure WriteStyleName (const IniName,CfgSekt,AStyle : string);
+
 function GetActiveStyle : string;
 function SetStyle (const AStyle : string) : boolean;
 function ResetStyle : boolean;
@@ -39,6 +46,12 @@ procedure SetSystemStyle;
 procedure SelectStyle(ADarkMode : boolean);
 procedure HandleStyles (const Section : string);
 function StylesEnabled : boolean;
+
+function LoadDisplayModeFromIni(const IniName,CfgSekt : string) : TDisplayMode;
+procedure SaveDisplayModeFromIni(const IniName,CfgSekt : string; DisplayMode : TDisplayMode);
+procedure SetDisplayMode(DisplayMode : TDisplayMode);
+
+function GetMenuColor(Detail : TThemedMenu; ElementColor : TElementColor; DefaultColor : TColor) : TColor;
 
 function GetColor(StyleColor : TStyleColor; DefaultColor : TColor) : TColor;
 function GetFontColor(StyleFont: TStyleFont; DefaultColor : TColor) : TColor;
@@ -70,19 +83,19 @@ begin
 
 { ------------------------------------------------------------------- }
 // Helper functions for visual styles
-function ReadStyle (const CfgName,CfgSekt : string) : string;
+function ReadStyleName (const IniName,CfgSekt : string) : string;
 begin
   Result:='';
-  if FileExists(CfgName) then with TMemIniFile.Create(CfgName) do begin
+  if FileExists(IniName) then with TMemIniFile.Create(IniName) do begin
     Result:=ReadString(CfgSekt,IniStyle,'');
     if (length(Result)=0) and Assigned(TStyleManager.ActiveStyle) then
       Result:=TStyleManager.ActiveStyle.Name;
     end;
   end;
 
-procedure WriteStyle (const CfgName,CfgSekt,AStyle : string);
+procedure WriteStyleName (const IniName,CfgSekt,AStyle : string);
 begin
-  if FileExists(CfgName) then with TMemIniFile.Create(CfgName) do begin
+  if FileExists(IniName) then with TMemIniFile.Create(IniName) do begin
     if length(AStyle)>0 then WriteString(CfgSekt,IniStyle,AStyle)
     else DeleteKey(CfgSekt,IniStyle);
     UpdateFile;
@@ -185,6 +198,43 @@ begin
 function StylesEnabled : boolean;
 begin
   Result:=not (StyleServices is TUxThemeStyle);
+  end;
+
+function LoadDisplayModeFromIni(const IniName,CfgSekt : string) : TDisplayMode;
+begin
+  with TMemIniFile.Create(IniName) do begin
+    Result:=TDisplayMode(ReadInteger(CfgSekt,IniDispMode,integer(dmDefault)));
+    Free;
+    end;
+  end;
+
+procedure SaveDisplayModeFromIni(const IniName,CfgSekt : string; DisplayMode : TDisplayMode);
+begin
+  with TMemIniFile.Create(IniName) do begin
+    WriteInteger(CfgSekt,IniDispMode,integer(DisplayMode));
+    UpdateFile;
+    Free;
+    end;
+  end;
+
+procedure SetDisplayMode(DisplayMode : TDisplayMode);
+begin
+  case DisplayMode of
+  dmLight : SelectStyle(false);
+  dmDark  : SelectStyle(true);
+  else SetSystemStyle;
+    end;
+  end;
+
+function GetMenuColor(Detail : TThemedMenu; ElementColor : TElementColor; DefaultColor : TColor) : TColor;
+var
+  LDetails: TThemedElementDetails;
+begin
+  if (StyleServices is TUxThemeStyle) then Result:=DefaultColor // user defined color for style 'Windows'
+  else begin
+    LDetails:=StyleServices.GetElementDetails(Detail);
+    if not StyleServices.GetElementColor(LDetails,ElementColor,Result) then Result:=DefaultColor;
+    end;
   end;
 
 function GetColor(StyleColor : TStyleColor; DefaultColor : TColor) : TColor;

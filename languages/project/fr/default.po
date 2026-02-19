@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-01-10 12:08+0100\n"
-"PO-Revision-Date: 2026-01-10 12:10+0100\n"
+"POT-Creation-Date: 2026-02-19 13:31+0100\n"
+"PO-Revision-Date: 2026-02-19 13:31+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -47,9 +47,6 @@ msgstr "Choisissez l'archive InnoSetup"
 
 msgid "Process embedded files"
 msgstr "Traiter les fichiers encastrés"
-
-msgid "About the program"
-msgstr "À propos du programme"
 
 msgid "InnoSetup archive is encrypted"
 msgstr "L'archive InnoSetup est cryptée"
@@ -130,10 +127,34 @@ msgstr "Défilez vers le bas"
 msgid "Scroll up"
 msgstr "Haut de page"
 
-#. MainForm.pmMain.pmiLanguage.Caption
-#: UnpackMain.dfm:2177
 msgid "Language"
 msgstr "Langue"
+
+msgid "Display mode"
+msgstr "Mode d'affichage"
+
+msgid "System default"
+msgstr "Système par défaut"
+
+msgid "Light"
+msgstr "Clair"
+
+msgid "Dark"
+msgstr "Sombre"
+
+msgid "Numbers and date"
+msgstr "Chiffres et date"
+
+msgid "International"
+msgstr "International"
+
+#. MainForm.pmMain.pmiReginal.pmiLocalized.Caption
+#: UnpackMain.dfm:2208
+msgid "Local"
+msgstr "Local"
+
+msgid "About the program"
+msgstr "À propos du programme"
 
 msgid ""
 "Command line options: [<name>] [options]\n"
@@ -141,24 +162,26 @@ msgid ""
 "\t/d:<ddir>\t: destination directory for unpacked files\n"
 "\t/f:<filter>\t: file filter\n"
 "\t/e:<pwd>\t: encryption password\n"
-"\t/l:<lg>\t\t: language selection (en, de, fr, it or hu)\n"
+"\t/l:<la>\t\t: language selection (en, de, fr, it or hu)\n"
 "\t/m\t\t: process internal embedded files\n"
 "\t/s\t\t: extract files without paths\n"
 "\t/a\t\t: process all copies of duplicate files\n"
 "\t/o\t\t: overwrite files\n"
-"\t/p\t\t: run as portable program"
+"\t/p\t\t: run as portable program\n"
+"\t/k\t\t: run in dark mode"
 msgstr ""
 "Options de la ligne de commande : [<name>] [options]\n"
-"\t<name>\t\t/d : nom du fichier d'installation à décompresser\n"
+"\t<name>\t\t : nom du fichier d'installation à décompresser\n"
 "\t/d :<ddir>\t: répertoire de destination des fichiers décompressés\n"
 "\t/f :<filter>\t: filtre de fichier\n"
 "\t/e :<pwd>\t: mot de passe de cryptage\n"
-"\t/l :<lg>\t\t: sélection de la langue (en, de, fr, it ou hu)\n"
+"\t/l :<la>\t\t: sélection de la langue (en, de, fr, it ou hu)\n"
 "\t/m\t\t : traiter les fichiers internes incorporés\n"
-"\t/s \t\t: extrait les fichiers sans chemin d'accès\n"
-"\t/a \t\t: traiter toutes les copies de fichiers dupliqués\n"
-"\t/\t\to : écraser les fichiers\n"
-"\t/\t\tp : exécuter comme programme portable"
+"\t/s\t\t: extrait les fichiers sans chemin d'accès\n"
+"\t/a\t\t: traiter toutes les copies de fichiers dupliqués\n"
+"\t/o\t\t: écraser les fichiers\n"
+"\t/p\t\t : exécuter comme programme portable\n"
+"\t/k\t\t : exécuter en mode sombre"
 
 msgid "Selected files"
 msgstr "Fichiers sélectionnés"

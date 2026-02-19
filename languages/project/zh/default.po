@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-01-10 12:08+0100\n"
-"PO-Revision-Date: 2026-01-10 12:10+0100\n"
+"POT-Creation-Date: 2026-02-19 13:31+0100\n"
+"PO-Revision-Date: 2026-02-19 13:33+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -46,9 +46,6 @@ msgstr "选择 InnoSetup 归档文件"
 
 msgid "Process embedded files"
 msgstr "处理嵌入文件"
-
-msgid "About the program"
-msgstr "关于程序"
 
 msgid "InnoSetup archive is encrypted"
 msgstr "InnoSetup 归档文件已加密"
@@ -128,10 +125,34 @@ msgstr "向下滚动"
 msgid "Scroll up"
 msgstr "向上滚动"
 
-#. MainForm.pmMain.pmiLanguage.Caption
-#: UnpackMain.dfm:2177
 msgid "Language"
 msgstr "语言"
+
+msgid "Display mode"
+msgstr "显示模式"
+
+msgid "System default"
+msgstr "系统默认"
+
+msgid "Light"
+msgstr "浅色"
+
+msgid "Dark"
+msgstr "深色"
+
+msgid "Numbers and date"
+msgstr "数字和日期"
+
+msgid "International"
+msgstr "国际"
+
+#. MainForm.pmMain.pmiReginal.pmiLocalized.Caption
+#: UnpackMain.dfm:2208
+msgid "Local"
+msgstr "本地"
+
+msgid "About the program"
+msgstr "关于程序"
 
 msgid ""
 "Command line options: [<name>] [options]\n"
@@ -139,23 +160,26 @@ msgid ""
 "\t/d:<ddir>\t: destination directory for unpacked files\n"
 "\t/f:<filter>\t: file filter\n"
 "\t/e:<pwd>\t: encryption password\n"
-"\t/l:<lg>\t\t: language selection (en, de, fr, it or hu)\n"
+"\t/l:<la>\t\t: language selection (en, de, fr, it or hu)\n"
 "\t/m\t\t: process internal embedded files\n"
 "\t/s\t\t: extract files without paths\n"
 "\t/a\t\t: process all copies of duplicate files\n"
 "\t/o\t\t: overwrite files\n"
-"\t/p\t\t: run as portable program"
+"\t/p\t\t: run as portable program\n"
+"\t/k\t\t: run in dark mode"
 msgstr ""
-"\t命令行选项: [<name>] [/d:<ddir>] [/f:<filter>] [/p] [/m] [/s] [/"
-"a] [/o]\n"
-"\t<name>\t: 设置要解包文件的名称\n"
-"\t<ddir>\t: 解包文件的目标目录\n"
-"\t<filter>\t: 文件筛选器\n"
-"\t/p\t: 作为可移植程序运行\n"
-"\t/m\t: 处理内部嵌入的文件\n"
-"\t/s\t: 不带路径提取文件\n"
-"\t/a\t: 处理所有重复文件的副本\n"
-"\t/o\t: 覆盖文件"
+"命令行选项：[<name>] [选项]\n"
+"\t<name>\t\t: 要解压的安装文件名称\n"
+"\t/d:<ddir>\t: 解压文件的目标目录\n"
+"\t/f:<filter>\t: 文件过滤器\n"
+"\t/e:<pwd>\t: 加密密码\n"
+"\t/l:<la>\t\t: 语言选择（en, de, fr, it, zh, hu）\n"
+"\t/m\t\t: 处理内部嵌入文件\n"
+"\t/s\t\t: 提取无路径文件\n"
+"\t/a\t\t: 处理所有重复文件副本\n"
+"\t/o\t\t: 覆盖文件\n"
+"\t/p\t\t: 作为便携程序运行\n"
+"\t/k\t\t: 暗黑模式运行"
 
 msgid "Selected files"
 msgstr "选定的文件"

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2026-01-10 12:08+0100\n"
-"PO-Revision-Date: 2026-01-10 12:10+0100\n"
+"POT-Creation-Date: 2026-02-19 13:31+0100\n"
+"PO-Revision-Date: 2026-02-19 13:33+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: hu\n"
@@ -46,9 +46,6 @@ msgstr "Az InnoSetup archívum kiválasztása"
 
 msgid "Process embedded files"
 msgstr "Beágyazott fájlok feldolgozása"
-
-msgid "About the program"
-msgstr "A program névjegye"
 
 msgid "InnoSetup archive is encrypted"
 msgstr "Az InnoSetup archívum titkosított"
@@ -129,10 +126,34 @@ msgstr "Görgetés le"
 msgid "Scroll up"
 msgstr "Görgetés fel"
 
-#. MainForm.pmMain.pmiLanguage.Caption
-#: UnpackMain.dfm:2177
 msgid "Language"
 msgstr "Nyelvezet"
+
+msgid "Display mode"
+msgstr "Megjelenítési mód"
+
+msgid "System default"
+msgstr "Rendszer standard"
+
+msgid "Light"
+msgstr "Világos"
+
+msgid "Dark"
+msgstr "Sötét"
+
+msgid "Numbers and date"
+msgstr "Számok és dátumok"
+
+msgid "International"
+msgstr "Nemzetközi"
+
+#. MainForm.pmMain.pmiReginal.pmiLocalized.Caption
+#: UnpackMain.dfm:2208
+msgid "Local"
+msgstr "Helyi"
+
+msgid "About the program"
+msgstr "A program névjegye"
 
 msgid ""
 "Command line options: [<name>] [options]\n"
@@ -140,24 +161,26 @@ msgid ""
 "\t/d:<ddir>\t: destination directory for unpacked files\n"
 "\t/f:<filter>\t: file filter\n"
 "\t/e:<pwd>\t: encryption password\n"
-"\t/l:<lg>\t\t: language selection (en, de, fr, it or hu)\n"
+"\t/l:<la>\t\t: language selection (en, de, fr, it or hu)\n"
 "\t/m\t\t: process internal embedded files\n"
 "\t/s\t\t: extract files without paths\n"
 "\t/a\t\t: process all copies of duplicate files\n"
 "\t/o\t\t: overwrite files\n"
-"\t/p\t\t: run as portable program"
+"\t/p\t\t: run as portable program\n"
+"\t/k\t\t: run in dark mode"
 msgstr ""
 "Parancssori opciók: [<name>] [options]\n"
 "\t<name>\t\t: a kicsomagolandó telepítőfájl neve\n"
 "\t/d:<ddir>\t: a kicsomagolt fájlok célkönyvtára\n"
 "\t/f:<filter>\t: fájlszűrő\n"
 "\t/e:<pwd>\t: titkosítási jelszó\n"
-"\t/l:<lg>\t\t: nyelvválasztás (en, de, fr, it vagy hu)\n"
+"\t/l:<la>\t\t: nyelvválasztás (en, de, fr, it vagy hu)\n"
 "\t/m \t\t: belső beágyazott fájlok feldolgozása\n"
 "\t/s \t\t: fájlok kivonása elérési utak nélkül\n"
 "\t/a \t\t: a duplikált fájlok összes másolatának feldolgozása\n"
 "\t/o \t\t: fájlok felülírása\n"
-"\t/p\t\t : hordozható programként történő futtatás"
+"\t/p\t\t : hordozható programként történő futtatás\n"
+"\t/k\t\t : sötét módban futtatás"
 
 msgid "Selected files"
 msgstr "Kiválasztott fájlok"

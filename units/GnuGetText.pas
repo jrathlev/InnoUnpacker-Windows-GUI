@@ -881,7 +881,9 @@ var
   works : boolean;
 begin
   if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion>=6) then begin
-    pc:=0;    // Retrieve the UI language (not the localeinfo) JR - Sept. 2023
+// Retrieve the UI language name (not the localeinfo) JR - Sept. 2023
+// same as GetUserDefaultUILanguage for LanID
+    pc:=0;
     works:=GetUserPreferredUILanguages(MUI_LANGUAGE_NAME,@n,nil,@pc);  // available since Vista
     if works then begin
       SetLength(buf,pc);

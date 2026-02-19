@@ -33,6 +33,7 @@ const
 
   // Bildschirm-Auflösung bei der Programmentwicklung
   PixelsPerInchOnDesign = 96;
+  PixelsPerInchOnCreate : integer = 96;
   { "Scaled = true" passt die Formulare automatisch an andere Textgrößen an
     Für die Berechnung von Spaltenbreiten, o.ä. muss dann zusätzlich folgende
     Umrechnung verwendet werden:
@@ -149,7 +150,7 @@ procedure SetSpeedButtonGlyphs (AControl : TWinControl; BaseIndex : integer; Img
 // scale Screen fonts - only to be called from main form
 procedure ScaleScreenFonts (OldDPI,NewDPI : integer);
 
-// Scale absolute pixel value
+// Scale pixel value relative to dpi at design
 function PixelScale (Value : integer; AForm : TForm) : integer; overload;
 function PixelScale (Value : integer; mo : TMonitor) : integer; overload;
 function PixelScale (Value : TPoint; AForm : TForm) : TPoint; overload;
@@ -157,8 +158,14 @@ function PixelScale (Value : TPoint; mo : TMonitor) : TPoint; overload;
 function PixelScale (x,y : integer; AForm : TForm) : TPoint; overload;
 function PixelScale (x,y : integer; mo : TMonitor) : TPoint; overload;
 
+// Scale component size relative to OldDpi
+function SizeScale (Value,OldDpi : integer; AForm : TForm) : integer;
+
 // adjust Itemheight of owner drawn comboboxes
 procedure AdjustComboBoxes(AControl : TWinControl; OldDPI,NewDPI : integer);
+
+// adjust ItemHeight of owner drawn listboxes
+procedure AdjustListBoxes(AControl : TWinControl; OldDPI,NewDPI : integer);
 
 { ---------------------------------------------------------------- }
 // Dateifilter-Index ermitteln (siehe TOpenDialog)
@@ -765,6 +772,20 @@ begin
     end;
   end;
 
+// adjust ItemHeight of owner drawn listboxes
+procedure AdjustListBoxes(AControl : TWinControl; OldDPI,NewDPI : integer);
+var
+  i : integer;
+begin
+  if OldDPI<>NewDPI then with AControl do for i:=0 to ControlCount-1 do begin
+    if (Controls[i] is TListBox) then with (Controls[i] as TListBox) do begin
+      if Style in [lbOwnerDrawFixed, lbOwnerDrawVariable] then ItemHeight:=MulDiv(ItemHeight,NewDPI,OldDPI);
+      end;
+    if Controls[i] is TWinControl then
+      AdjusTListBoxes(Controls[i] as TWinControl,OldDPI,NewDPI);
+    end;
+  end;
+
 // scale Screen fonts - only to be called from main form
 procedure ScaleScreenFonts (OldDPI,NewDPI : integer);
 begin
@@ -808,6 +829,12 @@ begin
 function PixelScale (x,y : integer; mo : TMonitor) : TPoint;
 begin
   Result:=PixelScale(Point(x,y),mo);
+  end;
+
+// Scale pixel value relative to OldDpi
+function SizeScale(Value,OldDpi : integer; AForm : TForm) : integer;
+begin
+  Result:=MulDiv(Value,AForm.Monitor.PixelsPerInch,OldDpi);
   end;
 
 { ---------------------------------------------------------------- }

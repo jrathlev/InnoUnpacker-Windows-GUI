@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2026-01-10 12:08+0100\n"
-"PO-Revision-Date: 2026-01-10 12:10+0100\n"
+"POT-Creation-Date: 2026-02-19 13:31+0100\n"
+"PO-Revision-Date: 2026-02-19 13:32+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -43,9 +43,6 @@ msgstr "Seleziona archivio Inno Setup"
 
 msgid "Process embedded files"
 msgstr "Elabora file incorporati"
-
-msgid "About the program"
-msgstr "Info sul programma"
 
 msgid "InnoSetup archive is encrypted"
 msgstr "Archivio InnoSetup criptato"
@@ -125,10 +122,34 @@ msgstr "Scorri verso il basso"
 msgid "Scroll up"
 msgstr "Scorrere verso l'alto"
 
-#. MainForm.pmMain.pmiLanguage.Caption
-#: UnpackMain.dfm:2177
 msgid "Language"
 msgstr "Lingua"
+
+msgid "Display mode"
+msgstr "Modalità display"
+
+msgid "System default"
+msgstr "Sistema predefinito"
+
+msgid "Light"
+msgstr "Chiaro"
+
+msgid "Dark"
+msgstr "Scuro"
+
+msgid "Numbers and date"
+msgstr "Numeri e date"
+
+msgid "International"
+msgstr "Internazionale"
+
+#. MainForm.pmMain.pmiReginal.pmiLocalized.Caption
+#: UnpackMain.dfm:2208
+msgid "Local"
+msgstr "Locale"
+
+msgid "About the program"
+msgstr "Info sul programma"
 
 msgid ""
 "Command line options: [<name>] [options]\n"
@@ -136,24 +157,26 @@ msgid ""
 "\t/d:<ddir>\t: destination directory for unpacked files\n"
 "\t/f:<filter>\t: file filter\n"
 "\t/e:<pwd>\t: encryption password\n"
-"\t/l:<lg>\t\t: language selection (en, de, fr, it or hu)\n"
+"\t/l:<la>\t\t: language selection (en, de, fr, it or hu)\n"
 "\t/m\t\t: process internal embedded files\n"
 "\t/s\t\t: extract files without paths\n"
 "\t/a\t\t: process all copies of duplicate files\n"
 "\t/o\t\t: overwrite files\n"
-"\t/p\t\t: run as portable program"
+"\t/p\t\t: run as portable program\n"
+"\t/k\t\t: run in dark mode"
 msgstr ""
 "Opzioni della riga di comando: [<name>] [opzioni]\n"
 "\t<name>\t\t: nome file installer da scompattare\n"
 "\t/d:<ddir>\t: cartella destinazione per i file scompattati\n"
 "\t/f:<filter>\t: filtro file\n"
 "\t/e:<pwd>\t: password crittografia\n"
-"\t/l:<lg>\t\t: selezione lingua (en, de, fr, it o hu)\n"
+"\t/l:<la>\t\t: selezione lingua (en, de, fr, it o hu)\n"
 "\t/m \t\t: elabora file interni incorporati\n"
 "\t/s \t\t: estrai file senza percorso\n"
 "\t/a \t\t: elabora tutte le copie di file duplicati\n"
 "\t/o \t\t: sovrascrivi file\n"
-"\t/p \t\t: esegui come programma portatile"
+"\t/p \t\t: esegui come programma portatile\n"
+"\t/k \t\t: esegui in modalità scura"
 
 msgid "Selected files"
 msgstr "File selezionati"
