@@ -246,6 +246,7 @@ const
   iniFileList = 'UseFilelist';
 
 //  DarkStyle = 'Windows10 Dark';
+  LightStyle = 'Windows10';
   DarkStyle = 'JR Dark';
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -839,7 +840,7 @@ begin
 // all Unicode characters, e.g. nepali and some chinese
 procedure TMainForm.pbShowTextPaint(Sender: TObject);
 var
-  i,n,n0,n1,n2,w,k : integer;
+  i,n,n0,n1,n2,w,k,d : integer;
   s,sw : string;
   bg : TColor;
 const
@@ -854,6 +855,7 @@ begin
     else Color:=bg;
     Canvas.FillRect(Rect(0,0,Width-1,Height-1));
     with ConsoleText do if Count<VisibleLines then n:=Count else n:=VisibleLines;
+    d:=LineHeight div 3;
     for i:=0 to n-1 do begin
       k:=sbVert.Position+i;
       if k=CtHd+1 then begin
@@ -861,14 +863,16 @@ begin
         Canvas.FillRect(Rect(0,LineHeight*i,Width-1,Height-1));
         end;
       if k<ConsoleText.Count then s:=ConsoleText[k] else s:='';
-      n0:=1; w:=5-sbHorz.Position;
-      with Canvas.Font do if StylesEnabled then Color:=ColArrayDark[0]
-      else Color:=ColArray[0];
+      n0:=1; w:=d-sbHorz.Position;
+      with Canvas.Font do begin
+        if StylesEnabled then Color:=ColArrayDark[0]
+        else Color:=ColArray[0];
+        end;
       repeat
         n1:=PosEx('<',s,n0);
         if n1>0 then begin
           sw:=copy(s,n0,n1-n0);
-          Canvas.TextOut(w,5+LineHeight*i,sw);
+          Canvas.TextOut(w,d+LineHeight*i,sw);
           w:=w+Canvas.TextWidth(sw);
           n2:=PosEx('>',s,n1+1);
           if (n2=n1+2) and TryStrToInt(copy(s,n1+1,1),k) and (k<=MaxCol) then begin
@@ -882,7 +886,7 @@ begin
             end;
           end
         until n1=0;
-      Canvas.TextOut(w,5+LineHeight*i,copy(s,n0,length(s)-n0+1));
+      Canvas.TextOut(w,d+LineHeight*i,copy(s,n0,length(s)-n0+1));
       end;
     end;
   end;

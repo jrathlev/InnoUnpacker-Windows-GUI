@@ -5,6 +5,12 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.67.5 (2026-03-22)
+------
+  - Added: Number of supported languages on info page
+  - Fixed: Check for invalid codepages
+  - Fixed: Use of special codepages in non-Unicode versions
+
 2.67.4 (2026-02-19)
 ------
   - Added: Optional formatting of numbers and date/time with regional settings
@@ -26,7 +32,7 @@ Revision history:
 ------
   - Added support for IS up to 6.7.1
   - Added: option to disable UTF-8 encoding of the script
-  - Fixed: UTF-8 encoding of the setup filename in the comment at the beginning 
+  - Fixed: UTF-8 encoding of the setup filename in the comment at the beginning
     of the script
   
 2.66.2 (2026-01-03)

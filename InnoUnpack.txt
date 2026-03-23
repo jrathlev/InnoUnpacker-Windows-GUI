@@ -15,7 +15,7 @@ Optional kann angegeben werden, ob nur das Installlations-Skript,
 die zu einem Filter passenden Dateien oder vom Benutzer direkt ausgewählte Dateien
 extrahiert werden sollen.
 
-Neu in Version 2.2.1: Unterstützung des dunklen Anzeigemodus
+Neu ab Version 2.2.1: Unterstützung des dunklen Anzeigemodus
 
 Befehlszeilenoptionen: [<name>] [Optionen] 
   <name>      : Name der zu entpackenden Setup-Datei
@@ -41,7 +41,7 @@ der Befehlszeilen-Option "/P" aufgerufen wird.
 https://www.rathlev-home.de?tools/progtools.html#unpack
 https://github.com/jrathlev/InnoUnpacker-Windows-GUI
 
-J. Rathlev, Januar 2026
+J. Rathlev, März 2026
 
 
 Inspect and unpack InnoSetup archives
@@ -56,6 +56,8 @@ and the languages supported by the setup. To extract files, just click the appro
 button and select the destination directory. 
 Optionally, you can specify whether only the installation script or the files
 matching a filter are to be extracted.
+
+New since version 2.2.1: support of dark display mode
 
 Command line options: [<name>] [options]
   <name>      : name of setup file to be unpacked
@@ -80,4 +82,4 @@ The same applies if the program is started with the command line option "/P".
 https://www.rathlev-home.de/index-e.html?tools/prog-e.html#unpack
 https://github.com/jrathlev/InnoUnpacker-Windows-GUI
   
-J. Rathlev, January 2026
+J. Rathlev, March 026

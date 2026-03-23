@@ -116,10 +116,16 @@ begin
   else Result:=s;
   end;
 
-function ApplyCodepage (const s : string; cp : cardinal) : string;
+function ApplyCodepage (const s : string; const le : TSetupLanguageEntry) : string;
 begin
-  if VerIsUnicode or (cp=1252) then Result:=s
-  else Result:=TEncoding.GetEncoding(cp).GetString(TEncoding.ANSI.GetBytes(s));
+  with le do if VerIsUnicode or (LanguageCodePage=1252) then Result:=s
+  else begin
+    try
+      Result:=TEncoding.GetEncoding(LanguageCodePage).GetString(TEncoding.ANSI.GetBytes(s));
+    except
+      Result:=Format('Invalid code page %u for "%s"',[LanguageCodePage,LanguageName]);
+      end;
+    end;
   end;
 
 function Hash2Str(Hash: TSetupHash) : string;
@@ -916,7 +922,7 @@ begin
     v := StringReplace(Value, #13#10, '%n', [rfReplaceAll]);
     if ScriptAsUtf8 then begin
       if (LangIndex >= 0) then
-        StrConst(s,ApplyCodepage(v,PSetupLanguageEntry(Entries[seLanguage][LangIndex])^.LanguageCodePage))
+        StrConst(s,ApplyCodepage(v,PSetupLanguageEntry(Entries[seLanguage][LangIndex])^))
       else StrConst(s,v);
       end
     else StrConst(s,v)
@@ -1020,6 +1026,7 @@ begin
     if LicenseText<>'' then StrParam('LicenseFile', MaybeToRtf('embedded\'+Name+'License.txt', LicenseText));
     if InfoBeforeText<>'' then StrParam('InfoBeforeFile', MaybeToRtf('embedded\'+Name+'InfoBefore.txt', InfoBeforeText));
     if InfoAfterText<>'' then StrParam('InfoAfterFile', MaybeToRtf('embedded\'+Name+'InfoAfter.txt', InfoAfterText));
+//    StrParam('Codepage', IntToStr(LanguageCodePage));
   end;
   NewLine();
 end;

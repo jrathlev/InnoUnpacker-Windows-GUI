@@ -23,3 +23,5 @@ for /f "tokens=1,2 delims==;" %%a in (VersionInfo.inc) do (
 )
 brcc32 -foversion.res version.rc > nul
 del version.rc > nul
+
+pause

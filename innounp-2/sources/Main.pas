@@ -61,6 +61,8 @@ var
   UseReg : boolean = false;  // use regional settings instead of default,
                              // e.g. for thousands separator and date/time format
   UseUtf8 : boolean=false;
+  ConsoleCodePage : cardinal = 850;
+  DefaultCodePage : cardinal = 0;
   ColorMode : integer = 1;
 
 procedure InternalError(const Id: String);
@@ -71,6 +73,8 @@ function FixPasswordEncoding(const Password: AnsiString) : AnsiString;
 
 function StrToOem(const s:string):AnsiString;
 function OemToStr(const s:AnsiString):string;
+function ApplyCodepage (const s : string; cp : cardinal = 0) : string;
+
 procedure write(s:string);
 procedure writeln(const s:string = '');
 procedure WriteColorText (const Text1,Text2 : string; Color1,Color2 : TColor; NewLine : boolean = true);
@@ -198,6 +202,19 @@ begin
   OemToCharBuff(PAnsiChar(Result),PChar(Result),length(Result));
 end;
 
+function ApplyCodepage (const s : string; cp : cardinal) : string;
+begin
+  if cp=0 then cp:=DefaultCodePage;
+  if not VerIsUnicode and (cp<>1252) then begin
+    try
+      Result:=TEncoding.GetEncoding(DefaultCodePage).GetString(TEncoding.ANSI.GetBytes(s));
+    except
+      Result:=s;
+      end;
+    end
+  else Result:=s;
+  end;
+
 // Delphi RTL does not check GetLastError() after getting GetFileType(hFile)==FILE_TYPE_UNKNOWN
 // and incorrectly decides that an error occurred.
 // This condition was observed when standard output was redirected by the parent process.
@@ -212,7 +229,9 @@ var
 begin
 // changed: JR - October 2021
 //  WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE),PChar(s),Length(s),BytesWritten, nil);
-  if UseUtf8 then sa:=Utf8Encode(s) else sa:=StrToOem(s);
+  if UseUtf8 then sa:=Utf8Encode(s)
+//  else sa:=TEncoding.GetEncoding(ConsoleCodePage).GetString(TEncoding.Unicode.GetBytes(s));
+  else sa:=StrToOem(s);
   WriteOffset:=0; BytesRemaining:=length(sa);
   while BytesRemaining>0 do begin
     if BytesRemaining>1024 then BytesToWrite:=1024 else BytesToWrite:=BytesRemaining;

@@ -494,6 +494,7 @@ begin
             Entries[seLanguage].Add(pLanguageEntry);
           end;
           FreeMem(p);
+        if SetupHeader.NumLanguageEntries>0 then DefaultCodePage:=PSetupLanguageEntry(Entries[seLanguage][0])^.LanguageCodePage;
         end;
 
         { CustomMessage entries }
@@ -703,7 +704,7 @@ var
 begin
   Result := (OverwriteAction = oaOverwrite);
   if (OverwriteAction <> oaAsk) then Exit;
-  Writeln('File "' + DestFile + '" already exists. Overwrite?');
+  Writeln('File "' + ApplyCodepage(DestFile) + '" already exists. Overwrite?');
   repeat
     Write('(Y)es / (N)o / (A)lways / (S)kip all / (Q)uit ?');
     Readln(Resp);
@@ -940,7 +941,7 @@ begin
       if not ExtractAllCopies and (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>CurFileNumber) then continue;
       with CurFile^ do begin
         if LocationEntry <> -1 then
-          if not ProcessFileEntry('#'+IntToStr(CurFileNumber)+' '+SourceFilename,FileExtractor,CurFile) then break;
+          if not ProcessFileEntry('#'+IntToStr(CurFileNumber)+' '+ApplyCodepage(SourceFilename),FileExtractor,CurFile) then break;
         end;
 
       if (OverwriteAction = oaAbort) then break;
@@ -1088,7 +1089,7 @@ var
   TotalFileSize : Int64;
   TotalFiles,TotalEncryptedFiles,MaxSlice : Integer;
   cbi : TConsoleScreenBufferInfo;
-  attr,cp  : word;
+  attr     : word;
   sl       : TStringList;
 begin
   StdOutputHandle:=GetStdHandle(STD_OUTPUT_HANDLE);
@@ -1097,7 +1098,7 @@ begin
      attr:=wAttributes;
     end
   else attr:=ConsoleBg or ConsoleFg;
-  cp:=GetConsoleOutputCP;
+  ConsoleCodePage:=GetConsoleOutputCP;
   UpVersion:=Format('%u.%u.%u',[IUV_MAJOR, IUV_MINOR,IUV_RELEASE]);
   CreateEntryLists;
   n:=ParseCommandLine;
@@ -1186,13 +1187,15 @@ begin
           end;
         caInstallInfo: begin
             with SetupHeader do begin
-              WriteNormalLine(ExtSp('Application name:',TextAlign),GetCustomMessage(AppName));
+              WriteNormalLine(ExtSp('Application name:',TextAlign),ApplyCodepage(GetCustomMessage(AppName)));
               WriteNormalLine(ExtSp('Application version:',TextAlign),GetCustomMessage(AppVersion));
-              WriteNormalLine(ExtSp('Default directory:',TextAlign),DefaultDirName);
+              WriteNormalLine(ExtSp('Default directory:',TextAlign),ApplyCodepage(DefaultDirName));
               if (MinVersion.WinVersion>$04000000) or (MinVersion.NTVersion>$04000000) then
                 WriteNormalLine(ExtSp('Required Windows version:',TextAlign),GetVersionText(MinVersion));
               WriteNormalLine(ExtSp('Compression used:',TextAlign),GetCompressMethodName(CompressMethod));
               end;
+            WriteNormalLine(ExtSp('Supported languages:',TextAlign),IntToStr(Entries[seLanguage].Count));
+            if not VerIsUnicode then WriteNormalLine(ExtSp('Default codepage:',TextAlign),IntToStr(DefaultCodePage));
             TotalFileSize:=0; TotalFiles:=0; TotalEncryptedFiles:=0; MaxSlice:=0;
             for i:=0 to Entries[seFile].Count-1 do
               with Struct.PSetupFileEntry(Entries[seFile][i])^ do begin
@@ -1224,7 +1227,7 @@ begin
               if (LocationEntry=-1) then continue;
               loc:=PSetupFileLocationEntry(Entries[seFileLocation][LocationEntry]);
               if not ExtractAllCopies and (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>i) then continue;
-              WriteNormalLine('  '+SourceFileName);
+              WriteNormalLine('  '+ApplyCodepage(SourceFileName));
               end;
           end;
         caVerboseList: begin
@@ -1243,7 +1246,7 @@ begin
                 FileTimeToSystemTime(TimeStamp, systime);
                 str(loc^.OriginalSize:10,s);
                 WriteNormalLine(s+'  '+ExtSp(DateTimeString(SystemTimeToDateTime(systime)),19)+
-                  '  ',SourceFileName);
+                  '  ',ApplyCodepage(SourceFileName));
               end;
             WriteNormalLine('-------------------------------------------------');
           end;
@@ -1279,7 +1282,7 @@ begin
   else if n<0 then Usage;
   ReleaseEntryList;
   SetConsoleTextAttribute(StdOutputHandle,attr);  // restore console settings
-  SetConsoleOutputCP(cp);
+  SetConsoleOutputCP(ConsoleCodePage);
 {$ifdef DEBUG}
   WriteLn;
   WriteNormalLine('Strike enter key to continue ...');
