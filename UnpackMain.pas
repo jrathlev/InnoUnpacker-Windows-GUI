@@ -172,7 +172,7 @@ type
     TempFile,SelFilesHint : string;
     SelectedFiles,
     ConsoleText           : TStringList;
-    UseReg,
+    UseReg,Ready,
     NewUnp,CanList,
     UseFilelist    : boolean;
     LineHeight,VisibleLines,
@@ -862,7 +862,7 @@ begin
         Canvas.Brush.Color:=bg;
         Canvas.FillRect(Rect(0,LineHeight*i,Width-1,Height-1));
         end
-      else if k=ConsoleText.Count-2 then begin
+      else if Ready and (k=ConsoleText.Count-2) then begin
         Canvas.Brush.Color:=GetColor(scListView,clWhite);
         Canvas.FillRect(Rect(0,LineHeight*i,Width-1,Height-1));
         end;
@@ -934,22 +934,6 @@ var
     pbShowText.Invalidate;
     end;
 
-  function RawByteToUnicode(sa : RawByteString; CodePage : integer = 1252) : string;
-  var
-    ta,tu : TBytes;
-  begin
-    if length(sa)=0 then Result:=''
-    else begin
-      SetLength(ta,length(sa));
-      Move(sa[1],ta[0],Length(ta));
-      SetLength(tu,length(sa)*sizeof(Char));
-      tu:=TEncoding.Convert(TEncoding.GetEncoding(CodePage),TEncoding.Unicode,ta);
-      SetLength(Result,length(sa));
-      Move(tu[0],Result[1],Length(tu));
-      ta:=nil; tu:=nil;
-      end;
-    end;
-
   function AddColString (const Text1,Text2 : string) : string;
   begin
     Result:='<0>'+ExtSp(Text1,TextAlign)+'<2>'+Text2;
@@ -986,7 +970,7 @@ begin
         end;
       if length(Comment)>0 then begin
         Add('');
-        Add(Comment);
+        Text:=Text+Comment;
         end;
       end;
     end;
@@ -1068,19 +1052,16 @@ begin
                      nil,                   // Verzeichnis
                      si,pi) then begin
       CloseHandle(hChildStdoutWr);
-      Cancel:=false; tc:=0; sc:=ConsoleText.Text;
+      Cancel:=false; tc:=0; sc:=ConsoleText.Text; Ready:=false;
       repeat
         wc:=WaitForSingleObject(pi.hProcess,defTimeOut); // wait 1 s
         if wc<>WAIT_OBJECT_0 then begin
           s:=ReadPipe;
-          if s.IsEmpty then inc(tc)
+          if (s.IsEmpty) or assigned(OutText) then inc(tc)
           else begin
-            if assigned(OutText) then with OutText do Text:=Text+s
-            else begin
-              sc:=sc+s;
-              ConsoleText.Text:=sc;
-              pbShowText.Invalidate;
-              end;
+            sc:=sc+s;
+            ConsoleText.Text:=sc;
+            pbShowText.Invalidate;
             tc:=0;
             end;
           if tc>=10 then Cancel:=not ConfirmDialog(_('Timeout occured - continue anyway?'));
@@ -1099,6 +1080,7 @@ begin
       else begin
         sc:=sc+s+sLineBreak;
         ConsoleText.Text:=sc;
+        Ready:=true;
         pbShowText.Invalidate;
         end;
       CloseHandle(hChildStdoutRd);
