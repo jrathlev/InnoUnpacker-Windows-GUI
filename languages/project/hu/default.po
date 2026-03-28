@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2026-02-19 13:31+0100\n"
-"PO-Revision-Date: 2026-02-19 13:33+0100\n"
+"POT-Creation-Date: 2026-03-28 16:08+0100\n"
+"PO-Revision-Date: 2026-03-28 16:10+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: J. Rathlev <info(a)rathlev-home.de>\n"
 "Language: hu\n"
@@ -147,8 +147,6 @@ msgstr "Számok és dátumok"
 msgid "International"
 msgstr "Nemzetközi"
 
-#. MainForm.pmMain.pmiReginal.pmiLocalized.Caption
-#: UnpackMain.dfm:2208
 msgid "Local"
 msgstr "Helyi"
 
@@ -251,3 +249,7 @@ msgstr "Megjegyzés: "
 
 msgid "Timeout occured - continue anyway?"
 msgstr "Időkorlátozás történt - folytassuk mégis?"
+
+#: UnpackMain.pas:1101
+msgid "Done"
+msgstr "Kész"

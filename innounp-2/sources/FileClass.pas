@@ -146,6 +146,10 @@ type
     property ErrorCode: DWORD read FErrorCode;
   end;
 
+{ ---------------------------------------------------------------- }
+{$EXTERNALSYM GetFileSizeEx}
+function GetFileSizeEx(hFile: THandle; lpFileSize : pointer): BOOL; stdcall;
+
 implementation
 
 uses
@@ -154,6 +158,8 @@ uses
 
 const
   SGenericIOError = 'File I/O error %d';
+
+function GetFileSizeEx; external kernel32 name 'GetFileSizeEx';
 
 { TCustomFile }
 
@@ -213,6 +219,8 @@ begin
 end;
 
 { TFile }
+const
+  INVALID_FILE_ATTRIBUTES = DWORD($FFFFFFFF);
 
 constructor TFile.Create(const AFilename: String;
   ACreateDisposition: TFileCreateDisposition; AAccess: TFileAccess;
@@ -256,19 +264,31 @@ end;
 
 function TFile.GetPosition: Integer64;
 begin
-  Result.Hi := 0;
-  Result.Lo := SetFilePointer(FHandle, 0, @Result.Hi, FILE_CURRENT);
-  if (Result.Lo = $FFFFFFFF) and (GetLastError <> 0) then
+  if not SetFilePointerEx(FHandle, 0, @Result, FILE_CURRENT) then
     RaiseLastError;
 end;
 
+//function TFile.GetPosition: Integer64;
+//begin
+//  Result.Hi := 0;
+//  Result.Lo := SetFilePointer(FHandle, 0, @Result.Hi, FILE_CURRENT);
+//  if (Result.Lo = INVALID_FILE_ATTRIBUTES) and (GetLastError <> 0) then
+//    RaiseLastError;
+//end;
+//
 function TFile.GetSize: Integer64;
 begin
-  Result.Lo := GetFileSize(FHandle, @Result.Hi);
-  if (Result.Lo = $FFFFFFFF) and (GetLastError <> 0) then
+  if not GetFileSizeEx(FHandle, @Result) then
     RaiseLastError;
 end;
 
+//function TFile.GetSize: Integer64;
+//begin
+//  Result.Lo := GetFileSize(FHandle, @Result.Hi);
+//  if (Result.Lo = INVALID_FILE_ATTRIBUTES) and (GetLastError <> 0) then
+//    RaiseLastError;
+//end;
+//
 function TFile.Read(var Buffer; Count: Cardinal): Cardinal;
 begin
   if not ReadFile(FHandle, Buffer, Count, DWORD(Result), nil) then
@@ -278,21 +298,33 @@ end;
 
 procedure TFile.Seek64(Offset: Integer64);
 begin
-  if (SetFilePointer(FHandle, Integer(Offset.Lo), @Offset.Hi,
-      FILE_BEGIN) = $FFFFFFFF) and (GetLastError <> 0) then
+  if not SetFilePointerEx(FHandle, Int64(Offset), nil, FILE_BEGIN) then
     RaiseLastError;
 end;
+
+//procedure TFile.Seek64(Offset: Integer64);
+//begin
+//  if (SetFilePointer(FHandle, Integer(Offset.Lo), @Offset.Hi,
+//      FILE_BEGIN) = INVALID_FILE_ATTRIBUTES) and (GetLastError <> 0) then
+//    RaiseLastError;
+//end;
 
 procedure TFile.SeekToEnd;
-var
-  DistanceHigh: Integer;
 begin
-  DistanceHigh := 0;
-  if (SetFilePointer(FHandle, 0, @DistanceHigh, FILE_END) = $FFFFFFFF) and
-     (GetLastError <> 0) then
+  if not SetFilePointerEx(FHandle, 0, nil, FILE_END) then
     RaiseLastError;
 end;
 
+//procedure TFile.SeekToEnd;
+//var
+//  DistanceHigh: Integer;
+//begin
+//  DistanceHigh := 0;
+//  if (SetFilePointer(FHandle, 0, @DistanceHigh, FILE_END) = $FFFFFFFF) and
+//     (GetLastError <> 0) then
+//    RaiseLastError;
+//end;
+//
 procedure TFile.Truncate;
 begin
   if not SetEndOfFile(FHandle) then

@@ -30,7 +30,7 @@ begin
   if OffsetTable.TableCRCUsed and
      (GetCRC32(RawOffsetTable^, OffsetTableSize-sizeof(OffsetTable.TableCRC)) <> OffsetTable.TableCRC)
     then SetupCorruptError;
-  if (SourceF.CappedSize < longword(OffsetTable.TotalSize)) then SetupCorruptError;
+  if (longword(SourceF.Size) < longword(OffsetTable.TotalSize)) then SetupCorruptError;
   Result:=true;
 end;
 
@@ -74,7 +74,7 @@ end;
 function GetSetupLdrOffsetTableFromFile(SourceF:TFile; var OffsetTable:TSetupLdrOffsetTable): boolean;
 var
   SetupID: TIdArray;
-  SizeOfFile, SizeDif: integer;
+  SizeOfFile, SizeDif: cardinal;
   ExeHeader: TSetupLdrExeHeader;
   RawOffsetTable: pointer;
   VerObject: TInnoVer;

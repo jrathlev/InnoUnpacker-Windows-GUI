@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
-"POT-Creation-Date: 2026-02-19 13:31+0100\n"
-"PO-Revision-Date: 2026-02-19 13:32+0100\n"
+"POT-Creation-Date: 2026-03-28 16:08+0100\n"
+"PO-Revision-Date: 2026-03-28 16:10+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
@@ -143,8 +143,6 @@ msgstr "Numeri e date"
 msgid "International"
 msgstr "Internazionale"
 
-#. MainForm.pmMain.pmiReginal.pmiLocalized.Caption
-#: UnpackMain.dfm:2208
 msgid "Local"
 msgstr "Locale"
 
@@ -245,3 +243,7 @@ msgstr "Commento: "
 
 msgid "Timeout occured - continue anyway?"
 msgstr "Si è verificato un timeout - continuare comunque?"
+
+#: UnpackMain.pas:1101
+msgid "Done"
+msgstr "Fatto"

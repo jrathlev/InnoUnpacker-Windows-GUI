@@ -60,7 +60,6 @@ const
   EmailAdr = 'kontakt@rathlev-home.de';
 
   defPipeSize = 1024*1024;
-  defTimeOut  = 10000;  // 10 s
 
 type
   TViewMode = (vmNone,vmInfo,vmList,vmLang,vmVersion,vmVerify,vmExtract);
@@ -189,7 +188,7 @@ type
     function IsUnicodeSetup : boolean;
     procedure ExtractFiles (const Filter : string);
     procedure ShowUnpackInfo (const Command,FileName,Filter,Comment : string; GoBottom : boolean = false);
-    function Execute (const Command : string; OutText: TStringList) : boolean;
+    function Execute (const Command : string; OutText: TStringList = nil) : boolean;
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
   public
     { Public-Deklarationen }
@@ -414,6 +413,7 @@ begin
     sl:=ChangeLanguage(Language);
     Languages.LoadLanguageNames(sl);
     Caption:=ProgVersName+' - '+_('Inspect and unpack InnoSetup files');
+    UpdateView;
     end;
   end;
 
@@ -858,8 +858,12 @@ begin
     d:=LineHeight div 3;
     for i:=0 to n-1 do begin
       k:=sbVert.Position+i;
-      if k=CtHd+1 then begin
+      if (k=CtHd+1) then begin
         Canvas.Brush.Color:=bg;
+        Canvas.FillRect(Rect(0,LineHeight*i,Width-1,Height-1));
+        end
+      else if k=ConsoleText.Count-2 then begin
+        Canvas.Brush.Color:=GetColor(scListView,clWhite);
         Canvas.FillRect(Rect(0,LineHeight*i,Width-1,Height-1));
         end;
       if k<ConsoleText.Count then s:=ConsoleText[k] else s:='';
@@ -990,16 +994,17 @@ begin
   InitShowText;
   if length(Filter)>0 then s:=s+Space+Filter;
   Application.ProcessMessages;
-  if Execute(s,ConsoleText) then begin
+  if Execute(s) then begin
     ConsoleText.Add('');
     InitShowText;
     end
   else ErrorDialog(_('Error: ')+SysErrorMessage(GetLastError));
   end;
 
-function TMainForm.Execute (const Command : string; OutText : TStringList) : boolean;
+function TMainForm.Execute (const Command : string; OutText: TStringList) : boolean;
 const
   BUFSIZE = 4096;
+  defTimeOut  = 1000;  // 1 s
 var
   si        : TStartupInfo;
   pi        : TProcessInformation;
@@ -1008,9 +1013,30 @@ var
   hChildStdoutWr  : THandle;
   chBuf           : array [0..BUFSIZE] of AnsiChar;
   dwRead,ec,wc    : DWord;
-  sa          : RawByteString;
-  s           : string;
   cancel      : boolean;
+  s,sc        : string;
+  tc          : integer;
+
+  function ReadPipe : string;
+  var
+    sa          : RawByteString;
+  begin
+    Result:='';
+    while ReadFile(hChildStdoutRd,chBuf[0],BUFSIZE,dwRead,nil)
+          and (dwRead=BUFSIZE) do begin
+      sa:=sa+chBuf;
+      end;
+    if dwRead>0 then begin
+      chBuf[dwread]:=#0;
+      sa:=sa+chBuf;
+      end;
+    if length(sa)>0 then begin
+      Result:=UTF8ToString(sa);
+      Result:=ReplaceStr(Result,CrLf,Lf); // Convert Unix style output
+      Result:=ReplaceStr(Result,Lf,CrLf);
+      end;
+    end;
+
 begin
   Screen.Cursor:=crHourglass; Result:=false;
 // Set the bInheritHandle flag so pipe handles are inherited.
@@ -1041,33 +1067,44 @@ begin
                      nil,                   // Environment
                      nil,                   // Verzeichnis
                      si,pi) then begin
-      Cancel:=false;
+      CloseHandle(hChildStdoutWr);
+      Cancel:=false; tc:=0; sc:=ConsoleText.Text;
       repeat
-        wc:=WaitForSingleObject(pi.hProcess,defTimeOut); // wait 10 s
-        if wc<>WAIT_OBJECT_0 then Cancel:=not ConfirmDialog(_('Timeout occured - continue anyway?'));
+        wc:=WaitForSingleObject(pi.hProcess,defTimeOut); // wait 1 s
+        if wc<>WAIT_OBJECT_0 then begin
+          s:=ReadPipe;
+          if s.IsEmpty then inc(tc)
+          else begin
+            if assigned(OutText) then with OutText do Text:=Text+s
+            else begin
+              sc:=sc+s;
+              ConsoleText.Text:=sc;
+              pbShowText.Invalidate;
+              end;
+            tc:=0;
+            end;
+          if tc>=10 then Cancel:=not ConfirmDialog(_('Timeout occured - continue anyway?'));
+          Application.ProcessMessages;
+          end;
         until (wc=WAIT_OBJECT_0) or Cancel;
       if Cancel then TerminateProcess(pi.hProcess,3);
       GetExitCodeProcess(pi.hProcess,ec); // exit code from called program
       CloseHandle(pi.hProcess);
 // Close the write end of the pipe before reading from the
 // read end of the pipe.
-      if CloseHandle(hChildStdoutWr) then begin
+//      if CloseHandle(hChildStdoutWr) then begin
   // Read output from the child process, and write to parent's STDOUT.
-        while ReadFile(hChildStdoutRd,chBuf[0],BUFSIZE,dwRead,nil)
-              and (dwRead=BUFSIZE) do begin
-          sa:=sa+chBuf;
-          end;
-        if dwRead>0 then begin
-          chBuf[dwread]:=#0;
-          sa:=sa+chBuf;
-          end;
-        s:=UTF8ToString(sa);
-        s:=ReplaceStr(s,CrLf,Lf); // Convert Unix style output
-        s:=ReplaceStr(s,Lf,CrLf);
-        with OutText do Text:=Text+s;
+      s:=ReadPipe;
+      if assigned(OutText) then with OutText do Text:=Text+s
+      else begin
+        sc:=sc+s+sLineBreak;
+        ConsoleText.Text:=sc;
+        pbShowText.Invalidate;
         end;
       CloseHandle(hChildStdoutRd);
-      if wc<>WAIT_OBJECT_0 then OutText.Add('*** '+_('Error: ')+SysErrorMessage(wc));
+      if wc<>WAIT_OBJECT_0 then sc:='*** '+_('Error: ')+SysErrorMessage(wc)
+      else sc:='=> '+_('Done');
+      if assigned(OutText) then OutText.Add(sc) else ConsoleText.Add(sc);
       Result:=true;
       end
   finally

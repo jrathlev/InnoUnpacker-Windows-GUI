@@ -1,4 +1,4 @@
-### Inno Setup Unpacker - Windows GUI v 2.2.5
+### Inno Setup Unpacker - Windows GUI v 2.2.6
 
 #### Inspect and unpack InnoSetup archives
 

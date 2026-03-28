@@ -5,6 +5,10 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.67.6 (2026-03-28)
+------
+  - Fixed: unpacking of setups larger than 2GB
+
 2.67.5 (2026-03-22)
 ------
   - Added: Number of supported languages on info page

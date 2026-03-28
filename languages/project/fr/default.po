@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-02-19 13:31+0100\n"
-"PO-Revision-Date: 2026-02-19 13:31+0100\n"
+"POT-Creation-Date: 2026-03-28 16:08+0100\n"
+"PO-Revision-Date: 2026-03-28 16:10+0100\n"
 "Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -148,8 +148,6 @@ msgstr "Chiffres et date"
 msgid "International"
 msgstr "International"
 
-#. MainForm.pmMain.pmiReginal.pmiLocalized.Caption
-#: UnpackMain.dfm:2208
 msgid "Local"
 msgstr "Local"
 
@@ -251,3 +249,7 @@ msgstr "Commentaire: "
 
 msgid "Timeout occured - continue anyway?"
 msgstr "Timeout survenu - continuer quand même ?"
+
+#: UnpackMain.pas:1101
+msgid "Done"
+msgstr "Terminé"
