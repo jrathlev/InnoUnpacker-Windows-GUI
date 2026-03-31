@@ -88,6 +88,11 @@
                                   Die Sprachauswahl wird automatisch als
                                   Untermenü angehängt
   *)
+(* @abstract(Subroutines and components for multi languge support with GnuGettext)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(November 2011)
+   @lastmod(June 2025)
+*)
 
 unit LangUtils;
 
@@ -581,7 +586,7 @@ procedure SaveLanguage (NewLangCode : TLangCodeString);
 begin
   if LangFromCfg then begin
     with TMemIniFile.Create(CfgName) do begin
-      WriteString(LangSekt,LangID,SelectedLanguage);
+      WriteString(LangSekt,LangID,NewLangCode);
       try
         UpdateFile;
       finally
