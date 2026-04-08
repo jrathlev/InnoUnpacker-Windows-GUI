@@ -193,7 +193,8 @@ end;
 function StrToOem(const s:string) : AnsiString;
 begin
   SetLength(Result,length(s));
-  CharToOem(PChar(s),PAnsiChar(Result));
+  CharToOemBuff(PChar(s),PAnsiChar(Result),length(s));
+//  CharToOem(PChar(s),PAnsiChar(Result));
 end;
 
 function OemToStr(const s : AnsiString) : string;

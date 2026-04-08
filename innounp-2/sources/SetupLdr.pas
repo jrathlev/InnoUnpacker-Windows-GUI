@@ -74,7 +74,8 @@ end;
 function GetSetupLdrOffsetTableFromFile(SourceF:TFile; var OffsetTable:TSetupLdrOffsetTable): boolean;
 var
   SetupID: TIdArray;
-  SizeOfFile, SizeDif: cardinal;
+  SizeOfFile : cardinal;
+  SizeDif    : integer;
   ExeHeader: TSetupLdrExeHeader;
   RawOffsetTable: pointer;
   VerObject: TInnoVer;

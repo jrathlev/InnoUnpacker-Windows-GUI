@@ -1273,7 +1273,7 @@ begin
             end
           else begin
             if (E.Message <> '1') then // Hide service exceptions
-              WriteErrorLine(sLineBreak,'Error ('+E.ClassName+') "'+E.Message+'" at address '+inttohex(cardinal(ExceptAddr),8));
+              WriteErrorLine(sLineBreak,'Error ('+E.ClassName+') "'+E.Message+'"');
               ExitCode:=3;
             end;
           end;
