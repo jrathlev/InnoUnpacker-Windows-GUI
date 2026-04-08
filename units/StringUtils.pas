@@ -21,6 +21,11 @@
    OEM routines removed - January 2026
    last modified: January 2026
    *)
+(* @abstract(Collection of routines for string processing)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(May 2007)
+   @lastmod(January 2026)
+*)
 
 unit StringUtils;
 
@@ -76,6 +81,10 @@ const
   Digits : TSysCharSet = ['0'..'9'];
   HexDigits : TSysCharSet = ['0'..'9','A'..'F','a'..'f'];
   AlphaNum : TSysCharSet = ['0'..'9','A'..'Z','a'..'z'];
+
+{ ---------------------------------------------------------------- }
+// Umwandeln eines Zeichens in Kleinbuchstaben  (fehlt in Unit System)
+function LowCase(Ch: WideChar): WideChar;
 
 { ---------------------------------------------------------------- }
 // check if a string contains UTF8 characters
@@ -335,6 +344,14 @@ procedure QuickSort (var SList; Count,RSize : Integer; Compare : TCompFunction);
 implementation
 
 uses System.StrUtils, System.Masks, System.Classes, UnitConsts;
+
+{ ---------------------------------------------------------------- }
+// Umwandeln eines Zeichens in Kleinbuchstaben  (fehlt in Unit System)
+function LowCase(Ch: Char): Char;
+begin
+  Result:=Ch;
+  if (Ch>='A') and (Ch<='Z') then inc(Result,Ord('a') - Ord('A'));
+  end;
 
 { ------------------------------------------------------------------- }
 // check if string has characteres >#255

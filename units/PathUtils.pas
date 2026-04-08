@@ -17,6 +17,11 @@
    February 2023
    last modified: June 2024
    *)
+(* @abstract(Collection of routines for path string processing)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(February 2023)
+   @lastmod(June 2024)
+*)
 
 unit PathUtils;
 

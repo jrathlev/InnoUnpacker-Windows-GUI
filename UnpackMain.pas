@@ -157,7 +157,7 @@ type
     procedure bbSelFilesClick(Sender: TObject);
     procedure cxEmbeddedClick(Sender: TObject);
     procedure bbInfoClick(Sender: TObject);
-    procedure SetLanguageClick(Sender : TObject; Language : TLangCodeString);
+    procedure SetLanguageClick(Sender : TObject; const Language : TLangCodeString);
     procedure pmiDmDefaultClick(Sender: TObject);
     procedure pmiDmLightClick(Sender: TObject);
     procedure pmiDmDarkClick(Sender: TObject);
@@ -182,6 +182,7 @@ type
     Languages             : TLanguageList;
     procedure ChangeStyle (dm : TDisplayMode);
     procedure UpdateView;
+    procedure UpdateShowText (GoBottom : boolean);
     function StripColCtrls (const AText : string) : string;
     function LoadUnpacker : boolean;
     procedure CheckUnpackVersion;
@@ -405,7 +406,7 @@ begin
   SaveHistory(Ininame,DirSekt,iniFName,true,cbDir.Items,mList);
   end;
 
-procedure TMainForm.SetLanguageClick(Sender : TObject; Language : TLangCodeString);
+procedure TMainForm.SetLanguageClick(Sender : TObject; const Language : TLangCodeString);
 var
   sl : TLangCodeString;
 begin
@@ -648,7 +649,7 @@ begin
   s:=' -b -t -h';
   if cxEmbedded.Checked then s:=s+' -m';
   if cxEncrypted.Checked then s:=s+' -p'+edPassword.Text;
-  ShowUnpackInfo(s,cbFile.Text,'','');
+  ShowUnpackInfo(s,cbFile.Text,'','',true);
   end;
 
 procedure TMainForm.bbLangClick(Sender: TObject);
@@ -896,13 +897,7 @@ begin
   end;
 
 { ------------------------------------------------------------------- }
-procedure TMainForm.ShowUnpackInfo (const Command,FileName,Filter,Comment : string; GoBottom : boolean);
-const
-  TextAlign = 30;
-var
-  s           : string;
-  dt          : TDateTime;
-  vi          : TFileVersionInfo;
+procedure TMainForm.UpdateShowText (GoBottom : boolean);
 
   function GetMaxTextWidth (AList : TStrings) : integer;
   var
@@ -914,25 +909,32 @@ var
       end;
     end;
 
-  procedure InitShowText;
-  begin
-    // Show console output
-    TextWdt:=GetMaxTextWidth(ConsoleText);
-    with sbHorz do begin
-      Visible:=TextWdt>pbShowText.Width;
-      if Visible then Max:=TextWdt-pbShowText.Width;
-      LargeChange:=TextWdt div 2;
-      end;
-    VisibleLines:=pbShowText.Height div LineHeight;
-    sbVert.Visible:=ConsoleText.Count>VisibleLines;
-    with sbVert do begin
-      if Visible then Max:=ConsoleText.Count-VisibleLines else Max:=0;
-      if GoBottom then Position:=Max else Position:=Min;
-      LargeChange:=VisibleLines div 2;
-      end;
-    sbHorz.Position:=0;
-    pbShowText.Invalidate;
+begin
+  // Show console output
+  TextWdt:=GetMaxTextWidth(ConsoleText);
+  with sbHorz do begin
+    Visible:=TextWdt>pbShowText.Width;
+    if Visible then Max:=TextWdt-pbShowText.Width;
+    LargeChange:=TextWdt div 2;
     end;
+  VisibleLines:=pbShowText.Height div LineHeight;
+  sbVert.Visible:=ConsoleText.Count>VisibleLines;
+  with sbVert do begin
+    if Visible then Max:=ConsoleText.Count-VisibleLines else Max:=0;
+    if GoBottom then Position:=Max else Position:=Min;
+    LargeChange:=VisibleLines div 2;
+    end;
+  sbHorz.Position:=0;
+  pbShowText.Invalidate;
+  end;
+
+procedure TMainForm.ShowUnpackInfo (const Command,FileName,Filter,Comment : string; GoBottom : boolean);
+const
+  TextAlign = 30;
+var
+  s           : string;
+  dt          : TDateTime;
+  vi          : TFileVersionInfo;
 
   function AddColString (const Text1,Text2 : string) : string;
   begin
@@ -947,7 +949,7 @@ var
 
 begin
   ConsoleText.Clear;
-  InitShowText;
+  UpdateShowText(GoBottom);
   if (length(Filename)>0) and not FileExists(FileName) then begin
     s:=SysErrorMessage(ERROR_FILE_NOT_FOUND);
     ErrorDialog(Filename+': '+s);
@@ -975,14 +977,15 @@ begin
       end;
     end;
   CtHd:=ConsoleText.Count;
-  InitShowText;
+  UpdateShowText(GoBottom);
   if length(Filter)>0 then s:=s+Space+Filter;
   Application.ProcessMessages;
   if Execute(s) then begin
     ConsoleText.Add('');
-    InitShowText;
+    UpdateShowText(GoBottom);
     end
   else ErrorDialog(_('Error: ')+SysErrorMessage(GetLastError));
+  Application.ProcessMessages;
   end;
 
 function TMainForm.Execute (const Command : string; OutText: TStringList) : boolean;
@@ -1061,7 +1064,7 @@ begin
           else begin
             sc:=sc+s;
             ConsoleText.Text:=sc;
-            pbShowText.Invalidate;
+            UpdateShowText(true);
             tc:=0;
             end;
           if tc>=10 then Cancel:=not ConfirmDialog(_('Timeout occured - continue anyway?'));

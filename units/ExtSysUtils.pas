@@ -15,6 +15,11 @@
    Vers. 1.0 - May 2018
    last modified: February 2024
    *)
+(* @abstract(Extensions to system routines)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(May 2018)
+   @lastmod(February 2024)
+*)
 
 unit ExtSysUtils;
 

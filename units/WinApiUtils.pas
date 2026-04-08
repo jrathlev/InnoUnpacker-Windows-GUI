@@ -1,7 +1,7 @@
 (* Delphi Unit
    Definitions from Window API missing in library unit "Winapi.Windows"
-   collection of subroutines to use Windows API functions
-   ======================================================
+   Collection of subroutines using Windows API functions
+   =====================================================
 
    © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
@@ -27,6 +27,12 @@
 
    last modified: August 2025
    *)
+(* @abstract(Definitions from Window API missing in library unit "Winapi.Windows"@br
+             Collection of subroutines using Windows API functions)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(September 2002)
+   @lastmod(August 2025)
+*)
 
 unit WinApiUtils;
 
@@ -61,7 +67,7 @@ const
   LOGON_NETCREDENTIALS_ONLY = $00000002;
   LOGON_ZERO_PASSWORD_BUFFER = DWORD($80000000);
 
-  // constants missing in unit Windows
+  // constants missing in unit Windows (see: winnt.h)
   // see: https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/c8e77b37-3909-4fe6-a4ea-2b9d423b1ee4
   IO_REPARSE_TAG_MOUNT_POINT         = $A0000003;
   {$EXTERNALSYM IO_REPARSE_TAG_MOUNT_POINT}
@@ -71,10 +77,10 @@ const
   {$EXTERNALSYM IO_REPARSE_TAG_SIS}
   IO_REPARSE_TAG_DFS                 = $8000000A;
   {$EXTERNALSYM IO_REPARSE_TAG_DFS}
-  IO_REPARSE_TAG_FILTER_MANAGER      = $8000000B;
-  {$EXTERNALSYM IO_REPARSE_TAG_FILTER_MANAGER}
   IO_REPARSE_TAG_SYMLINK             = $A000000C;
   {$EXTERNALSYM IO_REPARSE_TAG_SYMLINK}
+  IO_REPARSE_TAG_CLOUD               = $9000001A;
+  {$EXTERNALSYM IO_REPARSE_TAG_CLOUD}
 
   MAXIMUM_REPARSE_DATA_BUFFER_SIZE  = 16 * 1024;
   REPARSE_DATA_BUFFER_HEADER_SIZE  = 8;
@@ -470,7 +476,7 @@ type
 
 { ---------------------------------------------------------------- }
 {$EXTERNALSYM GetFileSizeEx}
-function GetFileSizeEx(hFile: THandle; lpFileSize : Large_Integer): BOOL; stdcall;
+function GetFileSizeEx(hFile: THandle; lpFileSize : pointer): BOOL; stdcall;
 
 {$EXTERNALSYM ConvertStringSidToSid}
 function ConvertStringSidToSid (lpStringSid: PChar; var Sid: PSID): BOOL; stdcall;

@@ -15,7 +15,7 @@
    the specific language governing rights and limitations under the License.
 
    October 2024
-   last modified: March 2025
+   last modified: March 2026
    *)
 
 unit ListUtils;
@@ -113,6 +113,7 @@ function GetIndexOfName (AList : TStrings; const AName : string) : integer;
 function GetName (AList : TStrings; AIndex : integer) : string;
 function GetValue (AList : TStrings; AIndex : integer) : string;
 procedure TrimEndOfList (AList : TStrings);
+procedure ReplaceInList (AList : TStrings; const FromText,ToText : string);
 
 { ---------------------------------------------------------------- }
 // Listview-Index aus Caption ermitteln (wie IndexOf bei TListBox)
@@ -127,7 +128,7 @@ procedure SetListViewTopItem (lv : TListView; AIndex : integer; Select : boolean
 
 implementation
 
-uses StringUtils;
+uses System.StrUtils, StringUtils;
 
 { ------------------------------------------------------------------- }
 // History list management
@@ -580,6 +581,13 @@ begin
   with AList do for i:=Count-1 downto 0 do begin
     if AList[i].IsEmpty then Delete(i) else Break;
     end;
+  end;
+
+procedure ReplaceInList (AList : TStrings; const FromText,ToText : string);
+var
+  i : integer;
+begin
+  with AList do for i:=0 to Count-1 do ReplaceStr(Strings[i],FromText,ToText);
   end;
 
 //-----------------------------------------------------------------------------

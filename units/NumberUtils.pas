@@ -22,6 +22,11 @@
    Vers. 2 - May 2015
    last modified: August 2025
    *)
+(* @abstract(Number conversions)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(June 1989)
+   @lastmod(August 2025)
+*)
 
 unit NumberUtils;
 

@@ -15,7 +15,12 @@
   Version 1.0 - Nov. 2011
   last modified: April 2025
   *)
-  
+(* @abstract(Subroutines to initialize an application (paths, version, etc.))
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(Nov. 2011)
+   @lastmod(April 2025)
+*)
+
 unit InitProg;
 
 interface

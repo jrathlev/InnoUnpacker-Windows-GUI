@@ -1,5 +1,5 @@
 (* Delphi Unit
-   resource strings of several units - English
+   Resource strings for several units - English
 
    © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
@@ -14,6 +14,11 @@
    Vers. 1 - Jan. 2016
    last updated: Feb. 2017
    *)
+(* @abstract(Resource strings for several units - English)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(January 2016)
+   @lastmod(october 2025)
+*)
 
 unit UnitConsts;
 

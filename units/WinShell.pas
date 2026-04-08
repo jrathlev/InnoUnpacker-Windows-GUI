@@ -17,6 +17,11 @@
              systems since Vista
    last modified: August 2025
    *)
+(* @abstract(Subroutines for Windows Desktop and Shell)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(September 2002)
+   @lastmod(August 2025)
+*)
 
 unit WinShell;
 

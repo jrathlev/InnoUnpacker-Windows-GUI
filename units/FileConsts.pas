@@ -13,6 +13,11 @@
    Vers. 1.0 - Jan. 2016
    last modified: July 2025
    *)
+(* @abstract(Resource strings for FileUtils and ExtFileTools)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(January 2016)
+   @lastmod(July 2025)
+*)
 
 unit FileConsts;
 

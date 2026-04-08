@@ -17,6 +17,11 @@
 
    last modified: August 2025
    *)
+(* @abstract(Collection of Windows related subroutines)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(April 2015)
+   @lastmod(August 2025)
+*)
 
 unit WinUtils;
 
@@ -224,6 +229,8 @@ function ClearKeyboardBuffer : Integer;
 function GetCodePageList (AList : TStrings; Default : string = '') : boolean;
 
 function GetLanguageList (AList : TStrings) : boolean;
+
+function GetLocalesList (AList : TStrings) : boolean;
 
 { =================================================================== }
 implementation
@@ -1110,9 +1117,9 @@ var
 
 function CpEnumProc (CodePage : PChar) : Cardinal; stdcall;
 var
-   CpInfoEx : TCPInfoEx;
-   s : string;
-   Cp : cardinal;
+  CpInfoEx : TCPInfoEx;
+  s : string;
+  Cp : cardinal;
 begin
   Cp := StrToIntDef(CodePage,0);
   if IsValidCodePage(Cp) then begin
@@ -1153,6 +1160,25 @@ begin
   Result:=false;
   try
     Result:=EnumUILanguages(@LangEnumProc,MUI_LANGUAGE_NAME,0);
+    if Result then AList.Assign(CodePageList);
+  finally
+    CodePageList.Free;
+    end;
+  end;
+
+function LocalesEnumProc (lpName : PChar) : boolean; stdcall;
+begin
+  CodePageList.AddObject(Format('%s',[lpName]),nil);
+  Result:=true;
+  end;
+
+function GetLocalesList (AList : TStrings) : boolean;
+begin
+  CodePageList:=TStringList.Create;
+  CodePageList.Sorted:=true;
+  Result:=false;
+  try
+    Result:=EnumSystemLocales(@LocalesEnumProc,LCID_SUPPORTED);
     if Result then AList.Assign(CodePageList);
   finally
     CodePageList.Free;

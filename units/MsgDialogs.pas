@@ -19,6 +19,11 @@
    July 2022
    last modified: August 2025
    *)
+(* @abstract(Message Dialogs (Info, Error, Confirm))
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(July 2022)
+   @lastmod(August 2025)
+*)
 
 unit MsgDialogs;
 

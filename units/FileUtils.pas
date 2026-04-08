@@ -42,6 +42,11 @@
 
    last modified: August 2025
    *)
+(* @abstract(Procedures and functions for file and directory processing)
+   @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
+   @created(February 2010)
+   @lastmod(August 2025)
+*)
 
 unit FileUtils;
 
@@ -90,7 +95,7 @@ type
     Attr,Res : cardinal;
     end;
 
-  TReparseType = (rtNone,rtJunction,rtSymbolic,rtOther);
+  TReparseType = (rtNone,rtJunction,rtSymbolic,rtCloud,rtOther);
 
 { ------------------------------------------------------------------- }
 // similar to TFileStream but different error handling
@@ -283,7 +288,7 @@ procedure CopyFileTS (const SrcFilename,DestFilename : string;
 
 { ---------------------------------------------------------------- }
 // Copy files from one directory to another
-function CopyFiles (const FromDir,ToDir,AMask : string; OverWrite : boolean) : boolean;
+function CopyFiles (const FromDir,ToDir,AMask : string; OverWrite : boolean = false) : boolean;
 
 { ---------------------------------------------------------------- }
 // Copy file permissions (ACL)
@@ -1535,6 +1540,7 @@ begin
   if GetFileInfo(FileName,fs,ft,fa,fr,true) then begin
     if fr=IO_REPARSE_TAG_MOUNT_POINT then Result:=rtJunction
     else if fr=IO_REPARSE_TAG_SYMLINK then Result:=rtSymbolic
+    else if fr and IO_REPARSE_TAG_CLOUD = IO_REPARSE_TAG_CLOUD then Result:=rtCloud
     else Result:=rtOther;
     end
   else Result:=rtNone;
@@ -1549,7 +1555,8 @@ begin
   if (Attr and FILE_ATTRIBUTE_REPARSE_POINT <>0) then begin  //directory entry is a reparse point
     RpType:=GetReparsePointType(ExcludeTrailingPathDelimiter(Path));
     LinkPath:=GetLinkPath(ExcludeTrailingPathDelimiter(Path));
-    Result:=RpType<>rtNone; // all types (RpType=rtJunction) or (RpType=rtSymbolic);
+//    Result:=RpType<>rtNone; // all types
+    Result:=(RpType=rtJunction) or (RpType=rtSymbolic);
     end;
   end;
 
