@@ -5,6 +5,10 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.67.8 (2026-04-14)
+------
+  - Fixed: detection of png images
+
 2.67.7 (2026-04-08)
 ------
   - Fixed: unpacking of setups created before IS 5.1.5

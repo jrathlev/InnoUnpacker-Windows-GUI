@@ -222,13 +222,21 @@ begin
   AddFakeFile(MaybeToRtf(Name, Contents), Contents);
 end;
 
-function GetWizardImageFileName(Index: integer; IsSmallImage: Boolean) : String;
+function GetWizardImageFileName(Index: integer; PngImage, IsSmallImage: Boolean) : String;
+var
+  sn,se : string;
 begin
-  if IsSmallImage then
-    Result := Format('embedded\WizardSmallImage%u.bmp', [Index])
-  else
-    Result := Format('embedded\WizardImage%u.bmp', [Index]);
-end;
+  if PngImage then se:='png' else se:='bmp';
+  if IsSmallImage then sn:='WizardSmallImage' else sn:='WizardImage';
+  Result := Format('embedded\%s%u.%s', [sn,Index,se])
+  end;
+
+function IsPngImage (const Contents : string) : boolean;
+const
+  PngHeader : Array[0..7] of Char = (#137, #80, #78, #71, #13, #10, #26, #10);
+begin
+  Result:=SameStr(copy(Contents,1,length(PngHeader)),PngHeader);
+  end;
 
 procedure AddEmbeddedFiles;
 var i:integer;
@@ -240,9 +248,9 @@ begin
     AddFakeFile('embedded\CompiledCode.bin', CompiledCodeText);
   end;
   for i:= 0 to WizardImages.Count - 1 do
-    AddFakeFile(GetWizardImageFileName(i, false), WizardImages[i]);
+    AddFakeFile(GetWizardImageFileName(i,IsPngImage(WizardImages[i]),false), WizardImages[i]);
   for i:= 0 to WizardSmallImages.Count - 1 do
-    AddFakeFile(GetWizardImageFileName(i, true), WizardSmallImages[i]);
+    AddFakeFile(GetWizardImageFileName(i,IsPngImage(WizardSmallImages[i]),true), WizardSmallImages[i]);
   AddFakeFile('embedded\decompressor.dll', DecompDll);
 
   for i:=0 to SetupHeader.NumLanguageEntries-1 do
@@ -514,16 +522,16 @@ var
     end;
   end;
 
-  function GetImageFileList(Count : integer; IsSmallImage: boolean) : String;
+  function GetImageFileList(Images : TStringList; IsSmallImage: boolean) : String;
   var
     i: Integer;
     NameList: TStrings;
   begin
-    if (Count = 0) then Result:=''
+    if (Images.Count = 0) then Result:=''
     else begin
       NameList := TStringList.Create;
       NameList.Delimiter := ',';
-      for i := 0 to Count - 1 do NameList.Add(GetWizardImageFileName(i, IsSmallImage));
+      for i := 0 to Images.Count - 1 do NameList.Add(GetWizardImageFileName(i,IsPngImage(Images[i]),IsSmallImage));
       Result := NameList.DelimitedText;
       NameList.Free;
       end;
@@ -620,8 +628,8 @@ begin
     else if sh.WizardStyle=wsModern then s:='modern' else s:='classic';
     StrConst('WizardStyle',s);
     end;
-  StrConst('WizardImageFile', GetImageFileList(WizardImages.Count, false));
-  StrConst('WizardSmallImageFile', GetImageFileList(WizardSmallImages.Count, true));
+  StrConst('WizardImageFile', GetImageFileList(WizardImages, false));
+  StrConst('WizardSmallImageFile', GetImageFileList(WizardSmallImages, true));
   if TimeStampsInUTC then StrConst(';TimeStampsInUTC','yes');
 end;
 
