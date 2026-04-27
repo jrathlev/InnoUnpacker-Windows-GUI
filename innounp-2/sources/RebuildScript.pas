@@ -235,7 +235,8 @@ function IsPngImage (const Contents : string) : boolean;
 const
   PngHeader : Array[0..7] of Char = (#137, #80, #78, #71, #13, #10, #26, #10);
 begin
-  Result:=SameStr(copy(Contents,1,length(PngHeader)),PngHeader);
+  Result := (Length(Contents)>= 8) and
+            CompareMem(@Contents[1], @PngHeader[0], 16);
   end;
 
 procedure AddEmbeddedFiles;
