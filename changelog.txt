@@ -5,6 +5,10 @@ Windows Unpacker GUI for Inno setup files
 Revision history:
 -----------------
 
+2.2.9 (2026-04-30)
+------------------
+  - Update of "innounp.exe" to 2.67.9
+
 2.2.8 (2026-04-22)
 ------------------
   - Update of "innounp.exe" to 2.67.8
