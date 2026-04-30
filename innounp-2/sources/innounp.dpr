@@ -218,8 +218,8 @@ begin
   for I := Low(I) to High(I) do
     Entries[I] := TList.Create;
 
-  WizardImages := TStringList.Create;
-  WizardSmallImages := TStringList.Create;
+  WizardImages := TAnsiStringList.Create;
+  WizardSmallImages := TAnsiStringList.Create;
 end;
 
 procedure ReleaseEntryList;
@@ -375,7 +375,7 @@ var
       SECompressedBlockSkip(Reader, Size, Strings, AnsiStrings);
   end;
 
-  procedure ReadImageList(const R: TAbstractBlockReader; DestList: TStrings);
+  procedure ReadImageList(const R: TAbstractBlockReader; DestList: TAnsiStringList);
   var
     i, Len: Longint;
     Img: AnsiString;
@@ -383,7 +383,7 @@ var
     // In version 5.6.0 IS changed single wizard image to multiple images
     // but version signature was not changed (still 5.5.7)
     // Bacause of this (BAD decision) we have to rely on this heuristics to
-    // distinguish if with have one image of several ones
+    // distinguish if we have one image of several ones
     R.Read(Len, SizeOf(Len));
     if (Len < 20) then // this is probably an image counter
       for i := 0 to Len - 1 do
@@ -418,6 +418,7 @@ var
       ReadString(Reader, DecompDll);
     end;
   end;
+
 var
   VerObject: TInnoVer;
   TestID: TSetupID;
@@ -812,14 +813,7 @@ begin
           end;
         end
       else begin
-        s:=CurFileLocation^.Contents;
-//        len:=Length(s);
-        sr:=s;      // copy only low bytes
-//        SetLength(sr,len*SizeOf(Char)+1);
-//        len:=UnicodeToUtf8(PAnsiChar(sr),Length(sr),PWideChar(s),len);
-//        SetLength(sr,len);
-  // Add UTF-8 BOM to script start for Unicode versions.
-//        if (VerIsUnicode) then sr:=#$EF#$BB#$BF+sr;
+        sr:=CurFileLocation^.Contents;
         DestF.WriteBuffer(sr[1],length(sr));
       end;
 
@@ -976,7 +970,7 @@ begin
   writeln('  -y     assume Yes on all queries (e.g. overwrite files)');
   writeln('  -o     no colored console output');
   writeln('  -h     do not display headline with program info');
-  writeln('  -w     generate install script without UTF-8 conversion (use default encoding)');
+  writeln('  -w     no UTF-8 conversion for install script (applies only to non-Unicode setups)');
   writeln('  -r     use Windows regional settings for separators and date/time format');
   writeln('  -u     use UTF-8 for console output');
 end;
@@ -1084,7 +1078,7 @@ var
   systime   : TSystemTime;
   TimeStamp : TFileTime;
   loc       : PSetupFileLocationEntry;
-  ReconstructedScript,
+  ReconstructedScript : AnsiString;
   s         : string;
   TotalFileSize : Int64;
   TotalFiles,TotalEncryptedFiles,MaxSlice : Integer;
@@ -1099,7 +1093,8 @@ begin
     end
   else attr:=ConsoleBg or ConsoleFg;
   ConsoleCodePage:=GetConsoleOutputCP;
-  UpVersion:=Format('%u.%u.%u',[IUV_MAJOR, IUV_MINOR,IUV_RELEASE]);
+  if IUV_BUILD=0 then UpVersion:=Format('%u.%u.%u',[IUV_MAJOR,IUV_MINOR,IUV_RELEASE])
+  else UpVersion:=Format('%u.%u.%u.%u',[IUV_MAJOR,IUV_MINOR,IUV_RELEASE,IUV_BUILD]);
   CreateEntryLists;
   n:=ParseCommandLine;
   if UseUtf8 then SetConsoleOutputCP(CP_UTF8);
@@ -1162,11 +1157,11 @@ begin
       try
         if OutDir<>'' then begin MakeDir(OutDir); SetCurrentDir(OutDir) end;
         SetupLdr;
+        if VerIsUnicode then ScriptAsUtf8:=true;
         InitializeSetup;
         if ExtractEmbedded then AddEmbeddedFiles;
 
         if CommandAction<>caInstallInfo then begin // save some time
-          if VerIsUnicode then ScriptAsUtf8:=true;
 
           RenameFiles(ExtractAllCopies); // all the fake files must be added before this
 

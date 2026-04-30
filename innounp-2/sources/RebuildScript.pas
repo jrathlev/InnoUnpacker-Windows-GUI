@@ -4,10 +4,10 @@ interface
 
 uses MyTypes;
 
-function GetInstallScript : String;
-function GetLanguageFile(i: Integer) : String;
+function GetInstallScript : AnsiString;
+function GetLanguageFile(i: Integer) : AnsiString;
 function GetVersionText(MinVersion : TMySetupVersionData) : string;
-function GetCompressMethodName(Method: TSetupCompressMethod) : AnsiString;
+function GetCompressMethodName(Method: TSetupCompressMethod) : String;
 procedure AddEmbeddedFiles;
 
 implementation
@@ -17,20 +17,20 @@ uses Winapi.Windows, System.SysUtils, System.Classes, Main, PathFunc, MD5, SHA1,
 type
   TScriptBuilder = class
   private
-    Res: String;
+    Res: AnsiString;
     CurSlice: Integer;
 
-    procedure Print(const s: String);
-    procedure PrintLn(const s: String);
+    procedure Print(const s: AnsiString);
+    procedure PrintLn(const s: AnsiString = '');
 
-    procedure StrParam(const DisplayName,Value:string; UseQuotes: boolean = true);
-    procedure IntParam(DisplayName:string; Value:Int64);
-    procedure StrConst(const DisplayName,Value:string; ShowAlways:boolean=false);
-    procedure IntConst(const DisplayName:string; Value:Int64);
-    procedure NewLine();
-    procedure PrintComment(const Text: String);
-    procedure PrintSectionHeader(const SectionName: String; PrependEmptyLine: boolean = true);
-    procedure PrintFlagsParam(const FlagsStr: String);
+    procedure StrParam (const DisplayName,Value : AnsiString; UseQuotes : boolean = true); overload;
+    procedure StrParam(const DisplayName : AnsiString; const Value : string; UseQuotes : boolean = true); overload;
+    procedure IntParam(const DisplayName : AnsiString; Value : Int64);
+    procedure StrConst(const DisplayName : AnsiString; const Value : string; ShowAlways : boolean=false);
+    procedure IntConst(const DisplayName : AnsiString; Value : Int64);
+    procedure PrintComment(const Text: AnsiString);
+    procedure PrintSectionHeader(const SectionName: AnsiString; PrependEmptyLine: boolean = true);
+    procedure PrintFlagsParam(const FlagsStr: AnsiString);
     procedure PrintVersions(MinVersion, OnlyBelowVersion: TMySetupVersionData);
 
     procedure PrintSetupHeader(const sh: TSetupHeader);
@@ -49,8 +49,8 @@ type
 
     procedure PrintLangOptions(const le:TSetupLanguageEntry);
   public
-    function RebuildScript : String;
-    function GetLanguageFile(i: Integer) : String;
+    function RebuildScript : AnsiString;
+    function GetLanguageFile(i: Integer) : AnsiString;
   end;
 
 function VerToStr(Ver: Cardinal; ServicePack: Word): String;
@@ -93,8 +93,9 @@ begin
   end;
 end;
 
-function DoubleQuotes(s:string) : string;
-var i:integer;
+function DoubleQuotes(s : AnsiString) : AnsiString;
+var
+  i : integer;
 begin
   for i:=length(s) downto 1 do
     if s[i]='"' then Insert('"',s,i);
@@ -113,7 +114,7 @@ begin
     SetLength(sr,len-1);
     Result:=sr;
     end
-  else Result:=s;
+  else Result:=s;     // use default code page
   end;
 
 function ApplyCodepage (const s : string; const le : TSetupLanguageEntry) : string;
@@ -172,7 +173,7 @@ begin
   Result := Trim(Result);
 end;
 
-function GetCompressMethodName(Method: TSetupCompressMethod) : AnsiString;
+function GetCompressMethodName(Method: TSetupCompressMethod) : String;
 begin
   case Method of
     cmStored: Result:='none';
@@ -211,13 +212,13 @@ begin
   Result := name;
 end;
 
-function MaybeToRtf(Name, Contents:string):string;
+function MaybeToRtf(const Name : string; const Contents : AnsiString) : string;
 begin
-  if copy(Contents, 1, 5)='{\rtf' then Name:=ChangeFileExt(Name, '.rtf');
-  Result:=Name;
+  if copy(Contents, 1, 5)='{\rtf' then Result:=ChangeFileExt(Name, '.rtf')
+  else Result:=Name;
 end;
 
-procedure AddFakeRtfOrTxtFile(Name, Contents:string);
+procedure AddFakeRtfOrTxtFile(const Name : string; const Contents : AnsiString);
 begin
   AddFakeFile(MaybeToRtf(Name, Contents), Contents);
 end;
@@ -231,12 +232,12 @@ begin
   Result := Format('embedded\%s%u.%s', [sn,Index,se])
   end;
 
-function IsPngImage (const Contents : string) : boolean;
+function IsPngImage (const Contents : AnsiString) : boolean;
 const
-  PngHeader : Array[0..7] of Char = (#137, #80, #78, #71, #13, #10, #26, #10);
+  PngHeader : Array[0..7] of AnsiChar = (#137, #80, #78, #71, #13, #10, #26, #10);
 begin
   Result := (Length(Contents)>= 8) and
-            CompareMem(@Contents[1], @PngHeader[0], 16);
+            CompareMem(@Contents[1], @PngHeader[0], 8);
   end;
 
 procedure AddEmbeddedFiles;
@@ -263,7 +264,7 @@ begin
     end;
 end;
 
-function GetInstallScript : String;
+function GetInstallScript : AnsiString;
 var
   Builder: TScriptBuilder;
 begin
@@ -275,7 +276,7 @@ begin
   end;    
 end;
 
-function GetLanguageFile(i: Integer) : String;
+function GetLanguageFile(i: Integer) : AnsiString;
 var
   Builder: TScriptBuilder;
 begin
@@ -326,63 +327,64 @@ begin
 
 { TScriptBuilder }
 
-procedure TScriptBuilder.Print(const s: String);
+procedure TScriptBuilder.Print(const s : AnsiString);
 begin
   Res:=Res+s;
 end;
 
-procedure TScriptBuilder.PrintLn(const s: String);
+procedure TScriptBuilder.PrintLn(const s: AnsiString);
 begin
   Res:=Res+s+sLineBreak;
 end;
 
-procedure TScriptBuilder.StrParam(const DisplayName, Value:string; UseQuotes: boolean = true);
+procedure TScriptBuilder.StrParam (const DisplayName,Value : AnsiString; UseQuotes : boolean = true);
 begin
-  if Value<>'' then
-  begin
+  if Value<>'' then begin
     if UseQuotes then
-      Print(DisplayName + ': "' + DoubleQuotes(MakeUtf8(Value)) + '"; ')
+      Print(DisplayName + ': "' + DoubleQuotes(Value) + '"; ')
     else
-      Print(DisplayName + ': ' + MakeUtf8(Value) + '; ');
+      Print(DisplayName + ': ' + Value + '; ');
   end;
 end;
 
-procedure TScriptBuilder.IntParam(DisplayName:string; Value:Int64);
+procedure TScriptBuilder.StrParam (const DisplayName : AnsiString; const Value : string;
+                                   UseQuotes :  boolean = true);
+begin
+  StrParam(DisplayName,MakeUtf8(Value),UseQuotes);
+  end;
+
+procedure TScriptBuilder.IntParam (const DisplayName : AnsiString; Value:Int64);
 begin
   if Value <> 0 then StrParam(DisplayName, IntToStr(Value), True);
 end;
 
-procedure TScriptBuilder.StrConst(const DisplayName,Value:string; ShowAlways:boolean=false);
+procedure TScriptBuilder.StrConst (const DisplayName : AnsiString; const Value : string;
+                                   ShowAlways : boolean = false);
 begin
   if ShowAlways or (Value<>'') then PrintLn(DisplayName+'='+MakeUtf8(Value));
 end;
 
-procedure TScriptBuilder.IntConst(const DisplayName:string; Value:Int64);
+procedure TScriptBuilder.IntConst (const DisplayName : AnsiString; Value:Int64);
 begin
   StrConst(DisplayName, IntToStr(Value));
 end;
 
-procedure TScriptBuilder.NewLine();
-begin
-  PrintLn('');
-end;
-
-procedure TScriptBuilder.PrintComment(const Text: String);
+procedure TScriptBuilder.PrintComment(const Text: AnsiString);
 begin
   PrintLn('; ' + Text);
 end;
 
-procedure TScriptBuilder.PrintSectionHeader(const SectionName: String; PrependEmptyLine: boolean = true);
+procedure TScriptBuilder.PrintSectionHeader(const SectionName: AnsiString; PrependEmptyLine: boolean = true);
 begin
-  if (PrependEmptyLine) then NewLine();
+  if (PrependEmptyLine) then PrintLn;
   PrintLn('[' + SectionName + ']');
 end;
 
-procedure TScriptBuilder.PrintFlagsParam(const FlagsStr: String);
+procedure TScriptBuilder.PrintFlagsParam(const FlagsStr: AnsiString);
 begin
   if (FlagsStr <> '') then
     Print('Flags: ' + FlagsStr);
-  NewLine();  
+  PrintLn;
 end;
 
 procedure TScriptBuilder.PrintVersions(MinVersion, OnlyBelowVersion: TMySetupVersionData);
@@ -399,7 +401,7 @@ begin
   end;
 end;
 
-function TScriptBuilder.RebuildScript: String;
+function TScriptBuilder.RebuildScript: AnsiString;
 var
   i:integer;
 begin
@@ -486,8 +488,7 @@ begin
   end;
   
   Result := Res;
-//  Res.Destroy;
-end;
+  end;
 
 procedure TScriptBuilder.PrintSetupHeader(const sh: TSetupHeader);
 var
@@ -523,7 +524,7 @@ var
     end;
   end;
 
-  function GetImageFileList(Images : TStringList; IsSmallImage: boolean) : String;
+  function GetImageFileList(Images : TAnsiStringList; IsSmallImage: boolean) : String;
   var
     i: Integer;
     NameList: TStrings;
@@ -636,7 +637,7 @@ end;
 
 procedure TScriptBuilder.PrintRegistryEntry(const re: TSetupRegistryEntry);
 
-  function OptStr(Opt: TSetupRegistryOption):string;
+  function OptStr(Opt: TSetupRegistryOption) : AnsiString;
   begin
     case Opt of
       roCreateValueIfDoesntExist         : Result:='createvalueifdoesntexist';
@@ -654,10 +655,10 @@ procedure TScriptBuilder.PrintRegistryEntry(const re: TSetupRegistryEntry);
   end;
 
 var
-  s,t:string;
-  i:dword;
-  o:TSetupRegistryOption;
-  vType: String;
+  t : string;
+  vType,sa,ta : AnsiString;
+  i  :dword;
+  o  :TSetupRegistryOption;
 begin
   with re do begin
     StrParam('Root', RegRootToStr(re), false);
@@ -683,7 +684,7 @@ begin
           repeat
             i:=pos(#0,t);
             if i=0 then break;
-            t[i]:='{'; insert('break}',s,i+1);
+            t[i]:='{'; insert('break}',t,i+1);
           until false;
         end;
         else vType:='Unknown';
@@ -700,17 +701,18 @@ begin
 
     PrintVersions(MinVersion, OnlyBelowVersion);
 
-    s:='';
+    sa:='';
     for o:=Low(o) to High(o) do if o in Options then begin
-      t:=OptStr(o);
-      if t<>'' then s:=s+t+' ';
+      ta:=OptStr(o);
+      if ta<>'' then sa:=sa+ta+' ';
     end;
-    PrintFlagsParam(s);
+    PrintFlagsParam(sa);
   end;
 end;
 
 procedure TScriptBuilder.PrintRunEntry(const re:TSetupRunEntry);
-  function OptStr(Opt: TSetupRunOption):string;
+
+  function OptStr(Opt: TSetupRunOption) : AnsiString;
   begin
     case Opt of
       roShellExec           : Result:='shellexec';
@@ -726,9 +728,10 @@ procedure TScriptBuilder.PrintRunEntry(const re:TSetupRunEntry);
     else Result:='';
     end;
   end;
+
 var
-  s, t: string;
-  o:TSetupRunOption;
+  sa,ta : string;
+  o : TSetupRunOption;
 begin
   with re do begin
     StrParam('Filename',Name);
@@ -746,15 +749,16 @@ begin
 
     PrintVersions(MinVersion, OnlyBelowVersion);
 
+    sa:='';
     for o:=Low(o) to High(o) do if o in Options then begin
-      t:=OptStr(o);
-      if t<>'' then s:=s+t+' ';
+      ta:=OptStr(o);
+      if ta<>'' then sa:=sa+ta+' ';
     end;
     case Wait of
-      rwNoWait: s := s + 'nowait';
-      rwWaitUntilIdle: s := s + 'waituntilidle';
+      rwNoWait: sa:=sa+'nowait';
+      rwWaitUntilIdle: sa:=sa+'waituntilidle';
     end;
-    PrintFlagsParam(s);
+    PrintFlagsParam(sa);
   end;
 end;
 
@@ -770,7 +774,7 @@ begin
 
     PrintVersions(MinVersion, OnlyBelowVersion);
 
-    NewLine();
+    PrintLn;
   end;
 end;
 
@@ -791,7 +795,7 @@ begin
 
     PrintVersions(MinVersion, OnlyBelowVersion);
 
-    NewLine();
+    PrintLn;
   end;
 end;
 
@@ -805,12 +809,13 @@ begin
 
     PrintVersions(MinVersion, OnlyBelowVersion);
 
-    NewLine();
+    PrintLn;
   end;
 end;
 
 procedure TScriptBuilder.PrintFileEntry(const fe:TSetupFileEntry);
-  function OptStr(Opt: TSetupFileOption):string;
+
+  function OptStr(Opt: TSetupFileOption) : AnsiString;
   begin
     case Opt of
       foConfirmOverwrite         : Result:='confirmoverwrite';
@@ -844,7 +849,8 @@ procedure TScriptBuilder.PrintFileEntry(const fe:TSetupFileEntry);
     else Result:='';
     end;
   end;
-  function SignStr(Sign: TSetupFileLocationSign):string;
+
+  function SignStr(Sign: TSetupFileLocationSign) : AnsiString;
   begin
     case Sign of
       fsYes   : Result:='sign';
@@ -853,10 +859,11 @@ procedure TScriptBuilder.PrintFileEntry(const fe:TSetupFileEntry);
     else Result:='';
     end;
   end;
+
 var
-  s,t,ss:string;
-  o:TSetupFileOption;
-  Opts:TMySetupFileOptions;
+  sa,ta,ss : AnsiString;
+  o : TSetupFileOption;
+  Opts : TMySetupFileOptions;
 begin
   if (fe.FileType <> ftUserFile) then Exit;
 
@@ -885,30 +892,32 @@ begin
 
     PrintVersions(MinVersion, OnlyBelowVersion);
 
-    s:='';
+    sa:='';
     Opts:=Options;
     if foDeleteAfterInstall in Opts then Exclude(Opts, foUninsNeverUninstall);
     for o:=Low(o) to High(o) do if o in Opts then begin
-      t:=OptStr(o);
-      if t<>'' then s:=s+t+' ';
+      ta:=OptStr(o);
+      if ta<>'' then sa:=sa+ta+' ';
     end;
-    if ss<>'' then s:=s+ss+' ';
-    PrintFlagsParam(s);
+    if ss<>'' then sa:=sa+ss+' ';
+    PrintFlagsParam(sa);
   end;
 end;
 
 procedure TScriptBuilder.PrintDeleteEntry(const de: TSetupDeleteEntry);
-  function TypeStr(Typ: TSetupDeleteType):string;
+
+  function TypeStr(Typ: TSetupDeleteType) : AnsiString;
   begin
     case Typ of
       dfFiles             : Result:='files';
       dfFilesAndOrSubdirs : Result:='filesandordirs';
       dfDirIfEmpty        : Result:='dirifempty';
-    end;  
+    end;
   end;
+
 begin
   with de do begin
-    StrParam('Type', TypeStr(DeleteType), false);
+    StrParam('Type',TypeStr(DeleteType), false);
     StrParam('Name',Name);
     StrParam('Components',Components, false);
     StrParam('Tasks',Tasks, false);
@@ -916,19 +925,19 @@ begin
     StrParam('Check',Check, false);
     StrParam('BeforeInstall',BeforeInstall);
     StrParam('AfterInstall',AfterInstall);
-    NewLine();
+    PrintLn;
   end;
 end;
 
 procedure TScriptBuilder.PrintCustomMessageEntry(const ce:TSetupCustomMessageEntry);
 var
-  s,v:string;
+  s,v : string;
 begin
   with ce do begin
     s := Name;
     if (LangIndex >= 0) then
       s:=PSetupLanguageEntry(Entries[seLanguage][LangIndex])^.Name+'.'+s;
-    v := StringReplace(Value, #13#10, '%n', [rfReplaceAll]);
+    v:=StringReplace(Value, #13#10, '%n', [rfReplaceAll]);
     if ScriptAsUtf8 then begin
       if (LangIndex >= 0) then
         StrConst(s,ApplyCodepage(v,PSetupLanguageEntry(Entries[seLanguage][LangIndex])^))
@@ -940,7 +949,7 @@ begin
 
 procedure TScriptBuilder.PrintIconEntry(const ie:TSetupIconEntry);
 var
-  s:string;
+  sa : AnsiString;
 begin
   with ie do begin
     StrParam('Name',IconName);
@@ -959,21 +968,22 @@ begin
 
     PrintVersions(MinVersion, OnlyBelowVersion);
 
-    s:='';
+    sa:='';
     case CloseOnExit of
-      icYes: s:=s+'closeonexit ';
-      icNo: s:=s+'dontcloseonexit ';
+      icYes: sa:=sa+'closeonexit ';
+      icNo: sa:=sa+'dontcloseonexit ';
     end;
     case ShowCmd of
-      SW_SHOWMAXIMIZED: s:=s+'runmaximized ';
-      SW_SHOWMINNOACTIVE: s:=s+'runminimized ';
+      SW_SHOWMAXIMIZED: sa:=sa+'runmaximized ';
+      SW_SHOWMINNOACTIVE: sa:=sa+'runminimized ';
     end;
-    PrintFlagsParam(s);
+    PrintFlagsParam(sa);
+    end;
   end;
-end;
 
 procedure TScriptBuilder.PrintDirEntry(const de: TSetupDirEntry);
-  function OptStr(Opt: TSetupDirOption):string;
+
+  function OptStr(Opt: TSetupDirOption): AnsiString;
   begin
     case Opt of
       doUninsNeverUninstall      : Result:='uninsneveruninstall';
@@ -984,22 +994,25 @@ procedure TScriptBuilder.PrintDirEntry(const de: TSetupDirEntry);
     else Result:='';
     end;
   end;
+
 var
-  s,t:string;
+  sa,ta:string;
   Opts: TMySetupDirOptions;
   o: TSetupDirOption;
 begin
   StrParam('Name', de.DirName);
   Opts := de.Options;
+  sa:='';
   for o:=Low(o) to High(o) do if o in Opts then begin
-    t := OptStr(o);
-    if t<>'' then s := s + t + ' ';
+    ta:=OptStr(o);
+    if ta<>'' then sa:=sa+ta+' ';
   end;
-  PrintFlagsParam(s);
-end;
+  PrintFlagsParam(sa);
+  end;
 
 procedure TScriptBuilder.PrintIniEntry(const ie: TSetupIniEntry);
-  function OptStr(Opt: TSetupIniOption):string;
+
+  function OptStr(Opt: TSetupIniOption) : AnsiString;
   begin
     case Opt of
       ioCreateKeyIfDoesntExist      : Result:='createkeyifdoesntexist';
@@ -1009,10 +1022,11 @@ procedure TScriptBuilder.PrintIniEntry(const ie: TSetupIniEntry);
     else Result:='';
     end;
   end;
+
 var
-  s,t:string;
-  Opts: TMySetupIniOptions;
-  o: TSetupIniOption;
+  sa,ta : string;
+  Opts : TMySetupIniOptions;
+  o : TSetupIniOption;
 begin
   StrParam('FileName', ie.Filename);
   StrParam('Section', ie.Section);
@@ -1020,14 +1034,15 @@ begin
   StrParam('String', ie.Value);
 
   Opts := ie.Options;
+  sa:='';
   for o:=Low(o) to High(o) do if o in Opts then begin
-    t := OptStr(o);
-    if t<>'' then s := s + t + ' ';
+    ta:=OptStr(o);
+    if ta<>'' then sa:=sa+ta+' ';
+    end;
+  PrintFlagsParam(sa);
   end;
-  PrintFlagsParam(s);
-end;
 
-procedure TScriptBuilder.PrintLanguageEntry(const le:TSetupLanguageEntry);
+procedure TScriptBuilder.PrintLanguageEntry(const le : TSetupLanguageEntry);
 begin
   with le do begin                                      // these filenames must be mirrored in AddEmbeddedFiles()
     StrParam('Name', Name);
@@ -1037,7 +1052,7 @@ begin
     if InfoAfterText<>'' then StrParam('InfoAfterFile', MaybeToRtf('embedded\'+Name+'InfoAfter.txt', InfoAfterText));
 //    StrParam('Codepage', IntToStr(LanguageCodePage));
   end;
-  NewLine();
+  PrintLn;
 end;
 
 procedure TScriptBuilder.PrintLangOptions(const le:TSetupLanguageEntry);
@@ -1058,9 +1073,11 @@ begin
   end;
 end;
 
-function TScriptBuilder.GetLanguageFile(i: Integer) : String;
+function TScriptBuilder.GetLanguageFile(i: Integer) : AnsiString;
 begin
   Res:='';
+// Add UTF-8 BOM to script start for Unicode versions.
+  if ScriptAsUtf8 then Print(#$EF#$BB#$BF);
   PrintSectionHeader('LangOptions', False);
   PrintLangOptions(PSetupLanguageEntry(Entries[seLanguage][i])^);
   Result := Res;

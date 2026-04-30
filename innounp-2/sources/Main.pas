@@ -2,7 +2,8 @@ unit Main;
 
 interface
 
-uses System.Classes, System.SysUtils, System.UITypes, MyTypes, Struct;
+uses System.Classes, System.SysUtils, System.UITypes, System.Generics.Collections,
+  MyTypes, Struct;
 
 type
   TEntryType = (seLanguage, sePermission, seType, seComponent, seTask, seDir, seKeySig,
@@ -33,6 +34,8 @@ const
   clPurple = TColors.Purple;
   clAqua = TColors.Aqua;
 
+type
+  TAnsiStringList = System.Generics.Collections.TList<AnsiString>;
 
 var
   SetupLdrOffset0 : int64;
@@ -54,8 +57,9 @@ var
   ConsoleFg : word = 7;
   ConsoleBg : word = 0;
 
-  WizardImages, WizardSmallImages: TStringList;
-  DecompDll:Ansistring;
+  WizardImages, WizardSmallImages: TAnsiStringList;
+//  WizardImages, WizardSmallImages: TStringList;
+  DecompDll : Ansistring;
 
   ScriptAsUtf8 : boolean = true;
   UseReg : boolean = false;  // use regional settings instead of default,
@@ -93,8 +97,8 @@ function VersionToString (ver : integer) : string;
 function DateString (dt : TDateTime) : string;
 function DateTimeString (dt : TDateTime) : string;
 
-function AddFakeFile(const FileName,FileContents : String;
-                     RenameNow:boolean=false):integer;
+function AddFakeFile(const FileName : String; const FileContents : AnsiString;
+                     RenameNow : boolean=false) : integer;
 
 function FileContents(const Filename:string) : string;
 function MakeDir(Dir: String) : Boolean;
@@ -398,8 +402,8 @@ begin
   else Result:=ft;
   end;
 
-function AddFakeFile(const FileName,FileContents : String;
-                     RenameNow : boolean = false):integer;
+function AddFakeFile(const FileName : String; const FileContents : AnsiString;
+                     RenameNow : boolean = false) : integer;
 var
   pFileEntry : PSetupFileEntry;
   pFileLocationEntry : PSetupFileLocationEntry;

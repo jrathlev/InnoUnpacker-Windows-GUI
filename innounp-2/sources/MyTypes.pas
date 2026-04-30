@@ -187,7 +187,7 @@ type
     FileVersionMS, FileVersionLS: DWORD;
     Flags: TMySetupFileLocationFlags;
     Sign : TMySetupFileLocationSign;
-    Contents: String; // for fake files
+    Contents: RawByteString; // for fake files
     PrimaryFileEntry:integer; // for duplicate files
   end;
 
