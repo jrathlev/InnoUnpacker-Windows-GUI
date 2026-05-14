@@ -4,14 +4,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: InnoUnpack\n"
 "POT-Creation-Date: 2026-03-28 16:08+0100\n"
-"PO-Revision-Date: 2026-03-28 16:10+0100\n"
-"Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
+"PO-Revision-Date: 2026-05-14 10:24+0200\n"
+"Last-Translator: bovirus <bovirus@gmail.com>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-SourceCharset: ISO-8859-1\n"
 
 msgid "Inspect and unpack InnoSetup files"
@@ -27,7 +27,7 @@ msgid "Quit program"
 msgstr "Esci dal programma"
 
 msgid "Show list of all contained files"
-msgstr "Mostra l'elenco di tutti i file contenuti"
+msgstr "Visualizza elenco di tutti i file contenuti"
 
 msgid "File list"
 msgstr "Elenco file"
@@ -45,22 +45,22 @@ msgid "Process embedded files"
 msgstr "Elabora file incorporati"
 
 msgid "InnoSetup archive is encrypted"
-msgstr "Archivio InnoSetup criptato"
+msgstr "Archivio Inno Setup criptato"
 
 msgid "Password:"
 msgstr "Password:"
 
 msgid "Show list of all supported Inno Setup versions"
-msgstr "Mostra l'elenco di tutte le versioni di Inno Setup supportate"
+msgstr "Visualizza elenco di tutte le versioni di Inno Setup supportate"
 
 msgid "Show list of all supported languages"
-msgstr "Mostra l'elenco di tutte le lingue supportate"
+msgstr "Visualizza elenco di tutte le lingue supportate"
 
 msgid "Languages"
 msgstr "Lingue"
 
 msgid "Show general information"
-msgstr "Mostra informazioni generali"
+msgstr "Visualizza informazioni generali"
 
 msgid "Extract to directory:"
 msgstr "Estrai nella cartella:"
@@ -87,25 +87,25 @@ msgid "Without paths"
 msgstr "Estrai senza percorsi"
 
 msgid "Edit file filter"
-msgstr "Modifica il filtro del file"
+msgstr "Modifica filtro file"
 
 msgid "Select directory for extracted files"
-msgstr "Seleziona la cartella dove estrarre i file"
+msgstr "Seleziona cartella dove estrarre i file"
 
 msgid "Use directory of setup archive"
-msgstr "Utilizzare la directory dell'archivio di setup"
+msgstr "Usa cartella file installazione"
 
 msgid "Filter for install script"
-msgstr "Filtro per lo script di installazione"
+msgstr "Filtro per lo script installazione"
 
 msgid "Only from {app} path"
-msgstr "Solo dal {app}"
+msgstr "Solo dal percorso {app}"
 
 msgid "Select files"
-msgstr "Seleziona files"
+msgstr "Seleziona file"
 
 msgid "Encoding of install script"
-msgstr "Codifica dello script di installazione"
+msgstr "Codifica script installazione"
 
 msgid "Default"
 msgstr "Predefinito"
@@ -126,10 +126,10 @@ msgid "Language"
 msgstr "Lingua"
 
 msgid "Display mode"
-msgstr "Modalità display"
+msgstr "Modalità visualizzazione"
 
 msgid "System default"
-msgstr "Sistema predefinito"
+msgstr "Predefinito sistema"
 
 msgid "Light"
 msgstr "Chiaro"
@@ -163,7 +163,7 @@ msgid ""
 "\t/p\t\t: run as portable program\n"
 "\t/k\t\t: run in dark mode"
 msgstr ""
-"Opzioni della riga di comando: [<name>] [opzioni]\n"
+"Opzioni riga di comando: [<name>] [opzioni]\n"
 "\t<name>\t\t: nome file installer da scompattare\n"
 "\t/d:<ddir>\t: cartella destinazione per i file scompattati\n"
 "\t/f:<filter>\t: filtro file\n"
@@ -186,7 +186,7 @@ msgid "Unknown unpacker"
 msgstr "Unpacker sconosciuto"
 
 msgid "This application only allows dropping of exe files!"
-msgstr "Questa applicazione consente solo di rilasciare i file exe!"
+msgstr "Questa applicazione consente solo il rilascio dei file!"
 
 msgid "Programs|*.exe|All files|*.*"
 msgstr "Programmi|*.exe|Tutti i file|*.*"
@@ -198,24 +198,24 @@ msgid "Filename: "
 msgstr "Nome file: "
 
 msgid "Extract files matching:"
-msgstr "Estrarre i file corrispondenti:"
+msgstr "Estrai file corrispondenti:"
 
 msgid "To use this feature at least version 2.65.4 of \"innounp\" is required!"
 msgstr ""
-"Per utilizzare questa funzione è necessaria almeno la versione 2.65.4 di "
+"Per usare questa funzione è necessaria almeno la versione 2.65.4 di "
 "\"innounp\"!"
 
 msgid "Error: "
 msgstr "Errore: "
 
 msgid "Select files to be extracted"
-msgstr "Selezionare i file da estrarre"
+msgstr "Selezionare file da estrarre"
 
 msgid "Extract files from setup ..."
-msgstr "Estrarre i file dal setup ..."
+msgstr "Estrai file dall'installer..."
 
 msgid "Destination directory: "
-msgstr "Directory di destinazione: "
+msgstr "Cartella destinazione: "
 
 msgid "e-mail: "
 msgstr "Email: "
@@ -242,7 +242,7 @@ msgid "Comment: "
 msgstr "Commento: "
 
 msgid "Timeout occured - continue anyway?"
-msgstr "Si è verificato un timeout - continuare comunque?"
+msgstr "Si è verificato un timeout - vuoi continuare comunque?"
 
 #: UnpackMain.pas:1101
 msgid "Done"
