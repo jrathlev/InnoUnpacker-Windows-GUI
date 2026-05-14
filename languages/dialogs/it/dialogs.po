@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dialogs\n"
 "POT-Creation-Date: 2025-12-04 16:30+0100\n"
-"PO-Revision-Date: 2025-12-04 16:35+0100\n"
-"Last-Translator: J. Rathlev <kontakt@rathlev-home.de>\n"
+"PO-Revision-Date: 2026-05-14 10:18+0200\n"
+"Last-Translator: bovirus <bovirus@gmail.com>\n"
 "Language-Team: bovirus <bovirus@gmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 msgid "Show password"
@@ -138,7 +138,7 @@ msgid "Import file:"
 msgstr "Importa file:"
 
 msgid "Column separator"
-msgstr "Separatore di colonna"
+msgstr "Separatore colonna"
 
 msgid "Space"
 msgstr "Spazio"
@@ -198,7 +198,7 @@ msgid "Date format settings"
 msgstr "Impostazioni formato data"
 
 msgid "Select format:"
-msgstr "Seleziona il formato:"
+msgstr "Seleziona formato:"
 
 msgid "Information"
 msgstr "Informazioni"
@@ -339,7 +339,7 @@ msgid "Replace in list"
 msgstr "Sostituisci nell'elenco"
 
 msgid "Save list as new file"
-msgstr "Salvare l'elenco come nuovo file"
+msgstr "Salva elenco come nuovo file"
 
 msgid "Remove file"
 msgstr "Rimuovi file"
@@ -351,7 +351,7 @@ msgid "Add files"
 msgstr "Aggiungi file"
 
 msgid "List of files:"
-msgstr "Elenco con file:"
+msgstr "Elenco file:"
 
 msgid "Common path:"
 msgstr "Percorso comune:"
@@ -390,7 +390,7 @@ msgid "Use regular expressions"
 msgstr "Usa espressioni regolari"
 
 msgid "Search and replace"
-msgstr "Cerca e sostituisce"
+msgstr "Cerca e sostituisci"
 
 msgid "Search for:"
 msgstr "Cerca per:"
@@ -453,16 +453,16 @@ msgid "With confirmation"
 msgstr "Con la conferma"
 
 msgid "Select FTP subdirectory"
-msgstr "Seleziona sotto cartella FTP"
+msgstr "Seleziona sottocartella FTP"
 
 msgid "Subdirectories:"
-msgstr "Sotto cartella:"
+msgstr "Sottocartella:"
 
 msgid "One directory up"
 msgstr "Cartella superiore"
 
 msgid "Root directory on FTP server"
-msgstr "Cartella radice nel server FTP"
+msgstr "Cartella radice server FTP"
 
 msgid "Selected subdirectory:"
 msgstr "Seleziona sotto cartella:"
@@ -525,7 +525,7 @@ msgid "This option is only for debugging purposes"
 msgstr "Questa opzione è solo per scopi di debug"
 
 msgid "Write communication log to file"
-msgstr "Scrivi registro di comunicazione nel file"
+msgstr "Scrivi registro eventi comunicazione nel file"
 
 msgid "Allow filenames to be enclosed in quotes"
 msgstr "Consenti di racchiudere i nomi di file tra virgolette"
@@ -729,16 +729,16 @@ msgid "SMTP server:"
 msgstr "Server SMTP:"
 
 msgid "Click button to enter password"
-msgstr "Fare clic sul pulsante per inserire la password"
+msgstr "Per inserire la password fai clic sul pulsante"
 
 msgid "Enable mail delivery"
 msgstr "Attiva invio mail"
 
 msgid "If available (explicit)"
-msgstr "È disponibile (esplicito)"
+msgstr "Se disponibile (esplicito)"
 
 msgid "Require (explicit)"
-msgstr "Richiedere (esplicito)"
+msgstr "Richiedi (esplicito)"
 
 msgid "Always (implicit)"
 msgstr "Sempre (implicito)"
@@ -774,7 +774,7 @@ msgid "Add selected filter"
 msgstr "Aggiungi filtro selezionato"
 
 msgid "Subdirectory:"
-msgstr "Sottodirectory:"
+msgstr "Sottocartella:"
 
 msgid "Printer settings"
 msgstr "Impostazioni stampa"
@@ -900,7 +900,7 @@ msgid "Size:"
 msgstr "Dimensione:"
 
 msgid "Select item from list"
-msgstr "Seleziona l'elemento nell'elenco"
+msgstr "Seleziona elemento nell'elenco"
 
 msgid "Edit items"
 msgstr "Modifica elementi"
@@ -909,7 +909,7 @@ msgid "Remove selected items"
 msgstr "Rimuovi elementi selezionati"
 
 msgid "Reset to default values"
-msgstr "Resetta i valori predefiniti"
+msgstr "Ripristina ai valori predefiniti"
 
 msgid "Default"
 msgstr "Predefinito"
@@ -981,7 +981,7 @@ msgid "&Open"
 msgstr "&Apri"
 
 msgid "&Print"
-msgstr "&Stampa"
+msgstr "Stam&pa"
 
 msgid "&Delete"
 msgstr "&Elimina"
@@ -999,7 +999,7 @@ msgid "Go to next section"
 msgstr "Vai alla sezione successiva"
 
 msgid "Select codepage"
-msgstr "Selezionare la codifica"
+msgstr "Seleziona pagina codice"
 
 msgid "&Erase"
 msgstr "&Cancella"
@@ -1008,7 +1008,7 @@ msgid "&Copy"
 msgstr "&Copia"
 
 msgid "Paper size:"
-msgstr "Dimenzione carta:"
+msgstr "Dimensione foglio:"
 
 msgid "Length:"
 msgstr "Lunghezza:"
@@ -1062,7 +1062,7 @@ msgid "Print header"
 msgstr "Intestazione stampa"
 
 msgid "Font:"
-msgstr "Carattere:"
+msgstr "Font:"
 
 msgid "Font size:"
 msgstr "Dimensione font:"
@@ -1074,12 +1074,12 @@ msgid "File timestamp comparison"
 msgstr "Confronto data/ora file"
 
 msgid "Time comparison tolerance in s:"
-msgstr "Tolleranza confronto del tempo in s:"
+msgstr "Tolleranza confronto orario in s:"
 
 msgid ""
 "Ignore 1 hour time difference from daylight saving time (winter - summer)"
 msgstr ""
-"Ignorare 1 ora di differenza di orario dall'ora legale (inverno - estate)"
+"Ignorare 1 ora di differenza nell'orario ora legale (inverno - estate)"
 
 msgid "Transfer status"
 msgstr "Stato trasferimento"
@@ -1206,14 +1206,14 @@ msgid "No user name specified!"
 msgstr "Nessun nome utente specificato!"
 
 msgid "Invalid port number (%s)"
-msgstr "Numero di porta non valido (%s)"
+msgstr "Numero porta non valido (%s)"
 
 msgid ""
 "Online help is not available on your system\n"
 "You need to install Internet Explorer Vers. 4 or newer"
 msgstr ""
-"L'aiuto online non è disponibile in questo sistema\n"
-"Occorre installare Internet Explorer 4 o versioni successive"
+"In questo sistema la guida in linea non è disponibile \n"
+"Occorre installare Internet Explorer 4 o versioni successive."
 
 msgid "Error: Out of range (%s)"
 msgstr "Errore: fuori intervallo (%s)"
@@ -1247,15 +1247,15 @@ msgid ""
 "%s\n"
 "from list?"
 msgstr ""
-"Vuoi rimuovere il destinatario:\"\n"
+"Vuoi rimuovere il destinatario:\n"
 "%s\n"
-"dalla lista?"
+"dall'elenco?"
 
 msgid "Edit mail recipient"
 msgstr "Modifica destinatario mail"
 
 msgid "No files selected - close anyway?"
-msgstr "Nessun file selezionato - chiudere comunque?"
+msgstr "Nessun file selezionato - vuoi chiudere comunque?"
 
 msgid "all"
 msgstr "tutti"
@@ -1285,7 +1285,7 @@ msgid "Remove all selected items?"
 msgstr "Vuoi rimuovere gli elementi selezionati?"
 
 msgid "Remove item: \"%s\"?"
-msgstr "Vuoi rimuovi l'elemento: \"%s\"?"
+msgstr "Vuoi rimuovere l'elemento: \"%s\"?"
 
 msgid "Default: "
 msgstr "Predefinita: "
@@ -1333,7 +1333,7 @@ msgstr ""
 "%s!"
 
 msgid " free of "
-msgstr " disponibile di "
+msgstr " liberi su "
 
 msgid "Directory is not empty, delete anyway?"
 msgstr "Cartella non vuota, vuoi eliminarla ugualmente?"
@@ -1367,8 +1367,7 @@ msgstr "Non ci sono ulteriori sezioni!"
 
 msgid "Invalid code page - Windows default is used!"
 msgstr ""
-"Pagina di codice non valida: viene utilizzato il valore predefinito di "
-"Windows!"
+"Pagina codice non valida: verrà usato il valore predefinito di Windows!"
 
 msgid "No further errors!"
 msgstr "Non ci sono ulteriori errori!"
@@ -1404,7 +1403,7 @@ msgid "Copying to"
 msgstr "Copia in"
 
 msgid "Copy files:"
-msgstr "Copia files:"
+msgstr "Copia file:"
 
 msgid "%s of %s copied"
 msgstr "%s di %s copiati"
@@ -1436,7 +1435,7 @@ msgid ""
 "You need to install Internet Explorer Vers. 4 or newer."
 msgstr ""
 "Nel sistema non è disponibile nessun browser.\n"
-"È necessario installare Internet Explorer 4 o successivi."
+"È necessario installare Internet Explorer 4 o versioni successive."
 
 msgid "%s verification failed!"
 msgstr "Verifica %s non riuscita!"
