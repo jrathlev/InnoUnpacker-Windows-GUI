@@ -5,6 +5,10 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.70.1 (2026-07-15)
+------
+  - Added: support for IS up to 7.0.2 (x86 and x64)
+
 2.67.11 (2026-07-13)
 -------
   - Added: support for setup files with long paths
@@ -12,7 +16,7 @@ Revision history:
 
 2.67.10 (2026-07-11)
 -------
-  - Added: unpacking to long paths (> MAX_PATH)
+  - Added: unpacking to long paths > MAX_PATH
   - Fixed: setups with DiskSliceSize > MaxCardinal = 4294967295
 
 2.67.9 (2026-04-27)
@@ -56,7 +60,7 @@ Revision history:
 
 2.67.0 (2026-01-10)
 ------
-  - Added support for IS up to 6.7.3
+  - Added support for IS up to 6.7.1
   - Added: option to disable UTF-8 encoding of the script
   - Fixed: UTF-8 encoding of the setup filename in the comment at the beginning
     of the script
