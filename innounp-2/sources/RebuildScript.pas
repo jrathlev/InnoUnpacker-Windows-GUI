@@ -305,15 +305,16 @@ begin
         0 : Result:='Windows 2000';
         1 : Result:='Windows XP';
         2 : Result:='Windows Server 2003';
-        else Result:='Unkown version';
+        else Result:='Unknown version';
           end;
         end
       else if TSetupVersionDataVersion(NtVersion).Major=6 then begin  // Windows 7 and 8
         case TSetupVersionDataVersion(NtVersion).Minor of
+        0 : Result:='Windows Vista';
         1 : Result:='Windows 7';
         2 : Result:='Windows 8';
         3 : Result:='Windows 8.1';
-        else Result:='Unkown version';
+        else Result:='Unknown version';
           end;
         end
       else begin // Windows 10 and 11
