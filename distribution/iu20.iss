@@ -20,6 +20,12 @@
 #define ProgramWebURL "http://www.rathlev-home.de/?tools/progtools.html"
 #define OutputFile "InnoUnpacker-setup"
 
+; include file with list of language file
+#include "iu-20-lang.inc"
+
+; include file with custom messages strings
+#include "iu-20-cmsg.inc"
+
 [Setup]
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
@@ -39,6 +45,7 @@ DefaultGroupName={#ProgramName}
 OutputDir=.
 OutputBaseFilename={#OutputFile}
 SetupIconFile=..\inno-unpacker-2.ico
+UninstallDisplayName={#ProgramName}
 UninstallDisplayIcon={app}\inno-unpacker-u-2.ico
 WizardImageFile=WizImage-JR.bmp
 WizardSmallImageFile=WizSmallImage-JR.bmp
@@ -49,16 +56,6 @@ ShowLanguageDialog=yes
 DisableDirPage=auto
 DisableProgramGroupPage=auto
 WizardStyle=modern dynamic 
-
-[Languages]
-Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"license-en.rtf";
-#include "iu-20-lang.inc"
-
-[CustomMessages]
-en.FileAssoc=File associations:
-en.DescContext=Add "InnoUnpacker" to context menu of exe files
-en.InnoUnpack=Open &Inno Setup installer with InnoUnpacker
-#include "iu-20-cmsg.inc"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
