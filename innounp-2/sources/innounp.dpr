@@ -859,6 +859,7 @@ begin
       FileName:=AnsiLowercase(PathExtractName(AFile^.SourceFileName));
 //      if AFile^.DestName<>'' then FileName:=AnsiLowercase(PathExtractName(AFile^.DestName));
       MaskName:=AnsiLowercase(PathExtractName(FileMasks[i]));
+      if (MaskName='**') and not SameStr(MaskPath,FilePath) then break else MaskName:='*';
       if MaskPath ='' then
         Result:=WildcardMatch(PChar(FileName),PChar(AnsiLowercase(FileMasks[i])))
       else if IsWildcard(MaskName) then
