@@ -566,7 +566,8 @@ function QueryShutDownReason (fHandle: hWnd; var Reason : string) : boolean;
 { ---------------------------------------------------------------- }
 (*  Get Version Info from File *)
 function GetFileVersion (const Filename : string; var FileVersionInfo : TFileVersionInfo) : boolean;
-function GetFileVersionString (const Filename : string; var Version : string) : boolean;
+function GetFileVersionString (const Filename : string; var Version : string) : boolean; overload;
+function GetFileVersionString (const Filename : string; ShowLevel : integer; var Version : string) : boolean; overload;
 function GetFileVersionAsNumber (const Filename : string; var Version : TVersion) : boolean;
 function GetFileVersionName (const Filename,DefName,DefVers : string): string;
 function GetFileVersionRelease (const Filename,defVers : string) : string;
@@ -1126,6 +1127,17 @@ begin
       FreeMem(Buf,n);
       Result:=true;
       end;
+    end;
+  end;
+
+function GetFileVersionString (const Filename : string; ShowLevel : integer; var Version : string) : boolean;
+var
+  i,n : integer;
+begin
+  Result:=GetFileVersionString (Filename,Version);
+  if Result then begin
+    n:=Version.CountChar('.');
+    for i:=n downto ShowLevel do Version:=ChangeFileExt(Version,'');
     end;
   end;
 

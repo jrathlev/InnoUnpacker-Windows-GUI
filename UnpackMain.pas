@@ -25,9 +25,9 @@
    Vers. 2.0   (December 2024): new layout,
                                 colored display of innounp (v1.77 and up) output
    Vers. 2.1   (November 2025): extract selected files (requires innounp v2.65.4 and up)
-   Vers. 2.2   (January 2026);  uer selectable language
+   Vers. 2.2   (January 2026);  user selectable language
 
-   last modified: February 2026
+   last modified: July 2026
 
    Command line options: [<setupname>] [options]
      <setupname>  : name of setup file to be unpacked
@@ -55,7 +55,7 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 2.2.4';
+  ProgVers = ' 2.2.12';
   CopRgt = '© 2014-2026 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt@rathlev-home.de';
 
@@ -724,7 +724,7 @@ begin
   RemoveFromHistory(cbFilter.Items,SelFilesHint);
   AddToHistory(cbFilter,'*.*');
   with rgEncoding do begin
-    Enabled:=not IsUnicodeSetup;
+    Visible:=not IsUnicodeSetup;
     if not Enabled then ItemIndex:=1;
     end;
   end;

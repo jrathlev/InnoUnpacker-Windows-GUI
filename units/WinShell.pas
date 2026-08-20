@@ -662,7 +662,7 @@ begin
     uID := UserId;                     // ID beliebig
     uFlags := NIF_STATE;               // siehe Tabelle
     dwStateMask:=NIS_HIDDEN;
-    if MessageID>0 then uFlags:=NIF_MESSAGE;
+    if MessageID>0 then uFlags:=uFlags or NIF_MESSAGE;
     uCallbackMessage := MessageID;     // Message Identifier
     if IconHandle<>0 then uFlags:=uFlags or NIF_ICON;
     hIcon := Iconhandle;               // Iconhandle
