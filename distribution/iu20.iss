@@ -33,7 +33,7 @@ AppSupportURL={#ProgramWebURL}
 AppUpdatesURL={#ProgramWebURL}
 AppCopyright=2014-{#Year} {#ProgramAuthor}
 VersionInfoVersion={#ApplicationVersion}
-VersionInfoDescription={#ProgramName} Setup
+VersionInfoDescription={#ProgramName} Installer
 DefaultDirName={autopf}\{#ProgramName}
 DefaultGroupName={#ProgramName}
 OutputDir=.
@@ -41,24 +41,25 @@ OutputBaseFilename={#OutputFile}
 SetupIconFile=..\inno-unpacker-2.ico
 UninstallDisplayName={#ProgramName}
 UninstallDisplayIcon={app}\inno-unpacker-u-2.ico
-WizardImageFile=Wizard-IU.png
-WizardSmallImageFile=Wizard-small.png
+WizardImageFile=Wizard-IU-1.png,Wizard-IU-2.png
+WizardSmallImageFile=Wizard-small-1.png,Wizard-small-2.png
 Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
 ShowLanguageDialog=yes
+DisableWelcomePage=no
 DisableDirPage=auto
 DisableProgramGroupPage=auto
 WizardStyle=modern dynamic 
 
 [Languages]
-Name: "en"; MessagesFile: compiler:Default.isl;           LicenseFile:"license-en.rtf";
+Name: "en"; MessagesFile: compiler:Default.isl; LicenseFile:"license-en.rtf";
 #include "iu-20-lang.inc"
 
 [CustomMessages]
 en.FileAssoc=File associations:
 en.DescContext=Add "InnoUnpacker" to context menu of exe files
-en.InnoUnpack=Open &Inno Setup installer with InnoUnpacker
+en.InnoUnpack=Open &Inno Setup installer file with InnoUnpacker
 #include "iu-20-cmsg.inc"
 
 [Tasks]
