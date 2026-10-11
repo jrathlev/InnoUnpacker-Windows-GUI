@@ -43,8 +43,12 @@ unit GnuGetText;
 //    <DOMAIN> parts. E.g. a resource named IDR_TRANS_DE_DEFAULT replaces the file
 //    'locale\DE\LC_MESSAGES\default.mo'
 
+// Changes J. Rathlev (kontakt(a)rathlev-home.de)
+//    September 2026
+//    Support for "SysUtils.LoadStr" removed because it is deprecatrd in newer Delphi versions
+
 // Information about this file:
-// $LastChangedDate: 2025-06-25 $
+// $LastChangedDate: 2026-09-20 $
 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -553,8 +557,6 @@ var
   ComponentDomainListCS:TMultiReadExclusiveWriteSynchronizer;
   ComponentDomainList:TStringList;
   HookLoadResString:THook;
-  HookLoadStr:THook;
-  HookFmtLoadStr:THook;
 
 function GGGetEnvironmentVariable(const Name:widestring):widestring;
 var
@@ -1004,32 +1006,6 @@ begin
   end;
 end;
 {$ENDIF}
-
-function SysUtilsFindStringResource(Ident: NativeInt): string;
-var
-  StrData: TStrData;
-begin
-  StrData.Ident := Ident;
-  StrData.Str := '';
-  EnumResourceModules(SysUtilsEnumStringModules, @StrData);
-  Result := StrData.Str;
-end;
-
-function SysUtilsLoadStr(Ident: Integer): string;
-begin
-  {$ifdef DXGETTEXTDEBUG}
-  DefaultInstance.DebugWriteln ('Sysutils.LoadRes('+IntToStr(ident)+') called');
-  {$endif}
-  Result := ResourceStringGettext(SysUtilsFindStringResource(Ident));
-end;
-
-function SysUtilsFmtLoadStr(Ident: Integer; const Args: array of const): string;
-begin
-  {$ifdef DXGETTEXTDEBUG}
-  DefaultInstance.DebugWriteln ('Sysutils.FmtLoadRes('+IntToStr(ident)+',Args) called');
-  {$endif}
-  FmtStr(Result, ResourceStringGettext(SysUtilsFindStringResource(Ident)),Args);
-end;
 
 function LoadResString(ResStringRec: PResStringRec): widestring;
 begin
@@ -3127,12 +3103,8 @@ end;
 procedure HookIntoResourceStrings (enabled:boolean=true; SupportPackages:boolean=false);
 begin
   HookLoadResString.Reset (SupportPackages);
-  HookLoadStr.Reset (SupportPackages);
-  HookFmtLoadStr.Reset (SupportPackages);
   if enabled then begin
     HookLoadResString.Enable;
-    HookLoadStr.Enable;
-    HookFmtLoadStr.Enable;
   end;
 end;
 
@@ -3356,8 +3328,7 @@ initialization
   // Get DLL/shared object filename
   SetLength(ExecutableFilename, 300); // MAX_PATH ?
   {$ifdef MSWINDOWS}
-  SetLength(ExecutableFilename, GetModuleFileName(HInstance,
-    PChar(ExecutableFilename), Length(ExecutableFilename)));
+  ExecutableFilename:=Paramstr(0);
   {$endif}
   {$ifdef LINUX}
   if ModuleIsLib or ModuleIsPackage then
@@ -3387,9 +3358,7 @@ initialization
   {$else}
   HookLoadResString:=THook.Create (@system.LoadResString, @LoadResStringA);
   {$endif}
-  HookLoadStr:=THook.Create (@System.sysutils.LoadStr, @SysUtilsLoadStr);
-  HookFmtLoadStr:=THook.Create (@System.sysutils.FmtLoadStr, @SysUtilsFmtLoadStr);
-  param0:=lowercase(extractfilename(paramstr(0)));
+  param0:=lowercase(extractfilename(ExecutableFilename));
   if (param0<>'delphi32.exe') and (param0<>'kylix') and (param0<>'bds.exe') then
     HookIntoResourceStrings (AutoCreateHooks,false);
   param0:='';
@@ -3401,8 +3370,6 @@ finalization
   FreeAndNil (ResourceStringDomainList);
   FreeAndNil (ComponentDomainListCS);
   FreeAndNil (ComponentDomainList);
-  FreeAndNil (HookFmtLoadStr);
-  FreeAndNil (HookLoadStr);
   FreeAndNil (HookLoadResString);
   FreeAndNil (FileLocator);
 

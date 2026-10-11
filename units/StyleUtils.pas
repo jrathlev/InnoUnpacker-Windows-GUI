@@ -59,7 +59,7 @@ function GetSysColor(SysColor : TColor): TColor;
 
 implementation
 
-uses System.IniFiles, System.Win.Registry, WinApi.Windows, MsgDialogs;
+uses System.IniFiles, System.Win.Registry, WinApi.Windows;
 
 const
   IniStyle = 'StyleName';

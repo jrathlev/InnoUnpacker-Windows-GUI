@@ -580,7 +580,7 @@ procedure GetTimeZoneInfo (var Zone,DlBias : integer);
 
 { ---------------------------------------------------------------- }
 // Erzeuge einen Eintrag im Event-Log
-function ReportToEventLog(Source : string; EventType,CatID,MsgID : cardinal;
+function ReportToEventLog(const Source : string; EventType,CatID,MsgID : cardinal;
                           const Parameters : array of string) : integer;
 
 // Prüfe, ob für AppName ein Eintrag in der Registry unter Eventlog vorhanden ist
@@ -1236,16 +1236,14 @@ begin
 // Erzeuge einen Eintrag im Event-Log
 // Result = 0:  ok
 //        > 0:  System-Fehlercode
-function ReportToEventLog(Source : string; EventType,CatID,MsgID : cardinal;
+function ReportToEventLog(const Source : string; EventType,CatID,MsgID : cardinal;
                           const Parameters : array of string) : integer;
 var
   hEventLog : THandle;
-  pmsgArray : array of PWideChar;
 begin
   Result:=NO_ERROR;
   hEventLog:=RegisterEventSource(nil,pchar(Source));
   if hEventLog<>0 then begin
-    SetLength(pmsgArray,length(Parameters));
     if not ReportEvent(hEventLog,EventType,CatID,MsgID,nil,
       length(Parameters),0,@Parameters,nil) then Result:=GetLastError;
     DeregisterEventSource(hEventLog);

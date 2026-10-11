@@ -1,6 +1,12 @@
 (* Delphi-Unit
-  Unterroutinen und Komponenten für Mehrsprachenunterstützung
-  ===========================================================
+  Additional utilities for multlingual support with GnuGetText
+  ============================================================
+
+  1. Initialize the translation with GnuGetText
+  2. Selection of language from a automatically generated menu
+  3. Changing the language in a running program
+
+  For further information, see the enclosed files "LangUtils.(en,de).txt"
 
   © Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de)
 
@@ -17,78 +23,8 @@
           2.2 - June 2025 : optional loading of language list from resource
           2.3 - April 2026: language codes expanded in accordance with ISO 639-1 <language>-<region>
 
-  last modified: April 2026
-
-  Hinweise zur Verwendung:
-  ========================
-  1. in der Projekt-Datei (*.dpr):
-     -----------------------------
-    ...
-    uses
-      GnuGetText in '<relative path>\Units\GnuGetText.pas',
-      LangUtils in '<relative path>Bibliotheken\Units\LangUtils.pas',
-      ...
-    begin
-      TP_GlobalIgnoreClass(TFont);
-      TP_GlobalIgnoreClassProperty(TMdiForm,'Caption');
-      // ... mögliche weitere "ignores"
-      // Subdirectory in AppData for user configuration files and supported languages
-      InitTranslation('CfgDir','CfgName',['Delphi10','Indy10','more domains..']);
-      ...
-
-    dabei sind:  CfgDir  - Unterverzeichnis für die Konfigurations-Dateien (ini,cfg)
-                           in "Anwendungsdaten" oder absolutes Verzeichnis
-                 CfgName - Name der Cfg-Datei zum Speichern der Spracheinstellung
-                           (leer: Name der Anwendung)
-  2. im Haupt-Formular:
-     ------------------
-    interface
-    uses ..., LangUtils, ...
-    ...
-    type
-      TMainForm = class(TForm)
-        ...
-      private
-        ...
-        Languages        : TLanguageList;
-        procedure SetLanguageClick(Sender : TObject; Language : TLangCodeString);
-        ...
-      end;
-      ...
-    implementation
-    ...
-    procedure TMainForm.FormCreate(Sender: TObject);
-    begin
-      ...
-      InitPaths (AppPath,UserPath);
-      InitVersion(Progname,Vers,CopRgt,3,3,ProgVersName,ProgVersDate);
-      ...
-      Languages:=TLanguageList.Create(PrgPath,LangName);
-      with Languages do begin
-        Menu:=itmLang;
-        LoadLanguageNames(SelectedLanguage);
-        OnLanguageItemClick:=SetLanguageClick;
-        end;
-      ...
-
-    { ------------------------------------------------------------------- }
-    procedure TMainForm.SetLanguageClick(Sender : TObject; Language : TLangCodeString);
-    begin
-      if not AnsiSameStr(SelectedLanguage,Language) then begin
-        Languages.LanguageCode:=Language;
-        ChangeLanguage(Language);
-        Languages.LoadLanguageNames(SelectedLanguage);
-        InfoDialog('',GetLanguageHint,CursorPos);
-        ...
-        end;
-      end;
-    ...
-
-    dabei sind: TLangCodeString - Länder-Code (2 Buchstaben)
-                itmLang         - Menü-Item im Hauptmenü
-                                  Die Sprachauswahl wird automatisch als
-                                  Untermenü angehängt
-  *)
+  last modified: September 2026
+*)
 (* @abstract(Subroutines and components for multi languge support with GnuGetText)
    @author(© Dr. J. Rathlev, D-24222 Schwentinental (kontakt(a)rathlev-home.de))
    @created(November 2011)
@@ -159,9 +95,12 @@ type
 procedure InitTranslation (const Domains : array of string); overload;
 procedure InitTranslation (const CfgDir : string; const Domains : array of string); overload;
 procedure InitTranslation (const CfgDir,ConfigName : string; const Domains : array of string); overload;
-procedure SaveLanguage (NewLangCode : TLangCodeString);
+procedure SaveLanguage (const NewLangCode : TLangCodeString);
 function ChangeLanguage (const NewLangCode : TLangCodeString) : TLangCodeString;
 function GetLanguageHint : string;
+
+function IdToShortLanguageName (LangId : TLocaleID) : string;
+function ShortLanguageNameToID (const LangName : TLangCodeString) : TLocaleID;
 
 var
   SelectedLanguage   : TLangCodeString;
@@ -683,7 +622,7 @@ begin
   SelectedLanguage:=Result;
   end;
 
-procedure SaveLanguage (NewLangCode : TLangCodeString);
+procedure SaveLanguage (const NewLangCode : TLangCodeString);
 begin
   if LangFromCfg then begin
     with TMemIniFile.Create(CfgName) do begin

@@ -13,7 +13,8 @@
 ;  Compiles with Inno Setup 6.7.0
 
 #define DeleteLastDigitFromVersion(version) Copy(version, 1, (RPos(".", version)) - 1)
-#define ApplicationVersion DeleteLastDigitFromVersion(GetVersionNumbersString('..\Release\Win32\InnoUnpack.exe'))
+#define AppVersion GetVersionNumbersString('..\Release\Win32\InnoUnpack.exe')
+#define ApplicationVersion DeleteLastDigitFromVersion(AppVersion)
 #define Year GetDateTimeString('yyyy','','')
 #define ProgramName "InnoUnpacker"
 #define ProgramAuthor "Dr. J. Rathlev"
@@ -24,8 +25,9 @@
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 UsePreviousPrivileges=no
-AppName={#ProgramName}
+AppId={#ProgramName}
 AppVersion={#ApplicationVersion}
+AppName={#ProgramName}
 AppVerName={#ProgramName} {#ApplicationVersion}
 AppPublisher={#ProgramAuthor}
 AppPublisherURL={#ProgramWebURL}
@@ -55,6 +57,8 @@ WizardStyle=modern dynamic
 [Languages]
 Name: "en"; MessagesFile: compiler:Default.isl; LicenseFile:"license-en.rtf";
 #include "iu-20-lang.inc"
+
+#include "IsMessages.inc"
 
 [CustomMessages]
 en.FileAssoc=File associations:

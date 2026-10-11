@@ -604,24 +604,6 @@ begin
     end;
   end;
 
-procedure TMainForm.bbFilterClick(Sender: TObject);
-var
-  s  : string;
-  ml : TStringList;
-begin
-  s:='';
-  ml:=TStringList.Create;
-  with ml do begin
-    Delimiter:=';';
-    DelimitedText:=cbFilter.Text;
-    end;
-  if SelectFromListDialog.Execute(BottomRightPos(bbFilter,5,5),
-              ExtractFileName(cbFile.Text),_('Extract files matching:'),'',
-              [soEdit,soOrder],0,tcLower,'*.*',ml,s)=mrOK then
-      AddToHistory(cbFilter,ml.DelimitedText);
-  ml.Free;
-  end;
-
 procedure TMainForm.bbInfoClick(Sender: TObject);
 begin
   with BottomRightPos(Sender as TControl) do pmMain.Popup(x,y);
@@ -671,6 +653,52 @@ begin
   ShowUnpackInfo(' -i','','','');
   end;
 
+procedure TMainForm.bbSetupInfoClick(Sender: TObject);
+begin
+  ViewMode:=vmInfo;
+  ShowUnpackInfo(' -h',cbFile.Text,'','');
+  UseFilelist:=false;
+  cbFilter.Hint:='';
+  RemoveFromHistory(cbFilter.Items,SelFilesHint);
+  AddToHistory(cbFilter,'*.*');
+  with rgEncoding do begin
+    Visible:=not IsUnicodeSetup;
+    if not Enabled then ItemIndex:=1;
+    end;
+  end;
+
+procedure TMainForm.bbOptionsClick(Sender: TObject);
+begin
+  if LoadUnpacker then bbSetupInfoClick(Sender);
+  end;
+
+procedure TMainForm.bbScriptClick(Sender: TObject);
+begin
+  if UseFileList then RemoveFromHistory(cbFilter,SelFilesHint);
+  UseFileList:=false;
+  AddToHistory(cbFilter,'install_script.iss');
+  end;
+
+procedure TMainForm.bbFilterClick(Sender: TObject);
+var
+  s  : string;
+  ml : TStringList;
+begin
+  s:='';
+  if UseFileList then RemoveFromHistory(cbFilter,SelFilesHint);
+  UseFileList:=false;
+  ml:=TStringList.Create;
+  with ml do begin
+    Delimiter:=';';
+    DelimitedText:=cbFilter.Text;
+    end;
+  if SelectFromListDialog.Execute(BottomRightPos(bbFilter,5,5),
+              ExtractFileName(cbFile.Text),_('Extract files matching:'),'',
+              [soEdit,soOrder],0,tcLower,'*.*',ml,s)=mrOK then
+      AddToHistory(cbFilter,ml.DelimitedText);
+  ml.Free;
+  end;
+
 // Select files to be extracted
 procedure TMainForm.bbSelFilesClick(Sender: TObject);
 var
@@ -713,30 +741,6 @@ begin
     AddToHistory(cbFilter,SelFilesHint);
     UseFilelist:=true;
     end;
-  end;
-
-procedure TMainForm.bbSetupInfoClick(Sender: TObject);
-begin
-  ViewMode:=vmInfo;
-  ShowUnpackInfo(' -h',cbFile.Text,'','');
-  UseFilelist:=false;
-  cbFilter.Hint:='';
-  RemoveFromHistory(cbFilter.Items,SelFilesHint);
-  AddToHistory(cbFilter,'*.*');
-  with rgEncoding do begin
-    Visible:=not IsUnicodeSetup;
-    if not Enabled then ItemIndex:=1;
-    end;
-  end;
-
-procedure TMainForm.bbOptionsClick(Sender: TObject);
-begin
-  if LoadUnpacker then bbSetupInfoClick(Sender);
-  end;
-
-procedure TMainForm.bbScriptClick(Sender: TObject);
-begin
-  AddToHistory(cbFilter,'install_script.iss');
   end;
 
 procedure TMainForm.bbStartClick(Sender: TObject);

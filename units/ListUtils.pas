@@ -84,7 +84,8 @@ procedure AddToHistory (Combo : TComboBox; const hs : string); overload;
 procedure AddToHistory (Combo : TComboBox); overload;
 procedure UpdateHistory (Combo : TComboBox);
 procedure AddToHistoryList (Combo : TComboBox; const hs : string);
-procedure RemoveFromHistory (History : TStrings; const hs : string);
+procedure RemoveFromHistory (History : TStrings; const hs : string); overload;
+procedure RemoveFromHistory (Combo : TComboBox; const hs : string); overload;
 
 { ---------------------------------------------------------------- }
 // Combo box list management
@@ -395,6 +396,14 @@ begin
   if length(hs)>0 then with History do begin
     n:=IndexOf(hs);
     if n>=0 then Delete(n);
+    end;
+  end;
+
+procedure RemoveFromHistory (Combo : TComboBox; const hs : string);
+begin
+  with Combo do begin
+    RemoveFromHistory(Items,hs);
+    if Items.Count>0 then ItemIndex:=0;
     end;
   end;
 
