@@ -748,7 +748,7 @@ begin
   DestName:=CurFile^.SourceFileName;
   if length(BaseDirToStrip)>0 then delete(DestName,1,length(BaseDirToStrip));
   if StripPaths then DestName:=ExtractFileName(DestName);
-  DestFile:=ExtendPath(OutDir+DestName);
+  DestFile:=ExtendPath(ExpandFileName(OutDir+DestName));
   if not QuietExtract then begin
     // Check if file already exists and ask if necessary
     if (InteractiveMode) then begin          // changes: JR - August 2020

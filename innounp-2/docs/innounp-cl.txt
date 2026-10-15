@@ -5,6 +5,10 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.71.2 (2026-10-15)
+------
+  - Fixed: Retrieving the full path name of a file to be extracted
+
 2.71.1 (2026-08-31)
 ------
   - Fixed: Extraction of selected files
