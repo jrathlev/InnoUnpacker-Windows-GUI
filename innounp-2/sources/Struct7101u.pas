@@ -1,0 +1,478 @@
+unit Struct7101u;
+
+{
+  Inno Setup
+  Copyright (C) 1997-2026 Jordan Russell
+  Portions by Martijn Laan
+  For conditions of distribution and use, see LICENSE.TXT.
+
+  Various records and other types that are shared by the ISCmplr, ISIDE,
+  ISPP, ISTestTool, Setup, SetupCustomStyle, and SetupLdr projects
+
+      modified for "innounp" and compilation with Delphi 10 by J. Rathlev, Oct. 2026
+}
+
+interface
+
+uses
+  Winapi.Windows, SHA256;
+
+const
+  SetupTitle = 'Inno Setup';
+  SetupVersion = '7.1.1';
+  SetupBinVersion = (7 shl 24) + (1 shl 16) + (1 shl 8) + 0;
+
+type
+  TSetupID = array[0..63] of AnsiChar;
+  TUninstallLogID = array[0..63] of AnsiChar;
+  TMessagesHdrID = array[0..63] of AnsiChar;
+  TMessagesLangOptionsID = array[1..8] of AnsiChar;
+  TCompID = array[1..4] of AnsiChar;
+  TDiskSliceID = array[1..8] of AnsiChar;
+const
+  { SetupID is used by Setup and SetupLdr to check if the setup-0.bin data is
+    compatible with them. If you make any modifications to the records in
+    this file it's recommended you change SetupID. Any change will do (like
+    changing the letters or numbers), as long as your format is
+    unrecognizable by the standard Inno Setup. }
+  SetupID: TSetupID = 'Inno Setup Setup Data (7.1.1)';
+  UninstallLogID: array[Boolean] of TUninstallLogID =
+    ('Inno Setup Uninstall Log (b)',
+     'Inno Setup Uninstall Log (b) 64-bit'); { '64-bit' refers to 64-bit install mode }
+  MessagesHdrID: TMessagesHdrID = 'Inno Setup Messages (6.5.0) (u)';
+  MessagesLangOptionsID: TMessagesLangOptionsID = '!mlo!670';
+  ZLIBID: TCompID = 'zlb'#26;
+  DiskSliceID: TDiskSliceID = 'idskb32'#26;
+type
+  TSetupVersionDataVersion = packed record
+    Build: Word;
+    Minor, Major: Byte;
+  end;
+  PSetupVersionData = ^TSetupVersionData;
+  TSetupVersionData = packed record
+    WinVersion, NTVersion: Cardinal;
+    NTServicePack: Word;
+  end;
+  TSetupHeaderOption = (shDisableStartupPrompt, shCreateAppDir,
+    shAllowNoIcons, shAlwaysRestart, shAlwaysUsePersonalGroup,
+    shEnableDirDoesntExistWarning, shPassword, shAllowRootDirectory,
+    shDisableFinishedPage, shUpdateUninstallLogAppName, shDisableReadyMemo,
+    shAlwaysShowComponentsList, shFlatComponentsList, shShowComponentSizes,
+    shDisableReadyPage, shAlwaysShowDirOnReadyPage, shAlwaysShowGroupOnReadyPage,
+    shAllowUNCPath, shUserInfoPage,
+    shUninstallRestartComputer, shRestartIfNeededByRun, shShowTasksTreeLines,
+    shAllowCancelDuringInstall, shWizardImageStretch, shAppendDefaultDirName,
+    shAppendDefaultGroupName, shSetupLogging,
+    shSignedUninstaller, shUsePreviousLanguage, shDisableWelcomePage,
+    shCloseApplications, shRestartApplications, shAllowNetworkDrive,
+    shForceCloseApplications, shAppNameHasConsts, shUsePreviousPrivileges,
+    shUninstallLogging, shWizardModern, shWizardBorderStyled,
+    shWizardKeepAspectRatio, shRedirectionGuard, shWizardBevelsHidden,
+    shUnusedPadding = 56);
+  { ^ Contains padding to raise the amount of flags to 57, ensuring the size of
+      the set is 8 bytes (instead of less) in 32-bit builds. This prevents
+      incompatibility with 64-bit builds, where the minimum size for a set with
+      more than 32 flags is 8 bytes. Once the amount of actual flags reaches
+      57, the padding can be removed, as the set will then be naturally
+      compatible again between 32-bit and 64-bit builds. Note that this is not
+      necessary for sets with up to 32 flags, which is why only
+      TSetupHeaderOption and TSetupFileEntryOption include this padding. Also
+      see https://stackoverflow.com/questions/30336620/enumeration-set-size-in-x64 }
+  TSetupHeaderOptions = packed set of TSetupHeaderOption;
+  { ^ Adding more flags adds 1 byte for every 8 flags, in both 32-bit and
+      64-bit builds, even without specifying packed. But to be sure we specify
+      it anyway. }
+  TSetupLanguageDetectionMethod = (ldUILanguage, ldLocale, ldNone);
+  TSetupCompressMethod = (cmStored, cmZip, cmBzip, cmLZMA, cmLZMA2);
+  TSetupKDFSalt = array[0..15] of Byte;
+  TSetupEncryptionKey = array[0..31] of Byte;
+  TSetupEncryptionNonce = record
+    RandomXorStartOffset: Int64;
+    RandomXorFirstSlice: Int32;
+    RemainingRandom: array[0..2] of Int32;
+  end;
+  TSetupProcessorArchitecture = (paUnknown, paX86, paX64, paArm32, paArm64);
+  TSetupProcessorArchitectures = set of TSetupProcessorArchitecture;
+  TSetupDisablePage = (dpAuto, dpNo, dpYes);
+  TSetupPrivilegesRequired = (prNone, prPowerUser, prAdmin, prLowest);
+  TSetupPrivilegesRequiredOverride = (proCommandLine, proDialog);
+  TSetupPrivilegesRequiredOverrides = set of TSetupPrivilegesRequiredOverride;
+  TSetupWizardDarkStyle = (wdsLight, wdsDark, wdsDynamic);
+  TSetupWizardLightControlStyling = (wcsAll, wcsAllButButtons, wcsOnlyRequired);
+  TSetupEntryBitness = (ebInstallDefault, eb32Bit, eb64Bit, ebNativeBit,
+    ebCurrentProcessBit);
+const
+  SetupProcessorArchitectureNames: array[TSetupProcessorArchitecture] of String =
+    ('Unknown', 'x86', 'x64', 'Arm32', 'Arm64');
+
+type
+  { Should not contain strings }
+  TSetupEncryptionHeader = packed record
+    EncryptionUse: (euNone, euFiles, euFull);
+    KDFSalt: TSetupKDFSalt;
+    KDFIterations: Integer;
+    BaseNonce: TSetupEncryptionNonce;
+    PasswordTest: Integer;
+  end;
+
+const
+  SetupHeaderStrings = 38;
+  SetupHeaderAnsiStrings = 4;
+type
+  TSetupHeader = packed record
+    AppName, AppVerName, AppId, AppCopyright, AppPublisher, AppPublisherURL,
+      AppSupportPhone, AppSupportURL, AppUpdatesURL, AppVersion, DefaultDirName,
+      DefaultGroupName, UninstallFilesDir, UninstallDisplayName,
+      UninstallDisplayIcon, AppMutex, DefaultUserInfoName, DefaultUserInfoOrg,
+      DefaultUserInfoSerial, AppReadmeFile, AppContact, AppComments,
+      AppModifyPath, CreateUninstallRegKey, Uninstallable, CloseApplicationsFilter,
+      SetupMutex, ChangesEnvironment, ChangesAssociations,
+      ArchitecturesAllowed, ArchitecturesInstallIn64BitMode, CloseApplicationsFilterExcludes,
+      SevenZipLibraryName, UsePreviousAppDir, UsePreviousGroup, UsePreviousSetupType,
+      UsePreviousTasks, UsePreviousUserInfo: String;
+    LicenseText, InfoBeforeText, InfoAfterText, CompiledCodeText: AnsiString;
+    NumLanguageEntries, NumCustomMessageEntries, NumPermissionEntries,
+      NumTypeEntries, NumComponentEntries, NumTaskEntries, NumDirEntries,
+      NumISSigKeyEntries, NumFileEntries, NumFileLocationEntries, NumIconEntries, NumIniEntries,
+      NumRegistryEntries, NumInstallDeleteEntries, NumUninstallDeleteEntries,
+      NumRunEntries, NumUninstallRunEntries: Integer;
+    CompiledCodeVersion: Cardinal;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    WizardSizePercentX, WizardSizePercentY: Integer;
+    WizardDarkStyle: TSetupWizardDarkStyle;
+    WizardImageAlphaFormat: (afIgnored, afDefined, afPremultiplied); // Must be same as Graphics.TAlphaFormat
+    WizardImageBackColor, WizardSmallImageBackColor, WizardBackColor: Integer;
+    WizardImageBackColorDynamicDark, WizardSmallImageBackColorDynamicDark, WizardBackColorDynamicDark: Integer;
+    WizardImageOpacity, WizardBackImageOpacity: Byte;
+    WizardLightControlStyling: TSetupWizardLightControlStyling;
+    ExtraDiskSpaceRequired: Int64;
+    SlicesPerDisk: Integer;
+    UninstallLogMode: (lmAppend, lmNew, lmOverwrite);
+    DirExistsWarning: (ddAuto, ddNo, ddYes);
+    PrivilegesRequired: TSetupPrivilegesRequired;
+    PrivilegesRequiredOverridesAllowed: TSetupPrivilegesRequiredOverrides;
+    ShowLanguageDialog: (slYes, slNo, slAuto);
+    LanguageDetectionMethod: TSetupLanguageDetectionMethod;
+    CompressMethod: TSetupCompressMethod;
+    DisableDirPage, DisableProgramGroupPage: TSetupDisablePage;
+    UninstallDisplaySize: Int64;
+    Options: TSetupHeaderOptions;
+  end;
+const
+  SetupPermissionEntryStrings = 0;
+  SetupPermissionEntryAnsiStrings = 1;
+type
+  PSetupPermissionEntry = ^TSetupPermissionEntry;
+  TSetupPermissionEntry = packed record
+    Permissions: AnsiString;  { an array of TGrantPermissionEntry's }
+  end;
+const
+  SetupLanguageEntryStrings = 4;
+  SetupLanguageEntryAnsiStrings = 4;
+type
+  PSetupLanguageEntry = ^TSetupLanguageEntry;
+  TSetupLanguageEntry = packed record
+    Name, LanguageName, DialogFontName, WelcomeFontName: String;
+    Data, LicenseText, InfoBeforeText, InfoAfterText: AnsiString;
+    LanguageID: Word;
+    DialogFontSize, DialogFontBaseScaleHeight, DialogFontBaseScaleWidth: Integer;
+    WelcomeFontSize: Integer;
+    RightToLeft: Boolean;
+  end;
+const
+  SetupCustomMessageEntryStrings = 2;
+  SetupCustomMessageEntryAnsiStrings = 0;
+type
+  PSetupCustomMessageEntry = ^TSetupCustomMessageEntry;
+  TSetupCustomMessageEntry = packed record
+    Name, Value: String;
+    LangIndex: Integer;
+  end;
+const
+  SetupTypeEntryStrings = 4;
+  SetupTypeEntryAnsiStrings = 0;
+type
+  TSetupTypeOption = (toIsCustom);
+  TSetupTypeOptions = set of TSetupTypeOption;
+  TSetupTypeType = (ttUser, ttDefaultFull, ttDefaultCompact, ttDefaultCustom);
+  PSetupTypeEntry = ^TSetupTypeEntry;
+  TSetupTypeEntry = packed record
+    Name, Description, Languages, CheckOnce: String;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    Options: TSetupTypeOptions;
+    Typ: TSetupTypeType;
+    { internally used: }
+    Size: Int64;
+  end;
+const
+  SetupComponentEntryStrings = 5;
+  SetupComponentEntryAnsiStrings = 0;
+type
+  PSetupComponentEntry = ^TSetupComponentEntry;
+  TSetupComponentEntry = packed record
+    Name, Description, Types, Languages, CheckOnce: String;
+    ExtraDiskSpaceRequired: Int64;
+    Level: Byte;
+    Used: Boolean;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    Options: set of (coFixed, coRestart, coDisableNoUninstallWarning,
+      coExclusive, coDontInheritCheck);
+    { internally used: }
+    Size: Int64;
+  end;
+const
+  SetupTaskEntryStrings = 6;
+  SetupTaskEntryAnsiStrings = 0;
+type
+  PSetupTaskEntry = ^TSetupTaskEntry;
+  TSetupTaskEntry = packed record
+    Name, Description, GroupDescription, Components, Languages, Check: String;
+    Level: Byte;
+    Used: Boolean;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    Options: set of (toExclusive, toUnchecked, toRestart, toCheckedOnce,
+      toDontInheritCheck);
+  end;
+const
+  SetupDirEntryStrings = 7;
+  SetupDirEntryAnsiStrings = 0;
+type
+  PSetupDirEntry = ^TSetupDirEntry;
+  TSetupDirEntry = packed record
+    DirName: String;
+    Components, Tasks, Languages, Check, AfterInstall, BeforeInstall: String;
+    Attribs: Integer;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    PermissionsEntry: Smallint;
+    Options: set of (doUninsNeverUninstall, doDeleteAfterInstall,
+      doUninsAlwaysUninstall, doSetNTFSCompression, doUnsetNTFSCompression);
+  end;
+const
+  SetupISSigKeyEntryStrings = 3;
+  SetupISSigKeyEntryAnsiStrings = 0;
+type
+  PSetupISSigKeyEntry = ^TSetupISSigKeyEntry;
+  TSetupISSigKeyEntry = packed record
+    PublicX, PublicY, RuntimeID: String;
+  end;
+const
+  SetupFileEntryStrings = 15;
+  SetupFileEntryAnsiStrings = 1;
+type
+  PSetupFileEntry = ^TSetupFileEntry;
+  TSetupFileVerificationType = (fvNone, fvHash, fvISSig);
+  TSetupFileVerification = packed record
+    ISSigAllowedKeys: AnsiString; { Must be first }
+    Hash: TSHA256Digest;
+    Typ: TSetupFileVerificationType;
+  end;
+  TSetupFileEntryOption = (foConfirmOverwrite, foUninsNeverUninstall, foRestartReplace,
+    foDeleteAfterInstall, foRegisterServer, foRegisterTypeLib, foSharedFile,
+    foCompareTimeStamp, foFontIsntTrueType,
+    foSkipIfSourceDoesntExist, foOverwriteReadOnly, foOverwriteSameVersion,
+    foCustomDestName, foOnlyIfDestFileExists, foNoRegError,
+    foUninsRestartDelete, foOnlyIfDoesntExist, foIgnoreVersion,
+    foPromptIfOlder, foDontCopy, foUninsRemoveReadOnly,
+    foRecurseSubDirsExternal, foReplaceSameVersionIfContentsDiffer,
+    foDontVerifyChecksum, foUninsNoSharedFilePrompt, foCreateAllSubDirs,
+    foExternalSizePreset, foSetNTFSCompression,
+    foUnsetNTFSCompression, foGacInstall, foDownload,
+    foExtractArchive, foUnusedPadding = 56);
+  { ^ See TSetupHeaderOption above}
+  TSetupFileEntryOptions = packed set of TSetupFileEntryOption;
+  { ^ See TSetupHeaderOptions above}
+  TSetupFileEntry = packed record
+    SourceFilename, DestName, InstallFontName, StrongAssemblyName, Components,
+    Tasks, Languages, Check, AfterInstall, BeforeInstall, Excludes,
+    DownloadISSigSource, DownloadUserName, DownloadPassword, ExtractArchivePassword: String;
+    Verification: TSetupFileVerification; { Must be first after strings }
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    LocationEntry: Integer;
+    Attribs: Integer;
+    ExternalSize: Int64;
+    PermissionsEntry: Smallint;
+    Bitness: TSetupEntryBitness;
+    Options: TSetupFileEntryOptions;
+    FileType: (ftUserFile, ftUninstExe);
+  end;
+const
+  SetupFileLocationEntryStrings = 0;
+  SetupFileLocationEntryAnsiStrings = 0;
+type
+  PSetupFileLocationEntry = ^TSetupFileLocationEntry;
+  TSetupFileLocationEntry = packed record
+    FirstSlice, LastSlice: Integer;
+    StartOffset: Int64;
+    ChunkSuboffset: Int64;
+    OriginalSize: Int64;
+    ChunkCompressedSize: Int64;
+    SHA256Sum: TSHA256Digest;
+    TimeStamp: TFileTime;
+    FileVersionMS, FileVersionLS: DWORD;
+    Flags: set of (floVersionInfoValid, floTimeStampInUTC, floCallInstructionOptimized,
+      floChunkEncrypted, floChunkCompressed);
+  end;
+const
+  SetupIconEntryStrings = 13;
+  SetupIconEntryAnsiStrings = 0;
+type
+  TSetupIconCloseOnExit = (icNoSetting, icYes, icNo);
+  PSetupIconEntry = ^TSetupIconEntry;
+  TSetupIconEntry = packed record
+    IconName, Filename, Parameters, WorkingDir, IconFilename, Comment: String;
+    Components, Tasks, Languages, Check, AfterInstall, BeforeInstall: String;
+    AppUserModelID: String;
+    AppUserModelToastActivatorCLSID: TGUID;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    IconIndex, ShowCmd: Integer;
+    CloseOnExit: TSetupIconCloseOnExit;
+    HotKey: Word;
+    Options: set of (ioUninsNeverUninstall, ioCreateOnlyIfFileExists,
+      ioUseAppPaths, ioExcludeFromShowInNewInstall,
+      ioPreventPinning, ioHasAppUserModelToastActivatorCLSID);
+  end;
+const
+  SetupIniEntryStrings = 10;
+  SetupIniEntryAnsiStrings = 0;
+type
+  PSetupIniEntry = ^TSetupIniEntry;
+  TSetupIniEntry = packed record
+    Filename, Section, Entry, Value: String;
+    Components, Tasks, Languages, Check, AfterInstall, BeforeInstall: String;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    Options: set of (ioCreateKeyIfDoesntExist, ioUninsDeleteEntry,
+      ioUninsDeleteEntireSection, ioUninsDeleteSectionIfEmpty,
+      { internally used: }
+      ioHasValue);
+  end;
+const
+  SetupRegistryEntryStrings = 9;
+  SetupRegistryEntryAnsiStrings = 0;
+type
+  PSetupRegistryEntry = ^TSetupRegistryEntry;
+  TSetupRegistryEntry = packed record
+    Subkey, ValueName, ValueData: String;
+    Components, Tasks, Languages, Check, AfterInstall, BeforeInstall: String;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    RootKey: UInt32; { Not using HKEY because it equals NativeUInt. UInt32 fits all predefined keys and utReg* use UInt32 to store it. }
+    PermissionsEntry: Smallint;
+    Typ: (rtNone, rtString, rtExpandString, rtDWord, rtBinary, rtMultiString, rtQWord);
+    Bitness: TSetupEntryBitness;
+    Options: set of (roCreateValueIfDoesntExist, roUninsDeleteValue,
+      roUninsClearValue, roUninsDeleteEntireKey, roUninsDeleteEntireKeyIfEmpty,
+      roPreserveStringType, roDeleteKey, roDeleteValue, roNoError,
+      roDontCreateKey);
+  end;
+const
+  SetupDeleteEntryStrings = 7;
+  SetupDeleteEntryAnsiStrings = 0;
+type
+  TSetupDeleteType = (dfFiles, dfFilesAndOrSubdirs, dfDirIfEmpty);
+  PSetupDeleteEntry = ^TSetupDeleteEntry;
+  TSetupDeleteEntry = packed record
+    Name: String;
+    Components, Tasks, Languages, Check, AfterInstall, BeforeInstall: String;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    DeleteType: TSetupDeleteType;
+  end;
+const
+  SetupRunEntryStrings = 14;
+  SetupRunEntryAnsiStrings = 0;
+type
+  PSetupRunEntry = ^TSetupRunEntry;
+  TSetupRunEntry = packed record
+    Name, Parameters, WorkingDir, RunOnceId, StatusMsg, Verb, Description,
+    Components, Tasks, Languages, Check, AfterInstall, BeforeInstall, OnLog: String;
+    MinVersion, OnlyBelowVersion: TSetupVersionData;
+    ShowCmd: Integer;
+    Wait: (rwWaitUntilTerminated, rwNoWait, rwWaitUntilIdle);
+    Bitness: TSetupEntryBitness;
+    Options: set of (roShellExec, roSkipIfDoesntExist,
+      roPostInstall, roUnchecked, roSkipIfSilent, roSkipIfNotSilent,
+      roHideWizard, roRunAsOriginalUser, roDontLogParameters, roLogOutput);
+  end;
+
+const
+  MaxGrantPermissionEntries = 32;
+type
+  { TGrantPermissionEntry is stored inside string fields named 'Permissions' }
+  TGrantPermissionSid = record
+    Authority: TSIDIdentifierAuthority;
+    SubAuthCount: Byte;
+    SubAuth: array[0..1] of DWORD;
+  end;
+  TGrantPermissionEntry = record
+    Sid: TGrantPermissionSid;
+    AccessMask: DWORD;
+  end;
+
+  { A TDiskSliceHeader record follows DiskSliceID in a Setup-*.bin file }
+  TDiskSliceHeader = packed record
+    TotalSize: Int64;
+  end;
+
+  { A TMessagesHeader record follows MessagesHdrID in messages data, which is
+    stored in setup-0.bin language entries, in unins???.msg and RegSvr .msg
+    files, and at the end of unins???.exe }
+  TMessagesHeader = packed record
+    NumMessages: Cardinal;
+    TotalSize: Cardinal;
+    NotTotalSize: Cardinal;
+    CRCMessages: Longint;
+  end;
+
+  { TSetupLdrOffsetTable is stored inside SetupLdr's SetupLdrOffsetTableResID
+    RCDATA resource }
+  PSetupLdrOffsetTable = ^TSetupLdrOffsetTable;
+  TSetupLdrOffsetTable = record
+    ID: array[1..12] of AnsiChar;   { = SetupLdrOffsetTableID }
+    Version: UInt32;                { = SetupLdrOffsetTableVersion }
+    TotalSize: Int64;               { Minimum expected size of setup.exe }
+    OffsetEXE: Int64;               { Offset of compressed setup.e32/64 }
+    UncompressedSizeEXE: UInt32;    { Size of setup.e32/64 before compression }
+    CRCEXE: Int32;                  { CRC of setup.e32/64 before compression }
+    Offset0: Int64;                 { Offset of embedded setup-0.bin data }
+    Offset1: Int64;                 { Offset of embedded setup-1.bin data,
+                                      or 0 when DiskSpanning=yes }
+    ReservedPadding: UInt32;        { Not set (just provides padding) }
+    TableCRC: Int32;                { CRC of all prior fields in this record }
+  end;
+
+  { TMessagesLangOptions contains appearance settings used by the uninstaller
+    and RegSvr, set when the .exe was last replaced, without being affected
+    by any previously installed version. As a result, it is neither backward
+    nor forward compatible, unlike TUninstallLogHeader. Be sure to update
+    MessagesLangOptionsID whenever you make changes to this record. It is
+    named TMessagesLangOptions because it is stored after the messages data
+    in unins???.msg and RegSvr .msg files, and at the end of unins???.exe,
+    not because all options must be language-specific. }
+  TMessagesLangOptionsFlag = (lfRightToLeft, lfWizardModern, lfWizardDarkStyleDark,
+    lfWizardDarkStyleDynamic, lfWizardBorderStyled, lfWizardKeepAspectRatio,
+    lfWizardBevelsHidden);
+  TMessagesLangOptionsFlags = set of TMessagesLangOptionsFlag;
+  TMessagesLangOptions = packed record
+    ID: TMessagesLangOptionsID;
+    DialogFontName: array[0..31] of Char;
+    DialogFontSize, DialogFontBaseScaleWidth, DialogFontBaseScaleHeight: Integer;
+    WizardSizePercentX, WizardSizePercentY: Integer;
+    WizardBackColor, WizardBackColorDynamicDark: Integer;
+    WizardLightControlStyling: TSetupWizardLightControlStyling;
+    Flags: TMessagesLangOptionsFlags;
+  end;
+
+  TUninstallerMsgTail = packed record
+    ID: Integer;
+    Offset: Int64;
+  end;
+const
+  SetupLdrOffsetTableResID = 11111;
+  SetupLdrOffsetTableID = 'rDlPtS'#$CD#$E6#$D7#$7B#$0B#$2A;
+  SetupLdrOffsetTableVersion = 2;
+  SetupExeModeOffset = $30;
+  SetupExeModeUninstaller = $6E556E49;
+  SetupExeModeRegSvr = $53526E49;
+  UninstallerMsgTailID = $67734D49;
+
+implementation
+
+end.

@@ -5,6 +5,10 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.71.3 (2026-10-31)
+------
+  - Added: support for IS up to 7.1.1 (x86 and x64)  - internal ID = 7.1.1
+
 2.71.2 (2026-10-15)
 ------
   - Fixed: Retrieving the full path name of a file to be extracted

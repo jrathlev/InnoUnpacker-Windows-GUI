@@ -560,7 +560,11 @@ begin
     AppVersion                  :=osh.AppVersion;
     DefaultDirName              :=osh.DefaultDirName;
     DefaultGroupName            :=osh.DefaultGroupName;
+{$IF DEFVER<7101}
     BaseFilename                :=osh.BaseFilename;
+{$ELSE}
+    BaseFilename                :='';
+{$IFEND}
 {$IF DEFVER>=4000}
     NumLanguageEntries          :=osh.NumLanguageEntries;
     CompiledCodeText            :=osh.CompiledCodeText;
