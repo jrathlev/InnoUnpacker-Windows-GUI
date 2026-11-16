@@ -468,38 +468,69 @@ begin
       VerObject := FindVerObject(IsUnknownVersion);
 //      if VerObject=nil then exit; // that should not happen
 
-      VerObject.SetupSizes;
-      try
-        { Header }
-        p:=AllocMem(SetupHeaderSize);
-        SECompressedBlockRead(Reader, p^, SetupHeaderSize, SetupHeaderStrings, SetupHeaderAnsiStrings);
-        VerObject.UnifySetupHeader(p^, SetupHeader);
-        if Ver>=6500 then with SetupHeader.Is64Encryption do begin
-          SetupHeader.EncryptionUsed:=SetupEncryptionHeader.EncryptionUse=euFiles;
-          PasswordTest:=SetupEncryptionHeader.PasswordTest;
-          Move(SetupEncryptionHeader.KDFSalt, EncryptionKDFSalt, sizeof(EncryptionKDFSalt));
-          EncryptionKDFIterations:=SetupEncryptionHeader.KDFIterations;
-          Move(SetupEncryptionHeader.BaseNonce, EncryptionBaseNonce, sizeof(EncryptionBaseNonce));
-          end;
-        SetUpMinVersion:=TSetupVersionData(SetupHeader.MinVersion);
-        FreeMem(p);
-        if Ver<4000 then begin // language options, wizard images and compressor dll are stored here in 3.x
-          SECompressedBlockSkip(Reader, SetupLanguageEntrySize, SetupLanguageEntryStrings, SetupLanguageEntryAnsiStrings);
-          ReadWizardAndBzipDll;
-        end;
-        
-        { Language entries }
-        if Ver>=4000 then begin
-          p:=AllocMem(SetupLanguageEntrySize);
-          for i:=0 to SetupHeader.NumLanguageEntries-1 do begin
-            SECompressedBlockRead(Reader, p^, SetupLanguageEntrySize, MyTypes.SetupLanguageEntryStrings, MyTypes.SetupLanguageEntryAnsiStrings);
-            pLanguageEntry:=AllocMem(sizeof(TSetupLanguageEntry));
-            VerObject.UnifyLanguageEntry(p^, pLanguageEntry^);
-            Entries[seLanguage].Add(pLanguageEntry);
-          end;
+      { Header & Language entries (with fallback to 5.3.9 ResTools variant when PACKAGEINFO lacks D2009 marker) }
+      while true do begin
+        VerObject.SetupSizes;
+        p := nil;
+        try
+          p:=AllocMem(SetupHeaderSize);
+          SECompressedBlockRead(Reader, p^, SetupHeaderSize, SetupHeaderStrings, SetupHeaderAnsiStrings);
+          VerObject.UnifySetupHeader(p^, SetupHeader);
+          if Ver>=6500 then with SetupHeader.Is64Encryption do begin
+            SetupHeader.EncryptionUsed:=SetupEncryptionHeader.EncryptionUse=euFiles;
+            PasswordTest:=SetupEncryptionHeader.PasswordTest;
+            Move(SetupEncryptionHeader.KDFSalt, EncryptionKDFSalt, sizeof(EncryptionKDFSalt));
+            EncryptionKDFIterations:=SetupEncryptionHeader.KDFIterations;
+            Move(SetupEncryptionHeader.BaseNonce, EncryptionBaseNonce, sizeof(EncryptionBaseNonce));
+            end;
+          SetUpMinVersion:=TSetupVersionData(SetupHeader.MinVersion);
           FreeMem(p);
-        if SetupHeader.NumLanguageEntries>0 then DefaultCodePage:=PSetupLanguageEntry(Entries[seLanguage][0])^.LanguageCodePage;
+          p := nil;
+          if Ver<4000 then begin // language options, wizard images and compressor dll are stored here in 3.x
+            SECompressedBlockSkip(Reader, SetupLanguageEntrySize, SetupLanguageEntryStrings, SetupLanguageEntryAnsiStrings);
+            ReadWizardAndBzipDll;
+          end;
+
+          { Language entries }
+          if Ver>=4000 then begin
+            p:=AllocMem(SetupLanguageEntrySize);
+            for i:=0 to SetupHeader.NumLanguageEntries-1 do begin
+              SECompressedBlockRead(Reader, p^, SetupLanguageEntrySize, MyTypes.SetupLanguageEntryStrings, MyTypes.SetupLanguageEntryAnsiStrings);
+              pLanguageEntry:=AllocMem(sizeof(TSetupLanguageEntry));
+              VerObject.UnifyLanguageEntry(p^, pLanguageEntry^);
+              Entries[seLanguage].Add(pLanguageEntry);
+            end;
+            FreeMem(p);
+            p := nil;
+          if SetupHeader.NumLanguageEntries>0 then DefaultCodePage:=PSetupLanguageEntry(Entries[seLanguage][0])^.LanguageCodePage;
+          end;
+          break;
+        except
+          on E: Exception do begin
+            if p <> nil then begin
+              FreeMem(p);
+              p := nil;
+            end;
+            if (Ver = 5309) and (not VerIsUnicode) and (not VerIsRT) then begin
+              for i := 0 to Entries[seLanguage].Count - 1 do
+                FreeMem(Entries[seLanguage][i]);
+              Entries[seLanguage].Clear;
+              FreeAndNil(Reader);
+              FreeAndNil(RealReader);
+              SetupFile.Seek(SetupLdrOffset0 + SizeOf(TestID));
+              RealReader := TheBlockReader.Create(SetupFile, TLZMA1SmallDecompressor);
+              Reader := TCacheReader.CreateCache(RealReader);
+              VerIsRT := true;
+              VerObject := FindVerObject(IsUnknownVersion);
+              if VerObject = nil then raise;
+              continue;
+            end;
+            raise;
+          end;
         end;
+      end;
+
+      try
 
         { CustomMessage entries }
         if Ver>=4201 then
