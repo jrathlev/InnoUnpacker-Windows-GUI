@@ -6,10 +6,10 @@
 
 <body>
 <h1>innounp, the Inno Setup Unpacker</h1>
-<h2 style="margin-bottom:-10px;">Version 2.71.3 - Unicode </h2>
+<h2 style="margin-bottom:-10px;">Version 2.71.4 - Unicode </h2>
 <p><b>based on <a href="https://sourceforge.net/projects/innounp/" target="_blank"><i>innounp</i> version 0.50</a> by 
   <a href="https://sourceforge.net/u/ariman_ua/profile/" target="_blank">ariman</a></b><br>
-  Supports Inno Setup versions 2.0.7 through 7.1.0</p>
+  Supports Inno Setup versions 2.0.7 through 7.1.1</p>
 <p><a href="http://www.jrsoftware.org/isinfo.php">Inno Setup</a> is a popular program
   for making software installations. Unfortunately, there is no official unpacker - the
   only method of getting the files out of the self-extracting executable
@@ -113,7 +113,12 @@ Exit codes: 0 no errors
   which is the code made by the RemObjects Pascal Script compiler.</p>
 
 <h2 style="margin-bottom:-8px;"><a name="History"></a>What's new / History</h2>
-<p style="margin-bottom:-15px;"><b>2.71.3</b> <small>(2026-07-21)</small></p>
+<p style="margin-bottom:-15px;"><b>2.71.4</b> <small>(2026-11-18)</small></p>
+<ul>
+  <li>Added: Flags for sections [Tasks], [Components] and [Types] in rebuilt script</li>
+  <li>Updated: unit PathFunc.pas</li>
+</ul>
+<p style="margin-bottom:-15px;"><b>2.71.3</b> <small>(2026-10-31)</small></p>
 <ul>
   <li>Added support for IS up to 7.1.1 (x86 and x64)</li>
 </ul>
@@ -128,7 +133,7 @@ Exit codes: 0 no errors
 <p style="margin-bottom:-15px;"><b>2.71.0</b> <small>(2026-08-23)</small></p>
 <ul>
   <li>Supports IS up to 7.1.0</li>
-  <li>Added: new filemask wildcard "**" to extract files without scanning subdirectories</li>
+  <li>Added: new file mask wildcard "**" to extract files without scanning subdirectories</li>
   <li>Fixed: RebuildScript.GetVersionText did not recognize Windows Vista</li>
 </ul>
 <p style="margin-bottom:-15px;"><b>2.70.1</b> <small>(2026-07-21)</small></p>
@@ -164,8 +169,8 @@ Exit codes: 0 no errors
 <p style="margin-bottom:-15px;"><b>2.67.5</b> <small>(2026-03-22)</small></p>
 <ul>
   <li>Added: Number of supported languages on info page</li>
-  <li>Fixed; Check for invalid codepages</li>
-  <li>Fixed: Use of special codepages in non-Unicode versions</li>
+  <li>Fixed; Check for invalid code pages</li>
+  <li>Fixed: Use of special code pages in non-Unicode versions</li>
 </ul>
 <p style="margin-bottom:-15px;"><b>2.67.4</b> <small>(2026-02-19)</small></p>
 <ul>

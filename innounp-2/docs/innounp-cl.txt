@@ -5,6 +5,11 @@ Inno Setup Unpacker
 Revision history:
 -----------------
 
+2.71.4 (2026-11-18)
+------
+  - Added: Flags for sections [Tasks], [Components] and [Types] in rebuilt script
+  - Updated: unit PathFunc.pas
+
 2.71.3 (2026-10-31)
 ------
   - Added: support for IS up to 7.1.1 (x86 and x64)  - internal ID = 7.1.1
