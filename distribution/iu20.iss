@@ -90,7 +90,7 @@ Source: "..\inno-unpacker-u-2.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#ProgramName}"; Filename: "{app}\InnoUnpack.exe"
-Name: "{group}\{cm:UninstallProgram,{#ProgramName}}"; Filename: "{uninstallexe}"
+Name: "{group}\{cm:UninstallProgram,{#ProgramName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\inno-unpacker-u-2.ico"
 Name: "{commondesktop}\{#ProgramName}"; Filename: "{app}\InnoUnpack.exe"; Tasks: desktopicon
 
 [Run]

@@ -55,7 +55,7 @@ uses
 
 const
   ProgName = 'InnoUnpacker';
-  ProgVers = ' 2.2.12';
+  ProgVers = ' 2.2.14';
   CopRgt = '© 2014-2026 Dr. J. Rathlev, D-24222 Schwentinental';
   EmailAdr = 'kontakt@rathlev-home.de';
 
@@ -192,6 +192,9 @@ type
     procedure ShowUnpackInfo (const Command,FileName,Filter,Comment : string; GoBottom : boolean = false);
     function Execute (const Command : string; OutText: TStringList = nil) : boolean;
     procedure WMDROPFILES (var Msg: TMessage); message WM_DROPFILES;
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+    procedure AfterConstruction; override;
+{$EndIf}
   public
     { Public-Deklarationen }
   end;
@@ -204,8 +207,8 @@ implementation
 {$R *.dfm}
 
 uses System.IniFiles, System.StrUtils, Winapi.ShellApi, System.UITypes, Vcl.ClipBrd,
-  Vcl.Themes, System.Math, GnuGetText, InitProg, WinUtils, MsgDialogs, IniFileUtils, PathUtils,
-  ListUtils, WinDevUtils, StringUtils, ShellDirDlg, SelectFromListDlg,
+  Vcl.Themes, System.Math, GnuGetText, InitProg, WinUtils, IniFileUtils, PathUtils,
+  ShowMessageDlg, ListUtils, WinDevUtils, StringUtils, ShellDirDlg, SelectFromListDlg,
   SelectListItems;
 
 { ------------------------------------------------------------------- }
@@ -333,6 +336,15 @@ begin
   else ChangeStyle(DisplayMode);
   pmiDisplay.Items[integer(DisplayMode)].Checked:=true;
   end;
+
+{$IFDEF HDPI}   // scale glyphs and images for High DPI
+procedure TMainForm.AfterConstruction;
+begin
+  inherited;
+  ScaleButtonGlyphs(self,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
+  ScaleImageList(ilStat,PixelsPerInchOnDesign,Monitor.PixelsPerInch);
+  end;
+{$EndIf}
 
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
