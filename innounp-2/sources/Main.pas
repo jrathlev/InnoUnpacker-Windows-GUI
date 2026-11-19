@@ -11,7 +11,8 @@ type
     seUninstallDelete, seRun, seUninstallRun, seCustomMessage);
 
   TCommandAction=(caInstallInfo, caShortList, caVerboseList, caExtractFiles,
-                  caWriteCode, caVersionList, caLanguageList);
+                  caWriteCode, caVersionList, caLanguageList,
+                  caCrackPassword, caShowPassword);
 
   EMessage = class(Exception); // Exception raised by our code, The Message field (string)
                                // holds all necessary information, No need to display
@@ -109,6 +110,10 @@ function GetCustomMessage (const AText : string) : string;
 
 procedure GenerateEncryptionKey(const Password: String; const Salt: TSetupKDFSalt;
   const Iterations: Integer; out Key: TSetupEncryptionKey);
+
+// Password recovery (ported from gdesmar's innoextract --crack / --show-password)
+function CrackPassword : string;    // returns recovered password, '' if none found
+function GetPasswordInfo : string;  // human-readable dump of the password parameters
 
 implementation
 
@@ -591,6 +596,131 @@ begin
   KeyLength := SizeOf(Key);
   KeyBytes := PBKDF2SHA256(Password, SaltBytes, Iterations, KeyLength);
   Move(KeyBytes[0], Key[0], KeyLength);
+end;
+
+function BytesToHex(const Buf; Len: Integer): string;
+const
+  HexChars: array[0..15] of Char = '0123456789abcdef';
+var
+  p: PByte;
+  i: Integer;
+begin
+  SetLength(Result, Len*2);
+  p := @Buf;
+  for i := 0 to Len-1 do begin
+    Result[i*2+1] := HexChars[p^ shr 4];
+    Result[i*2+2] := HexChars[p^ and $0F];
+    Inc(p);
+  end;
+end;
+
+{ Harvest candidate password strings from the compiled Pascal script blob.
+  An Inno Setup installer that decrypts files almost always carries the password
+  as a literal in its [Code] section, so the compiled code usually contains it.
+  Runs of printable ASCII (optionally interleaved with single null bytes, as in
+  UTF-16LE string literals) of at least 6 characters are collected, de-duplicated,
+  order preserved. }
+function HarvestCodeStrings(const Blob: AnsiString): TStringList;
+var
+  i, n, runLen: Integer;
+  cur: string;
+  seen: TStringList;
+  b: Byte;
+begin
+  Result := TStringList.Create;
+  seen := TStringList.Create;
+  try
+    seen.Sorted := True;
+    seen.Duplicates := dupIgnore;
+    n := Length(Blob);
+    i := 1;
+    while i <= n do begin
+      b := Byte(Blob[i]);
+      if (b >= $20) and (b <= $7E) then begin
+        cur := '';
+        runLen := 0;
+        while i <= n do begin
+          b := Byte(Blob[i]);
+          if (b < $20) or (b > $7E) then Break;
+          cur := cur + Char(b);
+          Inc(runLen);
+          Inc(i);
+          if (i <= n) and (Byte(Blob[i]) = 0) then Inc(i); // skip UTF-16LE null
+        end;
+        if (runLen >= 6) and (seen.IndexOf(cur) < 0) then begin
+          seen.Add(cur);
+          Result.Add(cur);
+        end;
+      end
+      else Inc(i);
+    end;
+  finally
+    seen.Free;
+  end;
+end;
+
+function CrackPassword : string;
+var
+  cands: TStringList;
+  i: Integer;
+  cand: string;
+  ck: TSetupEncryptionKey;
+begin
+  Result := '';
+  cands := HarvestCodeStrings(SetupHeader.CompiledCodeText);
+  try
+    // Reverse order: the real password tends to appear late in the blob
+    for i := cands.Count-1 downto 0 do begin
+      cand := cands[i];
+      if Ver < 6400 then begin
+        if TestPassword(FixPasswordEncoding(AnsiString(cand))) then begin
+          Result := cand; Exit;
+        end;
+      end
+      else begin
+        GenerateEncryptionKey(cand, SetupHeader.Is64Encryption.EncryptionKDFSalt,
+          SetupHeader.Is64Encryption.EncryptionKDFIterations, ck);
+        if TestPasswordIs64(ck) then begin
+          Result := cand; Exit;
+        end;
+      end;
+    end;
+  finally
+    cands.Free;
+  end;
+end;
+
+function GetPasswordInfo : string;
+var
+  enc : string;
+begin
+  if VerIsUnicode then enc := 'UTF-16LE' else enc := 'ANSI (codepage '+IntToStr(DefaultCodePage)+')';
+  if Ver < 6400 then begin
+    case SetupHeader.PasswordHash.HashType of
+      htMD5:
+        Result := 'Password hash type:'#9'MD5'+sLineBreak+
+                  'Password hash:'#9#9+BytesToHex(SetupHeader.PasswordHash.MD5, SizeOf(SetupHeader.PasswordHash.MD5));
+      htSHA1:
+        Result := 'Password hash type:'#9'SHA-1'+sLineBreak+
+                  'Password hash:'#9#9+BytesToHex(SetupHeader.PasswordHash.SHA1, SizeOf(SetupHeader.PasswordHash.SHA1));
+    else
+      Result := 'Password hash type:'#9'unknown';
+    end;
+    Result := Result+sLineBreak+
+      'Password salt:'#9#9+BytesToHex(SetupHeader.PasswordSalt, SizeOf(SetupHeader.PasswordSalt))+sLineBreak+
+      'Password encoding:'#9+enc+sLineBreak+
+      'Scheme:'#9#9'hash = '+IfThen(SetupHeader.PasswordHash.HashType=htMD5,'MD5','SHA-1')+
+        '("PasswordCheckHash" + salt + password-bytes)';
+  end
+  else begin
+    with SetupHeader.Is64Encryption do
+      Result :=
+        'Encryption scheme:'#9'Inno Setup 6.4+ (PBKDF2-SHA256 key, XChaCha20 cipher)'+sLineBreak+
+        'KDF salt:'#9#9+BytesToHex(EncryptionKDFSalt, SizeOf(EncryptionKDFSalt))+sLineBreak+
+        'KDF iterations:'#9#9+IntToStr(EncryptionKDFIterations)+sLineBreak+
+        'Password test value:'#9+IntToHex(PasswordTest,8)+sLineBreak+
+        'Password encoding:'#9+enc;
+  end;
 end;
 
 end.

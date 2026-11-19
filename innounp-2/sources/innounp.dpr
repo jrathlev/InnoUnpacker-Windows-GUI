@@ -964,6 +964,8 @@ begin
   writeln('  -t     test files for integrity');
   writeln('  -l     show list of languages supported by the installation');
   writeln('  -i     show list of all supported Inno Setup versions');
+  writeln('  -crack    recover the password of an encrypted installation from its compiled script');
+  writeln('  -showpass show the password hash and encryption parameters (for offline cracking)');
   writeln('Options:');
   writeln('  -b     batch (non-interactive) mode - will not prompt for password or disk changes');
   writeln('  -q     do not indicate progress while extracting');
@@ -994,6 +996,9 @@ begin
   if (ParamCount<1) then exit;
   for i:=1 to ParamCount do begin
     if (ParamStr(i)[1]='-') and (length(ParamStr(i))>=2) then begin
+      if SameText(ParamStr(i),'-crack') then CommandAction:=caCrackPassword
+      else if SameText(ParamStr(i),'-showpass') then CommandAction:=caShowPassword
+      else
       case UpCase(ParamStr(i)[2]) of
         'A': ExtractAllCopies:=true;
         'B': InteractiveMode:=false;    // changes: JR - August 2020
@@ -1173,7 +1178,7 @@ begin
         InitializeSetup;
         if ExtractEmbedded then AddEmbeddedFiles;
 
-        if CommandAction<>caInstallInfo then begin // save some time
+        if not (CommandAction in [caInstallInfo, caCrackPassword, caShowPassword]) then begin // save some time
 
           RenameFiles(ExtractAllCopies); // all the fake files must be added before this
 
@@ -1259,6 +1264,19 @@ begin
           end;
         caExtractFiles: begin
             QuietExtract:=false; CopyFiles;
+            end;
+        caShowPassword: begin
+            if SetupHeader.EncryptionUsed then Main.writeln(GetPasswordInfo)
+            else WriteNormalLine('This installer is not password protected.');
+            end;
+        caCrackPassword: begin
+            if SetupHeader.EncryptionUsed then begin
+              s:=CrackPassword;
+              if s<>'' then WriteColorText('Password found: ',s,clGreen,clWhite,true)
+              else WriteErrorLine('Password not found in the compiled script. '+
+                     'Use -showpass to dump the hash for offline cracking.');
+              end
+            else WriteNormalLine('This installer is not password protected.');
             end;
         end;
       except
