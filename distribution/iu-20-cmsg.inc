@@ -6,9 +6,9 @@ de.FileAssoc=Dateizuordnungen:
 de.DescContext=Füge "InnoUnpacker" zum Kontext-Menü für exe-Dateien hinzu
 de.InnoUnpack=Öffne &Inno-Setup-Installer-Datei mit InnoUnpacker
 
-it.FileAssoc=Associazione file:
-it.DescContext=Aggiungi "InnoUnpacker" al menu contestuale dei file exe
-it.InnoUnpack=Apri il file di &Inno Setup Installer con InnoUnpacker
+it.FileAssoc=Altre attività:
+it.DescContext=Aggiungi 'InnoUnpacker' al menu contestuale dei file exe
+it.InnoUnpack=Apri file installer &Inno Setup Installer con InnoUnpacker
 
 es.FileAssoc=Asociaciones de fichero:
 es.DescContext=Añadir "InnoUnpacker" al menú contextual de ficheros exe
