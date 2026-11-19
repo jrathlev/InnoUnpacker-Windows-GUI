@@ -997,7 +997,7 @@ begin
       case UpCase(ParamStr(i)[2]) of
         'A': ExtractAllCopies:=true;
         'B': InteractiveMode:=false;    // changes: JR - August 2020
-        'C': BaseDirToStrip:=PathLowercase(AddBackslash(copy(ParamStr(i),3,length(ParamStr(i))-2)));
+        'C': BaseDirToStrip:=PathLowercase(IncludeTrailingPathDelimiter(copy(ParamStr(i),3,length(ParamStr(i))-2)));
         'D': OutDir:=IncludeTrailingPathDelimiter(copy(ParamStr(i),3,length(ParamStr(i))-2));
         'E': begin CommandAction:=caExtractFiles; StripPaths:=true; end;
         'F': PasswordFileName:=copy(ParamStr(i),3,length(ParamStr(i))-2);

@@ -383,8 +383,7 @@ end;
 
 procedure TScriptBuilder.PrintFlagsParam(const FlagsStr: AnsiString);
 begin
-  if (FlagsStr <> '') then
-    Print('Flags: ' + FlagsStr);
+  if (FlagsStr <> '') then Print('Flags: ' + FlagsStr);
   PrintLn;
 end;
 
@@ -642,15 +641,15 @@ procedure TScriptBuilder.PrintRegistryEntry(const re: TSetupRegistryEntry);
   begin
     case Opt of
       roCreateValueIfDoesntExist         : Result:='createvalueifdoesntexist';
-      roUninsDeleteValue                 : Result:='uninsdeletevalue';
+      roDeleteKey                        : Result:='deletekey';
+      roDeleteValue                      : Result:='deletevalue';
+      roDontCreateKey                    : Result:='dontcreatekey';
+      roNoError                          : Result:='noerror';
+      roPreserveStringType               : Result:='preservestringtype';
       roUninsClearValue                  : Result:='uninsclearvalue';
       roUninsDeleteEntireKey             : Result:='uninsdeletekey';
       roUninsDeleteEntireKeyIfEmpty      : Result:='uninsdeletekeyifempty';
-      roPreserveStringType               : Result:='preservestringtype';
-      roDeleteKey                        : Result:='deletekey';
-      roDeleteValue                      : Result:='deletevalue';
-      roNoError                          : Result:='noerror';
-      roDontCreateKey                    : Result:='dontcreatekey';
+      roUninsDeleteValue                 : Result:='uninsdeletevalue';
     else Result:='';
     end;
   end;
@@ -716,22 +715,24 @@ procedure TScriptBuilder.PrintRunEntry(const re:TSetupRunEntry);
   function OptStr(Opt: TSetupRunOption) : AnsiString;
   begin
     case Opt of
-      roShellExec           : Result:='shellexec';
-      roSkipIfDoesntExist   : Result:='skipifdoesntexist';
-      roPostInstall         : Result:='postinstall';
-      roUnchecked           : Result:='unchecked';
-      roSkipIfSilent        : Result:='skipifsilent';
-      roSkipIfNotSilent     : Result:='skipifnotsilent';
-      roHideWizard          : Result:='hidewizard';
       roRun32Bit            : Result:='32bit';
       roRun64Bit            : Result:='64bit';
-      roRunAsOriginalUser   : Result:='';
+      roDontLogParameters   : Result:='dontlogparameters';
+      roHideWizard          : Result:='hidewizard';
+      roLogOutput           : Result:='logoutput';
+      roPostInstall         : Result:='postinstall';
+      roRunAsOriginalUser   : Result:='runasoriginaluser';
+      roShellExec           : Result:='shellexec';
+      roSkipIfDoesntExist   : Result:='skipifdoesntexist';
+      roSkipIfNotSilent     : Result:='skipifnotsilent';
+      roSkipIfSilent        : Result:='skipifsilent';
+      roUnchecked           : Result:='unchecked';
     else Result:='';
     end;
   end;
 
 var
-  sa,ta : string;
+  sa,ta : AnsiString;
   o : TSetupRunOption;
 begin
   with re do begin
@@ -758,12 +759,15 @@ begin
     case Wait of
       rwNoWait: sa:=sa+'nowait';
       rwWaitUntilIdle: sa:=sa+'waituntilidle';
+    else sa:=sa+'waituntilidleterminated';
     end;
     PrintFlagsParam(sa);
   end;
 end;
 
 procedure TScriptBuilder.PrintTaskEntry(const te:TSetupTaskEntry);
+var
+  sa : AnsiString;
 begin
   with te do begin
     StrParam('Name',Name);
@@ -775,14 +779,21 @@ begin
 
     PrintVersions(MinVersion, OnlyBelowVersion);
 
-    PrintLn;
+    sa:='';
+    if toExclusive in Options then sa:=sa+'exclusive ';
+    if toUnchecked in Options then sa:=sa+'unchecked ';
+     if toRestart in Options then sa:=sa+'restart ';
+    if toCheckedOnce in Options then sa:=sa+'checkedonce ';
+    if toDontInheritCheck in Options then sa:=sa+'dontinheritcheck ';
+    PrintFlagsParam(sa);
   end;
 end;
 
 procedure TScriptBuilder.PrintComponentEntry(const ce:TSetupComponentEntry);
 var
-  s:string;
-  i:integer;
+  s : string;
+  i : integer;
+  sa : AnsiString;
 begin
   with ce do begin
     StrParam('Name',Name);
@@ -795,8 +806,14 @@ begin
     StrParam('Check',Check);
 
     PrintVersions(MinVersion, OnlyBelowVersion);
+    sa:='';
+    if coFixed in Options then sa:=sa+'fixed ';
+    if coRestart in Options then sa:=sa+'restart ';
+    if coDisableNoUninstallWarning in Options then sa:=sa+'disablenouninstallwarning ';
+    if coExclusive in Options then sa:=sa+'exclusive ';
+    if coDontInheritCheck in Options then sa:=sa+'dontinheritcheck ';
+    PrintFlagsParam(sa);
 
-    PrintLn;
   end;
 end;
 
@@ -810,7 +827,8 @@ begin
 
     PrintVersions(MinVersion, OnlyBelowVersion);
 
-    PrintLn;
+    if toIsCustom in Options then PrintFlagsParam('iscustom')
+    else PrintLn;
   end;
 end;
 
@@ -819,34 +837,40 @@ procedure TScriptBuilder.PrintFileEntry(const fe:TSetupFileEntry);
   function OptStr(Opt: TSetupFileOption) : AnsiString;
   begin
     case Opt of
-      foConfirmOverwrite         : Result:='confirmoverwrite';
-      foUninsNeverUninstall      : Result:='uninsneveruninstall';
-      foRestartReplace           : Result:='restartreplace';
-      foDeleteAfterInstall       : Result:='deleteafterinstall';
-      foRegisterServer           : Result:='regserver';
-      foRegisterTypeLib          : Result:='regtypelib';
-      foSharedFile               : Result:='sharedfile';
-      foCompareTimeStamp         : Result:='comparetimestamp';
-      foFontIsntTrueType         : Result:='fontisnttruetype';
-      foSkipIfSourceDoesntExist  : Result:='skipifsourcedoesntexist';
-      foOverwriteReadOnly        : Result:='overwritereadonly';
-      foOverwriteSameVersion     : Result:='';
-      foCustomDestName           : Result:='';
-      foOnlyIfDestFileExists     : Result:='onlyifdestfileexists';
-      foNoRegError               : Result:='noregerror';
-      foUninsRestartDelete       : Result:='uninsrestartdelete';
-      foOnlyIfDoesntExist        : Result:='onlyifdoesntexist';
-      foIgnoreVersion            : Result:='ignoreversion';
-      foPromptIfOlder            : Result:='promptifolder';
-      foDontCopy                 : Result:='dontcopy';
-      foUninsRemoveReadOnly      : Result:='uninsremovereadonly';
-      foRecurseSubDirsExternal   : Result:='';
       fo32bit                    : Result:='32bit';
       fo64bit                    : Result:='64bit';
-      foExternalSizePreset       : Result:='';
-      foSetNTFSCompression       : Result:='setntfscomptression';
-      foUnsetNTFSCompression     : Result:='unsetntfscomptression';
+      foCompareTimeStamp         : Result:='comparetimestamp';
+      foConfirmOverwrite         : Result:='confirmoverwrite';
+      foCreateAllSubDirs         : Result:='createallsubdirs';
+      foDeleteAfterInstall       : Result:='deleteafterinstall';
+      foDontCopy                 : Result:='dontcopy';
+      foDontVerifyChecksum       : Result:='dontverifychecksum';
+      foDownload                 : Result:='dontverifychecksum';
+      foExtractArchive           : Result:='extractarchive';
+      foFontIsntTrueType         : Result:='fontisnttruetype';
       foGacInstall               : Result:='gacinstall';
+      foIgnoreVersion            : Result:='ignoreversion';
+      foNoRegError               : Result:='noregerror';
+      foOnlyIfDestFileExists     : Result:='onlyifdestfileexists';
+      foOnlyIfDoesntExist        : Result:='onlyifdoesntexist';
+      foOverwriteReadOnly        : Result:='overwritereadonly';
+      foPromptIfOlder            : Result:='promptifolder';
+      foRecurseSubDirsExternal   : Result:='recursesubdirs';
+      foRegisterServer           : Result:='regserver';
+      foRegisterTypeLib          : Result:='regtypelib';
+      foReplaceSameVersionIfContentsDiffer : Result:='replacesameversion';
+      foRestartReplace           : Result:='restartreplace';
+      foSetNTFSCompression       : Result:='setntfscompression';
+      foSharedFile               : Result:='sharedfile';
+      foSkipIfSourceDoesntExist  : Result:='skipifsourcedoesntexist';
+      foUninsNeverUninstall      : Result:='uninsneveruninstall';
+      foUninsRemoveReadOnly      : Result:='uninsremovereadonly';
+      foUninsRestartDelete       : Result:='uninsrestartdelete';
+      foUnsetNTFSCompression     : Result:='unsetntfscomptression';
+
+      foOverwriteSameVersion     : Result:='';
+      foCustomDestName           : Result:='';
+      foExternalSizePreset       : Result:='';
     else Result:='';
     end;
   end;
@@ -950,7 +974,19 @@ begin
 
 procedure TScriptBuilder.PrintIconEntry(const ie:TSetupIconEntry);
 var
-  sa : AnsiString;
+  sa,ta : AnsiString;
+  o : TMySetupIconOption;
+
+  function OptStr(Opt: TMySetupIconOption): AnsiString;
+  begin
+    case Opt of
+      ioUninsNeverUninstall      : Result:='uninsneveruninstall';
+      ioCreateOnlyIfFileExists   : Result:='createonlyiffileexists';
+      ioUseAppPaths              : Result:='useapppaths';
+    else Result:='';
+    end;
+  end;
+
 begin
   with ie do begin
     StrParam('Name',IconName);
@@ -977,6 +1013,10 @@ begin
     case ShowCmd of
       SW_SHOWMAXIMIZED: sa:=sa+'runmaximized ';
       SW_SHOWMINNOACTIVE: sa:=sa+'runminimized ';
+    end;
+    for o:=Low(o) to High(o) do if o in Options then begin
+      ta:=OptStr(o);
+      if ta<>'' then sa:=sa+ta+' ';
     end;
     PrintFlagsParam(sa);
     end;

@@ -232,6 +232,8 @@ type
   end;
 
   TMySetupIconCloseOnExit = (icNoSetting, icYes, icNo);
+  TMySetupIconOption = (ioUninsNeverUninstall, ioCreateOnlyIfFileExists, ioUseAppPaths);
+  TMySetupIconOptions = set of TMySetupIconOption;
   TMySetupIconEntry = record // in-memory only
     IconName, Filename, Parameters, WorkingDir, IconFilename, Comment: String;
     Components, Tasks, Languages, Check, AfterInstall, BeforeInstall: String;
@@ -239,8 +241,7 @@ type
     IconIndex, ShowCmd: Integer;
     CloseOnExit: TMySetupIconCloseOnExit;
     HotKey: Word;
-    Options: set of (ioUninsNeverUninstall, ioCreateOnlyIfFileExists,
-      ioUseAppPaths);
+    Options: TMySetupIconOptions;
   end;
 
   TMySetupTaskEntry = record // in-memory only
