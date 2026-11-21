@@ -94,6 +94,8 @@ uses
   FileClass in 'FileClass.pas',
   CallOptimizer in 'CallOptimizer.pas',
   FileNull in 'FileNull.pas',
+  FileTable in 'FileTable.pas',
+  GogGalaxy in 'GogGalaxy.pas',
   SetupLdr in 'SetupLdr.pas',
   CustomVersions in 'CustomVersions.pas',
 {$I CompressList.inc}
@@ -131,6 +133,8 @@ var
   NoHeader: Boolean = false;
   InteractiveMode: Boolean = true;
   ExitCode : integer;
+  EntryTable: TFileTable;
+  ProviderWarning: string;
 
 function FindVerObject(var IsUnknown: boolean) : TInnoVer;
 var
@@ -729,7 +733,7 @@ begin
 end;
 
 function ProcessFileEntry(const Caption : string; const FileExtractor: TFileExtractor;
-  const CurFile: Struct.PSetupFileEntry) : boolean;
+  const CurFile: Struct.PSetupFileEntry; FileIndex: Integer) : boolean;
 var
   CurFileLocation: PSetupFileLocationEntry;
   DestName,
@@ -745,7 +749,7 @@ begin
   if CurFile^.LocationEntry = -1 then Exit;
 
   CurFileLocation := PSetupFileLocationEntry(Entries[seFileLocation][CurFile^.LocationEntry]);
-  DestName:=CurFile^.SourceFileName;
+  DestName:=EntryTable.Name(FileIndex);
   if length(BaseDirToStrip)>0 then delete(DestName,1,length(BaseDirToStrip));
   if StripPaths then DestName:=ExtractFileName(DestName);
   DestFile:=ExtendPath(ExpandFileName(OutDir+DestName));
@@ -802,12 +806,20 @@ begin
   else begin
     TempFile:=GenerateUniqueName(ExtractFilePath(DestFile),'.tmp');
     MakeDir(ExtractFilePath(TempFile));
-    DestF := TFile.Create(TempFile, fdCreateAlways, faWrite, fsNone);
+    DestF := TFile.Create(TempFile, fdCreateNew, faWrite, fsNone);
   end;
   se:='';
   try
     try
-      if CurFile^.FileType<>ftFakeFile then begin
+      if EntryTable.IsReconstructed(FileIndex) then begin
+        { Rebuild a file from its stored parts }
+        try
+          EntryTable.ExtractEntry(FileIndex, FileExtractor, DestF, ExtractorProgressProc);
+        except
+          on E:Exception do se:=E.Message;
+          end;
+        end
+      else if CurFile^.FileType<>ftFakeFile then begin
         { Decompress a file }
         FileExtractor.SeekTo(CurFileLocation^);
         try
@@ -829,35 +841,39 @@ begin
       FreeAndNil(DestF);
     end;
 
-    if (not ExtractTestOnly) then begin
-      DeleteFile(DestFile);
-      if (length(ExtractFileName(DestFile))>0) and not RenameFile(TempFile,DestFile) then Win32ErrorMsg('MoveFile');
+    if (not ExtractTestOnly) and (se = '') then begin
+      if (length(ExtractFileName(DestFile))>0) and
+        not MoveFileEx(PChar(TempFile), PChar(DestFile),
+          MOVEFILE_REPLACE_EXISTING or MOVEFILE_WRITE_THROUGH) then Win32ErrorMsg('MoveFileEx');
       end;
   finally
     DeleteFile(TempFile);
   end;
   if length(se)>0 then begin
     writeln; WriteErrorLine('  *** '+se);
+    ExitCode:=2;
     end
   else if ExtractTestOnly then WriteHighLightLine(' - checked')
   else if not QuietExtract then  WriteHighLightLine(' - extracted');
   end;
 
-function ShouldProcessFileEntry(AFile: Struct.PSetupFileEntry):boolean;
+function ShouldProcessFileEntry(AFile: Struct.PSetupFileEntry; FileIndex: Integer):boolean;
 var
   i:integer;
-  FilePath,MaskPath,FileName,MaskName:string;
+  FilePath,MaskPath,FileName,MaskName,EntryName:string;
 begin
   Result:=false;
+  if EntryTable.IsHidden(FileIndex) then exit;
+  EntryName:=EntryTable.Name(FileIndex);
   if not ExtractEmbedded and (AFile^.FileType in [ftUninstExe, ftRegSvrExe]) then exit;
   if (AFile^.LocationEntry=-1) then exit;
   if length(BaseDirToStrip)>0 then
-    if pos(BaseDirToStrip, AnsiLowercase(AFile^.SourceFileName))<>1 then exit;
+    if pos(BaseDirToStrip, AnsiLowercase(EntryName))<>1 then exit;
   if length(FileMasks)>0 then begin
     for i:=0 to High(FileMasks) do begin
       MaskPath:=AnsiLowercase(PathExtractPath(FileMasks[i]));
-      FilePath:=AnsiLowercase(PathExtractPath(AFile^.SourceFileName)); //AFile^.DestDir));
-      FileName:=AnsiLowercase(PathExtractName(AFile^.SourceFileName));
+      FilePath:=AnsiLowercase(PathExtractPath(EntryName)); //AFile^.DestDir));
+      FileName:=AnsiLowercase(PathExtractName(EntryName));
 //      if AFile^.DestName<>'' then FileName:=AnsiLowercase(PathExtractName(AFile^.DestName));
       MaskName:=AnsiLowercase(PathExtractName(FileMasks[i]));
       if (MaskName='**') then begin
@@ -937,12 +953,14 @@ begin
   try
     for CurFileNumber := 0 to Entries[seFile].Count-1 do begin
       CurFile := Struct.PSetupFileEntry(Entries[seFile][CurFileNumber]);
-      if not ShouldProcessFileEntry(CurFile) then continue;
+      if not ShouldProcessFileEntry(CurFile,CurFileNumber) then continue;
       loc:=PSetupFileLocationEntry(Entries[seFileLocation][CurFile^.LocationEntry]);
-      if not ExtractAllCopies and (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>CurFileNumber) then continue;
+      if not EntryTable.IsReconstructed(CurFileNumber) and not ExtractAllCopies and
+        (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>CurFileNumber) then continue;
       with CurFile^ do begin
         if LocationEntry <> -1 then
-          if not ProcessFileEntry('#'+IntToStr(CurFileNumber)+' '+ApplyCodepage(SourceFilename),FileExtractor,CurFile) then break;
+          if not ProcessFileEntry('#'+IntToStr(CurFileNumber)+' '+ApplyCodepage(EntryTable.Name(CurFileNumber)),
+            FileExtractor,CurFile,CurFileNumber) then break;
         end;
 
       if (OverwriteAction = oaAbort) then break;
@@ -1181,6 +1199,11 @@ begin
           AddFakeFile('install_script.iss', ReconstructedScript, true);
           end;
 
+        EntryTable := TFileTable.Create(Entries[seFile], Entries[seFileLocation]);
+        try
+        if not TGogGalaxyArchive.Detect(EntryTable, Entries[seFile], Entries[seFileLocation],
+          ExtractAllCopies, ProviderWarning) and (ProviderWarning<>'') then
+          WriteErrorLine('Warning: '+ProviderWarning+' - files are processed as stored');
         WriteLn;
         case CommandAction of
         caLanguageList: begin
@@ -1204,12 +1227,16 @@ begin
             WriteNormalLine(ExtSp('Supported languages:',TextAlign),IntToStr(Entries[seLanguage].Count));
             if not VerIsUnicode then WriteNormalLine(ExtSp('Default codepage:',TextAlign),IntToStr(DefaultCodePage));
             TotalFileSize:=0; TotalFiles:=0; TotalEncryptedFiles:=0; MaxSlice:=0;
+            for i:=0 to Entries[seFileLocation].Count-1 do
+              MaxSlice:=Max(MaxSlice,PSetupFileLocationEntry(Entries[seFileLocation][i])^.LastSlice);
             for i:=0 to Entries[seFile].Count-1 do
               with Struct.PSetupFileEntry(Entries[seFile][i])^ do begin
+                if EntryTable.IsHidden(i) then continue;
                 if LocationEntry<>-1 then
                 with PSetupFileLocationEntry(Entries[seFileLocation][LocationEntry])^ do begin
-                  if not ExtractAllCopies and (PrimaryFileEntry<>-1) and (PrimaryFileEntry<>i) then continue;
-                  TotalFileSize := TotalFileSize + OriginalSize;
+                  if not EntryTable.IsReconstructed(i) and not ExtractAllCopies and
+                    (PrimaryFileEntry<>-1) and (PrimaryFileEntry<>i) then continue;
+                  TotalFileSize := TotalFileSize + EntryTable.Size(i);
                   if LastSlice>MaxSlice then MaxSlice:=LastSlice;
                   if foChunkEncrypted in Flags then Inc(TotalEncryptedFiles);
                 end;
@@ -1231,10 +1258,12 @@ begin
                 with Struct.PSetupFileEntry(Entries[seFile][i])^ do begin
               if ((FileType in [ftUninstExe, ftRegSvrExe]) or not (FileType in [ftUserFile, ftFakeFile]))
                 and not ExtractEmbedded then continue;
+              if EntryTable.IsHidden(i) then continue;
               if (LocationEntry=-1) then continue;
               loc:=PSetupFileLocationEntry(Entries[seFileLocation][LocationEntry]);
-              if not ExtractAllCopies and (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>i) then continue;
-              WriteNormalLine('  '+ApplyCodepage(SourceFileName));
+              if not EntryTable.IsReconstructed(i) and not ExtractAllCopies and
+                (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>i) then continue;
+              WriteNormalLine('  '+ApplyCodepage(EntryTable.Name(i)));
               end;
           end;
         caVerboseList: begin
@@ -1245,21 +1274,26 @@ begin
     //            if not (FileType in [ftUserFile,ftFakeFile]) and not ExtractEmbedded then continue;
                 if ((FileType in [ftUninstExe, ftRegSvrExe]) or not (FileType in [ftUserFile, ftFakeFile]))
                   and not ExtractEmbedded then continue;
+                if EntryTable.IsHidden(i) then continue;
                 if (LocationEntry=-1) then continue;
                 loc:=PSetupFileLocationEntry(Entries[seFileLocation][LocationEntry]);
-                if not ExtractAllCopies and (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>i) then continue;
+                if not EntryTable.IsReconstructed(i) and not ExtractAllCopies and
+                  (loc^.PrimaryFileEntry<>-1) and (loc^.PrimaryFileEntry<>i) then continue;
                 if TimeStampsInUTC then FileTimeToLocalFileTime(loc^.TimeStamp, TimeStamp)
                 else TimeStamp:=loc^.TimeStamp;
                 FileTimeToSystemTime(TimeStamp, systime);
-                str(loc^.OriginalSize:10,s);
+                str(EntryTable.Size(i):10,s);
                 WriteNormalLine(s+'  '+ExtSp(DateTimeString(SystemTimeToDateTime(systime)),19)+
-                  '  ',ApplyCodepage(SourceFileName));
+                  '  ',ApplyCodepage(EntryTable.Name(i)));
               end;
             WriteNormalLine('-------------------------------------------------');
           end;
         caExtractFiles: begin
             QuietExtract:=false; CopyFiles;
             end;
+        end;
+        finally
+          FreeAndNil(EntryTable);
         end;
       except
         on E: EAbort do
