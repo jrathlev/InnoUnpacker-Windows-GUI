@@ -25,6 +25,21 @@ were added, as well as exit codes to support the use in batch files.
 
 The install script is saved in UTF-8 format, optionally in default encoding.
 
+GOG Galaxy installers are detected automatically from the structure of their file
+entries (the `before_install`/`after_install` part metadata and the matching stored
+part sizes), independent of the publisher information. If the metadata is
+inconsistent, a warning is shown and the files are processed as stored. Files stored as compressed,
+hashed parts are reconstructed under their original relative filenames, including
+GOG dependency files. Part sizes and MD5 checksums, and the MD5 checksum of each
+completed file, are verified before it is saved.
+
+The `-s` and `-v` listings show the reconstructed names and sizes. Extraction with
+`-x` or `-e`, integrity testing with `-t`, file masks, and `-cDIR` use those recovered
+paths. GOG game files are written directly beneath the extraction directory,
+with their original subdirectories. The reconstructed install script retains the
+stored file entries and their callbacks.
+
+
 [**Download version 2.67.11**](https://github.com/jrathlev/InnoUnpacker-Windows-GUI/tree/master/innounp-2/bin)
 
 [**Download version 2.71.4**](https://github.com/jrathlev/InnoUnpacker-Windows-GUI/tree/master/innounp-2/bin)

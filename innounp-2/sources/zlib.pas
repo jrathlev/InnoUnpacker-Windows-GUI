@@ -24,6 +24,7 @@ const
   Z_BEST_SPEED          =  1;
   Z_BEST_COMPRESSION    =  9;
   Z_DEFAULT_COMPRESSION = -1;
+  zlib_Version = '1.1.3';  { Do not change this! }
 type
   TCompressionLevel = Z_DEFAULT_COMPRESSION..9;
 
@@ -200,6 +201,7 @@ function CustomInflateData(const ReadProc: TZReadProc; const WriteProc: TZWriteP
 function CalcAdler32(CurAdler: Longint; const Buf; const BufSize: Cardinal): Longint;
 
 function adler32(adler: Longint; const buf; len: Cardinal): Longint; far;
+procedure InitStream(var strm: TZStreamRec);
 function inflateInit_ (var strm: TZStreamRec; version: PChar;
   recsize: Integer): Integer; far;
 function inflate(var strm: TZStreamRec; flush: Integer): Integer; far;
@@ -215,8 +217,6 @@ uses
 const
   SZlibDataError = 'zlib: Compressed data is corrupted';
   SZlibInternalError = 'zlib: Internal error. Code %d';
-
-  zlib_Version = '1.1.3';  { Do not change this! }
 
   Z_NO_FLUSH      = 0;
   Z_PARTIAL_FLUSH = 1;
