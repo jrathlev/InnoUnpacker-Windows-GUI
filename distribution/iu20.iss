@@ -72,7 +72,7 @@ Name: "fileassoc"; Description: "{cm:DescContext}"; GroupDescription: "{cm:FileA
 
 [Registry]
 Root: HKA; Subkey: "SOFTWARE\Classes\exefile\shell\InnoUnpack"; ValueType: string; ValueName: ""; ValueData: "{cm:InnoUnpack}"; Tasks: fileassoc; Flags: uninsdeletekey
-Root: HKA; Subkey: "SOFTWARE\Classes\exefile\shell\InnoUnpack"; ValueType: string; ValueName: "icon"; ValueData: """{app}\InnoUnpack.exe,0""; Tasks: fileassoc; Flags: uninsdeletekey
+Root: HKA; Subkey: "SOFTWARE\Classes\exefile\shell\InnoUnpack"; ValueType: string; ValueName: "icon"; ValueData: """{app}\InnoUnpack.exe,0"""; Tasks: fileassoc; Flags: uninsdeletekey
 Root: HKA; Subkey: "SOFTWARE\Classes\exefile\shell\InnoUnpack\Command"; ValueType: string; ValueName: ""; ValueData: """{app}\InnoUnpack.exe"" ""%1"""; Tasks: fileassoc; Flags: uninsdeletekey
 
 [Files]
